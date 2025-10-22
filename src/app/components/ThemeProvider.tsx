@@ -9,7 +9,10 @@ interface ThemeContextType {
   toggleTheme: () => void;
 }
 
-const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+const ThemeContext = createContext<ThemeContextType>({
+  theme: 'light',
+  toggleTheme: () => {},
+});
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<Theme>('light');
@@ -51,16 +54,15 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     setTheme(newTheme);
   };
 
-  // To prevent hydration mismatch, render with the initial theme until mounted
-  // But this can still cause a flash, so we'll use a different approach
-  if (!mounted) {
-    // Return children without theme context to prevent hydration mismatch
-    // The actual theme is applied to the HTML element above
-    return <>{children}</>;
-  }
+  // Always provide the context, even when not mounted
+  // This prevents the "useTheme must be used within a ThemeProvider" error
+  const contextValue = {
+    theme: mounted ? theme : 'light',
+    toggleTheme,
+  };
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+    <ThemeContext.Provider value={contextValue}>
       {children}
     </ThemeContext.Provider>
   );
@@ -68,8 +70,5 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
 export function useTheme() {
   const context = useContext(ThemeContext);
-  if (context === undefined) {
-    throw new Error('useTheme must be used within a ThemeProvider');
-  }
   return context;
 }
