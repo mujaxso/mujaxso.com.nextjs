@@ -101,7 +101,7 @@ export default async function ProjectsPage() {
         
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-2">
           {projects.map((project) => (
-            <div key={project.slug} className="group relative overflow-hidden rounded-2xl backdrop-blur-xl bg-glass border border-glass-border p-6 hover:transform hover:scale-[1.02] transition-all duration-300">
+            <div key={project.slug} className="group relative overflow-hidden rounded-2xl backdrop-blur-xl bg-card border border-border p-6 hover:transform hover:scale-[1.02] transition-all duration-300">
               <Link href={`/projects/${project.slug}`} className="block">
                 <div className="h-48 bg-gradient-to-br from-primary to-secondary rounded-lg mb-4 flex items-center justify-center">
                   <div className="text-white text-4xl font-bold opacity-80">
@@ -130,12 +130,12 @@ export default async function ProjectsPage() {
                 {project.tags && project.tags.length > 0 && (
                   <div className="flex flex-wrap gap-2 mb-4">
                     {project.tags.slice(0, 3).map((tag) => (
-                      <span key={tag} className="px-3 py-1 text-sm bg-glass border border-glass-border text-foreground/80 rounded-full">
+                      <span key={tag} className="px-3 py-1 text-sm bg-muted text-muted-foreground rounded-full">
                         {tag}
                       </span>
                     ))}
                     {project.tags.length > 3 && (
-                      <span className="px-3 py-1 text-sm bg-glass border border-glass-border text-foreground/80 rounded-full">
+                      <span className="px-3 py-1 text-sm bg-muted text-muted-foreground rounded-full">
                         +{project.tags.length - 3} more
                       </span>
                     )}
@@ -157,7 +157,7 @@ export default async function ProjectsPage() {
                     href={project.githubUrl} 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="p-2 text-foreground/60 hover:text-foreground transition-colors backdrop-blur-sm bg-glass border border-glass-border rounded-lg hover:scale-110"
+                    className="p-2 text-muted-foreground hover:text-card-foreground transition-colors backdrop-blur-sm bg-card border border-border rounded-lg hover:scale-110"
                   >
                     <Github className="w-4 h-4" />
                   </a>
@@ -167,7 +167,7 @@ export default async function ProjectsPage() {
                     href={project.liveUrl} 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="p-2 text-foreground/60 hover:text-foreground transition-colors backdrop-blur-sm bg-glass border border-glass-border rounded-lg hover:scale-110"
+                    className="p-2 text-muted-foreground hover:text-card-foreground transition-colors backdrop-blur-sm bg-card border border-border rounded-lg hover:scale-110"
                   >
                     <ExternalLink className="w-4 h-4" />
                   </a>

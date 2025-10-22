@@ -25,7 +25,7 @@ interface BlogPageProps {
 function PostCard({ post }: { post: BlogPost }) {
   return (
     <Link href={`/blog/${post.slug}`} className="block">
-      <article className="group rounded-2xl overflow-hidden backdrop-blur-xl bg-glass border border-glass-border shadow-md hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer h-full flex flex-col">
+      <article className="group rounded-2xl overflow-hidden backdrop-blur-xl bg-card border border-border shadow-md hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer h-full flex flex-col">
         <div className="aspect-[4/3] relative overflow-hidden">
           <Image 
             src={post.image || '/vercel.svg'} 
@@ -41,18 +41,18 @@ function PostCard({ post }: { post: BlogPost }) {
               {post.category}
             </span>
             {post.tags?.slice(0, 2).map((tag) => (
-              <span key={tag} className="px-2 py-1 bg-glass border border-glass-border text-foreground/80 text-xs font-medium rounded">
+              <span key={tag} className="px-2 py-1 bg-muted text-muted-foreground text-xs font-medium rounded">
                 {tag}
               </span>
             ))}
           </div>
-          <h3 className="text-lg font-semibold mb-2 text-foreground group-hover:text-primary transition-colors line-clamp-2 flex-1">
+          <h3 className="text-lg font-semibold mb-2 text-card-foreground group-hover:text-primary transition-colors line-clamp-2 flex-1">
             {post.title}
           </h3>
-          <p className="text-foreground/60 mb-4 text-sm line-clamp-2">
+          <p className="text-muted-foreground mb-4 text-sm line-clamp-2">
             {post.description}
           </p>
-          <div className="flex items-center justify-between text-sm text-foreground/60 mt-auto">
+          <div className="flex items-center justify-between text-sm text-muted-foreground mt-auto">
             <span>{new Date(post.date).toLocaleDateString()}</span>
             <span>{post.readingTime}</span>
           </div>
@@ -65,7 +65,7 @@ function PostCard({ post }: { post: BlogPost }) {
 function FeaturedPostCard({ post }: { post: BlogPost }) {
   return (
     <Link href={`/blog/${post.slug}`} className="block">
-      <article className="group relative rounded-2xl overflow-hidden backdrop-blur-xl bg-glass border border-glass-border shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] cursor-pointer">
+      <article className="group relative rounded-2xl overflow-hidden backdrop-blur-xl bg-card border border-border shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] cursor-pointer">
         <div className="aspect-[16/9] relative overflow-hidden">
           <Image 
             src={post.image || '/vercel.svg'} 
@@ -78,7 +78,7 @@ function FeaturedPostCard({ post }: { post: BlogPost }) {
             <span className="inline-block px-3 py-1 bg-primary text-white text-xs font-medium rounded-full mb-3">
               {post.category}
             </span>
-            <h3 className="text-xl font-bold text-white mb-2 line-clamp-2 group-hover:text-primary/80 transition-colors">
+            <h3 className="text-xl font-bold text-white mb-2 line-clamp-2 group-hover:text-secondary transition-colors">
               {post.title}
             </h3>
             <div className="flex items-center text-white/80 text-sm">
@@ -168,7 +168,7 @@ export default function BlogPageClient({ posts }: BlogPageProps) {
         {/* Search Bar */}
         <div className="max-w-md mx-auto mb-12 relative">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-foreground/40 w-5 h-5" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
             <input
               type="text"
               placeholder="Search posts, tags, categories..."
@@ -179,7 +179,7 @@ export default function BlogPageClient({ posts }: BlogPageProps) {
                 setSelectedTag(null);
                 updateURL(null, value);
               }}
-              className="w-full pl-10 pr-4 py-3 backdrop-blur-sm bg-glass border border-glass-border rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-foreground placeholder-foreground/40"
+              className="w-full pl-10 pr-4 py-3 backdrop-blur-sm bg-card border border-border rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-card-foreground placeholder-muted-foreground"
             />
             {(searchQuery || selectedTag) && (
               <button
@@ -188,14 +188,14 @@ export default function BlogPageClient({ posts }: BlogPageProps) {
                   setSelectedTag(null);
                   updateURL(null, '');
                 }}
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-foreground/40 hover:text-foreground"
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-card-foreground"
               >
                 ✕
               </button>
             )}
           </div>
           {(searchQuery || selectedTag) && (
-            <div className="text-center mt-2 text-sm text-foreground/60">
+            <div className="text-center mt-2 text-sm text-muted-foreground">
               Showing results for:{" "}
               {selectedTag ? `#${selectedTag}` : `"${searchQuery}"`}
               <button
@@ -220,7 +220,7 @@ export default function BlogPageClient({ posts }: BlogPageProps) {
           {categories.map((category) => (
             <div
               key={category}
-              className="px-4 py-2 rounded-full backdrop-blur-sm bg-glass border border-glass-border text-foreground/80 text-sm font-medium"
+              className="px-4 py-2 rounded-full backdrop-blur-sm bg-card border border-border text-card-foreground text-sm font-medium"
             >
               {category} ({Array.isArray(posts) ? posts.filter(post => post && post.category === category).length : 0})
             </div>

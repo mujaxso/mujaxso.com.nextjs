@@ -1,15 +1,21 @@
 @import "tailwindcss";
 
 :root {
-  --background: #282c34;
-  --foreground: #abb2bf;
-  --primary: #61afef;
-  --primary-dark: #528bff;
-  --secondary: #98c379;
-  --accent: #e5c07b;
-  --glass: rgba(40, 44, 52, 0.7);
-  --glass-border: rgba(171, 178, 191, 0.1);
+  /* Modern 2025 Color Palette */
+  --background: #0a0a0f;
+  --foreground: #f0f2f5;
+  --primary: #7b61ff;
+  --primary-dark: #6b51ef;
+  --secondary: #00d4aa;
+  --accent: #ff6b9d;
+  --muted: #1a1a2e;
+  --muted-foreground: #a1a1aa;
+  --border: #27272a;
+  --glass: rgba(26, 26, 46, 0.8);
+  --glass-border: rgba(255, 255, 255, 0.1);
   --glass-dark: rgba(0, 0, 0, 0.3);
+  --card: rgba(26, 26, 46, 0.6);
+  --card-foreground: #f0f2f5;
 }
 
 @theme inline {
@@ -21,12 +27,31 @@
 
 @media (prefers-color-scheme: light) {
   :root {
-    --background: #f8faff;
+    --background: #fafcff;
     --foreground: #1a1a2e;
-    --glass: rgba(255, 255, 255, 0.7);
+    --primary: #7b61ff;
+    --primary-dark: #6b51ef;
+    --secondary: #00d4aa;
+    --accent: #ff6b9d;
+    --muted: #f1f5f9;
+    --muted-foreground: #64748b;
+    --border: #e2e8f0;
+    --glass: rgba(255, 255, 255, 0.8);
     --glass-border: rgba(0, 0, 0, 0.1);
     --glass-dark: rgba(255, 255, 255, 0.9);
+    --card: rgba(255, 255, 255, 0.9);
+    --card-foreground: #1a1a2e;
   }
+}
+
+/* Ensure all elements use the CSS variables */
+* {
+  border-color: var(--border);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
 }
 
 body {
