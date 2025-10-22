@@ -199,36 +199,37 @@ export default function MusicPage() {
                     onPlay={() => setIsPlaying(true)}
                     onPause={() => setIsPlaying(false)}
                     onEnded={() => setIsPlaying(false)}
-                  config={{
-                    youtube: {
-                      playerVars: { 
-                        showinfo: 1,
-                        rel: 0,
-                        modestbranding: 1
+                    config={{
+                      youtube: {
+                        playerVars: { 
+                          showinfo: 1,
+                          rel: 0,
+                          modestbranding: 1
+                        }
+                      },
+                      soundcloud: {
+                        options: {
+                          show_artwork: true,
+                          buying: false,
+                          liking: false,
+                          download: false,
+                          sharing: false,
+                          show_comments: false,
+                          show_playcount: false,
+                          show_user: false
+                        }
+                      },
+                      spotify: {
+                        attributes: {
+                          style: { borderRadius: '12px', width: '100%', height: '100%' },
+                          frameBorder: 0,
+                          allow: 'encrypted-media'
+                        }
                       }
-                    },
-                    soundcloud: {
-                      options: {
-                        show_artwork: true,
-                        buying: false,
-                        liking: false,
-                        download: false,
-                        sharing: false,
-                        show_comments: false,
-                        show_playcount: false,
-                        show_user: false
-                      }
-                    },
-                    spotify: {
-                      attributes: {
-                        style: { borderRadius: '12px', width: '100%', height: '100%' },
-                        frameBorder: 0,
-                        allow: 'encrypted-media'
-                      }
-                    }
-                  }}
-                />
-              </div>
+                    }}
+                  />
+                </div>
+              )}
             </div>
           </div>
         )}
