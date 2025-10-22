@@ -4,6 +4,7 @@ import Link from "next/link";
 import ModeToggle from "./ModeToggle";
 import Search from "./Search";
 import { Code2 } from "lucide-react";
+import { Button } from "./ui/Button";
 
 export default function Header() {
   return (
@@ -19,7 +20,7 @@ export default function Header() {
             </span>
           </Link>
           <nav className="flex items-center gap-4">
-            <ul className="flex gap-4">
+            <ul className="flex gap-2">
               {[
                 { href: "/projects", label: "Projects" },
                 { href: "/blog", label: "Blog" },
@@ -27,12 +28,11 @@ export default function Header() {
                 { href: "/contact", label: "Contact" }
               ].map((item) => (
                 <li key={item.href}>
-                  <Link 
-                    href={item.href} 
-                    className="text-foreground/80 hover:text-primary transition-all duration-300 font-medium text-sm px-3 py-2 rounded-lg hover:bg-primary/10"
-                  >
-                    {item.label}
-                  </Link>
+                  <Button variant="ghost" size="sm" asChild>
+                    <Link href={item.href}>
+                      {item.label}
+                    </Link>
+                  </Button>
                 </li>
               ))}
             </ul>

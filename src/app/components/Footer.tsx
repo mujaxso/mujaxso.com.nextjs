@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Github, Linkedin, Mail, ExternalLink, Code2 } from "lucide-react";
+import { Button } from "./ui/Button";
 
 export default function Footer() {
   return (
@@ -20,12 +21,11 @@ export default function Footer() {
             Building the future with code, AI, and innovative solutions.
           </p>
           <div className="flex items-center gap-4">
-            <a 
-              href="mailto:contact@mujaxso.com" 
-              className="inline-flex items-center gap-2 text-primary hover:text-primary-dark transition-colors text-sm"
-            >
-              Get in touch <ExternalLink className="w-3 h-3" />
-            </a>
+            <Button variant="outline" size="sm" asChild>
+              <a href="mailto:contact@mujaxso.com" className="inline-flex items-center gap-2">
+                Get in touch <ExternalLink className="w-3 h-3" />
+              </a>
+            </Button>
           </div>
         </div>
         <div className="border-t border-border/50 mt-6 pt-6 text-center text-muted-foreground text-xs">

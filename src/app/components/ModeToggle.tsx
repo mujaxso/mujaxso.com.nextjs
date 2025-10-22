@@ -38,20 +38,19 @@ export default function ModeToggle() {
   }
 
   return (
-    <button
+    <Button
+      variant="outline"
+      size="sm"
       onClick={toggleTheme}
-      className="p-2 rounded-xl card-glass border border-border/50 text-foreground/80 hover:text-primary transition-all duration-300 hover:scale-105 hover-lift group relative overflow-hidden"
+      className="p-2 rounded-2xl"
       aria-label={getTooltip()}
       title={getTooltip()}
       suppressHydrationWarning
     >
-      <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-      <div className="relative z-10">
-        {theme === 'dark' ? 
-          <Sun className="w-4 h-4" /> : 
-          <Moon className="w-4 h-4" />
-        }
-      </div>
-    </button>
+      {theme === 'dark' ? 
+        <Sun className="w-4 h-4" /> : 
+        <Moon className="w-4 h-4" />
+      }
+    </Button>
   );
 }
