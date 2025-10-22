@@ -35,7 +35,12 @@ interface BlogPageProps {
   posts: BlogPost[];
 }
 
-function PostCard({ post }: { post: BlogPost }) {
+function PostCard({ post, setSelectedTag, setSearchQuery, updateURL }: { 
+  post: BlogPost;
+  setSelectedTag: (tag: string | null) => void;
+  setSearchQuery: (query: string) => void;
+  updateURL: (tag: string | null, search: string) => void;
+}) {
   return (
     <Link href={`/blog/${post.slug}`} className="block">
       <article className="group rounded-2xl overflow-hidden backdrop-blur-xl bg-card border border-border shadow-md hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer h-full flex flex-col">
@@ -124,7 +129,12 @@ function PostCard({ post }: { post: BlogPost }) {
   );
 }
 
-function FeaturedPostCard({ post }: { post: BlogPost }) {
+function FeaturedPostCard({ post, setSelectedTag, setSearchQuery, updateURL }: { 
+  post: BlogPost;
+  setSelectedTag: (tag: string | null) => void;
+  setSearchQuery: (query: string) => void;
+  updateURL: (tag: string | null, search: string) => void;
+}) {
   return (
     <Link href={`/blog/${post.slug}`} className="block">
       <article className="group relative rounded-2xl overflow-hidden backdrop-blur-xl bg-card border border-border shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] cursor-pointer">
@@ -389,7 +399,13 @@ export default function BlogPageClient({ posts }: BlogPageProps) {
             <h2 className="text-2xl font-bold mb-8 text-foreground">Featured Posts</h2>
             <div className="grid gap-8 lg:grid-cols-2">
               {featuredPosts.map((post) => (
-                <FeaturedPostCard key={post.slug} post={post} />
+                <FeaturedPostCard 
+                  key={post.slug} 
+                  post={post} 
+                  setSelectedTag={setSelectedTag}
+                  setSearchQuery={setSearchQuery}
+                  updateURL={updateURL}
+                />
               ))}
             </div>
           </section>
@@ -403,7 +419,13 @@ export default function BlogPageClient({ posts }: BlogPageProps) {
           {filteredPosts.length > 0 ? (
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
               {regularPosts.map((post) => (
-                <PostCard key={post.slug} post={post} />
+                <PostCard 
+                  key={post.slug} 
+                  post={post} 
+                  setSelectedTag={setSelectedTag}
+                  setSearchQuery={setSearchQuery}
+                  updateURL={updateURL}
+                />
               ))}
             </div>
           ) : (

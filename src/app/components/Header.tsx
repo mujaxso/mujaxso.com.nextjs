@@ -1,5 +1,6 @@
 import Link from "next/link";
 import ModeToggle from "./ModeToggle";
+import Search from "./Search";
 import { Code2 } from "lucide-react";
 
 export default function Header() {
@@ -33,6 +34,7 @@ export default function Header() {
                 </li>
               ))}
             </ul>
+            <Search />
             <ModeToggle />
           </nav>
         </div>
