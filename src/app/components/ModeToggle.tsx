@@ -48,8 +48,8 @@ export default function ModeToggle() {
       <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
       <div className="relative z-10">
         {theme === 'dark' ? 
-          <Sun className="w-4 h-4 transition-transform duration-500" /> : 
-          <Moon className="w-4 h-4 transition-transform duration-500" />
+          <Sun className="w-4 h-4" /> : 
+          <Moon className="w-4 h-4" />
         }
       </div>
     </button>
