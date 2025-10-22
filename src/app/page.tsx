@@ -12,29 +12,48 @@ export default function Home() {
         {/* Hero Section */}
         <section className="min-h-screen flex items-center justify-center text-center py-20">
           <div className="max-w-4xl">
-            {/* Author Image and Name */}
-            <div className="flex items-center justify-center gap-4 mb-8">
-              <div className="w-16 h-16 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center border-2 border-primary/20 overflow-hidden">
+            {/* Profile Photo */}
+            <div className="flex justify-center mb-8">
+              <div className="w-32 h-32 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center border-4 border-primary/20 overflow-hidden">
                 {/* Use initials as fallback if image doesn't exist */}
                 <div className="w-full h-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center">
-                  <span className="text-white font-bold text-xl">
+                  <span className="text-white font-bold text-4xl">
                     MS
                   </span>
                 </div>
               </div>
-              <div className="text-left">
-                <p className="text-lg font-semibold text-foreground">Mujahid Siyam</p>
-                <p className="text-sm text-muted-foreground">@mujaxso</p>
-              </div>
+            </div>
+            
+            {/* Name */}
+            <h1 className="text-6xl md:text-8xl font-bold mb-6 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+              Mujahid Siyam
+            </h1>
+            
+            {/* Social Media Links */}
+            <div className="flex justify-center gap-6 mb-8">
+              {[
+                { href: "https://github.com/mujaxso", icon: "GitHub", label: "GitHub" },
+                { href: "https://linkedin.com/in/mujaxso", icon: "LinkedIn", label: "LinkedIn" },
+                { href: "https://twitter.com/mujaxso", icon: "Twitter", label: "Twitter" },
+                { href: "mailto:contact@mujaxso.com", icon: "Email", label: "Email" }
+              ].map((item) => (
+                <a 
+                  key={item.label}
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-3 text-muted-foreground hover:text-primary transition-all duration-300 hover:scale-110 backdrop-blur-sm bg-glass border border-glass-border rounded-lg"
+                >
+                  <span className="text-sm font-medium">{item.icon}</span>
+                </a>
+              ))}
             </div>
             
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full backdrop-blur-sm bg-glass border border-glass-border text-primary text-sm font-medium mb-8">
               <Sparkles className="w-4 h-4" />
               Building the future with code and AI
             </div>
-            <h1 className="text-6xl md:text-8xl font-bold mb-6 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
-              Mujahid Siyam
-            </h1>
+            
             <h2 className="text-2xl md:text-3xl text-foreground/80 mb-8 font-light">
               Software Engineer • AI/ML Engineer • Data Scientist • DevSecOps
             </h2>
