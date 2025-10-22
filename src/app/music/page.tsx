@@ -43,8 +43,8 @@ interface Playlist {
 }
 
 export default function MusicPage() {
-  const [playerError, setPlayerError] = useState<string | null>(null)
-  const [isPlayerLoading, setIsPlayerLoading] = useState(true)
+  const [playerErrors, setPlayerErrors] = useState<Record<string, string | null>>({})
+  const [loadingStates, setLoadingStates] = useState<Record<string, boolean>>({})
 
   // Replace these with your actual playlist URLs
   const playlists: Playlist[] = [
@@ -72,12 +72,13 @@ export default function MusicPage() {
     }
   ]
 
-  // Set loading to false after a delay when the page loads
+  // Initialize loading states
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsPlayerLoading(false)
-    }, 1000)
-    return () => clearTimeout(timer)
+    const initialLoadingStates: Record<string, boolean> = {}
+    playlists.forEach(playlist => {
+      initialLoadingStates[playlist.id] = true
+    })
+    setLoadingStates(initialLoadingStates)
   }, [])
 
   const getServiceColor = (service: Playlist["service"]) => {
@@ -143,30 +144,35 @@ export default function MusicPage() {
                 <div className="aspect-video relative">
                   {/* Add a subtle overlay to ensure consistent appearance */}
                   <div className="absolute inset-0 pointer-events-none rounded-xl border-2 border-transparent"></div>
-                  {isPlayerLoading ? (
+                  {loadingStates[playlist.id] && (
                     <div className="w-full h-full flex items-center justify-center">
                       <div className="text-center p-6">
                         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-2"></div>
                         <p className="text-primary text-sm">Loading...</p>
                       </div>
                     </div>
-                  ) : (
-                    <iframe
-                      src={playlist.embedUrl}
-                      width="100%"
-                      height="100%"
-                      frameBorder="0"
-                      allow="encrypted-media"
-                      allowFullScreen
-                      className="w-full h-full"
-                      onLoad={() => setIsPlayerLoading(false)}
-                      onError={() => setPlayerError('Failed to load the playlist. Please try again.')}
-                    />
                   )}
+                  <iframe
+                    src={playlist.embedUrl}
+                    width="100%"
+                    height="100%"
+                    frameBorder="0"
+                    allow="encrypted-media"
+                    allowFullScreen
+                    className="w-full h-full"
+                    style={{ 
+                      opacity: loadingStates[playlist.id] ? 0 : 1,
+                      transition: 'opacity 0.3s ease-in-out'
+                    }}
+                    onLoad={() => handlePlayerLoad(playlist.id)}
+                    onError={() => handlePlayerError(playlist.id)}
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                  />
                 </div>
-                {playerError && (
+                {playerErrors[playlist.id] && (
                   <div className="mt-2 p-3 bg-red-500/10 border border-red-500/20 rounded-xl">
-                    <p className="text-red-400 text-center text-sm">{playerError}</p>
+                    <p className="text-red-400 text-center text-sm">{playerErrors[playlist.id]}</p>
                     <div className="flex justify-center mt-2">
                       <Button
                         variant="default"
