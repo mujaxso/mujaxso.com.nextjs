@@ -447,8 +447,32 @@ function BlogPageContent({ posts }: BlogPageProps) {
   );
 }
 
+import { Suspense } from 'react';
+
+function BlogPageFallback() {
+  return (
+    <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div className="text-center mb-16">
+          <h1 className="text-5xl md:text-6xl font-bold mb-6">
+            Blog
+          </h1>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            Thoughts, ideas, and insights on software engineering, AI, and technology
+          </p>
+        </div>
+        <div className="text-center">
+          <div className="animate-pulse">Loading...</div>
+        </div>
+      </main>
+    </div>
+  );
+}
+
 export default function BlogPageClient({ posts }: BlogPageProps) {
   return (
-    <BlogPageContent posts={posts} />
+    <Suspense fallback={<BlogPageFallback />}>
+      <BlogPageContent posts={posts} />
+    </Suspense>
   );
 }
