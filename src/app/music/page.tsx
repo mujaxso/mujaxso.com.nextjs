@@ -98,6 +98,7 @@ export default function MusicPage() {
 
   const handlePlayerReady = () => {
     // Player is ready, now we can safely start playback
+    setIsPlayerLoading(false)
     setIsPlaying(true)
   }
 
@@ -182,6 +183,13 @@ export default function MusicPage() {
                     >
                       Open in {getServiceName(currentPlaylist.service)}
                     </Button>
+                  </div>
+                </div>
+              ) : isPlayerLoading ? (
+                <div className="aspect-video rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center">
+                  <div className="text-center p-6">
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+                    <p className="text-primary">Loading player...</p>
                   </div>
                 </div>
               ) : (
