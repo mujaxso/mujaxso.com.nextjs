@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { ExternalLink, Play, Music2, X } from "lucide-react"
+import { ExternalLink, Music2 } from "lucide-react"
 import { Button } from "../components/ui/Button"
 import { Card, CardContent, CardFooter } from "../components/ui/Card"
 
@@ -18,8 +18,6 @@ interface Playlist {
 }
 
 export default function MusicPage() {
-  // Show the first playlist by default when the page loads
-  const [expandedPlaylist, setExpandedPlaylist] = useState<string | null>("1")
   const [playerError, setPlayerError] = useState<string | null>(null)
   const [isPlayerLoading, setIsPlayerLoading] = useState(true)
 
@@ -49,26 +47,13 @@ export default function MusicPage() {
     }
   ]
 
-  // Set loading to false after a delay when a playlist is expanded
+  // Set loading to false after a delay when the page loads
   useEffect(() => {
-    if (expandedPlaylist) {
-      setIsPlayerLoading(true)
-      const timer = setTimeout(() => {
-        setIsPlayerLoading(false)
-      }, 1000)
-      return () => clearTimeout(timer)
-    }
-  }, [expandedPlaylist])
-
-  const togglePlaylist = (playlistId: string) => {
-    if (expandedPlaylist === playlistId) {
-      setExpandedPlaylist(null)
-      setPlayerError(null)
-    } else {
-      setExpandedPlaylist(playlistId)
-      setPlayerError(null)
-    }
-  }
+    const timer = setTimeout(() => {
+      setIsPlayerLoading(false)
+    }, 1000)
+    return () => clearTimeout(timer)
+  }, [])
 
   const getServiceColor = (service: Playlist["service"]) => {
     switch (service) {
@@ -120,142 +105,97 @@ export default function MusicPage() {
         </div>
 
         {/* Playlists Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
+        <div className="grid grid-cols-1 gap-8 mb-16">
           {playlists.map((playlist) => (
-            <Card key={playlist.id} className="group relative">
-              {/* Embedded Player at the TOP - Always visible but conditionally shows content */}
-              <div className="mb-4">
-                {expandedPlaylist === playlist.id ? (
-                  <>
-                    {isPlayerLoading ? (
-                      <div className="aspect-video rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center">
-                        <div className="text-center p-6">
-                          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-2"></div>
-                          <p className="text-primary text-sm">Loading player...</p>
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="aspect-video rounded-xl overflow-hidden">
-                        <iframe
-                          src={playlist.embedUrl}
-                          width="100%"
-                          height="100%"
-                          frameBorder="0"
-                          allow="encrypted-media"
-                          allowFullScreen
-                          style={{ borderRadius: '12px' }}
-                          onLoad={() => setIsPlayerLoading(false)}
-                          onError={() => setPlayerError('Failed to load the player. Please try again.')}
-                        />
-                      </div>
-                    )}
-                    {playerError && (
-                      <div className="mt-2 p-3 bg-red-500/10 border border-red-500/20 rounded-xl">
-                        <p className="text-red-400 text-center text-sm">{playerError}</p>
-                        <div className="flex justify-center mt-2">
-                          <Button
-                            variant="default"
-                            size="sm"
-                            onClick={() => window.open(playlist.url, '_blank')}
-                          >
-                            Open in {getServiceName(playlist.service)}
-                          </Button>
-                        </div>
-                      </div>
-                    )}
-                  </>
-                ) : (
-                  <div className="aspect-video rounded-xl bg-gradient-to-br from-primary/10 to-secondary/10 border border-border/50 flex items-center justify-center">
-                    <div className="text-center p-6">
-                      <div className="p-3 bg-primary/20 rounded-full mb-3 inline-block">
-                        <Music2 className="w-6 h-6 text-primary" />
-                      </div>
-                      <p className="text-foreground/60 text-sm">Click "Show Player" to load the player</p>
+            <Card key={playlist.id} className="group">
+              <div className="flex flex-col lg:flex-row gap-6">
+                {/* Playlist Info */}
+                <div className="lg:w-1/3 space-y-4">
+                  <div className="aspect-square rounded-xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center overflow-hidden">
+                    <div className="w-full h-full bg-gradient-to-br from-primary/30 to-secondary/30 flex items-center justify-center">
+                      <Music2 className="w-16 h-16 text-white/60" />
                     </div>
                   </div>
-                )}
-              </div>
+                  
+                  <div className="space-y-3">
+                    <div className="flex items-start justify-between">
+                      <h3 className="text-2xl font-bold text-foreground">
+                        {playlist.title}
+                      </h3>
+                      <span className="text-3xl ml-2 flex-shrink-0">
+                        {getServiceIcon(playlist.service)}
+                      </span>
+                    </div>
+                    
+                    <p className="text-foreground/60">
+                      {playlist.description}
+                    </p>
 
-              {/* Playlist Header */}
-              <div className="relative mb-4">
-                <div className="aspect-square rounded-xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center overflow-hidden">
-                  <div className="w-full h-full bg-gradient-to-br from-primary/30 to-secondary/30 flex items-center justify-center">
-                    <Music2 className="w-12 h-12 text-white/60" />
+                    {/* Stats */}
+                    <div className="flex items-center gap-4 text-sm text-foreground/50">
+                      <span>{playlist.trackCount} tracks</span>
+                      {playlist.duration && (
+                        <span>{playlist.duration}</span>
+                      )}
+                    </div>
+
+                    {/* Service Badge */}
+                    <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium border ${getServiceColor(playlist.service)}`}>
+                      {getServiceName(playlist.service)}
+                    </div>
                   </div>
-                </div>
-                
-                {/* Play Button Overlay */}
-                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl flex items-center justify-center">
-                  <Button
-                    variant="default"
-                    size="sm"
-                    className="rounded-full p-3"
-                    onClick={() => togglePlaylist(playlist.id)}
-                  >
-                    {expandedPlaylist === playlist.id ? <X className="w-5 h-5" /> : <Play className="w-5 h-5" />}
-                  </Button>
-                </div>
-              </div>
 
-              <CardContent>
-                <div className="flex items-start justify-between">
-                  <h3 className="text-xl font-bold text-foreground line-clamp-2">
-                    {playlist.title}
-                  </h3>
-                  <span className="text-2xl ml-2 flex-shrink-0">
-                    {getServiceIcon(playlist.service)}
-                  </span>
-                </div>
-                
-                <p className="text-foreground/60 text-sm line-clamp-2">
-                  {playlist.description}
-                </p>
-
-                {/* Stats */}
-                <div className="flex items-center gap-4 text-sm text-foreground/50">
-                  <span>{playlist.trackCount} tracks</span>
-                  {playlist.duration && (
-                    <span>{playlist.duration}</span>
-                  )}
-                </div>
-
-                {/* Service Badge */}
-                <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium border ${getServiceColor(playlist.service)}`}>
-                  {getServiceName(playlist.service)}
-                </div>
-              </CardContent>
-
-              <CardFooter>
-                <div className="flex gap-2 w-full">
-                  <Button
-                    variant="default"
-                    size="sm"
-                    className="flex-1"
-                    onClick={() => togglePlaylist(playlist.id)}
-                  >
-                    {expandedPlaylist === playlist.id ? (
-                      <>
-                        <X className="w-4 h-4 mr-2" />
-                        Hide Player
-                      </>
-                    ) : (
-                      <>
-                        <Play className="w-4 h-4 mr-2" />
-                        Show Player
-                      </>
-                    )}
-                  </Button>
                   <Button
                     variant="outline"
                     size="sm"
-                    className="flex-1"
+                    className="w-full"
                     onClick={() => window.open(playlist.url, '_blank')}
                   >
                     <ExternalLink className="w-4 h-4 mr-2" />
-                    Open in App
+                    Open in {getServiceName(playlist.service)}
                   </Button>
                 </div>
-              </CardFooter>
+
+                {/* Full Playlist Player */}
+                <div className="lg:w-2/3">
+                  {isPlayerLoading ? (
+                    <div className="h-80 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center">
+                      <div className="text-center p-6">
+                        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+                        <p className="text-primary">Loading playlist...</p>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="h-80 rounded-xl overflow-hidden">
+                      <iframe
+                        src={playlist.embedUrl}
+                        width="100%"
+                        height="100%"
+                        frameBorder="0"
+                        allow="encrypted-media"
+                        allowFullScreen
+                        style={{ borderRadius: '12px' }}
+                        onLoad={() => setIsPlayerLoading(false)}
+                        onError={() => setPlayerError('Failed to load the playlist. Please try again.')}
+                      />
+                    </div>
+                  )}
+                  {playerError && (
+                    <div className="mt-4 p-4 bg-red-500/10 border border-red-500/20 rounded-xl">
+                      <p className="text-red-400 text-center">{playerError}</p>
+                      <div className="flex justify-center mt-2">
+                        <Button
+                          variant="default"
+                          size="sm"
+                          onClick={() => window.open(playlist.url, '_blank')}
+                        >
+                          Open in {getServiceName(playlist.service)}
+                        </Button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
             </Card>
           ))}
         </div>
