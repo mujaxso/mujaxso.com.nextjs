@@ -232,7 +232,7 @@ export default function MusicPage() {
                   variant="default"
                   size="lg"
                   className="bg-white text-primary hover:bg-white/90 flex items-center gap-2"
-                  onClick={() => window.open('https://open.spotify.com/user/your-profile', '_blank')}
+                  onClick={() => window.open('https://open.spotify.com/user/mujaxso', '_blank')}
                 >
                   <SpotifyIcon />
                   Follow on Spotify
@@ -241,7 +241,7 @@ export default function MusicPage() {
                   variant="outline"
                   size="lg"
                   className="border-white text-white hover:bg-white/10 flex items-center gap-2"
-                  onClick={() => window.open('https://music.apple.com/profile/your-profile', '_blank')}
+                  onClick={() => window.open('https://music.apple.com/profile/mujaxso', '_blank')}
                 >
                   <AppleMusicIcon />
                   Follow on Apple Music
@@ -250,10 +250,19 @@ export default function MusicPage() {
                   variant="outline"
                   size="lg"
                   className="border-white text-white hover:bg-white/10 flex items-center gap-2"
-                  onClick={() => window.open('https://soundcloud.com/your-profile', '_blank')}
+                  onClick={() => window.open('https://soundcloud.com/mujaxso', '_blank')}
                 >
                   <SoundCloudIcon />
                   Follow on SoundCloud
+                </Button>
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="border-white text-white hover:bg-white/10 flex items-center gap-2"
+                  onClick={() => window.open('https://www.youtube.com/@mujaxso', '_blank')}
+                >
+                  <YouTubeIcon />
+                  Follow on YouTube
                 </Button>
               </div>
             </div>
