@@ -14,15 +14,36 @@ A modern and responsive portfolio website built with Next.js, TypeScript, and Ta
 
 ## Content Management
 
-The website uses a combination of hardcoded data and MDX files for content:
+The website uses MDX files for dynamic content management:
 
-- **Projects**: Using hardcoded data in `src/app/projects/page.tsx` with MDX files for individual project pages
+- **Projects**: Add `.mdx` files to `src/content/projects/` with frontmatter
 - **Blog Posts**: Add `.mdx` files to `src/content/blog/` with frontmatter
 
+### Project Frontmatter Example:
+```yaml
+---
+title: "Project Name"
+description: "Brief project description"
+date: "2025-10-22"
+category: "Development"
+tags: ["react", "typescript", "nextjs"]
+githubUrl: "https://github.com/username/repo"
+liveUrl: "https://project.example.com"
+featured: true
+---
+```
+
+### Adding New Projects:
+1. Create a new `.mdx` file in `src/content/projects/`
+2. Add the frontmatter with project details
+3. Write your project content using Markdown/MDX
+4. The project will automatically appear on the projects page
+
 ### Project Structure:
+- Projects are dynamically loaded from MDX files
 - Project cards are fully clickable and navigate to individual project pages
 - GitHub and live demo links work independently without navigation conflicts
-- Individual project pages are rendered from MDX files in `src/content/projects/`
+- Projects are sorted by date (newest first)
 
 ## Development
 
