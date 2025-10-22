@@ -56,10 +56,21 @@ html, body {
 }
 
 /* Ensure all pages have proper background and text colors */
-#__next, .layout-container {
+#__next, .layout-container, main, section, article, div {
+  background: inherit;
+  color: inherit;
+}
+
+/* Force all text and backgrounds to use theme variables */
+* {
+  background-color: inherit;
+  color: inherit;
+}
+
+/* Ensure all direct children of body inherit the theme */
+body > * {
   background: var(--background);
   color: var(--foreground);
-  min-height: 100vh;
 }
 
 /* Smooth scrolling */

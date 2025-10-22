@@ -278,13 +278,13 @@ export default function BlogPageClient({ posts }: BlogPageProps) {
   }, [searchQuery, selectedTag, posts]);
 
   return (
-    <div className="min-h-screen bg-background transition-colors duration-300">
+    <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="text-center mb-16">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 text-foreground">
+          <h1 className="text-5xl md:text-6xl font-bold mb-6">
             Blog
           </h1>
-          <p className="text-xl text-foreground/60 max-w-2xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Thoughts, ideas, and insights on software engineering, AI, and technology
           </p>
         </div>

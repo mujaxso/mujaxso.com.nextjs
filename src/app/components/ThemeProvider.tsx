@@ -41,9 +41,15 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     // Apply theme to document
     if (theme === 'dark') {
       document.documentElement.classList.add('dark');
+      document.documentElement.style.setProperty('color-scheme', 'dark');
     } else {
       document.documentElement.classList.remove('dark');
+      document.documentElement.style.setProperty('color-scheme', 'light');
     }
+    
+    // Force apply background and foreground colors to all elements
+    document.documentElement.style.setProperty('--background', theme === 'dark' ? '#0a0a0f' : '#fafcff');
+    document.documentElement.style.setProperty('--foreground', theme === 'dark' ? '#f0f2f5' : '#1a1a2e');
     
     // Save to localStorage
     localStorage.setItem('theme', theme);
