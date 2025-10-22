@@ -154,16 +154,16 @@ export default function MusicPage() {
               {/* Playlist Player at the top */}
               <div className="mb-4 rounded-xl overflow-hidden bg-primary/10 border border-primary/20">
                 <div className="aspect-video relative">
-                  {/* Add a subtle overlay to ensure consistent appearance */}
-                  <div className="absolute inset-0 pointer-events-none rounded-xl border-2 border-transparent"></div>
+                  {/* Show loading spinner while iframe is loading */}
                   {loadingStates[playlist.id] && (
-                    <div className="w-full h-full flex items-center justify-center">
+                    <div className="absolute inset-0 w-full h-full flex items-center justify-center z-10">
                       <div className="text-center p-6">
                         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-2"></div>
                         <p className="text-primary text-sm">Loading...</p>
                       </div>
                     </div>
                   )}
+                  {/* Always render iframe, but control visibility */}
                   <iframe
                     src={playlist.embedUrl}
                     width="100%"
@@ -171,11 +171,7 @@ export default function MusicPage() {
                     frameBorder="0"
                     allow="encrypted-media"
                     allowFullScreen
-                    className="w-full h-full"
-                    style={{ 
-                      opacity: loadingStates[playlist.id] ? 0 : 1,
-                      transition: 'opacity 0.3s ease-in-out'
-                    }}
+                    className={`w-full h-full ${loadingStates[playlist.id] ? 'invisible' : 'visible'}`}
                     onLoad={() => handlePlayerLoad(playlist.id)}
                     onError={() => handlePlayerError(playlist.id)}
                     loading="lazy"
