@@ -25,6 +25,7 @@ export default function MusicPage() {
   const [isPlaying, setIsPlaying] = useState(false)
   const [playerKey, setPlayerKey] = useState(0)
   const [playerError, setPlayerError] = useState<string | null>(null)
+  const [isPlayerLoading, setIsPlayerLoading] = useState(false)
 
   // Replace these with your actual playlist URLs
   const playlists: Playlist[] = [
@@ -41,42 +42,21 @@ export default function MusicPage() {
     },
     {
       id: "2",
-      title: "Chill Beats",
-      description: "Relaxing electronic and lo-fi beats for creative work",
-      coverUrl: "/api/placeholder/300/300",
-      service: "spotify",
-      url: "https://open.spotify.com/playlist/your-playlist-id",
-      embedUrl: "https://open.spotify.com/embed/playlist/your-playlist-id",
-      trackCount: 18,
-      duration: "1h 45m"
-    },
-    {
-      id: "3",
-      title: "My Productions",
-      description: "Original music compositions and productions",
-      coverUrl: "/api/placeholder/300/300",
-      service: "soundcloud",
-      url: "https://soundcloud.com/your-profile/sets/your-playlist",
-      embedUrl: "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/your-playlist-id",
-      trackCount: 12,
-      duration: "45m"
-    },
-    {
-      id: "4",
-      title: "Inspiration Mix",
-      description: "Songs that inspire my creative process",
+      title: "Chillstep Programming Mix",
+      description: "Chillstep music perfect for concentration while programming, coding, or hacking. Deep bass, beautiful vocals and rhythms.",
       coverUrl: "/api/placeholder/300/300",
       service: "youtube",
-      url: "https://music.youtube.com/playlist?list=your-playlist-id",
-      embedUrl: "https://www.youtube.com/embed/videoseries?list=your-playlist-id",
-      trackCount: 30,
-      duration: "3h 20m"
+      url: "https://www.youtube.com/watch?v=M5QY2_8704o&list=RDQMzSeUiyuhqBE&start_radio=1",
+      embedUrl: "https://www.youtube.com/embed/videoseries?list=RDQMzSeUiyuhqBE",
+      trackCount: 25,
+      duration: "1h 45m"
     }
   ]
 
   const playPlaylist = (playlist: Playlist) => {
     // Reset error state
     setPlayerError(null)
+    setIsPlayerLoading(true)
     // Stop current playback first
     setIsPlaying(false)
     
