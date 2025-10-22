@@ -247,50 +247,50 @@ export default function MusicPage() {
               <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">
                 Stay updated with my latest releases, playlists, and musical experiments across all platforms.
               </p>
-              <div className="flex flex-wrap justify-center gap-4">
+              <div className="flex flex-wrap justify-center gap-6">
                 <Button
-                  variant="default"
+                  variant="outline"
                   size="lg"
-                  className="flex items-center justify-center gap-3 min-w-[180px]"
+                  className="flex flex-col items-center justify-center gap-2 min-w-[160px] h-[120px] p-4 bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/20 hover:border-white/40 hover:scale-105 transition-all duration-300"
                   onClick={() => window.open('https://open.spotify.com/user/mujaxso', '_blank')}
                 >
-                  <div className="w-5 h-5 flex items-center justify-center">
+                  <div className="w-8 h-8 flex items-center justify-center">
                     <SpotifyIcon />
                   </div>
-                  Follow on Spotify
+                  <span className="text-white text-sm font-medium">Spotify</span>
                 </Button>
                 <Button
-                  variant="default"
+                  variant="outline"
                   size="lg"
-                  className="flex items-center justify-center gap-3 min-w-[180px]"
+                  className="flex flex-col items-center justify-center gap-2 min-w-[160px] h-[120px] p-4 bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/20 hover:border-white/40 hover:scale-105 transition-all duration-300"
                   onClick={() => window.open('https://music.apple.com/profile/mujaxso', '_blank')}
                 >
-                  <div className="w-5 h-5 flex items-center justify-center">
+                  <div className="w-8 h-8 flex items-center justify-center">
                     <AppleMusicIcon />
                   </div>
-                  Follow on Apple Music
+                  <span className="text-white text-sm font-medium">Apple Music</span>
                 </Button>
                 <Button
-                  variant="default"
+                  variant="outline"
                   size="lg"
-                  className="flex items-center justify-center gap-3 min-w-[180px]"
+                  className="flex flex-col items-center justify-center gap-2 min-w-[160px] h-[120px] p-4 bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/20 hover:border-white/40 hover:scale-105 transition-all duration-300"
                   onClick={() => window.open('https://soundcloud.com/mujaxso', '_blank')}
                 >
-                  <div className="w-5 h-5 flex items-center justify-center">
+                  <div className="w-8 h-8 flex items-center justify-center">
                     <SoundCloudIcon />
                   </div>
-                  Follow on SoundCloud
+                  <span className="text-white text-sm font-medium">SoundCloud</span>
                 </Button>
                 <Button
-                  variant="default"
+                  variant="outline"
                   size="lg"
-                  className="flex items-center justify-center gap-3 min-w-[180px]"
+                  className="flex flex-col items-center justify-center gap-2 min-w-[160px] h-[120px] p-4 bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/20 hover:border-white/40 hover:scale-105 transition-all duration-300"
                   onClick={() => window.open('https://www.youtube.com/@mujaxso', '_blank')}
                 >
-                  <div className="w-5 h-5 flex items-center justify-center">
+                  <div className="w-8 h-8 flex items-center justify-center">
                     <YouTubeIcon />
                   </div>
-                  Follow on YouTube
+                  <span className="text-white text-sm font-medium">YouTube</span>
                 </Button>
               </div>
             </div>
