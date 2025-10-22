@@ -2,14 +2,20 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { promises as fs } from 'fs';
 import { join } from 'path';
-import MDXContent from '../../components/MDXContent';
+import dynamic from 'next/dynamic';
 
 export default async function BlogPostPage({ params }: { params: { slug: string } }) {
   const blogDirectory = join(process.cwd(), 'src', 'content', 'blog');
   const fullPath = join(blogDirectory, `${params.slug}.mdx`);
   
   try {
-    const fileContents = await fs.readFile(fullPath, 'utf8');
+    // Check if the file exists
+    await fs.access(fullPath);
+    
+    // Dynamically import the MDX file
+    const MDXContent = dynamic(() => import(`@/content/blog/${params.slug}.mdx`), {
+      loading: () => <p>Loading...</p>,
+    });
     
     return (
       <div className="min-h-screen bg-zinc-50 font-sans dark:bg-zinc-900 transition-colors duration-300">
@@ -18,7 +24,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
             ← Back to Blog
           </Link>
           <article className="prose dark:prose-invert max-w-none">
-            <MDXContent source={fileContents} />
+            <MDXContent />
           </article>
         </main>
       </div>
