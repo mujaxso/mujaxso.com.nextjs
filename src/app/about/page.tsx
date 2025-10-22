@@ -54,16 +54,18 @@ export default function AboutPage() {
                 {[
                   "Full-Stack Development",
                   "Machine Learning & AI",
-                  "Data Science & Analytics",
+                  "Open Source Advocacy",
+                  "Nix/NixOS Ecosystem",
+                  "Zig Systems Programming",
+                  "Linux System Administration",
                   "Cloud Infrastructure (AWS)",
                   "DevSecOps & CI/CD",
                   "System Architecture",
-                  "Mobile Development",
                   "Blockchain & Web3"
                 ].map((skill) => (
-                  <div key={skill} className="flex items-center gap-2">
-                    <div className="w-2 h-2 bg-primary rounded-full"></div>
-                    <span className="text-sm text-foreground/80">{skill}</span>
+                  <div key={skill} className="flex items-center gap-2 group">
+                    <div className="w-2 h-2 bg-primary rounded-full group-hover:scale-150 transition-transform duration-300"></div>
+                    <span className="text-sm text-foreground/80 group-hover:text-primary transition-colors duration-300">{skill}</span>
                   </div>
                 ))}
               </div>
@@ -96,19 +98,27 @@ export default function AboutPage() {
               <h3 className="text-2xl font-bold text-foreground mb-4">Professional Summary</h3>
               <div className="space-y-4 text-foreground/80 leading-relaxed">
                 <p>
-                  I'm a passionate Software Engineer, AI/ML Engineer, Data Scientist, and DevSecOps professional 
-                  with a deep love for creating innovative solutions that bridge the gap between cutting-edge 
-                  technology and real-world applications. My expertise spans across full-stack development, 
-                  machine learning model deployment, data-driven insights, and secure software practices.
+                  I'm a passionate Software Engineer, AI/ML Engineer, and Open Source Advocate with a deep love 
+                  for creating innovative solutions that bridge cutting-edge technology with real-world applications. 
+                  My expertise spans full-stack development, machine learning model deployment, and secure software practices.
                 </p>
                 <p>
-                  Beyond the world of code and algorithms, I'm also an avid musician, finding creative expression 
-                  through music as a side hobby. This artistic pursuit complements my technical work, bringing 
-                  balance and inspiration to my problem-solving approach.
+                  As a dedicated <strong>Open Source Advocate</strong>, I actively contribute to and promote open-source projects, 
+                  believing that collaborative development drives innovation and accessibility in technology. I'm particularly 
+                  passionate about the <strong>Nix/NixOS ecosystem</strong>, where I explore reproducible builds and declarative system configurations.
                 </p>
                 <p>
-                  I believe in building technology that not only solves complex challenges but also enhances 
-                  human experiences and creates meaningful impact.
+                  I'm currently diving deep into <strong>Zig programming language</strong> for systems programming, appreciating its 
+                  simplicity and performance. My daily driver is <strong>Linux</strong>, where I enjoy customizing my workflow and 
+                  exploring the depths of system administration.
+                </p>
+                <p>
+                  Beyond the world of code and algorithms, I'm an avid musician, finding creative expression through music. 
+                  This artistic pursuit complements my technical work, bringing balance and inspiration to my problem-solving approach.
+                </p>
+                <p>
+                  I believe in building technology that not only solves complex challenges but also enhances human experiences 
+                  and creates meaningful impact through open collaboration and innovation.
                 </p>
               </div>
             </div>
@@ -189,17 +199,47 @@ export default function AboutPage() {
               <h3 className="text-2xl font-bold text-foreground mb-6">Technologies & Tools</h3>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                 {[
-                  "React/Next.js", "TypeScript", "Python", "TensorFlow", "PyTorch",
-                  "AWS", "Docker", "Kubernetes", "PostgreSQL", "MongoDB",
-                  "GraphQL", "Node.js", "FastAPI", "Redis", "Git",
-                  "Jenkins", "Terraform", "React Native", "Solidity", "Web3.js"
+                  "React/Next.js", "TypeScript", "Python", "Zig", "Nix/NixOS",
+                  "TensorFlow", "PyTorch", "Linux", "AWS", "Docker", 
+                  "Kubernetes", "PostgreSQL", "MongoDB", "GraphQL", "Node.js",
+                  "FastAPI", "Redis", "Git", "Jenkins", "Terraform"
                 ].map((tech) => (
                   <div 
                     key={tech} 
-                    className="px-4 py-2 bg-primary/10 text-primary rounded-xl text-center text-sm font-medium hover:bg-primary/20 transition-colors"
+                    className="px-4 py-2 bg-primary/10 text-primary rounded-xl text-center text-sm font-medium hover:bg-primary/20 hover:scale-105 transition-all duration-300 group relative overflow-hidden"
                   >
-                    {tech}
+                    <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <span className="relative z-10">{tech}</span>
                   </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Social Media Links */}
+            <div className="backdrop-blur-xl bg-card/50 border border-border/50 rounded-2xl p-6">
+              <h3 className="text-2xl font-bold text-foreground mb-6">Let's Connect</h3>
+              <p className="text-foreground/60 mb-6">
+                Follow my journey through code, music, and open source contributions
+              </p>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                {[
+                  { name: "GitHub", url: "https://github.com/mujaxso", color: "hover:bg-gray-800 hover:text-white", icon: "💻" },
+                  { name: "LinkedIn", url: "https://linkedin.com/in/mujaxso", color: "hover:bg-blue-600 hover:text-white", icon: "💼" },
+                  { name: "Twitter", url: "https://twitter.com/mujaxso", color: "hover:bg-blue-400 hover:text-white", icon: "🐦" },
+                  { name: "Spotify", url: "https://open.spotify.com/user/mujaxso", color: "hover:bg-green-500 hover:text-white", icon: "🎵" },
+                  { name: "YouTube", url: "https://youtube.com/@mujaxso", color: "hover:bg-red-600 hover:text-white", icon: "🎥" },
+                  { name: "Email", url: "mailto:contact@mujaxso.com", color: "hover:bg-primary hover:text-white", icon: "📧" }
+                ].map((social) => (
+                  <a
+                    key={social.name}
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`flex flex-col items-center justify-center p-4 rounded-xl bg-foreground/5 text-foreground/70 transition-all duration-300 hover:scale-105 ${social.color} group`}
+                  >
+                    <span className="text-2xl mb-2 group-hover:scale-110 transition-transform duration-300">{social.icon}</span>
+                    <span className="text-sm font-medium">{social.name}</span>
+                  </a>
                 ))}
               </div>
             </div>
