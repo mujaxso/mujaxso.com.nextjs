@@ -29,11 +29,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     const { data: frontmatter, content } = matter(fileContents);
     console.log('Frontmatter:', frontmatter);
     
-    // Validate required frontmatter
-    if (!frontmatter.title) {
-      console.error('Missing title in frontmatter');
-      notFound();
-    }
+    // Use default values if frontmatter is missing
+    const title = frontmatter.title || `Blog Post ${resolvedParams.slug}`;
+    const date = frontmatter.date || 'Unknown date';
     
     return (
       <div className="min-h-screen bg-zinc-50 font-sans dark:bg-zinc-900 transition-colors duration-300">
@@ -42,13 +40,13 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             ← Back to Blog
           </Link>
           <article className="prose dark:prose-invert max-w-none">
-            <h1>{frontmatter.title}</h1>
+            <h1>{title}</h1>
             <div className="text-zinc-600 dark:text-zinc-400 mb-8">
-              {frontmatter.date ? new Date(frontmatter.date).toLocaleDateString('en-US', {
+              {date !== 'Unknown date' ? new Date(date).toLocaleDateString('en-US', {
                 year: 'numeric',
                 month: 'long',
                 day: 'numeric'
-              }) : 'Unknown date'}
+              }) : date}
             </div>
             <MDXRemote source={content} />
           </article>
