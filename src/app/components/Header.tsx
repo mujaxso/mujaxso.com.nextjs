@@ -4,14 +4,14 @@ import { Code2 } from "lucide-react";
 
 export default function Header() {
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-white/70 dark:bg-zinc-900/70 border-b border-zinc-200/50 dark:border-zinc-700/50">
+    <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-glass/80 border-b border-glass-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="p-2 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl group-hover:scale-110 transition-transform duration-300">
+            <div className="p-2 bg-gradient-to-r from-primary to-secondary rounded-xl group-hover:scale-110 transition-all duration-300 backdrop-blur-sm">
               <Code2 className="w-6 h-6 text-white" />
             </div>
-            <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            <span className="text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
               Mujahid Siyam
             </span>
           </Link>
@@ -26,7 +26,7 @@ export default function Header() {
                 <li key={item.href}>
                   <Link 
                     href={item.href} 
-                    className="text-zinc-700 dark:text-zinc-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 font-medium"
+                    className="text-foreground/80 hover:text-primary transition-all duration-300 font-medium hover:scale-105"
                   >
                     {item.label}
                   </Link>
