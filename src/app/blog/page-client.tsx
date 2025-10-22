@@ -136,7 +136,12 @@ export default function BlogPageClient({ posts }: BlogPageProps) {
               type="text"
               placeholder="Search posts, tags, categories..."
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e) => {
+                const value = e.target.value;
+                setSearchQuery(value);
+                setSelectedTag(null);
+                updateURL(null, value);
+              }}
               className="w-full pl-10 pr-4 py-3 bg-white dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-600 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-zinc-900 dark:text-zinc-100"
             />
           </div>
