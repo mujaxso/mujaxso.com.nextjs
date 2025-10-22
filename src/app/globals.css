@@ -48,10 +48,18 @@
   border-color: var(--border);
 }
 
-body {
+html, body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), system-ui, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Ensure all pages have proper background and text colors */
+#__next, .layout-container {
+  background: var(--background);
+  color: var(--foreground);
+  min-height: 100vh;
 }
 
 /* Smooth scrolling */
