@@ -52,18 +52,18 @@ export default function AboutPage() {
           </div>
         </div>
         
-        <div className="bg-zinc-50 dark:bg-zinc-800 rounded-2xl p-8">
-          <h3 className="text-2xl font-bold text-zinc-900 dark:text-white mb-6 text-center">
+        <div className="backdrop-blur-xl bg-glass border border-glass-border rounded-2xl p-8">
+          <h3 className="text-2xl font-bold text-foreground mb-6 text-center">
             My Projects
           </h3>
-          <p className="text-zinc-600 dark:text-zinc-300 text-center mb-6">
+          <p className="text-foreground/60 text-center mb-6">
             I've created several open-source projects including FunMacs (a modern Emacs configuration) 
             and MujaOS (a modular NixOS configuration). Check out my projects page to see more!
           </p>
           <div className="text-center">
             <a 
               href="/projects" 
-              className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-medium rounded-lg hover:opacity-90 transition-opacity"
+              className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-primary to-secondary text-white font-medium rounded-lg hover:opacity-90 transition-all duration-300 hover:scale-105"
             >
               View My Projects
             </a>
