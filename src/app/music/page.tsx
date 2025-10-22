@@ -231,7 +231,7 @@ export default function MusicPage() {
                 <Button
                   variant="default"
                   size="lg"
-                  className="bg-white text-primary hover:bg-white/90 flex items-center gap-2"
+                  className="flex items-center gap-3"
                   onClick={() => window.open('https://open.spotify.com/user/mujaxso', '_blank')}
                 >
                   <SpotifyIcon />
@@ -240,7 +240,7 @@ export default function MusicPage() {
                 <Button
                   variant="outline"
                   size="lg"
-                  className="border-white text-white hover:bg-white/10 flex items-center gap-2"
+                  className="border-white text-white hover:bg-white hover:text-primary flex items-center gap-3"
                   onClick={() => window.open('https://music.apple.com/profile/mujaxso', '_blank')}
                 >
                   <AppleMusicIcon />
@@ -249,7 +249,7 @@ export default function MusicPage() {
                 <Button
                   variant="outline"
                   size="lg"
-                  className="border-white text-white hover:bg-white/10 flex items-center gap-2"
+                  className="border-white text-white hover:bg-white hover:text-primary flex items-center gap-3"
                   onClick={() => window.open('https://soundcloud.com/mujaxso', '_blank')}
                 >
                   <SoundCloudIcon />
@@ -258,7 +258,7 @@ export default function MusicPage() {
                 <Button
                   variant="outline"
                   size="lg"
-                  className="border-white text-white hover:bg-white/10 flex items-center gap-2"
+                  className="border-white text-white hover:bg-white hover:text-primary flex items-center gap-3"
                   onClick={() => window.open('https://www.youtube.com/@mujaxso', '_blank')}
                 >
                   <YouTubeIcon />
