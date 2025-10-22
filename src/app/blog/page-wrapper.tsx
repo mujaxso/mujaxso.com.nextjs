@@ -59,6 +59,14 @@ async function getBlogPosts(): Promise<BlogPost[]> {
 }
 
 export default async function BlogPageWrapper() {
-  const posts = await getBlogPosts();
-  return <BlogPage posts={posts} />;
+  try {
+    const posts = await getBlogPosts();
+    // Ensure posts is always an array
+    const safePosts = Array.isArray(posts) ? posts : [];
+    return <BlogPage posts={safePosts} />;
+  } catch (error) {
+    console.error('Error in BlogPageWrapper:', error);
+    // Return empty array to prevent crashes
+    return <BlogPage posts={[]} />;
+  }
 }

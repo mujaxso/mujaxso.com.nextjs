@@ -97,18 +97,22 @@ export default function BlogPageClient({ posts }: BlogPageProps) {
   
   // Use useMemo to optimize filtering
   const { filteredPosts, featuredPosts, regularPosts, categories } = useMemo(() => {
-    const filtered = posts.filter(post => 
-      post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      post.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    // Ensure posts is always an array
+    const safePosts = Array.isArray(posts) ? posts : [];
+    
+    const filtered = safePosts.filter(post => 
+      post && 
+      (post.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      post.description?.toLowerCase().includes(searchQuery.toLowerCase()) ||
       post.tags?.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase())) ||
-      post.category?.toLowerCase().includes(searchQuery.toLowerCase())
+      post.category?.toLowerCase().includes(searchQuery.toLowerCase()))
     );
     
     return {
       filteredPosts: filtered,
       featuredPosts: filtered.filter(post => post.featured),
       regularPosts: filtered.filter(post => !post.featured),
-      categories: [...new Set(posts.map(post => post.category).filter(Boolean))]
+      categories: [...new Set(safePosts.map(post => post.category).filter(Boolean))]
     };
   }, [searchQuery, posts]);
 
