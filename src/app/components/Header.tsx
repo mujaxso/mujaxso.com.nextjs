@@ -1,8 +1,3 @@
-import Link from "next/link";
-import ModeToggle from "./ModeToggle";
-import Search from "./Search";
-import { Code2 } from "lucide-react";
-
 "use client";
 
 import Link from "next/link";
