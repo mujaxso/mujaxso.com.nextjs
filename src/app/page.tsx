@@ -81,6 +81,30 @@ export default function Home() {
           </div>
         </section>
 
+        {/* About Section */}
+        <section className="py-20">
+          <div className="max-w-4xl mx-auto text-center mb-16">
+            <h3 className="text-4xl font-bold mb-8 text-foreground">About Me</h3>
+            <div className="prose prose-lg text-foreground/80 max-w-none">
+              <p className="text-xl leading-relaxed mb-6">
+                I'm a passionate Software Engineer, AI/ML Engineer, Data Scientist, and DevSecOps professional 
+                with a deep love for creating innovative solutions that bridge the gap between cutting-edge 
+                technology and real-world applications. My expertise spans across full-stack development, 
+                machine learning model deployment, data-driven insights, and secure software practices.
+              </p>
+              <p className="text-xl leading-relaxed mb-6">
+                Beyond the world of code and algorithms, I'm also an avid musician, finding creative expression 
+                through music as a side hobby. This artistic pursuit complements my technical work, bringing 
+                balance and inspiration to my problem-solving approach.
+              </p>
+              <p className="text-xl leading-relaxed">
+                I believe in building technology that not only solves complex challenges but also enhances 
+                human experiences and creates meaningful impact.
+              </p>
+            </div>
+          </div>
+        </section>
+
         {/* Skills Section */}
         <section className="py-20">
           <div className="text-center mb-16">
