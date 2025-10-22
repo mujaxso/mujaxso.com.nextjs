@@ -2,7 +2,17 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { promises as fs } from 'fs';
 import { join } from 'path';
-import dynamic from 'next/dynamic';
+
+// Create a mapping of slugs to MDX imports
+const getMDXComponent = async (slug: string) => {
+  try {
+    // Import the MDX file directly
+    const module = await import(`@/content/projects/${slug}.mdx`);
+    return module.default;
+  } catch (error) {
+    return null;
+  }
+};
 
 export default async function ProjectPage({ params }: { params: { slug: string } }) {
   const projectsDirectory = join(process.cwd(), 'src', 'content', 'projects');
@@ -12,10 +22,12 @@ export default async function ProjectPage({ params }: { params: { slug: string }
     // Check if the file exists
     await fs.access(fullPath);
     
-    // Dynamically import the MDX file
-    const MDXContent = dynamic(() => import(`@/content/projects/${params.slug}.mdx`), {
-      loading: () => <p>Loading...</p>,
-    });
+    // Get the MDX component
+    const MDXContent = await getMDXComponent(params.slug);
+    
+    if (!MDXContent) {
+      notFound();
+    }
     
     return (
       <div className="min-h-screen bg-zinc-50 font-sans dark:bg-zinc-900 transition-colors duration-300">
