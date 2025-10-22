@@ -1,9 +1,53 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import { promises as fs } from 'fs';
 import { join } from 'path';
 import matter from 'gray-matter';
 import { MDXRemote } from 'next-mdx-remote/rsc';
+
+function calculateReadingTime(content: string): string {
+  const wordsPerMinute = 200;
+  const words = content.split(/\s+/).length;
+  const minutes = Math.ceil(words / wordsPerMinute);
+  return `${minutes} min read`;
+}
+
+async function getBlogPosts() {
+  const blogDirectory = join(process.cwd(), 'src', 'content', 'blog');
+  
+  try {
+    const files = await fs.readdir(blogDirectory);
+    const posts = await Promise.all(
+      files
+        .filter(file => file.endsWith('.mdx'))
+        .map(async (file) => {
+          const slug = file.replace(/\.mdx$/, '');
+          const fullPath = join(blogDirectory, file);
+          const fileContents = await fs.readFile(fullPath, 'utf8');
+          const { data } = matter(fileContents);
+          
+          return {
+            slug,
+            title: data.title || `Blog Post ${slug}`,
+            description: data.description || 'No description available.',
+            date: data.date || 'Unknown date',
+            image: data.image || '/vercel.svg',
+            category: data.category || 'Uncategorized',
+            tags: data.tags || [],
+            readingTime: calculateReadingTime(fileContents),
+            featured: data.featured || false,
+          };
+        })
+    );
+    
+    // Sort posts by date in descending order
+    return posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  } catch (error) {
+    console.error('Error reading blog posts:', error);
+    return [];
+  }
+}
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   // Await the params to ensure they're resolved
