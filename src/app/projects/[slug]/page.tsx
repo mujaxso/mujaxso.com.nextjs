@@ -1,23 +1,44 @@
 import { notFound } from 'next/navigation';
-import { getProjectMDX } from '@/lib/mdx';
+import Link from 'next/link';
+import { promises as fs } from 'fs';
+import { join } from 'path';
+import MDXContent from '../../../components/MDXContent';
 
 export default async function ProjectPage({ params }: { params: { slug: string } }) {
-  const { content } = await getProjectMDX(params.slug);
+  const projectsDirectory = join(process.cwd(), 'src', 'content', 'projects');
+  const fullPath = join(projectsDirectory, `${params.slug}.mdx`);
   
-  if (!content) {
+  try {
+    const fileContents = await fs.readFile(fullPath, 'utf8');
+    
+    return (
+      <div className="min-h-screen bg-zinc-50 font-sans dark:bg-zinc-900 transition-colors duration-300">
+        <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <Link href="/projects" className="text-zinc-900 dark:text-zinc-100 hover:text-blue-500 dark:hover:text-blue-400 transition-colors mb-8 inline-block">
+            ← Back to Projects
+          </Link>
+          <article className="prose dark:prose-invert max-w-none">
+            <MDXContent source={fileContents} />
+          </article>
+        </main>
+      </div>
+    );
+  } catch (error) {
     notFound();
   }
+}
+
+export async function generateStaticParams() {
+  const projectsDirectory = join(process.cwd(), 'src', 'content', 'projects');
   
-  return (
-    <div className="min-h-screen bg-zinc-50 font-sans dark:bg-zinc-900 transition-colors duration-300">
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <Link href="/projects" className="text-zinc-900 dark:text-zinc-100 hover:text-blue-500 dark:hover:text-blue-400 transition-colors mb-8 inline-block">
-          ← Back to Projects
-        </Link>
-        <article className="prose dark:prose-invert max-w-none">
-          {content}
-        </article>
-      </main>
-    </div>
-  );
+  try {
+    const files = await fs.readdir(projectsDirectory);
+    return files
+      .filter(file => file.endsWith('.mdx'))
+      .map(file => ({
+        slug: file.replace(/\.mdx$/, ''),
+      }));
+  } catch (error) {
+    return [];
+  }
 }
