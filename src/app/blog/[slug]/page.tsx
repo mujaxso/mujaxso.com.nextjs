@@ -161,16 +161,19 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             </div>
           
             {/* Author Section */}
-            {frontmatter.author && (
-              <div className="mt-12 pt-8 border-t border-border">
-                <Author 
-                  name={frontmatter.author.name || 'Unknown Author'}
-                  image={frontmatter.author.image || '/default-avatar.jpg'}
-                  bio={frontmatter.author.bio || ''}
-                  socialLinks={frontmatter.author.socialLinks}
-                />
-              </div>
-            )}
+            <div className="mt-12 pt-8 border-t border-border">
+              <Author 
+                name="Mujahid Siyam"
+                image="/img/profile.png"
+                bio="Software Engineer • AI/ML Engineer • Data Scientist • DevSecOps building cutting-edge solutions"
+                socialLinks={{
+                  github: "https://github.com/mujaxso",
+                  twitter: "https://twitter.com/mujaxso",
+                  linkedin: "https://linkedin.com/in/mujaxso",
+                  website: "https://mujaxso.com"
+                }}
+              />
+            </div>
           
             {/* Related Posts Section */}
             <RelatedPosts currentSlug={resolvedParams.slug} category={frontmatter.category} />

@@ -22,21 +22,13 @@ export default function Author({ name, image, bio, socialLinks }: AuthorProps) {
   return (
     <div className="flex items-start gap-4 p-6 backdrop-blur-xl bg-card border border-border rounded-2xl">
       <div className="flex-shrink-0">
-        {imageSrc ? (
-          <Image
-            src={imageSrc}
-            alt={name}
-            width={64}
-            height={64}
-            className="rounded-full border-2 border-primary/20"
+        <div className="w-16 h-16 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center overflow-hidden border-2 border-primary/20">
+          <img 
+            src="/img/profile.png" 
+            alt={name} 
+            className="w-full h-full object-cover"
           />
-        ) : (
-          <div className="w-16 h-16 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center border-2 border-primary/20">
-            <span className="text-white font-bold text-lg">
-              {name.split(' ').map(n => n[0]).join('').toUpperCase()}
-            </span>
-          </div>
-        )}
+        </div>
       </div>
       <div className="flex-1">
         <h3 className="text-lg font-semibold text-card-foreground mb-2">About the Author</h3>

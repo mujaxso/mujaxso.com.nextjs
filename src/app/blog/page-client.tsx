@@ -93,21 +93,13 @@ function PostCard({ post, setSelectedTag, setSearchQuery, updateURL }: {
           {/* Author Information */}
           {post.author && (
             <div className="flex items-center gap-3 mt-4 pt-4 border-t border-border">
-              {post.author.image && post.author.image.trim() !== '' ? (
-                <Image
-                  src={post.author.image}
-                  alt={post.author.name}
-                  width={32}
-                  height={32}
-                  className="rounded-full border border-primary/20"
+              <div className="w-8 h-8 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center overflow-hidden border border-primary/20">
+                <img 
+                  src="/img/profile.png" 
+                  alt={post.author.name} 
+                  className="w-full h-full object-cover"
                 />
-              ) : (
-                <div className="w-8 h-8 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center border border-primary/20">
-                  <span className="text-white text-xs font-bold">
-                    {post.author.name.split(' ').map(n => n[0]).join('').toUpperCase()}
-                  </span>
-                </div>
-              )}
+              </div>
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium text-card-foreground truncate">
                   {post.author.name}
@@ -166,21 +158,13 @@ function FeaturedPostCard({ post, setSelectedTag, setSearchQuery, updateURL }: {
             {/* Author Information for Featured Posts */}
             {post.author && (
               <div className="flex items-center gap-2 mb-3">
-                {post.author.image && post.author.image.trim() !== '' ? (
-                  <Image
-                    src={post.author.image}
-                    alt={post.author.name}
-                    width={24}
-                    height={24}
-                    className="rounded-full border border-white/20"
+                <div className="w-6 h-6 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center overflow-hidden border border-white/20">
+                  <img 
+                    src="/img/profile.png" 
+                    alt={post.author.name} 
+                    className="w-full h-full object-cover"
                   />
-                ) : (
-                  <div className="w-6 h-6 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center border border-white/20">
-                    <span className="text-white text-xs font-bold">
-                      {post.author.name.split(' ').map(n => n[0]).join('').toUpperCase()}
-                    </span>
-                  </div>
-                )}
+                </div>
                 <span className="text-white/90 text-sm font-medium">
                   {post.author.name}
                 </span>
