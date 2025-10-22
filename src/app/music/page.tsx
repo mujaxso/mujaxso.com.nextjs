@@ -251,37 +251,45 @@ export default function MusicPage() {
                 <Button
                   variant="default"
                   size="lg"
-                  className="flex items-center gap-3"
+                  className="flex items-center justify-center gap-3 min-w-[180px]"
                   onClick={() => window.open('https://open.spotify.com/user/mujaxso', '_blank')}
                 >
-                  <SpotifyIcon />
+                  <div className="w-5 h-5 flex items-center justify-center">
+                    <SpotifyIcon />
+                  </div>
                   Follow on Spotify
                 </Button>
                 <Button
-                  variant="outline"
+                  variant="default"
                   size="lg"
-                  className="border-white text-white hover:bg-white hover:text-primary flex items-center gap-3"
+                  className="flex items-center justify-center gap-3 min-w-[180px]"
                   onClick={() => window.open('https://music.apple.com/profile/mujaxso', '_blank')}
                 >
-                  <AppleMusicIcon />
+                  <div className="w-5 h-5 flex items-center justify-center">
+                    <AppleMusicIcon />
+                  </div>
                   Follow on Apple Music
                 </Button>
                 <Button
-                  variant="outline"
+                  variant="default"
                   size="lg"
-                  className="border-white text-white hover:bg-white hover:text-primary flex items-center gap-3"
+                  className="flex items-center justify-center gap-3 min-w-[180px]"
                   onClick={() => window.open('https://soundcloud.com/mujaxso', '_blank')}
                 >
-                  <SoundCloudIcon />
+                  <div className="w-5 h-5 flex items-center justify-center">
+                    <SoundCloudIcon />
+                  </div>
                   Follow on SoundCloud
                 </Button>
                 <Button
-                  variant="outline"
+                  variant="default"
                   size="lg"
-                  className="border-white text-white hover:bg-white hover:text-primary flex items-center gap-3"
+                  className="flex items-center justify-center gap-3 min-w-[180px]"
                   onClick={() => window.open('https://www.youtube.com/@mujaxso', '_blank')}
                 >
-                  <YouTubeIcon />
+                  <div className="w-5 h-5 flex items-center justify-center">
+                    <YouTubeIcon />
+                  </div>
                   Follow on YouTube
                 </Button>
               </div>
