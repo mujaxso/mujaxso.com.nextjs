@@ -145,14 +145,14 @@ export default function BlogPageClient({ posts }: BlogPageProps) {
         {/* Categories - Display Only */}
         <div className="flex flex-wrap gap-3 mb-12 justify-center">
           <div className="px-4 py-2 rounded-full bg-blue-500 text-white text-sm font-medium">
-            All Posts ({posts.length})
+            All Posts ({Array.isArray(posts) ? posts.length : 0})
           </div>
           {categories.map((category) => (
             <div
               key={category}
               className="px-4 py-2 rounded-full bg-zinc-200 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 text-sm font-medium"
             >
-              {category} ({posts.filter(post => post.category === category).length})
+              {category} ({Array.isArray(posts) ? posts.filter(post => post && post.category === category).length : 0})
             </div>
           ))}
         </div>
