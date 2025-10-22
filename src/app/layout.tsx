@@ -43,40 +43,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning className="transition-colors duration-300">
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              try {
-                const savedTheme = localStorage.getItem('theme');
-                const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                const theme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
-                
-                if (theme === 'dark') {
-                  document.documentElement.classList.add('dark');
-                  document.documentElement.style.setProperty('color-scheme', 'dark');
-                } else {
-                  document.documentElement.classList.remove('dark');
-                  document.documentElement.style.setProperty('color-scheme', 'light');
-                }
-                
-                // Apply CSS variables immediately
-                document.documentElement.style.setProperty('--background', theme === 'dark' ? '#0a0a0f' : '#fafcff');
-                document.documentElement.style.setProperty('--foreground', theme === 'dark' ? '#f0f2f5' : '#1a1a2e');
-                
-                // Apply to all elements
-                const allElements = document.querySelectorAll('*');
-                allElements.forEach(el => {
-                  if (el instanceof HTMLElement) {
-                    el.style.backgroundColor = 'inherit';
-                    el.style.color = 'inherit';
-                  }
-                });
-              } catch (e) {}
-            `,
-          }}
-        />
-      </head>
+      <head />
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased font-sans bg-background text-foreground transition-colors duration-300`}
       >

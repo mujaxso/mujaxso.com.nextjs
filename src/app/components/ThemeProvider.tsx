@@ -26,13 +26,6 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     
     const initialTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
     setTheme(initialTheme);
-    
-    // Apply theme to document immediately
-    if (initialTheme === 'dark') {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
   }, []);
 
   useEffect(() => {
@@ -46,19 +39,6 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       document.documentElement.classList.remove('dark');
       document.documentElement.style.setProperty('color-scheme', 'light');
     }
-    
-    // Force apply background and foreground colors to all elements
-    document.documentElement.style.setProperty('--background', theme === 'dark' ? '#0a0a0f' : '#fafcff');
-    document.documentElement.style.setProperty('--foreground', theme === 'dark' ? '#f0f2f5' : '#1a1a2e');
-    
-    // Apply theme to all elements more aggressively
-    const allElements = document.querySelectorAll('*');
-    allElements.forEach(el => {
-      if (el instanceof HTMLElement) {
-        el.style.backgroundColor = 'inherit';
-        el.style.color = 'inherit';
-      }
-    });
     
     // Save to localStorage
     localStorage.setItem('theme', theme);
