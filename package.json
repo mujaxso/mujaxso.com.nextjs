@@ -20,7 +20,8 @@
     "next": "16.0.0",
     "next-mdx-remote": "^5.0.0",
     "react": "19.2.0",
-    "react-dom": "19.2.0"
+    "react-dom": "19.2.0",
+    "react-markdown": "^9.0.1"
   },
   "devDependencies": {
     "@biomejs/biome": "2.2.0",
