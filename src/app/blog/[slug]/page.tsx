@@ -5,16 +5,19 @@ import { join } from 'path';
 import matter from 'gray-matter';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 
-export default async function BlogPostPage({ params }: { params: { slug: string } }) {
+export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
+  // Await the params to ensure they're resolved
+  const resolvedParams = await params;
+  
   // Validate that slug exists
-  if (!params?.slug) {
+  if (!resolvedParams?.slug) {
     console.error('Slug is undefined or null');
     notFound();
   }
   
-  console.log('Rendering blog post:', params.slug);
+  console.log('Rendering blog post:', resolvedParams.slug);
   const blogDirectory = join(process.cwd(), 'src', 'content', 'blog');
-  const fullPath = join(blogDirectory, `${params.slug}.mdx`);
+  const fullPath = join(blogDirectory, `${resolvedParams.slug}.mdx`);
   
   try {
     // Check if the file exists first

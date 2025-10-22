@@ -5,16 +5,19 @@ import { join } from 'path';
 import matter from 'gray-matter';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 
-export default async function ProjectPage({ params }: { params: { slug: string } }) {
+export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
+  // Await the params to ensure they're resolved
+  const resolvedParams = await params;
+  
   // Validate that slug exists
-  if (!params?.slug) {
+  if (!resolvedParams?.slug) {
     console.error('Slug is undefined or null');
     notFound();
   }
   
-  console.log('Rendering project:', params.slug);
+  console.log('Rendering project:', resolvedParams.slug);
   const projectsDirectory = join(process.cwd(), 'src', 'content', 'projects');
-  const fullPath = join(projectsDirectory, `${params.slug}.mdx`);
+  const fullPath = join(projectsDirectory, `${resolvedParams.slug}.mdx`);
   
   try {
     // Check if the file exists first
