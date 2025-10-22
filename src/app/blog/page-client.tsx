@@ -50,13 +50,32 @@ function PostCard({ post }: { post: BlogPost }) {
         </div>
         <div className="p-6 flex-1 flex flex-col">
           <div className="flex items-center gap-2 mb-3">
-            <span className="px-2 py-1 bg-primary/20 text-primary text-xs font-medium rounded">
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setSelectedTag(null);
+                setSearchQuery(post.category || '');
+                updateURL(null, post.category || '');
+              }}
+              className="px-2 py-1 bg-primary/20 text-primary text-xs font-medium rounded hover:bg-primary hover:text-white transition-colors"
+            >
               {post.category}
-            </span>
+            </button>
             {post.tags?.slice(0, 2).map((tag) => (
-              <span key={tag} className="px-2 py-1 bg-muted text-muted-foreground text-xs font-medium rounded">
+              <button
+                key={tag}
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setSelectedTag(tag);
+                  setSearchQuery('');
+                  updateURL(tag, '');
+                }}
+                className="px-2 py-1 bg-muted text-muted-foreground text-xs font-medium rounded hover:bg-primary hover:text-white transition-colors"
+              >
                 {tag}
-              </span>
+              </button>
             ))}
           </div>
           <h3 className="text-lg font-semibold mb-2 text-card-foreground group-hover:text-primary transition-colors line-clamp-2 flex-1">
@@ -118,9 +137,18 @@ function FeaturedPostCard({ post }: { post: BlogPost }) {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
           <div className="absolute bottom-6 left-6 right-6">
-            <span className="inline-block px-3 py-1 bg-primary text-white text-xs font-medium rounded-full mb-3">
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setSelectedTag(null);
+                setSearchQuery(post.category || '');
+                updateURL(null, post.category || '');
+              }}
+              className="inline-block px-3 py-1 bg-primary text-white text-xs font-medium rounded-full mb-3 hover:bg-primary-dark transition-colors"
+            >
               {post.category}
-            </span>
+            </button>
             <h3 className="text-xl font-bold text-white mb-2 line-clamp-2 group-hover:text-secondary transition-colors">
               {post.title}
             </h3>
@@ -205,21 +233,39 @@ export default function BlogPageClient({ posts }: BlogPageProps) {
     // Ensure posts is always an array
     const safePosts = Array.isArray(posts) ? posts : [];
     
-    const filtered = safePosts.filter(post => 
-      post && 
-      (post.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      post.description?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      post.tags?.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase())) ||
-      post.category?.toLowerCase().includes(searchQuery.toLowerCase()))
-    );
+    // First filter by selected tag if any
+    let filtered = safePosts;
+    if (selectedTag) {
+      filtered = filtered.filter(post => 
+        post && post.tags?.includes(selectedTag)
+      );
+    }
+    
+    // Then filter by search query if any
+    if (searchQuery && !selectedTag) {
+      filtered = filtered.filter(post => 
+        post && 
+        (post.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        post.description?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        post.tags?.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase())) ||
+        post.category?.toLowerCase().includes(searchQuery.toLowerCase()))
+      );
+    }
+    
+    // Get all unique tags from all posts
+    const tags = new Set<string>();
+    safePosts.forEach(post => {
+      post.tags?.forEach(tag => tags.add(tag));
+    });
     
     return {
       filteredPosts: filtered,
       featuredPosts: filtered.filter(post => post.featured),
       regularPosts: filtered.filter(post => !post.featured),
-      categories: [...new Set(safePosts.map(post => post.category).filter(Boolean))]
+      categories: [...new Set(safePosts.map(post => post.category).filter(Boolean))],
+      allTags: Array.from(tags)
     };
-  }, [searchQuery, posts]);
+  }, [searchQuery, selectedTag, posts]);
 
   return (
     <div className="min-h-screen bg-background transition-colors duration-300">
@@ -280,19 +326,61 @@ export default function BlogPageClient({ posts }: BlogPageProps) {
           )}
         </div>
 
-        {/* Categories - Display Only */}
-        <div className="flex flex-wrap gap-3 mb-12 justify-center">
-          <div className="px-4 py-2 rounded-full bg-primary text-white text-sm font-medium">
-            All Posts ({Array.isArray(posts) ? posts.length : 0})
-          </div>
-          {categories.map((category) => (
-            <div
-              key={category}
-              className="px-4 py-2 rounded-full backdrop-blur-sm bg-card border border-border text-card-foreground text-sm font-medium"
+        {/* Categories and Tags */}
+        <div className="mb-12">
+          {/* Categories */}
+          <div className="flex flex-wrap gap-3 mb-6 justify-center">
+            <button
+              onClick={() => {
+                setSelectedTag(null);
+                setSearchQuery('');
+                updateURL(null, '');
+              }}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                !selectedTag && !searchQuery
+                  ? 'bg-primary text-white'
+                  : 'backdrop-blur-sm bg-card border border-border text-card-foreground hover:bg-primary/20'
+              }`}
             >
-              {category} ({Array.isArray(posts) ? posts.filter(post => post && post.category === category).length : 0})
+              All Posts ({Array.isArray(posts) ? posts.length : 0})
+            </button>
+            {categories.map((category) => (
+              <button
+                key={category}
+                onClick={() => {
+                  setSelectedTag(null);
+                  setSearchQuery(category || '');
+                  updateURL(null, category || '');
+                }}
+                className="px-4 py-2 rounded-full backdrop-blur-sm bg-card border border-border text-card-foreground text-sm font-medium hover:bg-primary/20 transition-all duration-300"
+              >
+                {category} ({Array.isArray(posts) ? posts.filter(post => post && post.category === category).length : 0})
+              </button>
+            ))}
+          </div>
+          
+          {/* Tags */}
+          {allTags.length > 0 && (
+            <div className="flex flex-wrap gap-2 justify-center">
+              {allTags.map((tag) => (
+                <button
+                  key={tag}
+                  onClick={() => {
+                    setSelectedTag(tag);
+                    setSearchQuery('');
+                    updateURL(tag, '');
+                  }}
+                  className={`px-3 py-1 rounded-full text-xs font-medium transition-all duration-300 ${
+                    selectedTag === tag
+                      ? 'bg-primary text-white'
+                      : 'backdrop-blur-sm bg-card border border-border text-card-foreground hover:bg-primary/20'
+                  }`}
+                >
+                  #{tag}
+                </button>
+              ))}
             </div>
-          ))}
+          )}
         </div>
 
         {/* Featured Posts */}
