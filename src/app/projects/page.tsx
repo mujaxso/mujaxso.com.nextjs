@@ -179,7 +179,7 @@ export default async function ProjectsPage() {
         
         {projects.length === 0 && (
           <div className="text-center py-12">
-            <p className="text-zinc-600 dark:text-zinc-400 text-lg">
+            <p className="text-foreground/60 text-lg">
               No projects found. Check back soon!
             </p>
           </div>

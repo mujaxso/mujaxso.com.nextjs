@@ -25,7 +25,7 @@ interface BlogPageProps {
 function PostCard({ post }: { post: BlogPost }) {
   return (
     <Link href={`/blog/${post.slug}`} className="block">
-      <article className="group rounded-2xl overflow-hidden bg-white dark:bg-zinc-800 shadow-md hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer h-full flex flex-col">
+      <article className="group rounded-2xl overflow-hidden backdrop-blur-xl bg-glass border border-glass-border shadow-md hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer h-full flex flex-col">
         <div className="aspect-[4/3] relative overflow-hidden">
           <Image 
             src={post.image || '/vercel.svg'} 
@@ -37,22 +37,22 @@ function PostCard({ post }: { post: BlogPost }) {
         </div>
         <div className="p-6 flex-1 flex flex-col">
           <div className="flex items-center gap-2 mb-3">
-            <span className="px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-xs font-medium rounded">
+            <span className="px-2 py-1 bg-primary/20 text-primary text-xs font-medium rounded">
               {post.category}
             </span>
             {post.tags?.slice(0, 2).map((tag) => (
-              <span key={tag} className="px-2 py-1 bg-zinc-100 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-400 text-xs font-medium rounded">
+              <span key={tag} className="px-2 py-1 bg-glass border border-glass-border text-foreground/80 text-xs font-medium rounded">
                 {tag}
               </span>
             ))}
           </div>
-          <h3 className="text-lg font-semibold mb-2 text-zinc-900 dark:text-zinc-100 group-hover:text-blue-500 dark:group-hover:text-blue-400 transition-colors line-clamp-2 flex-1">
+          <h3 className="text-lg font-semibold mb-2 text-foreground group-hover:text-primary transition-colors line-clamp-2 flex-1">
             {post.title}
           </h3>
-          <p className="text-zinc-600 dark:text-zinc-400 mb-4 text-sm line-clamp-2">
+          <p className="text-foreground/60 mb-4 text-sm line-clamp-2">
             {post.description}
           </p>
-          <div className="flex items-center justify-between text-sm text-zinc-500 dark:text-zinc-500 mt-auto">
+          <div className="flex items-center justify-between text-sm text-foreground/60 mt-auto">
             <span>{new Date(post.date).toLocaleDateString()}</span>
             <span>{post.readingTime}</span>
           </div>
@@ -65,7 +65,7 @@ function PostCard({ post }: { post: BlogPost }) {
 function FeaturedPostCard({ post }: { post: BlogPost }) {
   return (
     <Link href={`/blog/${post.slug}`} className="block">
-      <article className="group relative rounded-2xl overflow-hidden bg-white dark:bg-zinc-800 shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] cursor-pointer">
+      <article className="group relative rounded-2xl overflow-hidden backdrop-blur-xl bg-glass border border-glass-border shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] cursor-pointer">
         <div className="aspect-[16/9] relative overflow-hidden">
           <Image 
             src={post.image || '/vercel.svg'} 
@@ -75,10 +75,10 @@ function FeaturedPostCard({ post }: { post: BlogPost }) {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
           <div className="absolute bottom-6 left-6 right-6">
-            <span className="inline-block px-3 py-1 bg-blue-500 text-white text-xs font-medium rounded-full mb-3">
+            <span className="inline-block px-3 py-1 bg-primary text-white text-xs font-medium rounded-full mb-3">
               {post.category}
             </span>
-            <h3 className="text-xl font-bold text-white mb-2 line-clamp-2 group-hover:text-blue-200 transition-colors">
+            <h3 className="text-xl font-bold text-white mb-2 line-clamp-2 group-hover:text-primary/80 transition-colors">
               {post.title}
             </h3>
             <div className="flex items-center text-white/80 text-sm">
@@ -168,7 +168,7 @@ export default function BlogPageClient({ posts }: BlogPageProps) {
         {/* Search Bar */}
         <div className="max-w-md mx-auto mb-12 relative">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-zinc-400 w-5 h-5" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-foreground/40 w-5 h-5" />
             <input
               type="text"
               placeholder="Search posts, tags, categories..."
@@ -179,7 +179,7 @@ export default function BlogPageClient({ posts }: BlogPageProps) {
                 setSelectedTag(null);
                 updateURL(null, value);
               }}
-              className="w-full pl-10 pr-4 py-3 bg-white dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-600 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-zinc-900 dark:text-zinc-100"
+              className="w-full pl-10 pr-4 py-3 backdrop-blur-sm bg-glass border border-glass-border rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-foreground placeholder-foreground/40"
             />
             {(searchQuery || selectedTag) && (
               <button
@@ -188,14 +188,14 @@ export default function BlogPageClient({ posts }: BlogPageProps) {
                   setSelectedTag(null);
                   updateURL(null, '');
                 }}
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200"
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-foreground/40 hover:text-foreground"
               >
                 ✕
               </button>
             )}
           </div>
           {(searchQuery || selectedTag) && (
-            <div className="text-center mt-2 text-sm text-zinc-500">
+            <div className="text-center mt-2 text-sm text-foreground/60">
               Showing results for:{" "}
               {selectedTag ? `#${selectedTag}` : `"${searchQuery}"`}
               <button
@@ -204,7 +204,7 @@ export default function BlogPageClient({ posts }: BlogPageProps) {
                   setSelectedTag(null);
                   updateURL(null, '');
                 }}
-                className="ml-2 text-blue-500 hover:text-blue-600"
+                className="ml-2 text-primary hover:text-primary-dark transition-colors"
               >
                 Clear filters
               </button>
@@ -214,13 +214,13 @@ export default function BlogPageClient({ posts }: BlogPageProps) {
 
         {/* Categories - Display Only */}
         <div className="flex flex-wrap gap-3 mb-12 justify-center">
-          <div className="px-4 py-2 rounded-full bg-blue-500 text-white text-sm font-medium">
+          <div className="px-4 py-2 rounded-full bg-primary text-white text-sm font-medium">
             All Posts ({Array.isArray(posts) ? posts.length : 0})
           </div>
           {categories.map((category) => (
             <div
               key={category}
-              className="px-4 py-2 rounded-full bg-zinc-200 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 text-sm font-medium"
+              className="px-4 py-2 rounded-full backdrop-blur-sm bg-glass border border-glass-border text-foreground/80 text-sm font-medium"
             >
               {category} ({Array.isArray(posts) ? posts.filter(post => post && post.category === category).length : 0})
             </div>
@@ -230,7 +230,7 @@ export default function BlogPageClient({ posts }: BlogPageProps) {
         {/* Featured Posts */}
         {featuredPosts.length > 0 && (
           <section className="mb-16">
-            <h2 className="text-2xl font-bold mb-8 text-zinc-900 dark:text-zinc-100">Featured Posts</h2>
+            <h2 className="text-2xl font-bold mb-8 text-foreground">Featured Posts</h2>
             <div className="grid gap-8 lg:grid-cols-2">
               {featuredPosts.map((post) => (
                 <FeaturedPostCard key={post.slug} post={post} />
@@ -241,7 +241,7 @@ export default function BlogPageClient({ posts }: BlogPageProps) {
 
         {/* All Posts */}
         <section>
-          <h2 className="text-2xl font-bold mb-8 text-zinc-900 dark:text-zinc-100">
+          <h2 className="text-2xl font-bold mb-8 text-foreground">
             {searchQuery ? `Search Results (${filteredPosts.length})` : 'All Posts'}
           </h2>
           {filteredPosts.length > 0 ? (
@@ -252,12 +252,12 @@ export default function BlogPageClient({ posts }: BlogPageProps) {
             </div>
           ) : (
             <div className="text-center py-12">
-              <div className="text-zinc-400 dark:text-zinc-500 text-lg mb-4">
+              <div className="text-foreground/60 text-lg mb-4">
                 No posts found matching your search.
               </div>
               <button
                 onClick={() => setSearchQuery('')}
-                className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+                className="px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-all duration-300 hover:scale-105"
               >
                 Clear Search
               </button>
