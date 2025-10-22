@@ -28,9 +28,9 @@ export const metadata: Metadata = {
   robots: "index, follow",
   manifest: "/manifest.json",
   icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon.ico',
-    apple: '/apple-touch-icon.png',
+    icon: '/img/favicon.ico',
+    shortcut: '/img/favicon.ico',
+    apple: '/img/apple-touch-icon.png',
   },
 };
 
