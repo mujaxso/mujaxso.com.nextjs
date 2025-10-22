@@ -25,16 +25,18 @@ export default function Home() {
             </div>
             
             {/* Name */}
-            <h1 className="text-6xl md:text-8xl font-bold mb-6 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+            <h1 className="text-6xl md:text-8xl font-bold mb-6 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent text-foreground">
               Mujahid Siyam
             </h1>
             
             {/* Social Media Links */}
-            <div className="flex justify-center gap-6 mb-8">
+            <div className="flex justify-center gap-4 mb-8 flex-wrap">
               {[
                 { href: "https://github.com/mujaxso", icon: "GitHub", label: "GitHub" },
                 { href: "https://linkedin.com/in/mujaxso", icon: "LinkedIn", label: "LinkedIn" },
                 { href: "https://twitter.com/mujaxso", icon: "Twitter", label: "Twitter" },
+                { href: "https://instagram.com/mujaxso", icon: "Instagram", label: "Instagram" },
+                { href: "https://tiktok.com/@mujaxso", icon: "TikTok", label: "TikTok" },
                 { href: "mailto:contact@mujaxso.com", icon: "Email", label: "Email" }
               ].map((item) => (
                 <a 

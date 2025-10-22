@@ -20,24 +20,9 @@ export default function Footer() {
             <p className="text-muted-foreground mb-6 max-w-md">
               Building the future with code, AI, and innovative solutions that make a difference.
             </p>
-            <div className="flex gap-4">
-              {[
-                { href: "https://github.com/mujaxso", icon: Github, label: "GitHub" },
-                { href: "https://linkedin.com/in/mujaxso", icon: Linkedin, label: "LinkedIn" },
-                { href: "mailto:contact@mujaxso.com", icon: Mail, label: "Email" }
-              ].map((item) => (
-                <a 
-                  key={item.label}
-                  href={item.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-3 text-muted-foreground hover:text-primary transition-all duration-300 hover:scale-110 backdrop-blur-sm bg-card border border-border rounded-lg"
-                >
-                  <item.icon className="w-5 h-5" />
-                  <span className="sr-only">{item.label}</span>
-                </a>
-              ))}
-            </div>
+import { Github, Linkedin, Mail, ExternalLink, Code2, Instagram } from "lucide-react";
+
+// Note: TikTok icon is not available in lucide-react, so we'll use a text label
           </div>
           <div>
             <h4 className="text-foreground font-semibold mb-4">Navigation</h4>

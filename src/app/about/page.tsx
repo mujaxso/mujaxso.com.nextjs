@@ -9,6 +9,28 @@ export default function AboutPage() {
           <p className="text-xl text-foreground/60 max-w-2xl mx-auto">
             Passionate developer crafting digital experiences with modern technologies
           </p>
+          
+          {/* Social Links */}
+          <div className="flex justify-center gap-4 mt-6">
+            {[
+              { href: "https://github.com/mujaxso", label: "GitHub" },
+              { href: "https://linkedin.com/in/mujaxso", label: "LinkedIn" },
+              { href: "https://twitter.com/mujaxso", label: "Twitter" },
+              { href: "https://instagram.com/mujaxso", label: "Instagram" },
+              { href: "https://tiktok.com/@mujaxso", label: "TikTok" },
+              { href: "mailto:contact@mujaxso.com", label: "Email" }
+            ].map((item) => (
+              <a 
+                key={item.label}
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-3 py-2 text-muted-foreground hover:text-primary transition-all duration-300 hover:scale-110 backdrop-blur-sm bg-glass border border-glass-border rounded-lg text-sm"
+              >
+                {item.label}
+              </a>
+            ))}
+          </div>
         </div>
         
         <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
