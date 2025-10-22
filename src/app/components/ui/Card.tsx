@@ -13,7 +13,7 @@ export function Card({ children, className, hoverEffect = true }: CardProps) {
   return (
     <div 
       className={cn(
-        "backdrop-blur-xl bg-glass border border-glass-border rounded-2xl p-6 transition-all duration-300",
+        "bg-card/50 backdrop-blur-xl border border-border/50 rounded-2xl p-6 transition-all duration-300",
         hoverEffect && "hover:shadow-xl hover:scale-105",
         className
       )}

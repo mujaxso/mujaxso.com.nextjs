@@ -131,11 +131,16 @@ export default function MusicPage() {
 
         {/* Playlists Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
-          {playlists.map((playlist) => (
+          {playlists.length === 0 ? (
+            <div className="col-span-2 text-center py-12">
+              <p className="text-foreground/60">No playlists available at the moment.</p>
+            </div>
+          ) : (
+            playlists.map((playlist) => (
             <Card key={playlist.id} className="group">
               {/* Playlist Player at the top */}
-              <div className="mb-4 rounded-xl overflow-hidden">
-                <div className="aspect-video rounded-xl overflow-hidden bg-primary/10 border border-primary/20 relative">
+              <div className="mb-4 rounded-xl overflow-hidden bg-primary/10 border border-primary/20">
+                <div className="aspect-video relative">
                   {/* Add a subtle overlay to ensure consistent appearance */}
                   <div className="absolute inset-0 pointer-events-none rounded-xl border-2 border-transparent"></div>
                   {isPlayerLoading ? (
@@ -153,8 +158,7 @@ export default function MusicPage() {
                       frameBorder="0"
                       allow="encrypted-media"
                       allowFullScreen
-                      className="w-full h-full rounded-xl"
-                      style={{ borderRadius: '12px' }}
+                      className="w-full h-full"
                       onLoad={() => setIsPlayerLoading(false)}
                       onError={() => setPlayerError('Failed to load the playlist. Please try again.')}
                     />
@@ -182,7 +186,7 @@ export default function MusicPage() {
                   <h3 className="text-xl font-bold text-foreground mb-2">
                     {playlist.title}
                   </h3>
-                  <div className="flex items-center justify-center gap-3 mb-2">
+                  <div className="flex justify-center items-center gap-3 mb-2">
                     <div className="w-6 h-6 flex items-center justify-center">
                       {getServiceIcon(playlist.service)}
                     </div>
@@ -215,7 +219,8 @@ export default function MusicPage() {
                 </Button>
               </div>
             </Card>
-          ))}
+          ))
+          )}
         </div>
 
         {/* Call to Action */}
