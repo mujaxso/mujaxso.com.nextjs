@@ -90,11 +90,11 @@ export default async function ProjectsPage() {
   const projects = await getProjects();
   
   return (
-    <div className="min-h-screen bg-background font-sans transition-colors duration-300">
+    <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold mb-4 text-foreground">Featured Projects</h1>
-          <p className="text-xl text-foreground/60 max-w-2xl mx-auto">
+          <h1 className="text-4xl font-bold mb-4">Featured Projects</h1>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             A collection of my open-source projects and contributions
           </p>
         </div>
@@ -110,12 +110,12 @@ export default async function ProjectsPage() {
                 </div>
                 
                 <div className="flex justify-between items-start mb-3">
-                  <h3 className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors">
+                  <h3 className="text-xl font-semibold group-hover:text-primary transition-colors">
                     {project.title}
                   </h3>
                 </div>
                 
-                <p className="text-foreground/60 mb-4 line-clamp-3">
+                <p className="text-muted-foreground mb-4 line-clamp-3">
                   {project.description}
                 </p>
                 
@@ -157,7 +157,7 @@ export default async function ProjectsPage() {
                     href={project.githubUrl} 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="p-2 text-muted-foreground hover:text-card-foreground transition-colors backdrop-blur-sm bg-card border border-border rounded-lg hover:scale-110"
+                    className="p-2 text-muted-foreground hover:text-foreground transition-colors backdrop-blur-sm bg-card border border-border rounded-lg hover:scale-110"
                   >
                     <Github className="w-4 h-4" />
                   </a>
@@ -167,7 +167,7 @@ export default async function ProjectsPage() {
                     href={project.liveUrl} 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="p-2 text-muted-foreground hover:text-card-foreground transition-colors backdrop-blur-sm bg-card border border-border rounded-lg hover:scale-110"
+                    className="p-2 text-muted-foreground hover:text-foreground transition-colors backdrop-blur-sm bg-card border border-border rounded-lg hover:scale-110"
                   >
                     <ExternalLink className="w-4 h-4" />
                   </a>
@@ -179,7 +179,7 @@ export default async function ProjectsPage() {
         
         {projects.length === 0 && (
           <div className="text-center py-12">
-            <p className="text-foreground/60 text-lg">
+            <p className="text-muted-foreground text-lg">
               No projects found. Check back soon!
             </p>
           </div>

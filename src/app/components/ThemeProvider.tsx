@@ -11,6 +11,7 @@ export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
       enableSystem={false}
       disableTransitionOnChange={false}
       storageKey="mujaxso-theme"
+      forcedTheme="dark"
       {...props}
     >
       {children}

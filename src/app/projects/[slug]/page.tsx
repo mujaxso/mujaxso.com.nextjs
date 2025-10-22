@@ -81,11 +81,11 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
     const content = fileContent.replace(/^---\n[\s\S]*?\n---/, '').trim();
     
     return (
-      <div className="min-h-screen bg-white font-sans dark:bg-zinc-900 transition-colors duration-300">
+      <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
         <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <Link 
             href="/projects" 
-            className="inline-flex items-center gap-2 text-sm text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white mb-6 transition-colors"
+            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-6 transition-colors"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -94,13 +94,13 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           </Link>
           
           {/* GitHub-like header */}
-          <div className="border-b border-zinc-200 dark:border-zinc-700 pb-4 mb-8">
+          <div className="border-b border-border pb-4 mb-8">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <div>
-                <h1 className="text-2xl font-bold text-zinc-900 dark:text-white mb-2">
+                <h1 className="text-2xl font-bold mb-2">
                   {project.title}
                 </h1>
-                <p className="text-lg text-zinc-600 dark:text-zinc-400">
+                <p className="text-lg text-muted-foreground">
                   {project.description}
                 </p>
               </div>
@@ -110,7 +110,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                     href={project.githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2 bg-zinc-800 dark:bg-zinc-700 text-white rounded-md hover:bg-zinc-700 dark:hover:bg-zinc-600 transition-colors text-sm font-medium"
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition-colors text-sm font-medium"
                   >
                     <Github className="w-4 h-4" />
                     Star
@@ -121,7 +121,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                     href={project.liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2 border border-zinc-300 dark:border-zinc-600 text-zinc-700 dark:text-zinc-300 rounded-md hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors text-sm font-medium"
+                    className="inline-flex items-center gap-2 px-4 py-2 border border-border text-foreground rounded-md hover:bg-muted transition-colors text-sm font-medium"
                   >
                     <ExternalLink className="w-4 h-4" />
                     Website
@@ -129,14 +129,14 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                 )}
               </div>
             </div>
-            
+              
             {/* Metadata row */}
-            <div className="flex flex-wrap items-center gap-4 mt-4 text-sm text-zinc-600 dark:text-zinc-400">
+            <div className="flex flex-wrap items-center gap-4 mt-4 text-sm text-muted-foreground">
               {project.date && (
                 <span>📅 {new Date(project.date).toLocaleDateString()}</span>
               )}
               {project.category && (
-                <span className="px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded text-xs font-medium">
+                <span className="px-2 py-1 bg-primary/20 text-primary rounded text-xs font-medium">
                   {project.category}
                 </span>
               )}
@@ -145,7 +145,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                   href={project.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  className="hover:text-primary transition-colors"
                 >
                   <Github className="w-4 h-4 inline mr-1" />
                   GitHub
