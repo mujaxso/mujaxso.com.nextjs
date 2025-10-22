@@ -2,8 +2,20 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { promises as fs } from 'fs';
 import { join } from 'path';
-import matter from 'gray-matter';
-import { MDXRemote } from 'next-mdx-remote/rsc';
+import ReactMarkdown from 'react-markdown';
+import { Github, ExternalLink } from 'lucide-react';
+
+interface Project {
+  slug: string;
+  title: string;
+  description: string;
+  date: string;
+  category?: string;
+  tags?: string[];
+  githubUrl?: string;
+  liveUrl?: string;
+  featured?: boolean;
+}
 
 export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
   // Await the params to ensure they're resolved
