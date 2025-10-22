@@ -110,7 +110,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     
     return (
       <div className="min-h-screen bg-background transition-colors duration-300">
-        <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
           <Link href="/blog" className="inline-flex items-center text-muted-foreground hover:text-foreground transition-colors mb-8 group">
             <svg className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -118,7 +118,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             Back to Blog
           </Link>
         
-          <article className="backdrop-blur-xl bg-card border border-border rounded-2xl shadow-lg p-8 md:p-12">
+          <article className="backdrop-blur-xl bg-card border border-border rounded-2xl shadow-lg p-8 md:p-12 w-full">
             <header className="mb-8">
               <div className="flex flex-wrap gap-2 mb-4">
                 <span className="px-3 py-1 bg-primary text-white text-sm font-medium rounded-full">
@@ -130,7 +130,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                   </span>
                 ))}
               </div>
-              <h1 className="text-3xl md:text-4xl font-bold text-card-foreground mb-4">
+              <h1 className="text-4xl md:text-5xl font-bold text-card-foreground mb-4">
                 {title}
               </h1>
               <div className="flex flex-wrap items-center gap-4 text-muted-foreground">
@@ -156,7 +156,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               </div>
             )}
           
-            <div className="prose prose-lg max-w-none prose-headings:text-card-foreground prose-p:text-card-foreground/80 prose-strong:text-card-foreground prose-em:text-card-foreground prose-a:text-primary hover:prose-a:text-primary-dark prose-blockquote:text-card-foreground/60 prose-blockquote:border-primary prose-ul:text-card-foreground/80 prose-ol:text-card-foreground/80 prose-li:text-card-foreground/80 prose-code:text-card-foreground prose-pre:bg-muted">
+            <div className="prose prose-xl max-w-none prose-headings:text-card-foreground prose-p:text-card-foreground/80 prose-strong:text-card-foreground prose-em:text-card-foreground prose-a:text-primary hover:prose-a:text-primary-dark prose-blockquote:text-card-foreground/60 prose-blockquote:border-primary prose-ul:text-card-foreground/80 prose-ol:text-card-foreground/80 prose-li:text-card-foreground/80 prose-code:text-card-foreground prose-pre:bg-muted">
               <MDXRemote source={content} />
             </div>
           
@@ -195,7 +195,7 @@ async function RelatedPosts({ currentSlug, category }: { currentSlug: string; ca
   return (
     <section className="mt-16 pt-8 border-t border-border">
       <h3 className="text-2xl font-bold mb-6 text-card-foreground">Related Posts</h3>
-      <div className="grid gap-6 md:grid-cols-3">
+      <div className="grid gap-6 md:grid-cols-4">
         {relatedPosts.map((post) => (
           <Link key={post.slug} href={`/blog/${post.slug}`} className="group block">
             <article className="backdrop-blur-sm bg-card border border-border rounded-lg p-4 hover:bg-primary/10 transition-colors">
