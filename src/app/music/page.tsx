@@ -23,6 +23,7 @@ interface Playlist {
 export default function MusicPage() {
   const [currentPlaylist, setCurrentPlaylist] = useState<Playlist | null>(null)
   const [isPlaying, setIsPlaying] = useState(false)
+  const [playerKey, setPlayerKey] = useState(0) // Add key to force re-render
 
   // Replace these with your actual playlist URLs
   const playlists: Playlist[] = [
@@ -73,13 +74,33 @@ export default function MusicPage() {
   ]
 
   const playPlaylist = (playlist: Playlist) => {
-    setCurrentPlaylist(playlist)
-    setIsPlaying(true)
+    // Stop current playback first
+    setIsPlaying(false)
+    
+    // Use setTimeout to ensure the previous player is properly unmounted
+    setTimeout(() => {
+      setCurrentPlaylist(playlist)
+      setPlayerKey(prev => prev + 1) // Force new player instance
+      // Don't set isPlaying to true immediately - let the player handle it
+    }, 100)
   }
 
   const stopPlaylist = () => {
     setIsPlaying(false)
-    setCurrentPlaylist(null)
+    // Don't immediately remove currentPlaylist to avoid abrupt unmounting
+    setTimeout(() => {
+      setCurrentPlaylist(null)
+    }, 100)
+  }
+
+  const handlePlayerReady = () => {
+    // Player is ready, now we can safely start playback
+    setIsPlaying(true)
+  }
+
+  const handlePlayerError = (error: any) => {
+    console.error('Player error:', error)
+    setIsPlaying(false)
   }
 
   const getServiceColor = (service: Playlist["service"]) => {
@@ -149,12 +170,44 @@ export default function MusicPage() {
               </div>
               <div className="aspect-video rounded-xl overflow-hidden">
                 <ReactPlayer
+                  key={playerKey} // Force new instance when key changes
                   url={currentPlaylist.embedUrl}
                   width="100%"
                   height="100%"
                   playing={isPlaying}
                   controls={true}
                   style={{ borderRadius: '12px' }}
+                  onReady={handlePlayerReady}
+                  onError={handlePlayerError}
+                  onPlay={() => setIsPlaying(true)}
+                  onPause={() => setIsPlaying(false)}
+                  onEnded={() => setIsPlaying(false)}
+                  config={{
+                    youtube: {
+                      playerVars: { 
+                        showinfo: 1,
+                        rel: 0,
+                        modestbranding: 1
+                      }
+                    },
+                    soundcloud: {
+                      options: {
+                        show_artwork: true,
+                        buying: false,
+                        liking: false,
+                        download: false,
+                        sharing: false,
+                        show_comments: false,
+                        show_playcount: false,
+                        show_user: false
+                      }
+                    },
+                    spotify: {
+                      attributes: {
+                        style: { borderRadius: '12px' }
+                      }
+                    }
+                  }}
                 />
               </div>
             </div>
@@ -224,9 +277,10 @@ export default function MusicPage() {
                     size="sm"
                     className="flex-1"
                     onClick={() => playPlaylist(playlist)}
+                    disabled={currentPlaylist?.id === playlist.id && isPlaying}
                   >
                     <Play className="w-4 h-4 mr-2" />
-                    Play Here
+                    {currentPlaylist?.id === playlist.id && isPlaying ? 'Playing...' : 'Play Here'}
                   </Button>
                   <Button
                     variant="outline"
