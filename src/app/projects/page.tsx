@@ -90,18 +90,18 @@ export default async function ProjectsPage() {
   const projects = await getProjects();
   
   return (
-    <div className="min-h-screen bg-zinc-50 font-sans dark:bg-zinc-900 transition-colors duration-300">
+    <div className="min-h-screen bg-background font-sans transition-colors duration-300">
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold mb-4 text-zinc-900 dark:text-zinc-100">Featured Projects</h1>
-          <p className="text-xl text-zinc-600 dark:text-zinc-300 max-w-2xl mx-auto">
+          <h1 className="text-4xl font-bold mb-4 text-foreground">Featured Projects</h1>
+          <p className="text-xl text-foreground/60 max-w-2xl mx-auto">
             A collection of my open-source projects and contributions
           </p>
         </div>
         
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-2">
           {projects.map((project) => (
-            <div key={project.slug} className="group relative overflow-hidden rounded-2xl bg-zinc-100 dark:bg-zinc-800 p-6 hover:transform hover:scale-[1.02] transition-all duration-300 border border-zinc-200 dark:border-zinc-700">
+            <div key={project.slug} className="group relative overflow-hidden rounded-2xl backdrop-blur-xl bg-glass border border-glass-border p-6 hover:transform hover:scale-[1.02] transition-all duration-300">
               <Link href={`/projects/${project.slug}`} className="block">
                 <div className="h-48 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg mb-4 flex items-center justify-center">
                   <div className="text-white text-4xl font-bold opacity-80">

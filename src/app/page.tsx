@@ -46,8 +46,8 @@ export default function Home() {
         {/* Skills Section */}
         <section className="py-20">
           <div className="text-center mb-16">
-            <h3 className="text-4xl font-bold mb-4 text-zinc-900 dark:text-zinc-100">Technologies & Tools</h3>
-            <p className="text-xl text-zinc-500 dark:text-zinc-400 max-w-2xl mx-auto">
+            <h3 className="text-4xl font-bold mb-4 text-foreground">Technologies & Tools</h3>
+            <p className="text-xl text-foreground/60 max-w-2xl mx-auto">
               A versatile toolkit for building robust, scalable, and intelligent applications
             </p>
           </div>
@@ -80,7 +80,6 @@ export default function Home() {
           </div>
         </section>
       </main>
-      <Footer />
     </div>
   );
 }

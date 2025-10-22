@@ -30,10 +30,10 @@ export default function ContactPage() {
     <div className="pt-24 pb-16">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-zinc-900 dark:text-white mb-4">
+          <h1 className="text-4xl font-bold text-foreground mb-4">
             Get In Touch
           </h1>
-          <p className="text-xl text-zinc-600 dark:text-zinc-300 max-w-2xl mx-auto">
+          <p className="text-xl text-foreground/60 max-w-2xl mx-auto">
             Have a project in mind or want to collaborate? I'd love to hear from you.
           </p>
         </div>
