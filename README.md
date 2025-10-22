@@ -16,11 +16,13 @@ A modern and responsive portfolio website built with Next.js, TypeScript, and Ta
 
 The website uses a combination of hardcoded data and MDX files for content:
 
-- **Projects**: Currently using hardcoded data in `src/app/projects/page.tsx` with MDX files for individual project pages
+- **Projects**: Using hardcoded data in `src/app/projects/page.tsx` with MDX files for individual project pages
 - **Blog Posts**: Add `.mdx` files to `src/content/blog/` with frontmatter
 
 ### Project Structure:
-Projects are defined in the projects page component and have corresponding MDX files for detailed views.
+- Project cards are fully clickable and navigate to individual project pages
+- GitHub and live demo links work independently without navigation conflicts
+- Individual project pages are rendered from MDX files in `src/content/projects/`
 
 ## Development
 

@@ -40,10 +40,10 @@ export default function ProjectsPage() {
         
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-2">
           {projects.map((project) => (
-            <Link 
-              href={`/projects/${project.slug}`}
+            <div 
               key={project.slug} 
-              className="group relative overflow-hidden rounded-2xl bg-zinc-100 dark:bg-zinc-800 p-6 hover:transform hover:scale-[1.02] transition-all duration-300 border border-zinc-200 dark:border-zinc-700 block cursor-pointer"
+              className="group relative overflow-hidden rounded-2xl bg-zinc-100 dark:bg-zinc-800 p-6 hover:transform hover:scale-[1.02] transition-all duration-300 border border-zinc-200 dark:border-zinc-700 cursor-pointer"
+              onClick={() => window.location.href = `/projects/${project.slug}`}
             >
               <div className="h-48 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg mb-4 flex items-center justify-center">
                 <div className="text-white text-4xl font-bold opacity-80">
@@ -55,7 +55,7 @@ export default function ProjectsPage() {
                 <h3 className="text-xl font-semibold text-zinc-900 dark:text-zinc-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                   {project.title}
                 </h3>
-                <div className="flex gap-2">
+                <div className="flex gap-2" onClick={(e) => e.stopPropagation()}>
                   {project.githubUrl && (
                     <a 
                       href={project.githubUrl} 
@@ -112,7 +112,7 @@ export default function ProjectsPage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
               </div>
-            </Link>
+            </div>
           ))}
         </div>
         
