@@ -2,10 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { promises as fs } from 'fs';
-import { join } from 'path';
-import matter from 'gray-matter';
-import { useState, useEffect } from 'react';
+import { useState, useMemo } from 'react';
 import { Search } from 'lucide-react';
 
 interface BlogPost {
@@ -20,78 +17,28 @@ interface BlogPost {
   featured?: boolean;
 }
 
-function calculateReadingTime(content: string): string {
-  const wordsPerMinute = 200;
-  const words = content.split(/\s+/).length;
-  const minutes = Math.ceil(words / wordsPerMinute);
-  return `${minutes} min read`;
+interface BlogPageProps {
+  posts: BlogPost[];
 }
 
-async function getBlogPosts(): Promise<BlogPost[]> {
-  const blogDirectory = join(process.cwd(), 'src', 'content', 'blog');
-  
-  try {
-    const files = await fs.readdir(blogDirectory);
-    const posts = await Promise.all(
-      files
-        .filter(file => file.endsWith('.mdx'))
-        .map(async (file) => {
-          const slug = file.replace(/\.mdx$/, '');
-          const fullPath = join(blogDirectory, file);
-          const fileContents = await fs.readFile(fullPath, 'utf8');
-          const { data, content } = matter(fileContents);
-          
-          return {
-            slug,
-            title: data.title || `Blog Post ${slug}`,
-            description: data.description || 'No description available.',
-            date: data.date || 'Unknown date',
-            image: data.image || '/vercel.svg',
-            category: data.category || 'Uncategorized',
-            tags: data.tags || [],
-            readingTime: calculateReadingTime(content),
-            featured: data.featured || false,
-          };
-        })
-    );
-    
-    // Sort posts by date in descending order
-    return posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-  } catch (error) {
-    console.error('Error reading blog posts:', error);
-    return [];
-  }
-}
-
-export default function BlogPage() {
-  const [posts, setPosts] = useState<BlogPost[]>([]);
-  const [filteredPosts, setFilteredPosts] = useState<BlogPost[]>([]);
+export default function BlogPageClient({ posts }: BlogPageProps) {
   const [searchQuery, setSearchQuery] = useState('');
-  const [featuredPosts, setFeaturedPosts] = useState<BlogPost[]>([]);
-  const [regularPosts, setRegularPosts] = useState<BlogPost[]>([]);
-  const categories = [...new Set(posts.map(post => post.category).filter(Boolean))];
-
-  useEffect(() => {
-    async function loadPosts() {
-      const loadedPosts = await getBlogPosts();
-      setPosts(loadedPosts);
-      setFilteredPosts(loadedPosts);
-      setFeaturedPosts(loadedPosts.filter(post => post.featured));
-      setRegularPosts(loadedPosts.filter(post => !post.featured));
-    }
-    loadPosts();
-  }, []);
-
-  useEffect(() => {
+  
+  // Use useMemo to optimize filtering
+  const { filteredPosts, featuredPosts, regularPosts, categories } = useMemo(() => {
     const filtered = posts.filter(post => 
       post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       post.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
       post.tags?.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase())) ||
       post.category?.toLowerCase().includes(searchQuery.toLowerCase())
     );
-    setFilteredPosts(filtered);
-    setFeaturedPosts(filtered.filter(post => post.featured));
-    setRegularPosts(filtered.filter(post => !post.featured));
+    
+    return {
+      filteredPosts: filtered,
+      featuredPosts: filtered.filter(post => post.featured),
+      regularPosts: filtered.filter(post => !post.featured),
+      categories: [...new Set(posts.map(post => post.category).filter(Boolean))]
+    };
   }, [searchQuery, posts]);
 
   return (
@@ -247,4 +194,68 @@ function PostCard({ post }: { post: BlogPost }) {
       </article>
     </Link>
   );
+}
+import { promises as fs } from 'fs';
+import { join } from 'path';
+import matter from 'gray-matter';
+import BlogPageClient from './page-client';
+
+interface BlogPost {
+  slug: string;
+  title: string;
+  description: string;
+  date: string;
+  image?: string;
+  category?: string;
+  tags?: string[];
+  readingTime?: string;
+  featured?: boolean;
+}
+
+function calculateReadingTime(content: string): string {
+  const wordsPerMinute = 200;
+  const words = content.split(/\s+/).length;
+  const minutes = Math.ceil(words / wordsPerMinute);
+  return `${minutes} min read`;
+}
+
+async function getBlogPosts(): Promise<BlogPost[]> {
+  const blogDirectory = join(process.cwd(), 'src', 'content', 'blog');
+  
+  try {
+    const files = await fs.readdir(blogDirectory);
+    const posts = await Promise.all(
+      files
+        .filter(file => file.endsWith('.mdx'))
+        .map(async (file) => {
+          const slug = file.replace(/\.mdx$/, '');
+          const fullPath = join(blogDirectory, file);
+          const fileContents = await fs.readFile(fullPath, 'utf8');
+          const { data, content } = matter(fileContents);
+          
+          return {
+            slug,
+            title: data.title || `Blog Post ${slug}`,
+            description: data.description || 'No description available.',
+            date: data.date || 'Unknown date',
+            image: data.image || '/vercel.svg',
+            category: data.category || 'Uncategorized',
+            tags: data.tags || [],
+            readingTime: calculateReadingTime(content),
+            featured: data.featured || false,
+          };
+        })
+    );
+    
+    // Sort posts by date in descending order
+    return posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  } catch (error) {
+    console.error('Error reading blog posts:', error);
+    return [];
+  }
+}
+
+export default async function BlogPage() {
+  const posts = await getBlogPosts();
+  return <BlogPageClient posts={posts} />;
 }
