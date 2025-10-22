@@ -123,6 +123,59 @@ export default function MusicPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
           {playlists.map((playlist) => (
             <Card key={playlist.id} className="group relative">
+              {/* Embedded Player at the TOP - Always visible but conditionally shows content */}
+              <div className="mb-4">
+                {expandedPlaylist === playlist.id ? (
+                  <>
+                    {isPlayerLoading ? (
+                      <div className="aspect-video rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center">
+                        <div className="text-center p-6">
+                          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-2"></div>
+                          <p className="text-primary text-sm">Loading player...</p>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="aspect-video rounded-xl overflow-hidden">
+                        <iframe
+                          src={playlist.embedUrl}
+                          width="100%"
+                          height="100%"
+                          frameBorder="0"
+                          allow="encrypted-media"
+                          allowFullScreen
+                          style={{ borderRadius: '12px' }}
+                          onLoad={() => setIsPlayerLoading(false)}
+                          onError={() => setPlayerError('Failed to load the player. Please try again.')}
+                        />
+                      </div>
+                    )}
+                    {playerError && (
+                      <div className="mt-2 p-3 bg-red-500/10 border border-red-500/20 rounded-xl">
+                        <p className="text-red-400 text-center text-sm">{playerError}</p>
+                        <div className="flex justify-center mt-2">
+                          <Button
+                            variant="default"
+                            size="sm"
+                            onClick={() => window.open(playlist.url, '_blank')}
+                          >
+                            Open in {getServiceName(playlist.service)}
+                          </Button>
+                        </div>
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <div className="aspect-video rounded-xl bg-gradient-to-br from-primary/10 to-secondary/10 border border-border/50 flex items-center justify-center">
+                    <div className="text-center p-6">
+                      <div className="p-3 bg-primary/20 rounded-full mb-3 inline-block">
+                        <Music2 className="w-6 h-6 text-primary" />
+                      </div>
+                      <p className="text-foreground/60 text-sm">Click "Show Player" to load the player</p>
+                    </div>
+                  </div>
+                )}
+              </div>
+
               {/* Playlist Header */}
               <div className="relative mb-4">
                 <div className="aspect-square rounded-xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center overflow-hidden">
@@ -171,59 +224,6 @@ export default function MusicPage() {
                   {getServiceName(playlist.service)}
                 </div>
               </CardContent>
-
-              {/* Embedded Player - Always visible but conditionally shows content */}
-              <div className="mt-4">
-                {expandedPlaylist === playlist.id ? (
-                  <>
-                    {isPlayerLoading ? (
-                      <div className="aspect-video rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center">
-                        <div className="text-center p-6">
-                          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-2"></div>
-                          <p className="text-primary text-sm">Loading player...</p>
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="aspect-video rounded-xl overflow-hidden">
-                        <iframe
-                          src={playlist.embedUrl}
-                          width="100%"
-                          height="100%"
-                          frameBorder="0"
-                          allow="encrypted-media"
-                          allowFullScreen
-                          style={{ borderRadius: '12px' }}
-                          onLoad={() => setIsPlayerLoading(false)}
-                          onError={() => setPlayerError('Failed to load the player. Please try again.')}
-                        />
-                      </div>
-                    )}
-                    {playerError && (
-                      <div className="mt-2 p-3 bg-red-500/10 border border-red-500/20 rounded-xl">
-                        <p className="text-red-400 text-center text-sm">{playerError}</p>
-                        <div className="flex justify-center mt-2">
-                          <Button
-                            variant="default"
-                            size="sm"
-                            onClick={() => window.open(playlist.url, '_blank')}
-                          >
-                            Open in {getServiceName(playlist.service)}
-                          </Button>
-                        </div>
-                      </div>
-                    )}
-                  </>
-                ) : (
-                  <div className="aspect-video rounded-xl bg-gradient-to-br from-primary/10 to-secondary/10 border border-border/50 flex items-center justify-center">
-                    <div className="text-center p-6">
-                      <div className="p-3 bg-primary/20 rounded-full mb-3 inline-block">
-                        <Music2 className="w-6 h-6 text-primary" />
-                      </div>
-                      <p className="text-foreground/60 text-sm">Click "Play Here" to load the player</p>
-                    </div>
-                  </div>
-                )}
-              </div>
 
               <CardFooter>
                 <div className="flex gap-2 w-full">
