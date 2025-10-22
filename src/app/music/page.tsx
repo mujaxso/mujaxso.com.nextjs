@@ -215,6 +215,14 @@ export default function MusicPage() {
                   variant="outline"
                   size="lg"
                   className="border-white text-white hover:bg-white/10"
+                  onClick={() => window.open('https://music.apple.com/profile/your-profile', '_blank')}
+                >
+                  🍎 Follow on Apple Music
+                </Button>
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="border-white text-white hover:bg-white/10"
                   onClick={() => window.open('https://soundcloud.com/your-profile', '_blank')}
                 >
                   ☁️ Follow on SoundCloud
