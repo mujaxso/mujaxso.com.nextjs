@@ -14,13 +14,12 @@ export default function Home() {
           <div className="max-w-4xl">
             {/* Profile Photo */}
             <div className="flex justify-center mb-8">
-              <div className="w-32 h-32 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center border-4 border-primary/20 overflow-hidden">
-                {/* Use initials as fallback if image doesn't exist */}
-                <div className="w-full h-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center">
-                  <span className="text-white font-bold text-4xl">
-                    MS
-                  </span>
-                </div>
+              <div className="w-48 h-48 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center border-4 border-primary/20 overflow-hidden group hover:border-primary/40 transition-all duration-300">
+                <img 
+                  src="/img/profile.png" 
+                  alt="Mujahid Siyam" 
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                />
               </div>
             </div>
             
