@@ -16,21 +16,21 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <Comp
         className={cn(
-          "inline-flex items-center justify-center rounded-2xl font-medium transition-all duration-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 group relative overflow-hidden",
+          "inline-flex items-center justify-center rounded-2xl font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 group relative overflow-hidden",
           {
-            "bg-gradient-to-r from-primary to-secondary text-white shadow-lg hover:shadow-xl hover:scale-105": 
+            "bg-gradient-to-r from-primary to-secondary text-white shadow-lg hover:shadow-xl hover:scale-105 active:scale-95": 
               variant === "default",
-            "border-2 border-border/50 bg-card/50 text-foreground hover:bg-primary/10 hover:border-primary/50 hover:scale-105":
+            "border-2 border-border/50 bg-card/50 text-foreground hover:bg-primary/10 hover:border-primary/50 hover:scale-105 active:scale-95":
               variant === "outline",
-            "hover:bg-primary/10 text-foreground hover:scale-105": 
+            "hover:bg-primary/10 text-foreground hover:scale-105 active:scale-95": 
               variant === "ghost",
             "text-primary underline-offset-4 hover:underline": 
               variant === "link",
           },
           {
-            "h-8 px-3 text-sm": size === "sm",
-            "h-10 px-4 py-2": size === "md",
-            "h-12 px-6 text-lg": size === "lg",
+            "h-9 px-4 py-2 text-sm": size === "sm",
+            "h-10 px-6 py-3": size === "md",
+            "h-11 px-8 py-4 text-lg": size === "lg",
           },
           className
         )}
