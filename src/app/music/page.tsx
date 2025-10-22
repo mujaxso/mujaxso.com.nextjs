@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { ExternalLink, Play, Music2, X } from "lucide-react"
 import { Button } from "../components/ui/Button"
 import { Card, CardContent, CardFooter } from "../components/ui/Card"
@@ -18,9 +18,10 @@ interface Playlist {
 }
 
 export default function MusicPage() {
-  const [expandedPlaylist, setExpandedPlaylist] = useState<string | null>(null)
+  // Show the first playlist by default when the page loads
+  const [expandedPlaylist, setExpandedPlaylist] = useState<string | null>("1")
   const [playerError, setPlayerError] = useState<string | null>(null)
-  const [isPlayerLoading, setIsPlayerLoading] = useState(false)
+  const [isPlayerLoading, setIsPlayerLoading] = useState(true)
 
   // Replace these with your actual playlist URLs
   const playlists: Playlist[] = [
@@ -48,6 +49,17 @@ export default function MusicPage() {
     }
   ]
 
+  // Set loading to false after a delay when a playlist is expanded
+  useEffect(() => {
+    if (expandedPlaylist) {
+      setIsPlayerLoading(true)
+      const timer = setTimeout(() => {
+        setIsPlayerLoading(false)
+      }, 1000)
+      return () => clearTimeout(timer)
+    }
+  }, [expandedPlaylist])
+
   const togglePlaylist = (playlistId: string) => {
     if (expandedPlaylist === playlistId) {
       setExpandedPlaylist(null)
@@ -55,11 +67,6 @@ export default function MusicPage() {
     } else {
       setExpandedPlaylist(playlistId)
       setPlayerError(null)
-      setIsPlayerLoading(true)
-      // The iframe will handle loading, so we can set loading to false after a short delay
-      setTimeout(() => {
-        setIsPlayerLoading(false)
-      }, 500)
     }
   }
 
@@ -165,46 +172,58 @@ export default function MusicPage() {
                 </div>
               </CardContent>
 
-              {/* Embedded Player - Shows when expanded */}
-              {expandedPlaylist === playlist.id && (
-                <div className="mt-4">
-                  {isPlayerLoading ? (
-                    <div className="aspect-video rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center">
-                      <div className="text-center p-6">
-                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-2"></div>
-                        <p className="text-primary text-sm">Loading player...</p>
+              {/* Embedded Player - Always visible but conditionally shows content */}
+              <div className="mt-4">
+                {expandedPlaylist === playlist.id ? (
+                  <>
+                    {isPlayerLoading ? (
+                      <div className="aspect-video rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center">
+                        <div className="text-center p-6">
+                          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-2"></div>
+                          <p className="text-primary text-sm">Loading player...</p>
+                        </div>
                       </div>
-                    </div>
-                  ) : (
-                    <div className="aspect-video rounded-xl overflow-hidden">
-                      <iframe
-                        src={playlist.embedUrl}
-                        width="100%"
-                        height="100%"
-                        frameBorder="0"
-                        allow="encrypted-media"
-                        allowFullScreen
-                        style={{ borderRadius: '12px' }}
-                        onError={() => setPlayerError('Failed to load the player. Please try again.')}
-                      />
-                    </div>
-                  )}
-                  {playerError && (
-                    <div className="mt-2 p-3 bg-red-500/10 border border-red-500/20 rounded-xl">
-                      <p className="text-red-400 text-center text-sm">{playerError}</p>
-                      <div className="flex justify-center mt-2">
-                        <Button
-                          variant="default"
-                          size="sm"
-                          onClick={() => window.open(playlist.url, '_blank')}
-                        >
-                          Open in {getServiceName(playlist.service)}
-                        </Button>
+                    ) : (
+                      <div className="aspect-video rounded-xl overflow-hidden">
+                        <iframe
+                          src={playlist.embedUrl}
+                          width="100%"
+                          height="100%"
+                          frameBorder="0"
+                          allow="encrypted-media"
+                          allowFullScreen
+                          style={{ borderRadius: '12px' }}
+                          onLoad={() => setIsPlayerLoading(false)}
+                          onError={() => setPlayerError('Failed to load the player. Please try again.')}
+                        />
                       </div>
+                    )}
+                    {playerError && (
+                      <div className="mt-2 p-3 bg-red-500/10 border border-red-500/20 rounded-xl">
+                        <p className="text-red-400 text-center text-sm">{playerError}</p>
+                        <div className="flex justify-center mt-2">
+                          <Button
+                            variant="default"
+                            size="sm"
+                            onClick={() => window.open(playlist.url, '_blank')}
+                          >
+                            Open in {getServiceName(playlist.service)}
+                          </Button>
+                        </div>
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <div className="aspect-video rounded-xl bg-gradient-to-br from-primary/10 to-secondary/10 border border-border/50 flex items-center justify-center">
+                    <div className="text-center p-6">
+                      <div className="p-3 bg-primary/20 rounded-full mb-3 inline-block">
+                        <Music2 className="w-6 h-6 text-primary" />
+                      </div>
+                      <p className="text-foreground/60 text-sm">Click "Play Here" to load the player</p>
                     </div>
-                  )}
-                </div>
-              )}
+                  </div>
+                )}
+              </div>
 
               <CardFooter>
                 <div className="flex gap-2 w-full">
@@ -217,12 +236,12 @@ export default function MusicPage() {
                     {expandedPlaylist === playlist.id ? (
                       <>
                         <X className="w-4 h-4 mr-2" />
-                        Close Player
+                        Hide Player
                       </>
                     ) : (
                       <>
                         <Play className="w-4 h-4 mr-2" />
-                        Play Here
+                        Show Player
                       </>
                     )}
                   </Button>
