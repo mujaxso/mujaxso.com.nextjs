@@ -29,14 +29,14 @@ export default function MusicPage() {
   const playlists: Playlist[] = [
     {
       id: "1",
-      title: "Coding Focus",
-      description: "Deep focus tracks for coding sessions and late-night development",
+      title: "CODING FOCUS",
+      description: "Beautiful instrumental music to keep you in the flow as you code or study. Ideal for programming during stressful times.",
       coverUrl: "/api/placeholder/300/300",
       service: "spotify",
-      url: "https://open.spotify.com/playlist/your-playlist-id",
-      embedUrl: "https://open.spotify.com/embed/playlist/your-playlist-id",
-      trackCount: 25,
-      duration: "2h 15m"
+      url: "https://open.spotify.com/playlist/15ngsvOmlTkARCg7ipoNvG",
+      embedUrl: "https://open.spotify.com/embed/playlist/15ngsvOmlTkARCg7ipoNvG",
+      trackCount: 1345,
+      duration: "over 24 hr"
     },
     {
       id: "2",
