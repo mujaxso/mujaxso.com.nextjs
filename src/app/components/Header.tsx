@@ -20,8 +20,8 @@ export default function Header() {
               {[
                 { href: "/projects", label: "Projects" },
                 { href: "/blog", label: "Blog" },
-                { href: "#about", label: "About" },
-                { href: "#contact", label: "Contact" }
+                { href: "/about", label: "About" },
+                { href: "/contact", label: "Contact" }
               ].map((item) => (
                 <li key={item.href}>
                   <Link 
