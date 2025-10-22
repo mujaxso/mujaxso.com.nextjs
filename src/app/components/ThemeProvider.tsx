@@ -2,37 +2,51 @@
 
 import { createContext, useContext, useEffect, useState } from 'react';
 
-type Theme = 'dark' | 'light';
+type Theme = 'dark' | 'light' | 'system';
 
 interface ThemeContextType {
   theme: Theme;
+  resolvedTheme: 'dark' | 'light';
   toggleTheme: () => void;
+  setTheme: (theme: Theme) => void;
 }
 
 const ThemeContext = createContext<ThemeContextType>({
-  theme: 'light',
+  theme: 'system',
+  resolvedTheme: 'light',
   toggleTheme: () => {},
+  setTheme: () => {},
 });
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>('light');
+  const [theme, setThemeState] = useState<Theme>('system');
+  const [resolvedTheme, setResolvedTheme] = useState<'dark' | 'light'>('light');
   const [mounted, setMounted] = useState(false);
+
+  // Get the actual theme to apply (resolving 'system' to either 'dark' or 'light')
+  const getResolvedTheme = (currentTheme: Theme): 'dark' | 'light' => {
+    if (currentTheme === 'system') {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+    return currentTheme;
+  };
 
   useEffect(() => {
     setMounted(true);
-    // Check for saved theme preference or use system preference
-    const savedTheme = localStorage.getItem('theme') as Theme;
-    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
-    const initialTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
-    setTheme(initialTheme);
+    // Check for saved theme preference or default to system
+    const savedTheme = (localStorage.getItem('theme') as Theme) || 'system';
+    setThemeState(savedTheme);
+    setResolvedTheme(getResolvedTheme(savedTheme));
   }, []);
 
   useEffect(() => {
     if (!mounted) return;
     
+    const newResolvedTheme = getResolvedTheme(theme);
+    setResolvedTheme(newResolvedTheme);
+    
     // Apply theme to document
-    if (theme === 'dark') {
+    if (newResolvedTheme === 'dark') {
       document.documentElement.classList.add('dark');
       document.documentElement.style.setProperty('color-scheme', 'dark');
     } else {
@@ -44,16 +58,40 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem('theme', theme);
   }, [theme, mounted]);
 
+  // Listen for system theme changes
+  useEffect(() => {
+    if (!mounted || theme !== 'system') return;
+
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const handleChange = () => {
+      setResolvedTheme(getResolvedTheme('system'));
+    };
+
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, [theme, mounted]);
+
+  const setTheme = (newTheme: Theme) => {
+    setThemeState(newTheme);
+  };
+
   const toggleTheme = () => {
-    const newTheme = theme === 'light' ? 'dark' : 'light';
-    setTheme(newTheme);
+    // Cycle through themes: system -> light -> dark -> system
+    if (theme === 'system') {
+      setThemeState('light');
+    } else if (theme === 'light') {
+      setThemeState('dark');
+    } else {
+      setThemeState('system');
+    }
   };
 
   // Always provide the context, even when not mounted
-  // This prevents the "useTheme must be used within a ThemeProvider" error
   const contextValue = {
-    theme: mounted ? theme : 'light',
+    theme: mounted ? theme : 'system',
+    resolvedTheme: mounted ? resolvedTheme : 'light',
     toggleTheme,
+    setTheme,
   };
 
   return (
