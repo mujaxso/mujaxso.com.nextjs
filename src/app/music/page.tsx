@@ -1,8 +1,9 @@
 "use client"
 
 import { useState } from "react"
-import { ExternalLink, Play, Music2 } from "lucide-react"
+import { ExternalLink, Play, Music2, X } from "lucide-react"
 import { Button } from "../components/ui/Button"
+import { Card, CardContent, CardFooter } from "../components/ui/Card"
 
 interface Playlist {
   id: string
@@ -17,7 +18,7 @@ interface Playlist {
 }
 
 export default function MusicPage() {
-  const [currentPlaylist, setCurrentPlaylist] = useState<Playlist | null>(null)
+  const [expandedPlaylist, setExpandedPlaylist] = useState<string | null>(null)
   const [playerError, setPlayerError] = useState<string | null>(null)
   const [isPlayerLoading, setIsPlayerLoading] = useState(false)
 
@@ -47,19 +48,19 @@ export default function MusicPage() {
     }
   ]
 
-  const playPlaylist = (playlist: Playlist) => {
-    // Reset error state
-    setPlayerError(null)
-    setIsPlayerLoading(true)
-    setCurrentPlaylist(playlist)
-    // The iframe will handle loading, so we can set loading to false after a short delay
-    setTimeout(() => {
-      setIsPlayerLoading(false)
-    }, 500)
-  }
-
-  const stopPlaylist = () => {
-    setCurrentPlaylist(null)
+  const togglePlaylist = (playlistId: string) => {
+    if (expandedPlaylist === playlistId) {
+      setExpandedPlaylist(null)
+      setPlayerError(null)
+    } else {
+      setExpandedPlaylist(playlistId)
+      setPlayerError(null)
+      setIsPlayerLoading(true)
+      // The iframe will handle loading, so we can set loading to false after a short delay
+      setTimeout(() => {
+        setIsPlayerLoading(false)
+      }, 500)
+    }
   }
 
   const getServiceColor = (service: Playlist["service"]) => {
@@ -111,69 +112,11 @@ export default function MusicPage() {
           </p>
         </div>
 
-        {/* Embedded Player Section */}
-        {currentPlaylist && (
-          <div className="mb-16">
-            <div className="backdrop-blur-xl bg-glass border border-glass-border rounded-2xl p-6">
-              <div className="flex justify-between items-center mb-4">
-                <h3 className="text-2xl font-bold text-foreground">
-                  Now Playing: {currentPlaylist.title}
-                </h3>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={stopPlaylist}
-                >
-                  Close Player
-                </Button>
-              </div>
-              {isPlayerLoading ? (
-                <div className="aspect-video rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center">
-                  <div className="text-center p-6">
-                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
-                    <p className="text-primary">Loading player...</p>
-                  </div>
-                </div>
-              ) : (
-                <div className="aspect-video rounded-xl overflow-hidden">
-                  <iframe
-                    src={currentPlaylist.embedUrl}
-                    width="100%"
-                    height="100%"
-                    frameBorder="0"
-                    allow="encrypted-media"
-                    allowFullScreen
-                    style={{ borderRadius: '12px' }}
-                    onError={() => setPlayerError('Failed to load the player. Please try again.')}
-                  />
-                </div>
-              )}
-              {playerError && (
-                <div className="mt-4 p-4 bg-red-500/10 border border-red-500/20 rounded-xl">
-                  <p className="text-red-400 text-center">{playerError}</p>
-                  <div className="flex justify-center mt-2">
-                    <Button
-                      variant="default"
-                      size="sm"
-                      onClick={() => window.open(currentPlaylist.url, '_blank')}
-                    >
-                      Open in {getServiceName(currentPlaylist.service)}
-                    </Button>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        )}
-
         {/* Playlists Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
           {playlists.map((playlist) => (
-            <div 
-              key={playlist.id}
-              className="group relative backdrop-blur-xl bg-glass border border-glass-border rounded-2xl p-6 hover:scale-105 transition-all duration-500 hover:shadow-xl"
-            >
-              {/* Playlist Cover */}
+            <Card key={playlist.id} className="group relative">
+              {/* Playlist Header */}
               <div className="relative mb-4">
                 <div className="aspect-square rounded-xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center overflow-hidden">
                   <div className="w-full h-full bg-gradient-to-br from-primary/30 to-secondary/30 flex items-center justify-center">
@@ -187,15 +130,14 @@ export default function MusicPage() {
                     variant="default"
                     size="sm"
                     className="rounded-full p-3"
-                    onClick={() => playPlaylist(playlist)}
+                    onClick={() => togglePlaylist(playlist.id)}
                   >
-                    <Play className="w-5 h-5" />
+                    {expandedPlaylist === playlist.id ? <X className="w-5 h-5" /> : <Play className="w-5 h-5" />}
                   </Button>
                 </div>
               </div>
 
-              {/* Playlist Info */}
-              <div className="space-y-3">
+              <CardContent>
                 <div className="flex items-start justify-between">
                   <h3 className="text-xl font-bold text-foreground line-clamp-2">
                     {playlist.title}
@@ -221,18 +163,68 @@ export default function MusicPage() {
                 <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium border ${getServiceColor(playlist.service)}`}>
                   {getServiceName(playlist.service)}
                 </div>
+              </CardContent>
 
-                {/* Action Buttons */}
-                <div className="flex gap-2 mt-4">
+              {/* Embedded Player - Shows when expanded */}
+              {expandedPlaylist === playlist.id && (
+                <div className="mt-4">
+                  {isPlayerLoading ? (
+                    <div className="aspect-video rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center">
+                      <div className="text-center p-6">
+                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-2"></div>
+                        <p className="text-primary text-sm">Loading player...</p>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="aspect-video rounded-xl overflow-hidden">
+                      <iframe
+                        src={playlist.embedUrl}
+                        width="100%"
+                        height="100%"
+                        frameBorder="0"
+                        allow="encrypted-media"
+                        allowFullScreen
+                        style={{ borderRadius: '12px' }}
+                        onError={() => setPlayerError('Failed to load the player. Please try again.')}
+                      />
+                    </div>
+                  )}
+                  {playerError && (
+                    <div className="mt-2 p-3 bg-red-500/10 border border-red-500/20 rounded-xl">
+                      <p className="text-red-400 text-center text-sm">{playerError}</p>
+                      <div className="flex justify-center mt-2">
+                        <Button
+                          variant="default"
+                          size="sm"
+                          onClick={() => window.open(playlist.url, '_blank')}
+                        >
+                          Open in {getServiceName(playlist.service)}
+                        </Button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              <CardFooter>
+                <div className="flex gap-2 w-full">
                   <Button
                     variant="default"
                     size="sm"
                     className="flex-1"
-                    onClick={() => playPlaylist(playlist)}
-                    disabled={currentPlaylist?.id === playlist.id}
+                    onClick={() => togglePlaylist(playlist.id)}
                   >
-                    <Play className="w-4 h-4 mr-2" />
-                    {currentPlaylist?.id === playlist.id ? 'Playing...' : 'Play Here'}
+                    {expandedPlaylist === playlist.id ? (
+                      <>
+                        <X className="w-4 h-4 mr-2" />
+                        Close Player
+                      </>
+                    ) : (
+                      <>
+                        <Play className="w-4 h-4 mr-2" />
+                        Play Here
+                      </>
+                    )}
                   </Button>
                   <Button
                     variant="outline"
@@ -244,39 +236,41 @@ export default function MusicPage() {
                     Open in App
                   </Button>
                 </div>
-              </div>
-            </div>
+              </CardFooter>
+            </Card>
           ))}
         </div>
 
         {/* Call to Action */}
         <div className="text-center">
-          <div className="backdrop-blur-xl bg-gradient-to-r from-primary to-secondary rounded-3xl p-12 border border-glass-border">
-            <h3 className="text-3xl font-bold mb-4 text-white">
-              Follow My Musical Journey
-            </h3>
-            <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">
-              Stay updated with my latest releases, playlists, and musical experiments across all platforms.
-            </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <Button
-                variant="default"
-                size="lg"
-                className="bg-white text-primary hover:bg-white/90"
-                onClick={() => window.open('https://open.spotify.com/user/your-profile', '_blank')}
-              >
-                🎵 Follow on Spotify
-              </Button>
-              <Button
-                variant="outline"
-                size="lg"
-                className="border-white text-white hover:bg-white/10"
-                onClick={() => window.open('https://soundcloud.com/your-profile', '_blank')}
-              >
-                ☁️ Follow on SoundCloud
-              </Button>
+          <Card className="bg-gradient-to-r from-primary to-secondary border-none">
+            <div className="p-12">
+              <h3 className="text-3xl font-bold mb-4 text-white">
+                Follow My Musical Journey
+              </h3>
+              <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">
+                Stay updated with my latest releases, playlists, and musical experiments across all platforms.
+              </p>
+              <div className="flex flex-wrap justify-center gap-4">
+                <Button
+                  variant="default"
+                  size="lg"
+                  className="bg-white text-primary hover:bg-white/90"
+                  onClick={() => window.open('https://open.spotify.com/user/your-profile', '_blank')}
+                >
+                  🎵 Follow on Spotify
+                </Button>
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="border-white text-white hover:bg-white/10"
+                  onClick={() => window.open('https://soundcloud.com/your-profile', '_blank')}
+                >
+                  ☁️ Follow on SoundCloud
+                </Button>
+              </div>
             </div>
-          </div>
+          </Card>
         </div>
       </div>
     </div>
