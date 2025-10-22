@@ -20,9 +20,6 @@ export default function Footer() {
             <p className="text-muted-foreground mb-6 max-w-md">
               Building the future with code, AI, and innovative solutions that make a difference.
             </p>
-import { Github, Linkedin, Mail, ExternalLink, Code2, Instagram } from "lucide-react";
-
-// Note: TikTok icon is not available in lucide-react, so we'll use a text label
           </div>
           <div>
             <h4 className="text-foreground font-semibold mb-4">Navigation</h4>
