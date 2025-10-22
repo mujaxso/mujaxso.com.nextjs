@@ -28,11 +28,11 @@ export default function ModeToggle() {
   if (!mounted) {
     return (
       <button
-        className="p-3 rounded-2xl card-glass border border-border/50 text-foreground/80"
+        className="p-2 rounded-xl card-glass border border-border/50 text-foreground/80"
         aria-label="Loading theme"
         suppressHydrationWarning
       >
-        <div className="w-5 h-5"></div>
+        <div className="w-4 h-4"></div>
       </button>
     );
   }
