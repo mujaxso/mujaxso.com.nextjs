@@ -3,10 +3,6 @@
 import { useState } from "react"
 import { ExternalLink, Play, Music2 } from "lucide-react"
 import { Button } from "../components/ui/Button"
-import dynamic from 'next/dynamic'
-
-// Dynamically import react-player to avoid SSR issues
-const ReactPlayer = dynamic(() => import('react-player'), { ssr: false })
 
 interface Playlist {
   id: string
@@ -22,8 +18,6 @@ interface Playlist {
 
 export default function MusicPage() {
   const [currentPlaylist, setCurrentPlaylist] = useState<Playlist | null>(null)
-  const [isPlaying, setIsPlaying] = useState(false)
-  const [playerKey, setPlayerKey] = useState(0)
   const [playerError, setPlayerError] = useState<string | null>(null)
   const [isPlayerLoading, setIsPlayerLoading] = useState(false)
 
@@ -57,35 +51,15 @@ export default function MusicPage() {
     // Reset error state
     setPlayerError(null)
     setIsPlayerLoading(true)
-    // Stop current playback first
-    setIsPlaying(false)
-    
-    // Use setTimeout to ensure the previous player is properly unmounted
+    setCurrentPlaylist(playlist)
+    // The iframe will handle loading, so we can set loading to false after a short delay
     setTimeout(() => {
-      setCurrentPlaylist(playlist)
-      setPlayerKey(prev => prev + 1) // Force new player instance
-      // Don't set isPlaying to true immediately - let the player handle it
-    }, 100)
+      setIsPlayerLoading(false)
+    }, 500)
   }
 
   const stopPlaylist = () => {
-    setIsPlaying(false)
-    // Don't immediately remove currentPlaylist to avoid abrupt unmounting
-    setTimeout(() => {
-      setCurrentPlaylist(null)
-    }, 100)
-  }
-
-  const handlePlayerReady = () => {
-    // Player is ready, now we can safely start playback
-    setIsPlayerLoading(false)
-    setIsPlaying(true)
-  }
-
-  const handlePlayerError = (error: any) => {
-    console.error('Player error:', error)
-    setIsPlaying(false)
-    setPlayerError('Failed to load the player. Please try again or open the playlist in the app directly.')
+    setCurrentPlaylist(null)
   }
 
   const getServiceColor = (service: Playlist["service"]) => {
@@ -153,19 +127,7 @@ export default function MusicPage() {
                   Close Player
                 </Button>
               </div>
-              {playerError ? (
-                <div className="aspect-video rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center">
-                  <div className="text-center p-6">
-                    <p className="text-red-400 mb-4">{playerError}</p>
-                    <Button
-                      variant="default"
-                      onClick={() => window.open(currentPlaylist.url, '_blank')}
-                    >
-                      Open in {getServiceName(currentPlaylist.service)}
-                    </Button>
-                  </div>
-                </div>
-              ) : isPlayerLoading ? (
+              {isPlayerLoading ? (
                 <div className="aspect-video rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center">
                   <div className="text-center p-6">
                     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
@@ -174,48 +136,30 @@ export default function MusicPage() {
                 </div>
               ) : (
                 <div className="aspect-video rounded-xl overflow-hidden">
-                  <ReactPlayer
-                    key={playerKey} // Force new instance when key changes
-                    url={currentPlaylist.embedUrl}
+                  <iframe
+                    src={currentPlaylist.embedUrl}
                     width="100%"
                     height="100%"
-                    playing={isPlaying}
-                    controls={true}
+                    frameBorder="0"
+                    allow="encrypted-media"
+                    allowFullScreen
                     style={{ borderRadius: '12px' }}
-                    onReady={handlePlayerReady}
-                    onError={handlePlayerError}
-                    onPlay={() => setIsPlaying(true)}
-                    onPause={() => setIsPlaying(false)}
-                    onEnded={() => setIsPlaying(false)}
-                    config={{
-                      youtube: {
-                        playerVars: { 
-                          showinfo: 1,
-                          rel: 0,
-                          modestbranding: 1
-                        }
-                      },
-                      soundcloud: {
-                        options: {
-                          show_artwork: true,
-                          buying: false,
-                          liking: false,
-                          download: false,
-                          sharing: false,
-                          show_comments: false,
-                          show_playcount: false,
-                          show_user: false
-                        }
-                      },
-                      spotify: {
-                        attributes: {
-                          style: { borderRadius: '12px', width: '100%', height: '100%' },
-                          frameBorder: 0,
-                          allow: 'encrypted-media'
-                        }
-                      }
-                    }}
+                    onError={() => setPlayerError('Failed to load the player. Please try again.')}
                   />
+                </div>
+              )}
+              {playerError && (
+                <div className="mt-4 p-4 bg-red-500/10 border border-red-500/20 rounded-xl">
+                  <p className="text-red-400 text-center">{playerError}</p>
+                  <div className="flex justify-center mt-2">
+                    <Button
+                      variant="default"
+                      size="sm"
+                      onClick={() => window.open(currentPlaylist.url, '_blank')}
+                    >
+                      Open in {getServiceName(currentPlaylist.service)}
+                    </Button>
+                  </div>
                 </div>
               )}
             </div>
@@ -285,10 +229,10 @@ export default function MusicPage() {
                     size="sm"
                     className="flex-1"
                     onClick={() => playPlaylist(playlist)}
-                    disabled={currentPlaylist?.id === playlist.id && isPlaying}
+                    disabled={currentPlaylist?.id === playlist.id}
                   >
                     <Play className="w-4 h-4 mr-2" />
-                    {currentPlaylist?.id === playlist.id && isPlaying ? 'Playing...' : 'Play Here'}
+                    {currentPlaylist?.id === playlist.id ? 'Playing...' : 'Play Here'}
                   </Button>
                   <Button
                     variant="outline"
