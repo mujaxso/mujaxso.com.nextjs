@@ -6,6 +6,7 @@ import { join } from 'path';
 import matter from 'gray-matter';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import Author from '../../components/Author';
+import { Suspense } from 'react';
 
 function calculateReadingTime(content: string): string {
   const wordsPerMinute = 200;
@@ -78,20 +79,20 @@ async function getBlogPosts() {
 }
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
-  // Await the params to ensure they're resolved
-  const resolvedParams = await params;
-  
-  // Validate that slug exists
-  if (!resolvedParams?.slug) {
-    console.error('Slug is undefined or null');
-    notFound();
-  }
-  
-  console.log('Rendering blog post:', resolvedParams.slug);
-  const blogDirectory = join(process.cwd(), 'src', 'content', 'blog');
-  const fullPath = join(blogDirectory, `${resolvedParams.slug}.mdx`);
-  
   try {
+    // Await the params to ensure they're resolved
+    const resolvedParams = await params;
+    
+    // Validate that slug exists
+    if (!resolvedParams?.slug) {
+      console.error('Slug is undefined or null');
+      notFound();
+    }
+    
+    console.log('Rendering blog post:', resolvedParams.slug);
+    const blogDirectory = join(process.cwd(), 'src', 'content', 'blog');
+    const fullPath = join(blogDirectory, `${resolvedParams.slug}.mdx`);
+    
     // Check if the file exists first
     await fs.access(fullPath);
     console.log('File exists:', fullPath);
@@ -157,7 +158,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             )}
           
             <div className="prose prose-xl max-w-none prose-headings:text-card-foreground prose-p:text-card-foreground/80 prose-strong:text-card-foreground prose-em:text-card-foreground prose-a:text-primary hover:prose-a:text-primary-dark prose-blockquote:text-card-foreground/60 prose-blockquote:border-primary prose-ul:text-card-foreground/80 prose-ol:text-card-foreground/80 prose-li:text-card-foreground/80 prose-code:text-card-foreground prose-pre:bg-muted">
-              <MDXRemote source={content} />
+              <Suspense fallback={<div className="text-center py-8">Loading content...</div>}>
+                <MDXContent content={content} />
+              </Suspense>
             </div>
           
             {/* Author Section */}
@@ -184,6 +187,21 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   } catch (error) {
     console.error('Error loading blog post:', error);
     notFound();
+  }
+}
+
+// Separate component for MDX content to handle errors better
+async function MDXContent({ content }: { content: string }) {
+  try {
+    const { MDXRemote } = await import('next-mdx-remote/rsc');
+    return <MDXRemote source={content} />;
+  } catch (error) {
+    console.error('Error rendering MDX:', error);
+    return (
+      <div className="text-center py-8 text-red-500">
+        Error loading content. Please try refreshing the page.
+      </div>
+    );
   }
 }
 
