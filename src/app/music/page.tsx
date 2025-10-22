@@ -135,7 +135,9 @@ export default function MusicPage() {
             <Card key={playlist.id} className="group">
               {/* Playlist Player at the top */}
               <div className="mb-4 rounded-xl overflow-hidden">
-                <div className="aspect-video rounded-xl overflow-hidden bg-primary/10 border border-primary/20">
+                <div className="aspect-video rounded-xl overflow-hidden bg-primary/10 border border-primary/20 relative">
+                  {/* Add a subtle overlay to ensure consistent appearance */}
+                  <div className="absolute inset-0 pointer-events-none rounded-xl border-2 border-transparent"></div>
                   {isPlayerLoading ? (
                     <div className="w-full h-full flex items-center justify-center">
                       <div className="text-center p-6">
@@ -151,7 +153,8 @@ export default function MusicPage() {
                       frameBorder="0"
                       allow="encrypted-media"
                       allowFullScreen
-                      className="w-full h-full"
+                      className="w-full h-full rounded-xl"
+                      style={{ borderRadius: '12px' }}
                       onLoad={() => setIsPlayerLoading(false)}
                       onError={() => setPlayerError('Failed to load the playlist. Please try again.')}
                     />
@@ -175,18 +178,16 @@ export default function MusicPage() {
 
               {/* Playlist Details */}
               <div className="space-y-3">
-                <div className="flex items-start justify-between">
-                  <div>
-                    <h3 className="text-xl font-bold text-foreground mb-2">
-                      {playlist.title}
-                    </h3>
-                    <div className="flex items-center gap-3 mb-2">
-                      <div className="w-6 h-6 flex items-center justify-center">
-                        {getServiceIcon(playlist.service)}
-                      </div>
-                      <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium border ${getServiceColor(playlist.service)}`}>
-                        {getServiceName(playlist.service)}
-                      </div>
+                <div className="text-center">
+                  <h3 className="text-xl font-bold text-foreground mb-2">
+                    {playlist.title}
+                  </h3>
+                  <div className="flex items-center justify-center gap-3 mb-2">
+                    <div className="w-6 h-6 flex items-center justify-center">
+                      {getServiceIcon(playlist.service)}
+                    </div>
+                    <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium border ${getServiceColor(playlist.service)}`}>
+                      {getServiceName(playlist.service)}
                     </div>
                   </div>
                 </div>
