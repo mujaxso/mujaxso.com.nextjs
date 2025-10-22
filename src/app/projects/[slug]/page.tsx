@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { promises as fs } from 'fs';
 import { join } from 'path';
-import MDXContent from '../../../components/MDXContent';
+import MDXContent from '../../components/MDXContent';
 
 export default async function ProjectPage({ params }: { params: { slug: string } }) {
   const projectsDirectory = join(process.cwd(), 'src', 'content', 'projects');
