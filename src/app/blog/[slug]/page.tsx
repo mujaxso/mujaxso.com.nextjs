@@ -164,9 +164,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             {frontmatter.author && (
               <div className="mt-12 pt-8 border-t border-border">
                 <Author 
-                  name={frontmatter.author.name}
-                  image={frontmatter.author.image}
-                  bio={frontmatter.author.bio}
+                  name={frontmatter.author.name || 'Unknown Author'}
+                  image={frontmatter.author.image || '/default-avatar.jpg'}
+                  bio={frontmatter.author.bio || ''}
                   socialLinks={frontmatter.author.socialLinks}
                 />
               </div>

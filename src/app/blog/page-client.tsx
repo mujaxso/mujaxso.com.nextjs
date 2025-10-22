@@ -6,6 +6,18 @@ import { useState, useMemo, useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { Search } from 'lucide-react';
 
+interface Author {
+  name: string;
+  image: string;
+  bio: string;
+  socialLinks?: {
+    github?: string;
+    twitter?: string;
+    linkedin?: string;
+    website?: string;
+  };
+}
+
 interface BlogPost {
   slug: string;
   title: string;
@@ -16,6 +28,7 @@ interface BlogPost {
   tags?: string[];
   readingTime?: string;
   featured?: boolean;
+  author?: Author;
 }
 
 interface BlogPageProps {
@@ -52,7 +65,37 @@ function PostCard({ post }: { post: BlogPost }) {
           <p className="text-muted-foreground mb-4 text-sm line-clamp-2">
             {post.description}
           </p>
-          <div className="flex items-center justify-between text-sm text-muted-foreground mt-auto">
+          
+          {/* Author Information */}
+          {post.author && (
+            <div className="flex items-center gap-3 mt-4 pt-4 border-t border-border">
+              {post.author.image && post.author.image.trim() !== '' ? (
+                <Image
+                  src={post.author.image}
+                  alt={post.author.name}
+                  width={32}
+                  height={32}
+                  className="rounded-full border border-primary/20"
+                />
+              ) : (
+                <div className="w-8 h-8 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center border border-primary/20">
+                  <span className="text-white text-xs font-bold">
+                    {post.author.name.split(' ').map(n => n[0]).join('').toUpperCase()}
+                  </span>
+                </div>
+              )}
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-medium text-card-foreground truncate">
+                  {post.author.name}
+                </p>
+                <p className="text-xs text-muted-foreground truncate">
+                  {post.author.bio}
+                </p>
+              </div>
+            </div>
+          )}
+          
+          <div className="flex items-center justify-between text-sm text-muted-foreground mt-auto pt-4">
             <span>{new Date(post.date).toLocaleDateString()}</span>
             <span>{post.readingTime}</span>
           </div>
@@ -81,6 +124,31 @@ function FeaturedPostCard({ post }: { post: BlogPost }) {
             <h3 className="text-xl font-bold text-white mb-2 line-clamp-2 group-hover:text-secondary transition-colors">
               {post.title}
             </h3>
+            
+            {/* Author Information for Featured Posts */}
+            {post.author && (
+              <div className="flex items-center gap-2 mb-3">
+                {post.author.image && post.author.image.trim() !== '' ? (
+                  <Image
+                    src={post.author.image}
+                    alt={post.author.name}
+                    width={24}
+                    height={24}
+                    className="rounded-full border border-white/20"
+                  />
+                ) : (
+                  <div className="w-6 h-6 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center border border-white/20">
+                    <span className="text-white text-xs font-bold">
+                      {post.author.name.split(' ').map(n => n[0]).join('').toUpperCase()}
+                    </span>
+                  </div>
+                )}
+                <span className="text-white/90 text-sm font-medium">
+                  {post.author.name}
+                </span>
+              </div>
+            )}
+            
             <div className="flex items-center text-white/80 text-sm">
               <span>{new Date(post.date).toLocaleDateString()}</span>
               <span className="mx-2">•</span>
