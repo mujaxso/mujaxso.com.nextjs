@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { promises as fs } from 'fs';
 import { join } from 'path';
-import ReactMarkdown from 'react-markdown';
+import { ReactMarkdown } from 'react-markdown';
 import { Github, ExternalLink } from 'lucide-react';
 
 interface Project {
