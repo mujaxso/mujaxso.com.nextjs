@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { Search } from 'lucide-react';
 
 interface BlogPost {
@@ -93,10 +94,46 @@ function FeaturedPostCard({ post }: { post: BlogPost }) {
 }
 
 export default function BlogPageClient({ posts }: BlogPageProps) {
+  const searchParams = useSearchParams();
+  const router = useRouter();
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedTag, setSelectedTag] = useState<string | null>(null);
   
+  // Read URL parameters on component mount
+  useEffect(() => {
+    const tag = searchParams.get('tag');
+    const category = searchParams.get('category');
+    const search = searchParams.get('search');
+    
+    if (tag) {
+      setSelectedTag(tag);
+      setSearchQuery('');
+    } else if (category) {
+      setSelectedTag(null);
+      setSearchQuery(category);
+    } else if (search) {
+      setSelectedTag(null);
+      setSearchQuery(search);
+    } else {
+      setSelectedTag(null);
+      setSearchQuery('');
+    }
+  }, [searchParams]);
+
+  // Function to update URL parameters
+  const updateURL = (tag: string | null, search: string) => {
+    const params = new URLSearchParams();
+    if (tag) {
+      params.set('tag', tag);
+    } else if (search) {
+      params.set('search', search);
+    }
+    // Update the URL without page reload
+    router.push(`/blog?${params.toString()}`, { scroll: false });
+  };
+
   // Use useMemo to optimize filtering
-  const { filteredPosts, featuredPosts, regularPosts, categories } = useMemo(() => {
+  const { filteredPosts, featuredPosts, regularPosts, categories, allTags } = useMemo(() => {
     // Ensure posts is always an array
     const safePosts = Array.isArray(posts) ? posts : [];
     
@@ -144,7 +181,35 @@ export default function BlogPageClient({ posts }: BlogPageProps) {
               }}
               className="w-full pl-10 pr-4 py-3 bg-white dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-600 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-zinc-900 dark:text-zinc-100"
             />
+            {(searchQuery || selectedTag) && (
+              <button
+                onClick={() => {
+                  setSearchQuery('');
+                  setSelectedTag(null);
+                  updateURL(null, '');
+                }}
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200"
+              >
+                ✕
+              </button>
+            )}
           </div>
+          {(searchQuery || selectedTag) && (
+            <div className="text-center mt-2 text-sm text-zinc-500">
+              Showing results for:{" "}
+              {selectedTag ? `#${selectedTag}` : `"${searchQuery}"`}
+              <button
+                onClick={() => {
+                  setSearchQuery('');
+                  setSelectedTag(null);
+                  updateURL(null, '');
+                }}
+                className="ml-2 text-blue-500 hover:text-blue-600"
+              >
+                Clear filters
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Categories - Display Only */}
