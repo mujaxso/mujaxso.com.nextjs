@@ -56,7 +56,7 @@ export default async function BlogPage() {
             <article key={post.slug} className="group rounded-2xl overflow-hidden bg-zinc-100 dark:bg-zinc-800 hover:transform hover:scale-[1.02] transition-all">
               <div className="h-48 bg-zinc-200 dark:bg-zinc-700 rounded-lg mb-4 overflow-hidden">
                 <Image 
-                  src={post.image} 
+                  src={post.image || '/vercel.svg'} 
                   alt={`${post.title} cover`} 
                   width={400} 
                   height={200} 
