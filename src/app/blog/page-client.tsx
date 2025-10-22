@@ -279,7 +279,7 @@ function BlogPageContent({ posts }: BlogPageProps) {
 
   return (
     <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <main className="w-full max-w-none px-4 sm:px-6 lg:px-8 py-20">
         <div className="text-center mb-16">
           <h1 className="text-5xl md:text-6xl font-bold mb-6">
             Blog
@@ -417,7 +417,7 @@ function BlogPageContent({ posts }: BlogPageProps) {
             {searchQuery ? `Search Results (${filteredPosts.length})` : 'All Posts'}
           </h2>
           {filteredPosts.length > 0 ? (
-            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            <div className="w-full grid gap-8 md:grid-cols-2 lg:grid-cols-3">
               {regularPosts.map((post) => (
                 <PostCard 
                   key={post.slug} 
@@ -452,7 +452,7 @@ import { Suspense } from 'react';
 function BlogPageFallback() {
   return (
     <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <main className="w-full max-w-none px-4 sm:px-6 lg:px-8 py-20">
         <div className="text-center mb-16">
           <h1 className="text-5xl md:text-6xl font-bold mb-6">
             Blog
