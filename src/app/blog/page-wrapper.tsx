@@ -1,7 +1,7 @@
 import { promises as fs } from 'fs';
 import { join } from 'path';
 import matter from 'gray-matter';
-import BlogPage from './page';
+import BlogPage from './page-client';
 
 interface BlogPost {
   slug: string;
