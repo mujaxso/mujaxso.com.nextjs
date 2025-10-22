@@ -23,6 +23,13 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     
     const initialTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
     setTheme(initialTheme);
+    
+    // Apply theme to document immediately
+    if (initialTheme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
   }, []);
 
   useEffect(() => {
@@ -40,16 +47,16 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   }, [theme, mounted]);
 
   const toggleTheme = () => {
-    setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
   };
 
-  // Prevent flash of unstyled content by not rendering until mounted
+  // To prevent hydration mismatch, render with the initial theme until mounted
+  // But this can still cause a flash, so we'll use a different approach
   if (!mounted) {
-    return (
-      <ThemeContext.Provider value={{ theme: 'light', toggleTheme }}>
-        {children}
-      </ThemeContext.Provider>
-    );
+    // Return children without theme context to prevent hydration mismatch
+    // The actual theme is applied to the HTML element above
+    return <>{children}</>;
   }
 
   return (

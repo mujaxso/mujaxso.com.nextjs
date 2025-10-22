@@ -3,6 +3,11 @@
 import Link from "next/link";
 import { Github, Linkedin, Mail, ExternalLink, Code2 } from "lucide-react";
 
+"use client";
+
+import Link from "next/link";
+import { Github, Linkedin, Mail, ExternalLink, Code2 } from "lucide-react";
+
 export default function Footer() {
   return (
     <footer className="backdrop-blur-xl bg-card border-t border-border">

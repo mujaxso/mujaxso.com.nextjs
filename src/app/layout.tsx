@@ -42,12 +42,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className="transition-colors duration-300">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased font-sans`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased font-sans bg-background text-foreground`}
       >
         <ThemeProvider>
-          <div className="flex flex-col min-h-screen layout-container">
+          <div className="flex flex-col min-h-screen">
             <Header />
             <main className="flex-1">
               {children}

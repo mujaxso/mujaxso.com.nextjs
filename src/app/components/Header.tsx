@@ -3,6 +3,13 @@ import ModeToggle from "./ModeToggle";
 import Search from "./Search";
 import { Code2 } from "lucide-react";
 
+"use client";
+
+import Link from "next/link";
+import ModeToggle from "./ModeToggle";
+import Search from "./Search";
+import { Code2 } from "lucide-react";
+
 export default function Header() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-card/80 border-b border-border">
@@ -27,7 +34,7 @@ export default function Header() {
                 <li key={item.href}>
                   <Link 
                     href={item.href} 
-                    className="text-card-foreground/80 hover:text-primary transition-all duration-300 font-medium hover:scale-105"
+                    className="text-foreground/80 hover:text-primary transition-all duration-300 font-medium hover:scale-105"
                   >
                     {item.label}
                   </Link>
