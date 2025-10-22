@@ -78,18 +78,18 @@ export default async function BlogPage() {
           </p>
         </div>
 
-        {/* Categories */}
+        {/* Categories - Display Only */}
         <div className="flex flex-wrap gap-3 mb-12 justify-center">
-          <button className="px-4 py-2 rounded-full bg-blue-500 text-white text-sm font-medium">
+          <div className="px-4 py-2 rounded-full bg-blue-500 text-white text-sm font-medium">
             All Posts
-          </button>
+          </div>
           {categories.map((category) => (
-            <button
+            <div
               key={category}
-              className="px-4 py-2 rounded-full bg-zinc-200 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 text-sm font-medium hover:bg-zinc-300 dark:hover:bg-zinc-700 transition-colors"
+              className="px-4 py-2 rounded-full bg-zinc-200 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 text-sm font-medium"
             >
               {category}
-            </button>
+            </div>
           ))}
         </div>
 
@@ -121,70 +121,71 @@ export default async function BlogPage() {
 
 function FeaturedPostCard({ post }: { post: BlogPost }) {
   return (
-    <article className="group relative rounded-2xl overflow-hidden bg-white dark:bg-zinc-800 shadow-lg hover:shadow-xl transition-all duration-300">
-      <div className="aspect-[16/9] relative overflow-hidden">
-        <Image 
-          src={post.image || '/vercel.svg'} 
-          alt={`${post.title} cover`} 
-          fill
-          className="object-cover group-hover:scale-105 transition-transform duration-300"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-        <div className="absolute bottom-4 left-4 right-4">
-          <span className="inline-block px-3 py-1 bg-blue-500 text-white text-xs font-medium rounded-full mb-3">
-            {post.category}
-          </span>
-          <h3 className="text-xl font-bold text-white mb-2 line-clamp-2">
-            <Link href={`/blog/${post.slug}`} className="hover:text-blue-200 transition-colors">
+    <Link href={`/blog/${post.slug}`} className="block">
+      <article className="group relative rounded-2xl overflow-hidden bg-white dark:bg-zinc-800 shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] cursor-pointer">
+        <div className="aspect-[16/9] relative overflow-hidden">
+          <Image 
+            src={post.image || '/vercel.svg'} 
+            alt={`${post.title} cover`} 
+            fill
+            className="object-cover group-hover:scale-110 transition-transform duration-500"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+          <div className="absolute bottom-6 left-6 right-6">
+            <span className="inline-block px-3 py-1 bg-blue-500 text-white text-xs font-medium rounded-full mb-3">
+              {post.category}
+            </span>
+            <h3 className="text-xl font-bold text-white mb-2 line-clamp-2 group-hover:text-blue-200 transition-colors">
               {post.title}
-            </Link>
-          </h3>
-          <div className="flex items-center text-white/80 text-sm">
-            <span>{new Date(post.date).toLocaleDateString()}</span>
-            <span className="mx-2">•</span>
-            <span>{post.readingTime}</span>
+            </h3>
+            <div className="flex items-center text-white/80 text-sm">
+              <span>{new Date(post.date).toLocaleDateString()}</span>
+              <span className="mx-2">•</span>
+              <span>{post.readingTime}</span>
+            </div>
           </div>
         </div>
-      </div>
-    </article>
+      </article>
+    </Link>
   );
 }
 
 function PostCard({ post }: { post: BlogPost }) {
   return (
-    <article className="group rounded-2xl overflow-hidden bg-white dark:bg-zinc-800 shadow-md hover:shadow-lg transition-all duration-300">
-      <div className="aspect-[4/3] relative overflow-hidden">
-        <Image 
-          src={post.image || '/vercel.svg'} 
-          alt={`${post.title} cover`} 
-          fill
-          className="object-cover group-hover:scale-105 transition-transform duration-300"
-        />
-      </div>
-      <div className="p-6">
-        <div className="flex items-center gap-2 mb-3">
-          <span className="px-2 py-1 bg-zinc-100 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-400 text-xs font-medium rounded">
-            {post.category}
-          </span>
-          {post.tags?.slice(0, 2).map((tag) => (
-            <span key={tag} className="px-2 py-1 bg-zinc-100 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-400 text-xs font-medium rounded">
-              {tag}
+    <Link href={`/blog/${post.slug}`} className="block">
+      <article className="group rounded-2xl overflow-hidden bg-white dark:bg-zinc-800 shadow-md hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer h-full flex flex-col">
+        <div className="aspect-[4/3] relative overflow-hidden">
+          <Image 
+            src={post.image || '/vercel.svg'} 
+            alt={`${post.title} cover`} 
+            fill
+            className="object-cover group-hover:scale-110 transition-transform duration-300"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        </div>
+        <div className="p-6 flex-1 flex flex-col">
+          <div className="flex items-center gap-2 mb-3">
+            <span className="px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-xs font-medium rounded">
+              {post.category}
             </span>
-          ))}
-        </div>
-        <h3 className="text-lg font-semibold mb-2 text-zinc-900 dark:text-zinc-100 group-hover:text-blue-500 dark:group-hover:text-blue-400 transition-colors line-clamp-2">
-          <Link href={`/blog/${post.slug}`}>
+            {post.tags?.slice(0, 2).map((tag) => (
+              <span key={tag} className="px-2 py-1 bg-zinc-100 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-400 text-xs font-medium rounded">
+                {tag}
+              </span>
+            ))}
+          </div>
+          <h3 className="text-lg font-semibold mb-2 text-zinc-900 dark:text-zinc-100 group-hover:text-blue-500 dark:group-hover:text-blue-400 transition-colors line-clamp-2 flex-1">
             {post.title}
-          </Link>
-        </h3>
-        <p className="text-zinc-600 dark:text-zinc-400 mb-4 text-sm line-clamp-2">
-          {post.description}
-        </p>
-        <div className="flex items-center justify-between text-sm text-zinc-500 dark:text-zinc-500">
-          <span>{new Date(post.date).toLocaleDateString()}</span>
-          <span>{post.readingTime}</span>
+          </h3>
+          <p className="text-zinc-600 dark:text-zinc-400 mb-4 text-sm line-clamp-2">
+            {post.description}
+          </p>
+          <div className="flex items-center justify-between text-sm text-zinc-500 dark:text-zinc-500 mt-auto">
+            <span>{new Date(post.date).toLocaleDateString()}</span>
+            <span>{post.readingTime}</span>
+          </div>
         </div>
-      </div>
-    </article>
+      </article>
+    </Link>
   );
 }

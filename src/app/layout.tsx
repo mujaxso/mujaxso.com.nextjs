@@ -22,6 +22,8 @@ export const metadata: Metadata = {
     description: "Software Engineer | AI/ML Engineer | Data Scientist | DevSecOps",
     type: "website",
   },
+  robots: "index, follow",
+  manifest: "/manifest.json",
 };
 
 export const viewport = {
@@ -41,7 +43,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased font-sans`}
       >
-        {children}
+        <div className="flex flex-col min-h-screen">
+          <Header />
+          <main className="flex-1">
+            {children}
+          </main>
+          <Footer />
+        </div>
       </body>
     </html>
   );
