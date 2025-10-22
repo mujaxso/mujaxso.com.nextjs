@@ -27,6 +27,11 @@ export const metadata: Metadata = {
   },
   robots: "index, follow",
   manifest: "/manifest.json",
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+    apple: '/apple-touch-icon.png',
+  },
 };
 
 export const viewport = {
