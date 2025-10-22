@@ -7,8 +7,8 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 
 export default async function ProjectPage({ params }: { params: { slug: string } }) {
   // Validate that slug exists
-  if (!params.slug) {
-    console.error('Slug is undefined');
+  if (!params?.slug) {
+    console.error('Slug is undefined or null');
     notFound();
   }
   
@@ -17,12 +17,20 @@ export default async function ProjectPage({ params }: { params: { slug: string }
   const fullPath = join(projectsDirectory, `${params.slug}.mdx`);
   
   try {
-    // Check if the file exists and read its content
-    const fileContents = await fs.readFile(fullPath, 'utf8');
+    // Check if the file exists first
+    await fs.access(fullPath);
     console.log('File exists:', fullPath);
     
+    // Read and parse the file
+    const fileContents = await fs.readFile(fullPath, 'utf8');
     const { data: frontmatter, content } = matter(fileContents);
     console.log('Frontmatter:', frontmatter);
+    
+    // Validate required frontmatter
+    if (!frontmatter.title) {
+      console.error('Missing title in frontmatter');
+      notFound();
+    }
     
     return (
       <div className="min-h-screen bg-zinc-50 font-sans dark:bg-zinc-900 transition-colors duration-300">
