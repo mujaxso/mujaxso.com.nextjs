@@ -116,7 +116,7 @@ export default function MusicPage() {
         {/* Header */}
         <div className="text-center mb-16">
           <div className="flex justify-center mb-6">
-            <div className="p-4 bg-gradient-to-r from-primary to-secondary rounded-2xl">
+            <div className="p-4 bg-gradient-to-r from-primary to-secondary rounded-2xl flex items-center justify-center">
               <Music2 className="w-8 h-8 text-white" />
             </div>
           </div>
@@ -134,10 +134,10 @@ export default function MusicPage() {
           {playlists.map((playlist) => (
             <Card key={playlist.id} className="group">
               {/* Playlist Player at the top */}
-              <div className="mb-4">
-                <div className="aspect-video rounded-xl overflow-hidden">
+              <div className="mb-4 rounded-xl overflow-hidden">
+                <div className="aspect-video rounded-xl overflow-hidden bg-primary/10 border border-primary/20">
                   {isPlayerLoading ? (
-                    <div className="w-full h-full bg-primary/10 border border-primary/20 flex items-center justify-center">
+                    <div className="w-full h-full flex items-center justify-center">
                       <div className="text-center p-6">
                         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-2"></div>
                         <p className="text-primary text-sm">Loading...</p>
@@ -151,7 +151,7 @@ export default function MusicPage() {
                       frameBorder="0"
                       allow="encrypted-media"
                       allowFullScreen
-                      style={{ borderRadius: '12px' }}
+                      className="w-full h-full"
                       onLoad={() => setIsPlayerLoading(false)}
                       onError={() => setPlayerError('Failed to load the playlist. Please try again.')}
                     />
@@ -181,7 +181,7 @@ export default function MusicPage() {
                       {playlist.title}
                     </h3>
                     <div className="flex items-center gap-3 mb-2">
-                      <div className="w-6 h-6">
+                      <div className="w-6 h-6 flex items-center justify-center">
                         {getServiceIcon(playlist.service)}
                       </div>
                       <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium border ${getServiceColor(playlist.service)}`}>
