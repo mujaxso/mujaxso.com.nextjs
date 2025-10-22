@@ -23,18 +23,24 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   // Initialize theme from localStorage or default to dark
   useEffect(() => {
     setMounted(true);
-    const savedTheme = localStorage.getItem('theme') as Theme;
-    // Always default to dark theme
-    const initialTheme = savedTheme || 'dark';
-    setThemeState(initialTheme);
-    
-    // Apply theme immediately
-    if (initialTheme === 'dark') {
+    try {
+      const savedTheme = localStorage.getItem('theme') as Theme;
+      // Always default to dark theme
+      const initialTheme = savedTheme || 'dark';
+      setThemeState(initialTheme);
+      
+      // Apply theme immediately
+      if (initialTheme === 'dark') {
+        document.documentElement.classList.add('dark');
+        document.documentElement.style.setProperty('color-scheme', 'dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+        document.documentElement.style.setProperty('color-scheme', 'light');
+      }
+    } catch (error) {
+      // Fallback to dark theme if any error occurs
       document.documentElement.classList.add('dark');
       document.documentElement.style.setProperty('color-scheme', 'dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-      document.documentElement.style.setProperty('color-scheme', 'light');
     }
   }, []);
 
