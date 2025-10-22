@@ -5,6 +5,16 @@ import createMDX from '@next/mdx'
 const nextConfig: NextConfig = {
   reactCompiler: true,
   pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
+  experimental: {
+    turbo: {
+      rules: {
+        '*.svg': {
+          loaders: ['@svgr/webpack'],
+          as: '*.js',
+        },
+      },
+    },
+  },
 };
 
 const withMDX = createMDX({

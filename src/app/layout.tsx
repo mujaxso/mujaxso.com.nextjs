@@ -13,13 +13,20 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "John Doe | Portfolio",
-  description: "Creative developer and designer building immersive web experiences",
+  title: "Mujahid Siyam | Portfolio",
+  description: "Software Engineer | AI/ML Engineer | Data Scientist | DevSecOps building cutting-edge solutions",
+  keywords: ["software engineer", "AI/ML", "data science", "DevSecOps", "full-stack developer"],
+  authors: [{ name: "Mujahid Siyam" }],
+  openGraph: {
+    title: "Mujahid Siyam | Portfolio",
+    description: "Software Engineer | AI/ML Engineer | Data Scientist | DevSecOps",
+    type: "website",
+  },
 };
 
 export const viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: dark)", color: "#000000" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
     { media: "(prefers-color-scheme: light)", color: "#ffffff" },
   ],
 };
@@ -30,9 +37,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased font-sans`}
       >
         {children}
       </body>
