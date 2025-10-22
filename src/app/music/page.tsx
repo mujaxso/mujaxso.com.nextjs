@@ -81,6 +81,18 @@ export default function MusicPage() {
     setLoadingStates(initialLoadingStates)
   }, [])
 
+  const handlePlayerLoad = (playlistId: string) => {
+    setLoadingStates(prev => ({ ...prev, [playlistId]: false }))
+  }
+
+  const handlePlayerError = (playlistId: string) => {
+    setLoadingStates(prev => ({ ...prev, [playlistId]: false }))
+    setPlayerErrors(prev => ({ 
+      ...prev, 
+      [playlistId]: 'Failed to load the playlist. Please try again.' 
+    }))
+  }
+
   const getServiceColor = (service: Playlist["service"]) => {
     switch (service) {
       case "spotify": return "bg-green-500/20 text-green-400 border-green-500/30"
