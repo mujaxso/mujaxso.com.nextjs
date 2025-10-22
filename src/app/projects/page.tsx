@@ -40,7 +40,11 @@ export default function ProjectsPage() {
         
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-2">
           {projects.map((project) => (
-            <div key={project.slug} className="group relative overflow-hidden rounded-2xl bg-zinc-100 dark:bg-zinc-800 p-6 hover:transform hover:scale-[1.02] transition-all duration-300 border border-zinc-200 dark:border-zinc-700">
+            <Link 
+              href={`/projects/${project.slug}`}
+              key={project.slug} 
+              className="group relative overflow-hidden rounded-2xl bg-zinc-100 dark:bg-zinc-800 p-6 hover:transform hover:scale-[1.02] transition-all duration-300 border border-zinc-200 dark:border-zinc-700 block cursor-pointer"
+            >
               <div className="h-48 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg mb-4 flex items-center justify-center">
                 <div className="text-white text-4xl font-bold opacity-80">
                   {project.title.split(' ').map(word => word[0]).join('').toUpperCase()}
@@ -102,16 +106,13 @@ export default function ProjectsPage() {
                 </div>
               )}
               
-              <Link 
-                href={`/projects/${project.slug}`}
-                className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium transition-colors"
-              >
+              <div className="inline-flex items-center text-blue-600 dark:text-blue-400 group-hover:text-blue-700 dark:group-hover:text-blue-300 font-medium transition-colors">
                 View Project
                 <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
-              </Link>
-            </div>
+              </div>
+            </Link>
           ))}
         </div>
         

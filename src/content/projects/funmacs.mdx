@@ -1,0 +1,110 @@
+---
+title: "FunMacs - Modern Emacs Configuration"
+description: "Yet Another Lightweight Emacs Configuration, Using KISS philosophy"
+date: "2025-10-22"
+category: "Development Tools"
+tags: ["emacs", "lsp", "tree-sitter", "editor", "configuration"]
+githubUrl: "https://github.com/mujaxso/funmacs"
+liveUrl: "https://funmacs.mujaxso.com"
+featured: true
+---
+
+# 🧠 FunMacs — Modern Emacs, Simplified
+
+**Skip the configuration rabbit hole.** Funmacs is a production-ready Emacs setup with modern tooling baked in—LSP integration using eglot, tree-sitter parsing, and a refined completion experience. Its modular core/ and modules/ architecture means you can extend or strip down features without breaking anything.
+
+## ✨ Highlights
+
+- 🚀 **Zero Setup** — Start coding instantly with pre-configured defaults
+- 🧩 **Modular Design** — Enable or disable features with minimal effort
+- ⚙️ **Modern Toolchain** — Tree-sitter, Eglot, and Corfu baked in
+- 🎯 **Optimized for Productivity** — Smart defaults and minimal distractions
+- 🧘 **Clean Aesthetic** — A distraction-free, beautiful interface
+
+## 🎨 UI & Aesthetics
+
+- 🪄 Minimal interface — no unnecessary menu/tool bars
+- ⚡ **Doom modeline** for rich status info with Nerd Font icons
+- 💡 **Which-key** integration to guide you through keybindings
+- 🎨 **Custom themes** for both light and dark modes
+- 🧘 Clean typography and layout for long coding sessions
+
+## 🧠 Completion System
+
+| Component | Description |
+|-----------|-------------|
+| **Vertico** | Lightweight and fast minibuffer completion UI |
+| **Orderless** | Fuzzy, flexible, and intuitive matching style |
+| **Corfu** | Pop-up completion menu for inline suggestions |
+| **Embark** | Contextual actions for completion items |
+| **Cape** | Adds additional completion sources |
+| **Nerd Icons Corfu** | Displays icons alongside completion candidates |
+
+## 🛠 Development Features
+
+- 🧰 **Eglot (LSP)** — Language Server Protocol integration for code intelligence
+- 🌳 **Tree-sitter** — Modern syntax highlighting and structural parsing
+- ⚙️ **Automatic grammar installation** for supported languages
+- ✨ **Apheleia** — Asynchronous and fast code formatting
+- 📦 Language-specific **template snippets** included by default
+
+## 🌍 Supported Languages
+
+Funmacs ships with out-of-the-box configurations for popular programming ecosystems:
+
+### 🧱 C / C++
+- LSP via `clangd` for autocompletion, diagnostics, and symbol navigation
+- Tree-sitter highlighting for precise syntax awareness
+- On-save formatting with `clang-format`
+
+### 🐍 Python
+- LSP powered by `pyright` or `pylsp`
+- Built-in support for virtual environments
+- Automatic formatting with **Black** or **YAPF**
+
+### 🦀 Rust
+- Uses `rust-analyzer` for advanced IDE features
+- Inline diagnostics and code actions
+- Built-in formatter (`rustfmt`) and cargo command shortcuts
+
+### 🐹 Go
+- LSP with `gopls` and on-save formatting
+- Auto-imports and completion for packages
+- Integrated testing workflow via `go test`
+
+### ⚡ Zig
+- LSP via `zls` (Zig Language Server)
+- Tree-sitter grammar for Zig syntax highlighting
+- Formatter support using `zig fmt`
+
+### ⚡ JavaScript & TypeScript
+- LSP via `typescript-language-server`
+- Tree-sitter-based highlighting for JS/TS/JSX/TSX
+- Support for ESLint and Prettier formatting
+
+## 🚀 Installation
+
+Clone directly into your Emacs configuration directory:
+
+```bash
+git clone https://github.com/mujaxso/funmacs.git ~/.config/emacs
+```
+
+## 💖 Support
+
+If you enjoy Funmacs and want to **support ongoing development**, you can:
+
+**Buy me a coffee:** [Buy Me A Coffee](https://buymeacoffee.com/mujaxso)
+
+**Or become a patron on Patreon:** [Patreon](https://patreon.com/mujaxso)
+
+Your support helps keep Funmacs maintained, updated, and evolving.
+
+## 🔗 Related Projects
+
+- [**NEOTE**](https://github.com/mujaxso/neote) — Lightweight next-gen text editor
+- [**MujaOS**](https://github.com/mujaxso/mujaos) — Modern and secure operating system
+
+## ⚖️ License
+
+Funmacs is released under the **MIT License**.
