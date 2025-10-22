@@ -199,7 +199,7 @@ function FeaturedPostCard({ post, setSelectedTag, setSearchQuery, updateURL }: {
   );
 }
 
-export default function BlogPageClient({ posts }: BlogPageProps) {
+function BlogPageContent({ posts }: BlogPageProps) {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState('');
@@ -444,5 +444,11 @@ export default function BlogPageClient({ posts }: BlogPageProps) {
         </section>
       </main>
     </div>
+  );
+}
+
+export default function BlogPageClient({ posts }: BlogPageProps) {
+  return (
+    <BlogPageContent posts={posts} />
   );
 }

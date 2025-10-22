@@ -1,27 +1,17 @@
 "use client"
 
-import { Moon, Sun, Monitor } from "lucide-react";
+import { Moon, Sun } from "lucide-react";
 import { useTheme } from "./ThemeProvider";
 
 export default function ModeToggle() {
-  const { theme, resolvedTheme, toggleTheme } = useTheme();
-
-  // Determine which icon to show based on current theme
-  const getIcon = () => {
-    if (theme === 'system') {
-      return <Monitor className="w-5 h-5" />;
-    }
-    return resolvedTheme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />;
-  };
+  const { theme, toggleTheme } = useTheme();
 
   // Get tooltip text based on current theme
   const getTooltip = () => {
-    if (theme === 'system') {
-      return "System theme (currently " + resolvedTheme + ") - Click to switch to light theme";
-    } else if (theme === 'light') {
+    if (theme === 'light') {
       return "Light theme - Click to switch to dark theme";
     } else {
-      return "Dark theme - Click to switch to system theme";
+      return "Dark theme - Click to switch to light theme";
     }
   };
 
@@ -33,7 +23,7 @@ export default function ModeToggle() {
       title={getTooltip()}
       suppressHydrationWarning
     >
-      {getIcon()}
+      {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
     </button>
   );
 }
