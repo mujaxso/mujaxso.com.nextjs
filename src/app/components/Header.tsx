@@ -14,7 +14,7 @@ export default function Header() {
           <Link href="/" className="flex items-center gap-3 group">
             <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-primary/20 group-hover:border-primary transition-all duration-300">
               <img 
-                src="/img/profile.jpg" 
+                src="/img/profile.png" 
                 alt="Mujahid Siyam" 
                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
               />
