@@ -37,6 +37,7 @@ export default function Home() {
                 { href: "https://twitter.com/mujaxso", icon: "Twitter", label: "Twitter" },
                 { href: "https://instagram.com/mujaxso", icon: "Instagram", label: "Instagram" },
                 { href: "https://tiktok.com/@mujaxso", icon: "TikTok", label: "TikTok" },
+                { href: "https://snapchat.com/add/mujaxso", icon: "Snapchat", label: "Snapchat" },
                 { href: "mailto:contact@mujaxso.com", icon: "Email", label: "Email" }
               ].map((item) => (
                 <a 
