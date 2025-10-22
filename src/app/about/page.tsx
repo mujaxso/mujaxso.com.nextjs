@@ -76,9 +76,9 @@ export default function AboutPage() {
               <h3 className="text-lg font-bold text-foreground mb-4">Languages</h3>
               <div className="space-y-3">
                 {[
-                  { language: "English", level: "Fluent" },
                   { language: "Arabic", level: "Native" },
-                  { language: "Spanish", level: "Intermediate" }
+                  { language: "English", level: "Fluent" },
+                  { language: "French", level: "Intermediate" }
                 ].map((item) => (
                   <div key={item.language} className="flex justify-between items-center">
                     <span className="text-sm text-foreground/80">{item.language}</span>
@@ -199,10 +199,11 @@ export default function AboutPage() {
               <h3 className="text-2xl font-bold text-foreground mb-6">Technologies & Tools</h3>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                 {[
-                  "React/Next.js", "TypeScript", "Python", "Zig", "Nix/NixOS",
-                  "TensorFlow", "PyTorch", "Linux", "AWS", "Docker", 
-                  "Kubernetes", "PostgreSQL", "MongoDB", "GraphQL", "Node.js",
-                  "FastAPI", "Redis", "Git", "Jenkins", "Terraform"
+                  "React/Next.js", "TypeScript", "Python", "C Programming", "Zig", 
+                  "Nix/NixOS", "TensorFlow", "PyTorch", "Linux", "AWS", 
+                  "Docker", "Kubernetes", "Git", "Infrastructure as Code", 
+                  "Terraform", "Ansible", "Nagios", "PostgreSQL", "MongoDB", 
+                  "GraphQL", "Node.js", "FastAPI", "Redis", "Jenkins"
                 ].map((tech) => (
                   <div 
                     key={tech} 
