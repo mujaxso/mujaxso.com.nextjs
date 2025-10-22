@@ -1,39 +1,41 @@
 @import "tailwindcss";
 
 :root {
-  /* Light theme colors */
-  --background: #fafcff;
-  --foreground: #1a1a2e;
-  --primary: #7b61ff;
-  --primary-dark: #6b51ef;
-  --secondary: #00d4aa;
-  --accent: #ff6b9d;
-  --muted: #f1f5f9;
-  --muted-foreground: #64748b;
-  --border: #e2e8f0;
-  --glass: rgba(255, 255, 255, 0.8);
-  --glass-border: rgba(0, 0, 0, 0.1);
-  --glass-dark: rgba(255, 255, 255, 0.9);
-  --card: rgba(255, 255, 255, 0.9);
-  --card-foreground: #1a1a2e;
+  /* Modern 2025 Dark theme (default) */
+  --background: #0a0a0a;
+  --foreground: #fafafa;
+  --primary: #8b5cf6;
+  --primary-dark: #7c3aed;
+  --secondary: #06d6a0;
+  --accent: #f59e0b;
+  --muted: #1f2937;
+  --muted-foreground: #9ca3af;
+  --border: #374151;
+  --glass: rgba(17, 24, 39, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-dark: rgba(0, 0, 0, 0.5);
+  --card: rgba(17, 24, 39, 0.5);
+  --card-foreground: #fafafa;
+  --glow: 0 0 20px rgba(139, 92, 246, 0.15);
 }
 
-.dark {
-  /* Dark theme colors */
-  --background: #0a0a0f;
-  --foreground: #f0f2f5;
-  --primary: #7b61ff;
-  --primary-dark: #6b51ef;
-  --secondary: #00d4aa;
-  --accent: #ff6b9d;
-  --muted: #1a1a2e;
-  --muted-foreground: #a1a1aa;
-  --border: #27272a;
-  --glass: rgba(26, 26, 46, 0.8);
-  --glass-border: rgba(255, 255, 255, 0.1);
-  --glass-dark: rgba(0, 0, 0, 0.3);
-  --card: rgba(26, 26, 46, 0.6);
-  --card-foreground: #f0f2f5;
+.light {
+  /* Modern 2025 Light theme */
+  --background: #fefefe;
+  --foreground: #171717;
+  --primary: #8b5cf6;
+  --primary-dark: #7c3aed;
+  --secondary: #06d6a0;
+  --accent: #f59e0b;
+  --muted: #f8fafc;
+  --muted-foreground: #64748b;
+  --border: #e2e8f0;
+  --glass: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(0, 0, 0, 0.05);
+  --glass-dark: rgba(255, 255, 255, 0.8);
+  --card: rgba(255, 255, 255, 0.6);
+  --card-foreground: #171717;
+  --glow: 0 0 20px rgba(139, 92, 246, 0.1);
 }
 
 @theme inline {
@@ -41,6 +43,31 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+}
+
+/* Enhanced glass morphism effects for 2025 */
+.glass {
+  backdrop-filter: blur(20px) saturate(200%);
+  -webkit-backdrop-filter: blur(20px) saturate(200%);
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glow);
+}
+
+.glass-dark {
+  backdrop-filter: blur(30px) saturate(250%);
+  -webkit-backdrop-filter: blur(30px) saturate(250%);
+  background: var(--glass-dark);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glow);
+}
+
+.card-glass {
+  backdrop-filter: blur(25px) saturate(220%);
+  -webkit-backdrop-filter: blur(25px) saturate(220%);
+  background: var(--card);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glow);
 }
 
 /* Ensure all elements use the CSS variables */
@@ -52,7 +79,17 @@ html, body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), system-ui, sans-serif;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Enhanced animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.float-animation {
+  animation: float 6s ease-in-out infinite;
 }
 
 /* Ensure all pages have proper background and text colors */
@@ -71,6 +108,15 @@ html, body {
 body > * {
   background: var(--background);
   color: var(--foreground);
+}
+
+/* Modern gradient backgrounds */
+.gradient-bg {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+}
+
+.neon-glow {
+  box-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary), 0 0 40px var(--primary);
 }
 
 /* MDX Content Styling */

@@ -18,12 +18,16 @@ export default function ModeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      className="p-2 rounded-lg backdrop-blur-sm bg-card border border-border text-foreground/80 hover:text-primary transition-all duration-300 hover:scale-110"
+      className="p-3 rounded-2xl card-glass border border-border/50 text-foreground/80 hover:text-primary transition-all duration-500 hover:scale-110 hover:rotate-12 hover:shadow-xl group relative overflow-hidden"
       aria-label={getTooltip()}
       title={getTooltip()}
       suppressHydrationWarning
     >
-      {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+      <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
+      {theme === 'dark' ? 
+        <Sun className="w-5 h-5 group-hover:rotate-180 transition-transform duration-700" /> : 
+        <Moon className="w-5 h-5 group-hover:rotate-180 transition-transform duration-700" />
+      }
     </button>
   );
 }

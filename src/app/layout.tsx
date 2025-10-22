@@ -55,8 +55,8 @@ export default function RootLayout({
               (function() {
                 try {
                   var savedTheme = localStorage.getItem('theme');
-                  var systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                  var theme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
+                  // Always default to dark theme
+                  var theme = savedTheme || 'dark';
                   
                   if (theme === 'dark') {
                     document.documentElement.classList.add('dark');
@@ -65,7 +65,11 @@ export default function RootLayout({
                     document.documentElement.classList.remove('dark');
                     document.documentElement.style.setProperty('color-scheme', 'light');
                   }
-                } catch (e) {}
+                } catch (e) {
+                  // If any error occurs, default to dark
+                  document.documentElement.classList.add('dark');
+                  document.documentElement.style.setProperty('color-scheme', 'dark');
+                }
               })();
             `,
           }}
