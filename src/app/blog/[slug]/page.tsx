@@ -2,21 +2,21 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { promises as fs } from 'fs';
 import { join } from 'path';
-import dynamic from 'next/dynamic';
+import matter from 'gray-matter';
+import { MDXRemote } from 'next-mdx-remote/rsc';
 
 export default async function BlogPostPage({ params }: { params: { slug: string } }) {
+  console.log('Rendering blog post:', params.slug);
   const blogDirectory = join(process.cwd(), 'src', 'content', 'blog');
   const fullPath = join(blogDirectory, `${params.slug}.mdx`);
   
   try {
-    // Check if the file exists
-    await fs.access(fullPath);
+    // Check if the file exists and read its content
+    const fileContents = await fs.readFile(fullPath, 'utf8');
+    console.log('File exists:', fullPath);
     
-    // Use dynamic import for MDX files
-    // We need to use a client component wrapper since dynamic imports don't work directly in server components
-    const MDXContent = dynamic(() => import(`@/content/blog/${params.slug}.mdx`), {
-      loading: () => <p>Loading...</p>,
-    });
+    const { data: frontmatter, content } = matter(fileContents);
+    console.log('Frontmatter:', frontmatter);
     
     return (
       <div className="min-h-screen bg-zinc-50 font-sans dark:bg-zinc-900 transition-colors duration-300">
@@ -25,13 +25,21 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
             ← Back to Blog
           </Link>
           <article className="prose dark:prose-invert max-w-none">
-            {/* @ts-expect-error Server Component */}
-            <MDXContent />
+            <h1>{frontmatter.title}</h1>
+            <div className="text-zinc-600 dark:text-zinc-400 mb-8">
+              {new Date(frontmatter.date).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+              })}
+            </div>
+            <MDXRemote source={content} />
           </article>
         </main>
       </div>
     );
   } catch (error) {
+    console.error('Error loading blog post:', error);
     notFound();
   }
 }
