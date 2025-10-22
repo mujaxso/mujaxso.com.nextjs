@@ -1,10 +1,10 @@
 "use client"
 
 import { Moon, Sun } from "lucide-react";
-import { useTheme } from "./ThemeProvider";
+import { useTheme } from "next-themes";
 
 export default function ModeToggle() {
-  const { theme, toggleTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
 
   // Get tooltip text based on current theme
   const getTooltip = () => {
@@ -13,6 +13,10 @@ export default function ModeToggle() {
     } else {
       return "Dark theme - Click to switch to light theme";
     }
+  };
+
+  const toggleTheme = () => {
+    setTheme(theme === 'dark' ? 'light' : 'dark');
   };
 
   return (

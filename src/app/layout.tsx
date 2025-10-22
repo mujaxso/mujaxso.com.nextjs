@@ -48,33 +48,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning className="transition-colors duration-300">
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                try {
-                  var savedTheme = localStorage.getItem('theme');
-                  // Always default to dark theme
-                  var theme = savedTheme || 'dark';
-                  
-                  if (theme === 'dark') {
-                    document.documentElement.classList.add('dark');
-                    document.documentElement.style.setProperty('color-scheme', 'dark');
-                  } else {
-                    document.documentElement.classList.remove('dark');
-                    document.documentElement.style.setProperty('color-scheme', 'light');
-                  }
-                } catch (e) {
-                  // If any error occurs, default to dark
-                  document.documentElement.classList.add('dark');
-                  document.documentElement.style.setProperty('color-scheme', 'dark');
-                }
-              })();
-            `,
-          }}
-        />
-      </head>
+      <head />
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased font-sans bg-background text-foreground transition-colors duration-300`}
       >

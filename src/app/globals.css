@@ -19,7 +19,26 @@
   --glow: 0 0 20px rgba(139, 92, 246, 0.15);
 }
 
-.light {
+:root[class~="dark"] {
+  /* Modern 2025 Dark theme (default) */
+  --background: #0a0a0a;
+  --foreground: #fafafa;
+  --primary: #8b5cf6;
+  --primary-dark: #7c3aed;
+  --secondary: #06d6a0;
+  --accent: #f59e0b;
+  --muted: #1f2937;
+  --muted-foreground: #9ca3af;
+  --border: #374151;
+  --glass: rgba(17, 24, 39, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-dark: rgba(0, 0, 0, 0.5);
+  --card: rgba(17, 24, 39, 0.5);
+  --card-foreground: #fafafa;
+  --glow: 0 0 20px rgba(139, 92, 246, 0.15);
+}
+
+:root[class~="light"] {
   /* Modern 2025 Light theme */
   --background: #fefefe;
   --foreground: #171717;
