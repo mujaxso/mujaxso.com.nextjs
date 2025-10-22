@@ -7,7 +7,7 @@ export default function Footer() {
   return (
     <footer className="backdrop-blur-xl bg-card border-t border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="md:col-span-2">
             <div className="flex items-center gap-3 mb-4">
               <div className="p-2 bg-gradient-to-r from-primary to-secondary rounded-xl backdrop-blur-sm">
@@ -20,21 +20,6 @@ export default function Footer() {
             <p className="text-muted-foreground mb-6 max-w-md">
               Building the future with code, AI, and innovative solutions that make a difference.
             </p>
-          </div>
-          <div>
-            <h4 className="text-foreground font-semibold mb-4">Navigation</h4>
-            <ul className="space-y-3">
-              {['Home', 'Projects', 'Blog', 'About', 'Contact'].map((item) => (
-                <li key={item}>
-                  <Link 
-                    href={item === 'Home' ? '/' : `/${item.toLowerCase()}`} 
-                    className="text-muted-foreground hover:text-primary transition-colors"
-                  >
-                    {item}
-                  </Link>
-                </li>
-              ))}
-            </ul>
           </div>
           <div>
             <h4 className="text-foreground font-semibold mb-4">Connect</h4>
