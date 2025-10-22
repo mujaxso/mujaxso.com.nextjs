@@ -1,17 +1,12 @@
 "use client"
 
-import { useState, useRef, useEffect } from "react"
-import { ExternalLink, Play, Pause, SkipBack, SkipForward, Volume2, Music2 } from "lucide-react"
+import { useState } from "react"
+import { ExternalLink, Play, Music2 } from "lucide-react"
 import { Button } from "../components/ui/Button"
+import dynamic from 'next/dynamic'
 
-interface Track {
-  id: string
-  title: string
-  artist: string
-  duration: string
-  audioUrl: string
-  coverUrl: string
-}
+// Dynamically import react-player to avoid SSR issues
+const ReactPlayer = dynamic(() => import('react-player'), { ssr: false })
 
 interface Playlist {
   id: string
@@ -20,20 +15,16 @@ interface Playlist {
   coverUrl: string
   service: "spotify" | "soundcloud" | "youtube" | "apple"
   url: string
+  embedUrl: string
   trackCount: number
   duration?: string
-  tracks: Track[]
 }
 
 export default function MusicPage() {
   const [currentPlaylist, setCurrentPlaylist] = useState<Playlist | null>(null)
-  const [currentTrackIndex, setCurrentTrackIndex] = useState(0)
   const [isPlaying, setIsPlaying] = useState(false)
-  const [progress, setProgress] = useState(0)
-  const [volume, setVolume] = useState(1)
-  const audioRef = useRef<HTMLAudioElement>(null)
 
-  // Mock playlists with sample tracks - replace with your actual music
+  // Replace these with your actual playlist URLs
   const playlists: Playlist[] = [
     {
       id: "1",
@@ -42,147 +33,54 @@ export default function MusicPage() {
       coverUrl: "/api/placeholder/300/300",
       service: "spotify",
       url: "https://open.spotify.com/playlist/your-playlist-id",
-      trackCount: 3,
-      duration: "15m",
-      tracks: [
-        {
-          id: "1-1",
-          title: "Ambient Coding",
-          artist: "Mujahid Siyam",
-          duration: "5:00",
-          audioUrl: "/audio/sample1.mp3", // Replace with your actual audio files
-          coverUrl: "/api/placeholder/80/80"
-        },
-        {
-          id: "1-2",
-          title: "Focus Flow",
-          artist: "Mujahid Siyam",
-          duration: "5:00",
-          audioUrl: "/audio/sample2.mp3",
-          coverUrl: "/api/placeholder/80/80"
-        },
-        {
-          id: "1-3",
-          title: "Deep Work",
-          artist: "Mujahid Siyam",
-          duration: "5:00",
-          audioUrl: "/audio/sample3.mp3",
-          coverUrl: "/api/placeholder/80/80"
-        }
-      ]
+      embedUrl: "https://open.spotify.com/embed/playlist/your-playlist-id",
+      trackCount: 25,
+      duration: "2h 15m"
     },
     {
       id: "2",
+      title: "Chill Beats",
+      description: "Relaxing electronic and lo-fi beats for creative work",
+      coverUrl: "/api/placeholder/300/300",
+      service: "spotify",
+      url: "https://open.spotify.com/playlist/your-playlist-id",
+      embedUrl: "https://open.spotify.com/embed/playlist/your-playlist-id",
+      trackCount: 18,
+      duration: "1h 45m"
+    },
+    {
+      id: "3",
       title: "My Productions",
       description: "Original music compositions and productions",
       coverUrl: "/api/placeholder/300/300",
       service: "soundcloud",
       url: "https://soundcloud.com/your-profile/sets/your-playlist",
-      trackCount: 3,
-      duration: "15m",
-      tracks: [
-        {
-          id: "2-1",
-          title: "Digital Dreams",
-          artist: "Mujahid Siyam",
-          duration: "4:30",
-          audioUrl: "/audio/sample4.mp3",
-          coverUrl: "/api/placeholder/80/80"
-        },
-        {
-          id: "2-2",
-          title: "Neural Melody",
-          artist: "Mujahid Siyam",
-          duration: "3:45",
-          audioUrl: "/audio/sample5.mp3",
-          coverUrl: "/api/placeholder/80/80"
-        },
-        {
-          id: "2-3",
-          title: "Code Symphony",
-          artist: "Mujahid Siyam",
-          duration: "6:15",
-          audioUrl: "/audio/sample6.mp3",
-          coverUrl: "/api/placeholder/80/80"
-        }
-      ]
+      embedUrl: "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/your-playlist-id",
+      trackCount: 12,
+      duration: "45m"
+    },
+    {
+      id: "4",
+      title: "Inspiration Mix",
+      description: "Songs that inspire my creative process",
+      coverUrl: "/api/placeholder/300/300",
+      service: "youtube",
+      url: "https://music.youtube.com/playlist?list=your-playlist-id",
+      embedUrl: "https://www.youtube.com/embed/videoseries?list=your-playlist-id",
+      trackCount: 30,
+      duration: "3h 20m"
     }
   ]
 
-  const currentTrack = currentPlaylist?.tracks[currentTrackIndex]
-
-  // Audio player controls
-  const togglePlay = () => {
-    if (audioRef.current) {
-      if (isPlaying) {
-        audioRef.current.pause()
-      } else {
-        audioRef.current.play()
-      }
-      setIsPlaying(!isPlaying)
-    }
-  }
-
-  const playTrack = (playlist: Playlist, trackIndex: number = 0) => {
+  const playPlaylist = (playlist: Playlist) => {
     setCurrentPlaylist(playlist)
-    setCurrentTrackIndex(trackIndex)
     setIsPlaying(true)
-    // Audio will start playing when the src is set and play() is called
   }
 
-  const nextTrack = () => {
-    if (currentPlaylist && currentTrackIndex < currentPlaylist.tracks.length - 1) {
-      setCurrentTrackIndex(currentTrackIndex + 1)
-    }
+  const stopPlaylist = () => {
+    setIsPlaying(false)
+    setCurrentPlaylist(null)
   }
-
-  const prevTrack = () => {
-    if (currentPlaylist && currentTrackIndex > 0) {
-      setCurrentTrackIndex(currentTrackIndex - 1)
-    }
-  }
-
-  const handleProgress = (e: React.SyntheticEvent<HTMLAudioElement>) => {
-    const audio = e.target as HTMLAudioElement
-    const progress = (audio.currentTime / audio.duration) * 100
-    setProgress(progress)
-  }
-
-  const handleSeek = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!audioRef.current) return
-    
-    const progressBar = e.currentTarget
-    const clickX = e.clientX - progressBar.getBoundingClientRect().left
-    const width = progressBar.clientWidth
-    const seekTime = (clickX / width) * audioRef.current.duration
-    
-    audioRef.current.currentTime = seekTime
-    setProgress((seekTime / audioRef.current.duration) * 100)
-  }
-
-  const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newVolume = parseFloat(e.target.value)
-    setVolume(newVolume)
-    if (audioRef.current) {
-      audioRef.current.volume = newVolume
-    }
-  }
-
-  // Effect to handle track changes
-  useEffect(() => {
-    if (audioRef.current && currentTrack) {
-      audioRef.current.src = currentTrack.audioUrl
-      audioRef.current.load()
-      if (isPlaying) {
-        audioRef.current.play().catch(console.error)
-      }
-    }
-  }, [currentTrack, isPlaying])
-
-  // Effect to reset progress when track changes
-  useEffect(() => {
-    setProgress(0)
-  }, [currentTrackIndex])
 
   const getServiceColor = (service: Playlist["service"]) => {
     switch (service) {
@@ -233,6 +131,36 @@ export default function MusicPage() {
           </p>
         </div>
 
+        {/* Embedded Player Section */}
+        {currentPlaylist && (
+          <div className="mb-16">
+            <div className="backdrop-blur-xl bg-glass border border-glass-border rounded-2xl p-6">
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="text-2xl font-bold text-foreground">
+                  Now Playing: {currentPlaylist.title}
+                </h3>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={stopPlaylist}
+                >
+                  Close Player
+                </Button>
+              </div>
+              <div className="aspect-video rounded-xl overflow-hidden">
+                <ReactPlayer
+                  url={currentPlaylist.embedUrl}
+                  width="100%"
+                  height="100%"
+                  playing={isPlaying}
+                  controls={true}
+                  style={{ borderRadius: '12px' }}
+                />
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Playlists Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
           {playlists.map((playlist) => (
@@ -254,7 +182,7 @@ export default function MusicPage() {
                     variant="default"
                     size="sm"
                     className="rounded-full p-3"
-                    onClick={() => playTrack(playlist)}
+                    onClick={() => playPlaylist(playlist)}
                   >
                     <Play className="w-5 h-5" />
                   </Button>
@@ -289,141 +217,31 @@ export default function MusicPage() {
                   {getServiceName(playlist.service)}
                 </div>
 
-                {/* Track List */}
-                <div className="mt-4 space-y-2">
-                  {playlist.tracks.map((track, index) => (
-                    <div
-                      key={track.id}
-                      className="flex items-center gap-3 p-2 rounded-lg hover:bg-primary/10 transition-colors cursor-pointer group/track"
-                      onClick={() => playTrack(playlist, index)}
-                    >
-                      <div className="w-8 h-8 rounded bg-primary/20 flex items-center justify-center">
-                        {currentPlaylist?.id === playlist.id && currentTrackIndex === index && isPlaying ? (
-                          <Pause className="w-3 h-3 text-primary" />
-                        ) : (
-                          <Play className="w-3 h-3 text-primary" />
-                        )}
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="text-sm font-medium text-foreground truncate">
-                          {track.title}
-                        </div>
-                        <div className="text-xs text-foreground/60">
-                          {track.artist} • {track.duration}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
+                {/* Action Buttons */}
+                <div className="flex gap-2 mt-4">
+                  <Button
+                    variant="default"
+                    size="sm"
+                    className="flex-1"
+                    onClick={() => playPlaylist(playlist)}
+                  >
+                    <Play className="w-4 h-4 mr-2" />
+                    Play Here
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="flex-1"
+                    onClick={() => window.open(playlist.url, '_blank')}
+                  >
+                    <ExternalLink className="w-4 h-4 mr-2" />
+                    Open in App
+                  </Button>
                 </div>
-
-                {/* Action Button */}
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="w-full mt-4"
-                  onClick={() => window.open(playlist.url, '_blank')}
-                >
-                  <ExternalLink className="w-4 h-4 mr-2" />
-                  Listen on {getServiceName(playlist.service)}
-                </Button>
               </div>
             </div>
           ))}
         </div>
-
-        {/* Music Player */}
-        {currentPlaylist && currentTrack && (
-          <div className="fixed bottom-0 left-0 right-0 backdrop-blur-xl bg-glass border-t border-glass-border p-4">
-            <div className="max-w-7xl mx-auto">
-              <div className="flex items-center gap-4">
-                {/* Track Info */}
-                <div className="flex items-center gap-3 flex-1 min-w-0">
-                  <div className="w-12 h-12 rounded bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
-                    <Music2 className="w-6 h-6 text-primary" />
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <div className="font-medium text-foreground truncate">
-                      {currentTrack.title}
-                    </div>
-                    <div className="text-sm text-foreground/60 truncate">
-                      {currentTrack.artist} • {currentPlaylist.title}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Player Controls */}
-                <div className="flex items-center gap-4">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={prevTrack}
-                    disabled={currentTrackIndex === 0}
-                  >
-                    <SkipBack className="w-4 h-4" />
-                  </Button>
-                  
-                  <Button
-                    variant="default"
-                    size="sm"
-                    className="rounded-full p-3"
-                    onClick={togglePlay}
-                  >
-                    {isPlaying ? (
-                      <Pause className="w-5 h-5" />
-                    ) : (
-                      <Play className="w-5 h-5" />
-                    )}
-                  </Button>
-                  
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={nextTrack}
-                    disabled={currentTrackIndex === currentPlaylist.tracks.length - 1}
-                  >
-                    <SkipForward className="w-4 h-4" />
-                  </Button>
-                </div>
-
-                {/* Progress Bar */}
-                <div className="flex-1 max-w-md">
-                  <div 
-                    className="h-1 bg-foreground/20 rounded-full cursor-pointer"
-                    onClick={handleSeek}
-                  >
-                    <div 
-                      className="h-1 bg-primary rounded-full transition-all duration-100"
-                      style={{ width: `${progress}%` }}
-                    />
-                  </div>
-                </div>
-
-                {/* Volume Control */}
-                <div className="flex items-center gap-2 w-24">
-                  <Volume2 className="w-4 h-4 text-foreground/60" />
-                  <input
-                    type="range"
-                    min="0"
-                    max="1"
-                    step="0.1"
-                    value={volume}
-                    onChange={handleVolumeChange}
-                    className="w-full accent-primary"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Hidden Audio Element */}
-        <audio
-          ref={audioRef}
-          onTimeUpdate={handleProgress}
-          onEnded={nextTrack}
-          onPlay={() => setIsPlaying(true)}
-          onPause={() => setIsPlaying(false)}
-        />
 
         {/* Call to Action */}
         <div className="text-center">
