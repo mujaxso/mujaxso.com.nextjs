@@ -40,16 +40,16 @@ export default function ModeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      className="p-3 rounded-2xl card-glass border border-border/50 text-foreground/80 hover:text-primary transition-all duration-500 hover:scale-110 hover:shadow-xl group relative overflow-hidden pulse-glow"
+      className="p-2 rounded-xl card-glass border border-border/50 text-foreground/80 hover:text-primary transition-all duration-300 hover:scale-105 hover-lift group relative overflow-hidden"
       aria-label={getTooltip()}
       title={getTooltip()}
       suppressHydrationWarning
     >
-      <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 shimmer-effect"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
       <div className="relative z-10">
         {theme === 'dark' ? 
-          <Sun className="w-5 h-5 transition-transform duration-700 group-hover:rotate-180" /> : 
-          <Moon className="w-5 h-5 transition-transform duration-700 group-hover:rotate-180" />
+          <Sun className="w-4 h-4 transition-transform duration-500" /> : 
+          <Moon className="w-4 h-4 transition-transform duration-500" />
         }
       </div>
     </button>
