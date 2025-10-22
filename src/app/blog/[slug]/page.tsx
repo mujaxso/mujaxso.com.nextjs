@@ -41,12 +41,15 @@ export async function generateStaticParams() {
   
   try {
     const files = await fs.readdir(blogDirectory);
-    return files
+    const params = files
       .filter(file => file.endsWith('.mdx'))
       .map(file => ({
         slug: file.replace(/\.mdx$/, ''),
       }));
+    console.log('Generated blog params:', params);
+    return params;
   } catch (error) {
+    console.error('Error generating blog static params:', error);
     return [];
   }
 }
