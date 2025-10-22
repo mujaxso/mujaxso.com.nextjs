@@ -5,6 +5,31 @@ import { ExternalLink, Music2 } from "lucide-react"
 import { Button } from "../components/ui/Button"
 import { Card, CardContent, CardFooter } from "../components/ui/Card"
 
+// Import SVG icons for music services
+const SpotifyIcon = () => (
+  <svg viewBox="0 0 24 24" className="w-6 h-6" fill="currentColor">
+    <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-2-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+  </svg>
+)
+
+const AppleMusicIcon = () => (
+  <svg viewBox="0 0 24 24" className="w-6 h-6" fill="currentColor">
+    <path d="M21.65 2.24a1 1 0 0 0-.8-.2l-13 2A1 1 0 0 0 7 5v10.35A3.45 3.45 0 0 0 5.5 15 3.5 3.5 0 1 0 9 18.5v-7.64l11-1.69v4.18a3.45 3.45 0 0 0-1.5-.35 3.5 3.5 0 1 0 3.5 3.5V3a1 1 0 0 0-.35-.76z"/>
+  </svg>
+)
+
+const SoundCloudIcon = () => (
+  <svg viewBox="0 0 24 24" className="w-6 h-6" fill="currentColor">
+    <path d="M11.56 8.87V17h8.76c.7 0 1.27-.56 1.27-1.26 0-.69-.57-1.25-1.27-1.25h-.08c.05-.23.08-.47.08-.71a2.92 2.92 0 0 0-2.9-2.91c-.49 0-.94.13-1.34.35-.25-2.92-2.73-5.2-5.71-5.2-2.14 0-3.97 1.24-4.84 3.02-.63-.26-1.33-.41-2.07-.41C2.5 8.87 1 10.36 1 12.13c0 1.78 1.5 3.26 3.32 3.26h7.24z"/>
+  </svg>
+)
+
+const YouTubeIcon = () => (
+  <svg viewBox="0 0 24 24" className="w-6 h-6" fill="currentColor">
+    <path d="M19.67 8.12c-.24-.84-.94-1.5-1.83-1.73C16.04 6 12 6 12 6s-4.04 0-5.84.39c-.89.23-1.59.89-1.83 1.73C4 9.91 4 12 4 12s0 2.09.33 3.88c.24.84.94 1.5 1.83 1.73C7.96 18 12 18 12 18s4.04 0 5.84-.39c.89-.23 1.59-.89 1.83-1.73C20 14.09 20 12 20 12s0-2.09-.33-3.88zm-9.35 6.15V9.73l4.47 2.27-4.47 2.27z"/>
+  </svg>
+)
+
 interface Playlist {
   id: string
   title: string
@@ -67,11 +92,11 @@ export default function MusicPage() {
 
   const getServiceIcon = (service: Playlist["service"]) => {
     switch (service) {
-      case "spotify": return "🎵"
-      case "soundcloud": return "☁️"
-      case "apple": return "🍎"
-      case "youtube": return "▶️"
-      default: return "🎵"
+      case "spotify": return <SpotifyIcon />
+      case "soundcloud": return <SoundCloudIcon />
+      case "apple": return <AppleMusicIcon />
+      case "youtube": return <YouTubeIcon />
+      default: return <Music2 className="w-6 h-6" />
     }
   }
 
@@ -156,9 +181,9 @@ export default function MusicPage() {
                       {playlist.title}
                     </h3>
                     <div className="flex items-center gap-3 mb-2">
-                      <span className="text-2xl">
+                      <div className="w-6 h-6">
                         {getServiceIcon(playlist.service)}
-                      </span>
+                      </div>
                       <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium border ${getServiceColor(playlist.service)}`}>
                         {getServiceName(playlist.service)}
                       </div>
@@ -206,26 +231,29 @@ export default function MusicPage() {
                 <Button
                   variant="default"
                   size="lg"
-                  className="bg-white text-primary hover:bg-white/90"
+                  className="bg-white text-primary hover:bg-white/90 flex items-center gap-2"
                   onClick={() => window.open('https://open.spotify.com/user/your-profile', '_blank')}
                 >
-                  🎵 Follow on Spotify
+                  <SpotifyIcon />
+                  Follow on Spotify
                 </Button>
                 <Button
                   variant="outline"
                   size="lg"
-                  className="border-white text-white hover:bg-white/10"
+                  className="border-white text-white hover:bg-white/10 flex items-center gap-2"
                   onClick={() => window.open('https://music.apple.com/profile/your-profile', '_blank')}
                 >
-                  🍎 Follow on Apple Music
+                  <AppleMusicIcon />
+                  Follow on Apple Music
                 </Button>
                 <Button
                   variant="outline"
                   size="lg"
-                  className="border-white text-white hover:bg-white/10"
+                  className="border-white text-white hover:bg-white/10 flex items-center gap-2"
                   onClick={() => window.open('https://soundcloud.com/your-profile', '_blank')}
                 >
-                  ☁️ Follow on SoundCloud
+                  <SoundCloudIcon />
+                  Follow on SoundCloud
                 </Button>
               </div>
             </div>
