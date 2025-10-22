@@ -63,18 +63,27 @@ export default function RootLayout({
                 // Apply CSS variables immediately
                 document.documentElement.style.setProperty('--background', theme === 'dark' ? '#0a0a0f' : '#fafcff');
                 document.documentElement.style.setProperty('--foreground', theme === 'dark' ? '#f0f2f5' : '#1a1a2e');
+                
+                // Apply to all elements
+                const allElements = document.querySelectorAll('*');
+                allElements.forEach(el => {
+                  if (el instanceof HTMLElement) {
+                    el.style.backgroundColor = 'inherit';
+                    el.style.color = 'inherit';
+                  }
+                });
               } catch (e) {}
             `,
           }}
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased font-sans bg-background text-foreground`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased font-sans bg-background text-foreground transition-colors duration-300`}
       >
         <ThemeProvider>
           <div className="flex flex-col min-h-screen">
             <Header />
-            <main className="flex-1">
+            <main className="flex-1 pt-16">
               {children}
             </main>
             <Footer />

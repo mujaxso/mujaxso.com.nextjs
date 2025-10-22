@@ -73,6 +73,78 @@ body > * {
   color: var(--foreground);
 }
 
+/* MDX Content Styling */
+.prose {
+  color: var(--foreground);
+}
+
+.prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+  color: var(--foreground);
+}
+
+.prose p {
+  color: var(--foreground);
+  opacity: 0.9;
+}
+
+.prose strong {
+  color: var(--foreground);
+}
+
+.prose a {
+  color: var(--primary);
+}
+
+.prose a:hover {
+  color: var(--primary-dark);
+}
+
+.prose blockquote {
+  color: var(--foreground);
+  opacity: 0.7;
+  border-left-color: var(--border);
+}
+
+.prose ul, .prose ol {
+  color: var(--foreground);
+  opacity: 0.9;
+}
+
+.prose li {
+  color: var(--foreground);
+  opacity: 0.9;
+}
+
+.prose code {
+  color: var(--foreground);
+  opacity: 0.9;
+  background-color: var(--muted);
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.25rem;
+}
+
+.prose pre {
+  background-color: var(--muted);
+  color: var(--foreground);
+  border: 1px solid var(--border);
+}
+
+.prose table {
+  color: var(--foreground);
+}
+
+.prose thead {
+  border-bottom-color: var(--border);
+}
+
+.prose tbody tr {
+  border-bottom-color: var(--border);
+}
+
+.prose hr {
+  border-color: var(--border);
+}
+
 /* Smooth scrolling */
 html {
   scroll-behavior: smooth;
