@@ -14,9 +14,9 @@ export default function Home() {
             John Doe
           </h1>
           <h2 className="text-2xl md:text-3xl text-zinc-600 dark:text-zinc-300 mb-8">
-            Building digital experiences that merge design & technology
+            Software Engineer | AI/ML Engineer | Data Scientist | DevSecOps
           </h2>
-          <div className="flex gap-4">
+          <div className="flex gap-4 justify-center">
             <Link href="#work" className="px-6 py-3 bg-zinc-900 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 rounded-lg font-medium hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-all">
               View Work
             </Link>
@@ -81,17 +81,18 @@ export default function Home() {
         </section>
         <Image
           className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
+          src="/your-image.jpg"
+          alt="Mujahid Siyam"
           width={100}
-          height={20}
+          height={100}
           priority
         />
         <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
           <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+            Mujahid Siyam
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
+          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400 text-center sm:text-left">
+            Software Engineer | AI/ML Engineer | Data Scientist | DevSecOps<br /><br />
             Looking for a starting point or more instructions? Head over to{" "}
             <a
               href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"

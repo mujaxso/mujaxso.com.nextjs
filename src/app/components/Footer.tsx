@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function Footer() {
   return (
     <footer className="text-center py-8 text-zinc-600 dark:text-zinc-400 border-t border-zinc-200 dark:border-zinc-800 mt-12">
-      <p>© 2024 John Doe. All rights reserved.</p>
+      <p>© 2024 Mujahid Siyam. All rights reserved.</p>
       <div className="flex justify-center gap-4 mt-4">
         <Link href="https://github.com" className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">
           <span className="sr-only">GitHub</span>
