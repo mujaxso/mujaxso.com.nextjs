@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { ArrowRight, Sparkles } from "lucide-react";
@@ -14,13 +15,12 @@ export default function Home() {
             {/* Author Image and Name */}
             <div className="flex items-center justify-center gap-4 mb-8">
               <div className="w-16 h-16 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center border-2 border-primary/20 overflow-hidden">
-                <Image
-                  src="/author-image.jpg" // Replace with your actual image path
-                  alt="Mujahid Siyam"
-                  width={64}
-                  height={64}
-                  className="w-full h-full object-cover"
-                />
+                {/* Use initials as fallback if image doesn't exist */}
+                <div className="w-full h-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center">
+                  <span className="text-white font-bold text-xl">
+                    MS
+                  </span>
+                </div>
               </div>
               <div className="text-left">
                 <p className="text-lg font-semibold text-foreground">Mujahid Siyam</p>
