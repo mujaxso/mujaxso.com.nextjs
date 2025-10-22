@@ -6,6 +6,12 @@ import matter from 'gray-matter';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 
 export default async function ProjectPage({ params }: { params: { slug: string } }) {
+  // Validate that slug exists
+  if (!params.slug) {
+    console.error('Slug is undefined');
+    notFound();
+  }
+  
   console.log('Rendering project:', params.slug);
   const projectsDirectory = join(process.cwd(), 'src', 'content', 'projects');
   const fullPath = join(projectsDirectory, `${params.slug}.mdx`);

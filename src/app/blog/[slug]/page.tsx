@@ -6,6 +6,12 @@ import matter from 'gray-matter';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 
 export default async function BlogPostPage({ params }: { params: { slug: string } }) {
+  // Validate that slug exists
+  if (!params.slug) {
+    console.error('Slug is undefined');
+    notFound();
+  }
+  
   console.log('Rendering blog post:', params.slug);
   const blogDirectory = join(process.cwd(), 'src', 'content', 'blog');
   const fullPath = join(blogDirectory, `${params.slug}.mdx`);
