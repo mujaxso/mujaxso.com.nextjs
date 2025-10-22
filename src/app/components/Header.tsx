@@ -11,11 +11,15 @@ export default function Header() {
           Mujahid Siyam
         </h1>
         <nav className="flex items-center gap-4">
-          <ModeToggle />
           <ul className="flex gap-6">
             <li>
               <Link href="/projects" className="text-zinc-900 dark:text-zinc-100 hover:text-blue-500 dark:hover:text-blue-400 transition-colors">
                 Projects
+              </Link>
+            </li>
+            <li>
+              <Link href="/blog" className="text-zinc-900 dark:text-zinc-100 hover:text-blue-500 dark:hover:text-blue-400 transition-colors">
+                Blog
               </Link>
             </li>
             <li>
@@ -29,6 +33,7 @@ export default function Header() {
               </Link>
             </li>
           </ul>
+          <ModeToggle />
         </nav>
       </div>
     </header>

@@ -9,9 +9,9 @@ export default function Home() {
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <Header />
         {/* Hero Section */}
-        <section className="mb-28">
+        <section className="mb-28 text-center">
           <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
-            John Doe
+            Mujahid Siyam
           </h1>
           <h2 className="text-2xl md:text-3xl text-zinc-600 dark:text-zinc-300 mb-8">
             Software Engineer | AI/ML Engineer | Data Scientist | DevSecOps
