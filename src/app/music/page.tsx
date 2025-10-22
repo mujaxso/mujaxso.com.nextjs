@@ -23,7 +23,8 @@ interface Playlist {
 export default function MusicPage() {
   const [currentPlaylist, setCurrentPlaylist] = useState<Playlist | null>(null)
   const [isPlaying, setIsPlaying] = useState(false)
-  const [playerKey, setPlayerKey] = useState(0) // Add key to force re-render
+  const [playerKey, setPlayerKey] = useState(0)
+  const [playerError, setPlayerError] = useState<string | null>(null)
 
   // Replace these with your actual playlist URLs
   const playlists: Playlist[] = [
@@ -34,7 +35,7 @@ export default function MusicPage() {
       coverUrl: "/api/placeholder/300/300",
       service: "spotify",
       url: "https://open.spotify.com/playlist/15ngsvOmlTkARCg7ipoNvG",
-      embedUrl: "https://open.spotify.com/embed/playlist/15ngsvOmlTkARCg7ipoNvG",
+      embedUrl: "https://open.spotify.com/embed/playlist/15ngsvOmlTkARCg7ipoNvG?utm_source=generator",
       trackCount: 1345,
       duration: "over 24 hr"
     },
@@ -74,6 +75,8 @@ export default function MusicPage() {
   ]
 
   const playPlaylist = (playlist: Playlist) => {
+    // Reset error state
+    setPlayerError(null)
     // Stop current playback first
     setIsPlaying(false)
     
@@ -101,6 +104,7 @@ export default function MusicPage() {
   const handlePlayerError = (error: any) => {
     console.error('Player error:', error)
     setIsPlaying(false)
+    setPlayerError('Failed to load the player. Please try again or open the playlist in the app directly.')
   }
 
   const getServiceColor = (service: Playlist["service"]) => {
@@ -168,20 +172,33 @@ export default function MusicPage() {
                   Close Player
                 </Button>
               </div>
-              <div className="aspect-video rounded-xl overflow-hidden">
-                <ReactPlayer
-                  key={playerKey} // Force new instance when key changes
-                  url={currentPlaylist.embedUrl}
-                  width="100%"
-                  height="100%"
-                  playing={isPlaying}
-                  controls={true}
-                  style={{ borderRadius: '12px' }}
-                  onReady={handlePlayerReady}
-                  onError={handlePlayerError}
-                  onPlay={() => setIsPlaying(true)}
-                  onPause={() => setIsPlaying(false)}
-                  onEnded={() => setIsPlaying(false)}
+              {playerError ? (
+                <div className="aspect-video rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center">
+                  <div className="text-center p-6">
+                    <p className="text-red-400 mb-4">{playerError}</p>
+                    <Button
+                      variant="default"
+                      onClick={() => window.open(currentPlaylist.url, '_blank')}
+                    >
+                      Open in {getServiceName(currentPlaylist.service)}
+                    </Button>
+                  </div>
+                </div>
+              ) : (
+                <div className="aspect-video rounded-xl overflow-hidden">
+                  <ReactPlayer
+                    key={playerKey} // Force new instance when key changes
+                    url={currentPlaylist.embedUrl}
+                    width="100%"
+                    height="100%"
+                    playing={isPlaying}
+                    controls={true}
+                    style={{ borderRadius: '12px' }}
+                    onReady={handlePlayerReady}
+                    onError={handlePlayerError}
+                    onPlay={() => setIsPlaying(true)}
+                    onPause={() => setIsPlaying(false)}
+                    onEnded={() => setIsPlaying(false)}
                   config={{
                     youtube: {
                       playerVars: { 
@@ -204,7 +221,9 @@ export default function MusicPage() {
                     },
                     spotify: {
                       attributes: {
-                        style: { borderRadius: '12px' }
+                        style: { borderRadius: '12px', width: '100%', height: '100%' },
+                        frameBorder: 0,
+                        allow: 'encrypted-media'
                       }
                     }
                   }}
