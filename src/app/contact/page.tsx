@@ -57,27 +57,31 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <h3 className="font-semibold text-zinc-900 dark:text-white">Email</h3>
-                  <p className="text-zinc-600 dark:text-zinc-300">mujahid@example.com</p>
+                  <p className="text-zinc-600 dark:text-zinc-300">contact@mujaxso.com</p>
                 </div>
               </div>
               
               <div className="flex items-center">
                 <div className="p-3 bg-purple-100 dark:bg-purple-900 rounded-lg mr-4">
-                  <Phone className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+                  <Github className="w-6 h-6 text-purple-600 dark:text-purple-400" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-zinc-900 dark:text-white">Phone</h3>
-                  <p className="text-zinc-600 dark:text-zinc-300">+1 (555) 123-4567</p>
+                  <h3 className="font-semibold text-zinc-900 dark:text-white">GitHub</h3>
+                  <a href="https://github.com/mujaxso" className="text-zinc-600 dark:text-zinc-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                    github.com/mujaxso
+                  </a>
                 </div>
               </div>
               
               <div className="flex items-center">
                 <div className="p-3 bg-green-100 dark:bg-green-900 rounded-lg mr-4">
-                  <MapPin className="w-6 h-6 text-green-600 dark:text-green-400" />
+                  <ExternalLink className="w-6 h-6 text-green-600 dark:text-green-400" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-zinc-900 dark:text-white">Location</h3>
-                  <p className="text-zinc-600 dark:text-zinc-300">Based in the Digital World</p>
+                  <h3 className="font-semibold text-zinc-900 dark:text-white">Website</h3>
+                  <a href="https://mujaxso.com" className="text-zinc-600 dark:text-zinc-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                    mujaxso.com
+                  </a>
                 </div>
               </div>
             </div>

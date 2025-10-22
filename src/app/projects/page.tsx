@@ -1,94 +1,33 @@
 import Link from "next/link";
-import { join } from "path";
-import { promises as fs } from "fs";
 import { ExternalLink, Github } from "lucide-react";
 
-interface Project {
-  slug: string;
-  title: string;
-  description: string;
-  date: string;
-  category?: string;
-  tags?: string[];
-  githubUrl?: string;
-  liveUrl?: string;
-  featured?: boolean;
-}
-
-async function getProjects(): Promise<Project[]> {
-  const projectsDirectory = join(process.cwd(), 'src', 'content', 'projects');
-  
-  try {
-    const files = await fs.readdir(projectsDirectory);
-    const projects = await Promise.all(
-      files
-        .filter(file => file.endsWith('.mdx'))
-        .map(async (file) => {
-          const slug = file.replace(/\.mdx$/, '');
-          const filePath = join(projectsDirectory, file);
-          const fileContent = await fs.readFile(filePath, 'utf8');
-          
-          // Extract frontmatter
-          const frontmatterMatch = fileContent.match(/^---\n([\s\S]*?)\n---/);
-          if (!frontmatterMatch) return null;
-          
-          const frontmatter = frontmatterMatch[1];
-          const project: Project = {
-            slug,
-            title: '',
-            description: '',
-            date: '',
-          };
-          
-          // Parse frontmatter
-          frontmatter.split('\n').forEach(line => {
-            const [key, ...valueParts] = line.split(':');
-            if (key && valueParts.length) {
-              const value = valueParts.join(':').trim().replace(/^['"](.*)['"]$/, '$1');
-              switch (key.trim()) {
-                case 'title':
-                  project.title = value;
-                  break;
-                case 'description':
-                  project.description = value;
-                  break;
-                case 'date':
-                  project.date = value;
-                  break;
-                case 'category':
-                  project.category = value;
-                  break;
-                case 'tags':
-                  project.tags = value.split(',').map(tag => tag.trim());
-                  break;
-                case 'githubUrl':
-                  project.githubUrl = value;
-                  break;
-                case 'liveUrl':
-                  project.liveUrl = value;
-                  break;
-                case 'featured':
-                  project.featured = value === 'true';
-                  break;
-              }
-            }
-          });
-          
-          return project;
-        })
-    );
-    
-    return projects.filter((project): project is Project => project !== null)
-                  .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-  } catch (error) {
-    console.error('Error reading projects:', error);
-    return [];
+// Define the project data directly for now
+const projects = [
+  {
+    slug: "funmacs",
+    title: "FunMacs - Modern Emacs Configuration",
+    description: "Yet Another Lightweight Emacs Configuration, Using KISS philosophy",
+    date: "2025-10-22",
+    category: "Development Tools",
+    tags: ["emacs", "lsp", "tree-sitter", "editor", "configuration"],
+    githubUrl: "https://github.com/mujaxso/funmacs",
+    liveUrl: "https://funmacs.mujaxso.com",
+    featured: true
+  },
+  {
+    slug: "mujaos",
+    title: "MujaOS - Modular NixOS Configuration",
+    description: "Lightweight Modular nix configuration for modern systems",
+    date: "2025-10-22",
+    category: "Operating Systems",
+    tags: ["nixos", "linux", "configuration", "flake", "declarative"],
+    githubUrl: "https://github.com/mujaxso/MujaOS",
+    liveUrl: "https://mujaos.mujaxso.com",
+    featured: true
   }
-}
+];
 
-export default async function ProjectsPage() {
-  const projects = await getProjects();
-  
+export default function ProjectsPage() {
   return (
     <div className="min-h-screen bg-zinc-50 font-sans dark:bg-zinc-900 transition-colors duration-300">
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
