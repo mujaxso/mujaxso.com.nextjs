@@ -1,8 +1,12 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import { promises as fs } from 'fs';
 import { join } from 'path';
 import matter from 'gray-matter';
+import { useState, useEffect } from 'react';
+import { Search } from 'lucide-react';
 
 interface BlogPost {
   slug: string;
@@ -59,11 +63,36 @@ async function getBlogPosts(): Promise<BlogPost[]> {
   }
 }
 
-export default async function BlogPage() {
-  const posts = await getBlogPosts();
+export default function BlogPage() {
+  const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [filteredPosts, setFilteredPosts] = useState<BlogPost[]>([]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [featuredPosts, setFeaturedPosts] = useState<BlogPost[]>([]);
+  const [regularPosts, setRegularPosts] = useState<BlogPost[]>([]);
   const categories = [...new Set(posts.map(post => post.category).filter(Boolean))];
-  const featuredPosts = posts.filter(post => post.featured);
-  const regularPosts = posts.filter(post => !post.featured);
+
+  useEffect(() => {
+    async function loadPosts() {
+      const loadedPosts = await getBlogPosts();
+      setPosts(loadedPosts);
+      setFilteredPosts(loadedPosts);
+      setFeaturedPosts(loadedPosts.filter(post => post.featured));
+      setRegularPosts(loadedPosts.filter(post => !post.featured));
+    }
+    loadPosts();
+  }, []);
+
+  useEffect(() => {
+    const filtered = posts.filter(post => 
+      post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      post.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      post.tags?.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      post.category?.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    setFilteredPosts(filtered);
+    setFeaturedPosts(filtered.filter(post => post.featured));
+    setRegularPosts(filtered.filter(post => !post.featured));
+  }, [searchQuery, posts]);
 
   return (
     <div className="min-h-screen bg-zinc-50 font-sans dark:bg-zinc-900 transition-colors duration-300">
@@ -78,17 +107,31 @@ export default async function BlogPage() {
           </p>
         </div>
 
+        {/* Search Bar */}
+        <div className="max-w-md mx-auto mb-12 relative">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-zinc-400 w-5 h-5" />
+            <input
+              type="text"
+              placeholder="Search posts, tags, categories..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-10 pr-4 py-3 bg-white dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-600 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-zinc-900 dark:text-zinc-100"
+            />
+          </div>
+        </div>
+
         {/* Categories - Display Only */}
         <div className="flex flex-wrap gap-3 mb-12 justify-center">
           <div className="px-4 py-2 rounded-full bg-blue-500 text-white text-sm font-medium">
-            All Posts
+            All Posts ({posts.length})
           </div>
           {categories.map((category) => (
             <div
               key={category}
               className="px-4 py-2 rounded-full bg-zinc-200 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 text-sm font-medium"
             >
-              {category}
+              {category} ({posts.filter(post => post.category === category).length})
             </div>
           ))}
         </div>
@@ -107,12 +150,28 @@ export default async function BlogPage() {
 
         {/* All Posts */}
         <section>
-          <h2 className="text-2xl font-bold mb-8 text-zinc-900 dark:text-zinc-100">All Posts</h2>
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {regularPosts.map((post) => (
-              <PostCard key={post.slug} post={post} />
-            ))}
-          </div>
+          <h2 className="text-2xl font-bold mb-8 text-zinc-900 dark:text-zinc-100">
+            {searchQuery ? `Search Results (${filteredPosts.length})` : 'All Posts'}
+          </h2>
+          {filteredPosts.length > 0 ? (
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+              {regularPosts.map((post) => (
+                <PostCard key={post.slug} post={post} />
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-12">
+              <div className="text-zinc-400 dark:text-zinc-500 text-lg mb-4">
+                No posts found matching your search.
+              </div>
+              <button
+                onClick={() => setSearchQuery('')}
+                className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+              >
+                Clear Search
+              </button>
+            </div>
+          )}
         </section>
       </main>
     </div>
