@@ -5,9 +5,16 @@ export function middleware(request: NextRequest) {
   const url = request.nextUrl.clone()
   const host = request.headers.get('host') || 'mujaxso.com'
   
+  // Log for debugging
+  console.log('Host:', host)
+  
   // Handle localhost subdomains (blog.localhost:3000)
   if (host.includes('localhost')) {
-    const subdomain = host.split('.')[0]
+    // Split by '.' and take the first part
+    const parts = host.split('.')
+    const subdomain = parts[0]
+    
+    console.log('Subdomain:', subdomain)
     
     // If accessing localhost directly (no subdomain)
     if (subdomain === 'localhost') {
@@ -31,6 +38,7 @@ export function middleware(request: NextRequest) {
         url.pathname = `/(main)${url.pathname}`
         break
     }
+    console.log('Rewriting to:', url.pathname)
     return NextResponse.rewrite(url)
   }
 

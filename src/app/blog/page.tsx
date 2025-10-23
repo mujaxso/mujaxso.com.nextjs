@@ -1,7 +1,7 @@
 import { promises as fs } from 'fs';
 import { join } from 'path';
 import matter from 'gray-matter';
-import BlogPage from './page-client';
+import BlogPageClient from './page-client';
 
 interface BlogPost {
   slug: string;
@@ -58,24 +58,15 @@ async function getBlogPosts(): Promise<BlogPost[]> {
   }
 }
 
-export default async function BlogPageWrapper() {
+export default async function BlogPage() {
   try {
     const posts = await getBlogPosts();
     // Ensure posts is always an array
     const safePosts = Array.isArray(posts) ? posts : [];
-    return <BlogPage posts={safePosts} />;
+    return <BlogPageClient posts={safePosts} />;
   } catch (error) {
-    console.error('Error in BlogPageWrapper:', error);
+    console.error('Error in BlogPage:', error);
     // Return empty array to prevent crashes
-    return <BlogPage posts={[]} />;
+    return <BlogPageClient posts={[]} />;
   }
-}
-export default function BlogPage() {
-  return (
-    <div>
-      <h1>Blog - Mujahid Siyam</h1>
-      <p>Welcome to my blog! Here I share thoughts on software engineering, AI/ML, and technology.</p>
-      {/* Add your blog content here */}
-    </div>
-  );
 }
