@@ -9,8 +9,41 @@ interface SearchResult {
   type: 'blog' | 'project' | 'page';
 }
 
+// Fallback data in case API endpoints fail
+const fallbackBlogPosts = [
+  { title: 'Getting Started with Next.js', description: 'Learn how to build modern web applications with Next.js', slug: 'getting-started-with-nextjs' },
+  { title: 'React Best Practices', description: 'Essential patterns and practices for React development', slug: 'react-best-practices' },
+  { title: 'Machine Learning Fundamentals', description: 'Introduction to core concepts in machine learning and AI', slug: 'machine-learning-fundamentals' },
+];
+
+const fallbackProjects = [
+  { title: 'E-commerce Platform', description: 'Full-stack e-commerce solution with React and Node.js', slug: 'ecommerce-platform' },
+  { title: 'AI Chat Application', description: 'Real-time chat application with AI-powered responses', slug: 'ai-chat-app' },
+  { title: 'Data Visualization Dashboard', description: 'Interactive dashboard for data analysis and visualization', slug: 'data-dashboard' },
+];
+
+const staticPages: SearchResult[] = [
+  { title: 'Home', description: 'Welcome to my portfolio', href: '/', type: 'page' },
+  { title: 'Projects', description: 'View my projects and work', href: '/projects', type: 'page' },
+  { title: 'Blog', description: 'Read my latest thoughts and insights', href: '/blog', type: 'page' },
+  { title: 'About', description: 'Learn more about me', href: '/about', type: 'page' },
+  { title: 'Contact', description: 'Get in touch with me', href: '/contact', type: 'page' },
+];
+
+async function fetchWithFallback(url: string, fallbackData: any[]) {
+  try {
+    const response = await fetch(url);
+    if (!response.ok) throw new Error('Failed to fetch');
+    return await response.json();
+  } catch (error) {
+    console.error(`Failed to fetch from ${url}:`, error);
+    return fallbackData;
+  }
+}
+
 export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
+  const url = new URL(request.url);
+  const { searchParams } = url;
   const query = searchParams.get('q')?.toLowerCase() || '';
 
   if (!query) {
@@ -18,23 +51,13 @@ export async function GET(request: Request) {
   }
 
   try {
-    // Fetch blog posts and projects from their API endpoints
-    const [blogPostsResponse, projectsResponse] = await Promise.all([
-      fetch(`${process.env.NEXTAUTH_URL || request.nextUrl.origin}/api/blog-posts`),
-      fetch(`${process.env.NEXTAUTH_URL || request.nextUrl.origin}/api/projects`)
+    const baseUrl = process.env.NEXTAUTH_URL || `${url.protocol}//${url.host}`;
+    
+    // Fetch blog posts and projects with fallback
+    const [blogPosts, projects] = await Promise.all([
+      fetchWithFallback(`${baseUrl}/api/blog-posts`, fallbackBlogPosts),
+      fetchWithFallback(`${baseUrl}/api/projects`, fallbackProjects)
     ]);
-
-    const blogPosts = await blogPostsResponse.json();
-    const projects = await projectsResponse.json();
-
-    // Static pages
-    const staticPages: SearchResult[] = [
-      { title: 'Home', description: 'Welcome to my portfolio', href: '/', type: 'page' },
-      { title: 'Projects', description: 'View my projects and work', href: '/projects', type: 'page' },
-      { title: 'Blog', description: 'Read my latest thoughts and insights', href: '/blog', type: 'page' },
-      { title: 'About', description: 'Learn more about me', href: '/about', type: 'page' },
-      { title: 'Contact', description: 'Get in touch with me', href: '/contact', type: 'page' },
-    ];
 
     // Combine all searchable items
     const allItems: SearchResult[] = [
