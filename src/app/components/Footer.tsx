@@ -14,48 +14,23 @@ export default function Footer() {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
-          {/* Contact Form Section - Left */}
-          <div className="md:order-1 order-3">
-            <h3 className="font-bold text-foreground mb-6 text-lg tracking-wide text-center md:text-left">
-              Quick Message
-            </h3>
-            <form action="/api/contact" method="POST" className="space-y-4">
-              <div>
-                <input 
-                  type="text" 
-                  name="name"
-                  placeholder="Your Name"
-                  required
-                  className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary/50 transition-all duration-300 backdrop-blur-sm"
-                />
-              </div>
-              <div>
-                <input 
-                  type="email" 
-                  name="email"
-                  placeholder="Your Email"
-                  required
-                  className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary/50 transition-all duration-300 backdrop-blur-sm"
-                />
-              </div>
-              <div>
-                <textarea 
-                  name="message"
-                  placeholder="Your Message"
-                  rows={3}
-                  required
-                  className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary/50 transition-all duration-300 backdrop-blur-sm resize-none"
-                />
-              </div>
-              <Button 
-                type="submit"
-                variant="default" 
-                size="lg" 
-                className="w-full bg-gradient-to-r from-primary to-secondary text-primary-foreground shadow-lg hover:shadow-xl transition-all duration-300"
-              >
-                Send Message
-              </Button>
-            </form>
+          {/* Connect Section - Left */}
+          <div className="md:order-1 order-2 text-center md:text-left">
+            <h3 className="font-bold text-foreground mb-6 text-lg tracking-wide">Let's Connect</h3>
+            <p className="text-muted-foreground mb-6 text-base leading-relaxed">
+              Ready to bring your next project to life? Let's discuss how we can work together.
+            </p>
+            <Button 
+              variant="outline" 
+              size="lg" 
+              asChild 
+              className="w-full md:w-auto border-white/20 hover:border-white/40 hover:bg-white/10 transition-all duration-300 px-8 py-3 mx-auto md:mx-0"
+            >
+              <a href="mailto:contact@mujaxso.com" className="inline-flex items-center gap-3 text-base font-medium">
+                Get in touch 
+                <ExternalLink className="w-4 h-4" />
+              </a>
+            </Button>
           </div>
 
           {/* About Section - Center */}
@@ -114,23 +89,48 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Connect Section - Right */}
-          <div className="md:order-3 order-2 text-center md:text-left">
-            <h3 className="font-bold text-foreground mb-6 text-lg tracking-wide">Let's Connect</h3>
-            <p className="text-muted-foreground mb-6 text-base leading-relaxed">
-              Ready to bring your next project to life? Let's discuss how we can work together.
-            </p>
-            <Button 
-              variant="outline" 
-              size="lg" 
-              asChild 
-              className="w-full md:w-auto border-white/20 hover:border-white/40 hover:bg-white/10 transition-all duration-300 px-8 py-3 mx-auto md:mx-0"
-            >
-              <a href="mailto:contact@mujaxso.com" className="inline-flex items-center gap-3 text-base font-medium">
-                Get in touch 
-                <ExternalLink className="w-4 h-4" />
-              </a>
-            </Button>
+          {/* Contact Form Section - Right */}
+          <div className="md:order-3 order-3">
+            <h3 className="font-bold text-foreground mb-6 text-lg tracking-wide text-center md:text-left">
+              Quick Message
+            </h3>
+            <form action="/api/contact" method="POST" className="space-y-4">
+              <div>
+                <input 
+                  type="text" 
+                  name="name"
+                  placeholder="Your Name"
+                  required
+                  className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary/50 transition-all duration-300 backdrop-blur-sm"
+                />
+              </div>
+              <div>
+                <input 
+                  type="email" 
+                  name="email"
+                  placeholder="Your Email"
+                  required
+                  className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary/50 transition-all duration-300 backdrop-blur-sm"
+                />
+              </div>
+              <div>
+                <textarea 
+                  name="message"
+                  placeholder="Your Message"
+                  rows={3}
+                  required
+                  className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary/50 transition-all duration-300 backdrop-blur-sm resize-none"
+                />
+              </div>
+              <Button 
+                type="submit"
+                variant="default" 
+                size="lg" 
+                className="w-full bg-gradient-to-r from-primary to-secondary text-primary-foreground shadow-lg hover:shadow-xl transition-all duration-300"
+              >
+                Send Message
+              </Button>
+            </form>
           </div>
         </div>
 
@@ -152,7 +152,7 @@ export default function Footer() {
 
             {/* Tech stack */}
             <div className="flex gap-2 order-3">
-              {['Next.js', 'React', 'TypeScript'].map((tech) => (
+              {['Linux', 'Zig', 'AI/ML', 'DevSecOps'].map((tech) => (
                 <span 
                   key={tech}
                   className="px-3 py-2 bg-white/5 text-muted-foreground text-sm rounded-xl border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all duration-300"
