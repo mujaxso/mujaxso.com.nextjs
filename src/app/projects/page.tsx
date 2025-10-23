@@ -16,6 +16,9 @@ interface Project {
   featured?: boolean;
 }
 
+// Revalidate every hour for ISR
+export const revalidate = 3600;
+
 async function getProjects(): Promise<Project[]> {
   const projectsDirectory = join(process.cwd(), 'src', 'content', 'projects');
   

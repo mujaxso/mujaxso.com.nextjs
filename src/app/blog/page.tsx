@@ -89,3 +89,6 @@ export default async function BlogPage() {
     );
   }
 }
+
+// Revalidate every hour for ISR
+export const revalidate = 3600;
