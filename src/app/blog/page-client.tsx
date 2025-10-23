@@ -80,12 +80,12 @@ export default function BlogPageClient({ posts }: BlogPageProps) {
           </div>
         </div>
 
-        {/* Center the content blocks */}
-        <div className="flex flex-col items-center">
+        {/* Full width content blocks */}
+        <div className="w-full">
 
         {/* Featured Posts and Sort Controls in the same row */}
         {featuredPosts.length > 0 && (
-          <section className="mb-16 w-full max-w-4xl animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
+          <section className="mb-16 w-full animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
             <div className="flex items-center justify-between mb-8">
               {/* Featured Posts on the left */}
               <div className="flex items-center">
@@ -115,7 +115,7 @@ export default function BlogPageClient({ posts }: BlogPageProps) {
                 </select>
               </div>
             </div>
-            <div className="grid gap-8 lg:grid-cols-2">
+            <div className="grid gap-8 lg:grid-cols-2 xl:grid-cols-3">
               {featuredPosts.map((post) => (
                 <FeaturedPostCard 
                   key={post.slug} 
@@ -148,8 +148,8 @@ export default function BlogPageClient({ posts }: BlogPageProps) {
           </div>
         )}
 
-        {/* All Posts - Centered and Highlighted */}
-        <section className="w-full max-w-4xl animate-fade-in-up" style={{ animationDelay: '0.8s' }}>
+        {/* All Posts - Full Width */}
+        <section className="w-full animate-fade-in-up" style={{ animationDelay: '0.8s' }}>
           <div className="flex items-center justify-center mb-8">
             <div className="bg-primary/10 border border-primary/20 rounded-2xl px-6 py-4">
               <h2 className="text-2xl font-bold text-foreground text-center">
@@ -167,7 +167,7 @@ export default function BlogPageClient({ posts }: BlogPageProps) {
           </div>
           
           {filteredPosts.length > 0 ? (
-            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {filteredPosts.map((post) => (
                 <PostCard 
                   key={post.slug} 
