@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Github, Linkedin, Mail, ExternalLink, Code2, Heart, Sparkles } from "lucide-react";
 import { Button } from "./ui/Button";
-import { ModeToggle } from "./ModeToggle";
+import ModeToggle from "./ModeToggle";
 
 export default function Footer() {
   return (
