@@ -63,10 +63,22 @@ export default async function BlogPage() {
     const posts = await getBlogPosts();
     // Ensure posts is always an array
     const safePosts = Array.isArray(posts) ? posts : [];
-    return <BlogPageClient posts={safePosts} />;
+    return (
+      <div>
+        <h1>BLOG PAGE - MUJAHID SIYAM</h1>
+        <p>This is the blog page accessed via blog.mujaxso.com subdomain</p>
+        <BlogPageClient posts={safePosts} />
+      </div>
+    );
   } catch (error) {
     console.error('Error in BlogPage:', error);
     // Return empty array to prevent crashes
-    return <BlogPageClient posts={[]} />;
+    return (
+      <div>
+        <h1>BLOG PAGE - MUJAHID SIYAM</h1>
+        <p>This is the blog page accessed via blog.mujaxso.com subdomain</p>
+        <BlogPageClient posts={[]} />
+      </div>
+    );
   }
 }

@@ -6,7 +6,9 @@ export function middleware(request: NextRequest) {
   const host = request.headers.get('host') || 'mujaxso.com'
   
   // Log for debugging
+  console.log('=== MIDDLEWARE DEBUG ===')
   console.log('Host:', host)
+  console.log('Original pathname:', url.pathname)
   
   // Handle localhost subdomains (blog.localhost:3000)
   if (host.includes('localhost')) {
@@ -18,27 +20,29 @@ export function middleware(request: NextRequest) {
     
     // If accessing localhost directly (no subdomain)
     if (subdomain === 'localhost') {
-      url.pathname = `/(main)${url.pathname}`
+      url.pathname = `/(main)${url.pathname === '/' ? '' : url.pathname}`
+      console.log('Rewriting to main:', url.pathname)
       return NextResponse.rewrite(url)
     }
     
     // Handle subdomains on localhost
     switch (subdomain) {
       case 'blog':
-        url.pathname = `/blog${url.pathname}`
+        url.pathname = `/blog${url.pathname === '/' ? '' : url.pathname}`
         break
       case 'projects':
-        url.pathname = `/projects${url.pathname}`
+        url.pathname = `/projects${url.pathname === '/' ? '' : url.pathname}`
         break
       case 'music':
-        url.pathname = `/music${url.pathname}`
+        url.pathname = `/music${url.pathname === '/' ? '' : url.pathname}`
         break
       default:
         // Default to main site for unknown subdomains
-        url.pathname = `/(main)${url.pathname}`
+        url.pathname = `/(main)${url.pathname === '/' ? '' : url.pathname}`
         break
     }
     console.log('Rewriting to:', url.pathname)
+    console.log('=== END DEBUG ===')
     return NextResponse.rewrite(url)
   }
 
@@ -52,24 +56,24 @@ export function middleware(request: NextRequest) {
   
   // Handle www and main domain
   if (!currentSubdomain || currentSubdomain === 'www') {
-    url.pathname = `/(main)${url.pathname}`
+    url.pathname = `/(main)${url.pathname === '/' ? '' : url.pathname}`
     return NextResponse.rewrite(url)
   }
 
   // Handle other subdomains
   switch (currentSubdomain) {
     case 'blog':
-      url.pathname = `/blog${url.pathname}`
+      url.pathname = `/blog${url.pathname === '/' ? '' : url.pathname}`
       break
     case 'projects':
-      url.pathname = `/projects${url.pathname}`
+      url.pathname = `/projects${url.pathname === '/' ? '' : url.pathname}`
       break
     case 'music':
-      url.pathname = `/music${url.pathname}`
+      url.pathname = `/music${url.pathname === '/' ? '' : url.pathname}`
       break
     default:
       // Default to main site for unknown subdomains
-      url.pathname = `/(main)${url.pathname}`
+      url.pathname = `/(main)${url.pathname === '/' ? '' : url.pathname}`
       break
   }
 
