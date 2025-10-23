@@ -65,38 +65,39 @@ export default function BlogPageClient({ posts }: BlogPageProps) {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
-        {/* Center the entire content */}
-        <div className="flex flex-col items-center">
-          {/* Search, Filters and Sort Controls */}
-          <div className="w-full max-w-4xl flex flex-col lg:flex-row justify-between items-start lg:items-center mb-8 gap-4 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
-            <div className="w-full lg:flex-1">
-              <SearchAndFilters
-                searchQuery={searchQuery}
-                onSearchChange={setSearchQuery}
-                selectedCategory={selectedCategory}
-                onCategoryChange={setSelectedCategory}
-                selectedTag={selectedTag}
-                onTagChange={setSelectedTag}
-                posts={posts}
-              />
-            </div>
-            
-            <div className="flex items-center gap-3 w-full lg:w-auto">
-              <label htmlFor="sort" className="text-sm font-medium text-muted-foreground whitespace-nowrap">
-                Sort by:
-              </label>
-              <select
-                id="sort"
-                value={sortBy}
-                onChange={(e) => handleSortChange(e.target.value)}
-                className="block w-full lg:w-40 rounded-lg border border-border/50 bg-card/50 px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary appearance-none cursor-pointer"
-              >
-                <option value="recent">Most Recent</option>
-                <option value="popular">Most Popular</option>
-                <option value="featured">Featured First</option>
-              </select>
-            </div>
+        {/* Search, Filters and Sort Controls - Centered and outside content block */}
+        <div className="flex flex-col items-center mb-8 gap-4 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
+          <div className="w-full max-w-4xl">
+            <SearchAndFilters
+              searchQuery={searchQuery}
+              onSearchChange={setSearchQuery}
+              selectedCategory={selectedCategory}
+              onCategoryChange={setSelectedCategory}
+              selectedTag={selectedTag}
+              onTagChange={setSelectedTag}
+              posts={posts}
+            />
           </div>
+          
+          <div className="flex items-center gap-3 w-full max-w-4xl justify-end">
+            <label htmlFor="sort" className="text-sm font-medium text-muted-foreground whitespace-nowrap">
+              Sort by:
+            </label>
+            <select
+              id="sort"
+              value={sortBy}
+              onChange={(e) => handleSortChange(e.target.value)}
+              className="block w-40 rounded-lg border border-border/50 bg-card/50 px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary appearance-none cursor-pointer"
+            >
+              <option value="recent">Most Recent</option>
+              <option value="popular">Most Popular</option>
+              <option value="featured">Featured First</option>
+            </select>
+          </div>
+        </div>
+
+        {/* Center the content blocks */}
+        <div className="flex flex-col items-center">
 
         {/* Featured Posts */}
         {featuredPosts.length > 0 && (
