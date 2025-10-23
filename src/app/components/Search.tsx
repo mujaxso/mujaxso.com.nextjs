@@ -88,6 +88,11 @@ export default function Search() {
         className="flex items-center gap-2 px-4 py-2 text-foreground hover:text-primary transition-all duration-300 
                    font-medium hover:scale-105 bg-primary/5 hover:bg-primary/10 rounded-xl border border-border 
                    shadow-sm hover:shadow-md"
+        style={{
+          backgroundColor: 'rgba(var(--color-primary-rgb), 0.05)',
+          borderColor: 'var(--color-border)',
+          color: 'var(--color-foreground)',
+        }}
         aria-label="Search"
       >
         <SearchIcon className="w-4 h-4" />
@@ -96,7 +101,7 @@ export default function Search() {
 
       {/* Search Modal */}
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50">
           {/* Backdrop */}
           <div 
             className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300"
@@ -104,9 +109,13 @@ export default function Search() {
           />
           
           {/* Search Container - Centered */}
-          <div className="relative w-full max-w-2xl">
+          <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl p-4 animate-in zoom-in-95 duration-300">
             <div className="bg-card border border-border rounded-2xl shadow-2xl overflow-hidden 
-                           flex flex-col max-h-[80vh]">
+                           flex flex-col max-h-[80vh]"
+                 style={{
+                   backgroundColor: 'var(--color-card)',
+                   borderColor: 'var(--color-border)',
+                 }}>
               {/* Search Input */}
               <div className="p-4 border-b border-border">
                 <div className="flex items-center space-x-2">
@@ -121,6 +130,11 @@ export default function Search() {
                       className="w-full pl-10 pr-4 py-3 bg-background border border-border rounded-xl 
                                  focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent
                                  text-foreground placeholder:text-muted-foreground"
+                      style={{
+                        backgroundColor: 'var(--color-background)',
+                        borderColor: 'var(--color-border)',
+                        color: 'var(--color-foreground)',
+                      }}
                     />
                   </div>
                   {isLoading && (
@@ -149,14 +163,20 @@ export default function Search() {
                       >
                         <div className="flex items-start justify-between">
                           <div className="flex-1 min-w-0">
-                            <h3 className="font-semibold text-card-foreground group-hover:text-primary transition-colors truncate">
+                            <h3 className="font-semibold text-card-foreground group-hover:text-primary transition-colors truncate"
+                                style={{ color: 'var(--color-card-foreground)' }}>
                               {result.title}
                             </h3>
-                            <p className="text-sm text-muted-foreground mt-1 line-clamp-2">
+                            <p className="text-sm text-muted-foreground mt-1 line-clamp-2"
+                               style={{ color: 'var(--color-muted-foreground)' }}>
                               {result.description}
                             </p>
                           </div>
-                          <span className="ml-4 px-3 py-1 text-xs font-medium bg-primary/10 text-primary rounded-full capitalize flex-shrink-0">
+                          <span className="ml-4 px-3 py-1 text-xs font-medium bg-primary/10 text-primary rounded-full capitalize flex-shrink-0"
+                                style={{
+                                  backgroundColor: 'rgba(var(--color-primary-rgb), 0.1)',
+                                  color: 'var(--color-primary)',
+                                }}>
                             {result.type}
                           </span>
                         </div>
