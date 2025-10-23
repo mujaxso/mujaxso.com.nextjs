@@ -39,10 +39,10 @@ export default function ContactPage() {
     <div className="pt-24 pb-16">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-foreground mb-4">
+          <h1 className="text-4xl font-bold text-[var(--color-foreground)] mb-4">
             Get In Touch
           </h1>
-          <p className="text-xl text-foreground/60 max-w-2xl mx-auto">
+          <p className="text-xl text-[var(--color-foreground)]/60 max-w-2xl mx-auto">
             Have a project in mind or want to collaborate? I'd love to hear from you.
           </p>
         </div>
@@ -50,10 +50,10 @@ export default function ContactPage() {
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Contact Information */}
           <div>
-            <h2 className="text-2xl font-bold text-foreground mb-6">
+            <h2 className="text-2xl font-bold text-[var(--color-foreground)] mb-6">
               Let's Start a Conversation
             </h2>
-            <p className="text-foreground/60 mb-8">
+            <p className="text-[var(--color-foreground)]/60 mb-8">
               I'm always open to discussing new opportunities, creative ideas, 
               or opportunities to be part of your vision. Feel free to reach out 
               through any of the channels below.

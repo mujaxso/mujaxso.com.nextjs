@@ -17,7 +17,7 @@ export default function AboutPage() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+          <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)] bg-clip-text text-transparent">
             About Me
           </h1>
           <p className="text-xl text-foreground/60 max-w-2xl mx-auto">
@@ -32,7 +32,7 @@ export default function AboutPage() {
             {/* Profile Card */}
             <div className="backdrop-blur-xl bg-[var(--color-card)] border border-[var(--color-border)]/50 rounded-2xl p-6">
               <div className="flex flex-col items-center text-center">
-                <div className="w-32 h-32 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center border-4 border-primary/20 overflow-hidden mb-4">
+                <div className="w-32 h-32 rounded-full bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)] flex items-center justify-center border-4 border-[var(--color-primary)]/20 overflow-hidden mb-4">
                   <img 
                     src="/img/profile.png" 
                     alt="Mujahid Siyam" 

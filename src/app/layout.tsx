@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { ThemeProvider } from "./components/ThemeProvider";
+import { PersonStructuredData } from "./components/StructuredData";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -50,11 +51,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head />
+      <head>
+        <PersonStructuredData />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased font-sans bg-[var(--color-background)] text-[var(--color-foreground)] transition-colors duration-300`}
         style={{
           fontFamily: 'var(--font-family-primary)',
+          viewTransitionName: 'root-layout',
         }}
       >
         <ThemeProvider>
