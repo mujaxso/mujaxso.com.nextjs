@@ -83,6 +83,12 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
     // Import rehype-highlight for syntax highlighting
     const rehypeHighlight = (await import('rehype-highlight')).default;
     
+    // Get highlight.js CSS
+    const highlightCss = await fs.readFile(
+      join(process.cwd(), 'node_modules', 'highlight.js', 'styles', 'github-dark.css'),
+      'utf8'
+    );
+    
     return (
       <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
         <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -162,6 +168,37 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             {/* Main content */}
             <div className="flex-1 min-w-0">
               <article className="markdown-body">
+                {/* Add highlight.js CSS from CDN */}
+                <link 
+                  rel="stylesheet" 
+                  href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/styles/github-dark.min.css" 
+                />
+                <style jsx global>{`
+                  .markdown-body pre {
+                    background: rgb(24 24 27) !important;
+                    border: 1px solid rgb(63 63 70) !important;
+                    border-radius: 0.5rem;
+                    padding: 1rem;
+                    overflow-x: auto;
+                    margin: 1rem 0;
+                  }
+                  .markdown-body code {
+                    background: transparent !important;
+                    padding: 0 !important;
+                    border: none !important;
+                  }
+                  .markdown-body .hljs {
+                    background: transparent !important;
+                    padding: 0 !important;
+                  }
+                  [data-theme='light'] .markdown-body pre {
+                    background: rgb(244 244 245) !important;
+                    border-color: rgb(228 228 231) !important;
+                  }
+                  [data-theme='light'] .hljs {
+                    background: transparent !important;
+                  }
+                `}</style>
                 <ReactMarkdown
                   rehypePlugins={[
                     // Add syntax highlighting

@@ -21,10 +21,30 @@ export default function MDXWrapper({ children }: { children: React.ReactNode }) 
                      prose-hr:border-[var(--color-border)]
                      
                      /* Syntax highlighting styles */
-                     prose-pre:!bg-zinc-900
-                     prose-code:!text-inherit
-                     [data-theme='dark'] prose-pre:!bg-zinc-900
-                     [data-theme='light'] prose-pre:!bg-zinc-100">
+                     /* Reset highlight.js styles to match our theme */
+                     .hljs {
+                       background: transparent !important;
+                       padding: 0 !important;
+                     }
+                     pre {
+                       background: rgb(24 24 27) !important; /* zinc-900 */
+                       border: 1px solid rgb(63 63 70) !important; /* zinc-700 */
+                       border-radius: 0.5rem;
+                       padding: 1rem;
+                       overflow-x: auto;
+                     }
+                     code {
+                       background: transparent !important;
+                       padding: 0 !important;
+                       border: none !important;
+                     }
+                     [data-theme='dark'] pre {
+                       background: rgb(24 24 27) !important;
+                     }
+                     [data-theme='light'] pre {
+                       background: rgb(244 244 245) !important; /* zinc-100 */
+                       border-color: rgb(228 228 231) !important; /* zinc-200 */
+                     }">
         {children}
       </div>
     </div>
