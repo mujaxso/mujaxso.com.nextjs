@@ -14,8 +14,8 @@ export default function Footer() {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12 text-center md:text-left">
-          {/* Explore Section - Left */}
-          <div className="md:order-1">
+          {/* Explore Section - Left (Hidden on mobile) */}
+          <div className="md:order-1 hidden md:block">
             <h3 className="font-bold text-foreground mb-6 text-lg tracking-wide">
               Explore
             </h3>
