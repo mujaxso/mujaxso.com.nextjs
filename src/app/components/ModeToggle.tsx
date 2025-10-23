@@ -1,9 +1,9 @@
 "use client"
 
-import { Moon, Sun } from "lucide-react";
-import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import { Moon, Sun, Monitor } from "lucide-react";
+import { useTheme } from "./ThemeProvider";
 import { Button } from "./ui/Button";
+import { useState, useEffect } from "react";
 
 export default function ModeToggle() {
   const { theme, setTheme } = useTheme();
@@ -13,28 +13,42 @@ export default function ModeToggle() {
     setMounted(true);
   }, []);
 
-  // Get tooltip text based on current theme
+  const cycleTheme = () => {
+    const themes: Theme[] = ['light', 'dark', 'system'];
+    const currentIndex = themes.indexOf(theme);
+    const nextIndex = (currentIndex + 1) % themes.length;
+    setTheme(themes[nextIndex]);
+  };
+
   const getTooltip = () => {
-    if (theme === 'light') {
-      return "Light theme - Click to switch to dark theme";
-    } else {
-      return "Dark theme - Click to switch to light theme";
+    switch (theme) {
+      case 'light': return "Light theme - Click to cycle themes";
+      case 'dark': return "Dark theme - Click to cycle themes";
+      case 'system': return "System theme - Click to cycle themes";
+      default: return "Toggle theme";
     }
   };
 
-  const toggleTheme = () => {
-    setTheme(theme === 'dark' ? 'light' : 'dark');
+  const getIcon = () => {
+    switch (theme) {
+      case 'light': return <Sun className="w-4 h-4" />;
+      case 'dark': return <Moon className="w-4 h-4" />;
+      case 'system': return <Monitor className="w-4 h-4" />;
+      default: return <Monitor className="w-4 h-4" />;
+    }
   };
 
   if (!mounted) {
     return (
-      <button
-        className="p-2 rounded-xl card-glass border border-border/50 text-foreground/80"
+      <Button
+        variant="outline"
+        size="sm"
+        className="p-2 rounded-2xl"
         aria-label="Loading theme"
         suppressHydrationWarning
       >
         <div className="w-4 h-4"></div>
-      </button>
+      </Button>
     );
   }
 
@@ -42,16 +56,13 @@ export default function ModeToggle() {
     <Button
       variant="outline"
       size="sm"
-      onClick={toggleTheme}
+      onClick={cycleTheme}
       className="p-2 rounded-2xl"
       aria-label={getTooltip()}
       title={getTooltip()}
       suppressHydrationWarning
     >
-      {theme === 'dark' ? 
-        <Sun className="w-4 h-4" /> : 
-        <Moon className="w-4 h-4" />
-      }
+      {getIcon()}
     </Button>
   );
 }

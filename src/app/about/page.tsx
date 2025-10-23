@@ -1,3 +1,16 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About | Mujahid Siyam",
+  description: "Learn more about Mujahid Siyam - Software Engineer, AI/ML Specialist, and Open Source Advocate",
+  openGraph: {
+    title: "About | Mujahid Siyam",
+    description: "Software Engineer | AI/ML Engineer | Data Scientist | DevSecOps",
+    type: "profile",
+    images: ['/img/profile.png'],
+  },
+};
+
 export default function AboutPage() {
   return (
     <div className="min-h-screen pt-20 pb-20">

@@ -13,7 +13,7 @@ interface HeroProps {
 export function Hero({ title, subtitle, description, className }: HeroProps) {
   return (
     <div className={cn("text-center mb-16", className)}>
-      <div className="inline-flex items-center px-4 py-2 bg-primary/10 text-primary text-sm font-medium rounded-full mb-6 animate-fade-in-up">
+      <div className="inline-flex items-center px-4 py-2 bg-[var(--color-primary)]/10 text-[var(--color-primary)] text-sm font-medium rounded-full mb-6 animate-fade-in-up">
         <Sparkles className="w-4 h-4 mr-2" />
         {subtitle}
       </div>

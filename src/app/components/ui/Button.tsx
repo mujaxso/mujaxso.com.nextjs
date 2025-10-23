@@ -16,15 +16,15 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <Comp
         className={cn(
-          "inline-flex items-center justify-center rounded-2xl font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 group relative overflow-hidden",
+          "inline-flex items-center justify-center rounded-2xl font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 group relative overflow-hidden",
           {
-            "bg-gradient-to-r from-primary to-secondary text-white shadow-lg hover:shadow-xl hover:scale-105 active:scale-95": 
+            "bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)] text-white shadow-lg hover:shadow-xl hover:scale-105 active:scale-95": 
               variant === "default",
-            "border-2 border-border/50 bg-card/50 text-foreground hover:bg-primary/10 hover:border-primary/50 hover:scale-105 active:scale-95":
+            "border-2 border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-foreground)] hover:bg-[var(--color-primary)]/10 hover:border-[var(--color-primary)]/50 hover:scale-105 active:scale-95":
               variant === "outline",
-            "hover:bg-primary/10 text-foreground hover:scale-105 active:scale-95": 
+            "hover:bg-[var(--color-primary)]/10 text-[var(--color-foreground)] hover:scale-105 active:scale-95": 
               variant === "ghost",
-            "text-primary underline-offset-4 hover:underline": 
+            "text-[var(--color-primary)] underline-offset-4 hover:underline": 
               variant === "link",
           },
           {
