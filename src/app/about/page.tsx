@@ -160,12 +160,12 @@ export default function AboutPage() {
                     description: "Built responsive web applications and mobile apps. Collaborated in agile development teams."
                   }
                 ].map((exp, index) => (
-                  <div key={index} className="border-l-2 border-primary/20 pl-4 relative">
-                    <div className="absolute -left-1.5 top-2 w-3 h-3 bg-primary rounded-full"></div>
-                    <h4 className="text-lg font-bold text-foreground">{exp.title}</h4>
+                  <div key={index} className="border-l-2 border-[var(--color-primary)]/20 pl-4 relative">
+                    <div className="absolute -left-1.5 top-2 w-3 h-3 bg-[var(--color-primary)] rounded-full"></div>
+                    <h4 className="text-lg font-bold text-[var(--color-foreground)]">{exp.title}</h4>
                     <div className="flex flex-wrap items-center gap-2 mb-2">
-                      <span className="text-foreground/70">{exp.company}</span>
-                      <span className="text-xs bg-primary/20 text-primary px-2 py-1 rounded-full">
+                      <span className="text-[var(--color-foreground)]/70">{exp.company}</span>
+                      <span className="text-xs bg-[var(--color-primary)]/20 text-[var(--color-primary)] px-2 py-1 rounded-full">
                         {exp.period}
                       </span>
                     </div>
