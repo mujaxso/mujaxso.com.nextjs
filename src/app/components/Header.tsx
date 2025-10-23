@@ -31,7 +31,7 @@ export default function Header() {
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 glass border-b border-white/20">
+    <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-2xl bg-background/30 border-b border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-3">
           <Link href="/" className="flex items-center gap-3 group">
@@ -49,11 +49,11 @@ export default function Header() {
           
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-4">
-            <ul className="flex gap-2">
+            <ul className="flex gap-1">
               {navigationItems.map((item) => (
                 <li key={item.href}>
-                  <Button variant="ghost" size="sm" asChild>
-                    <Link href={item.href} className="text-sm sm:text-base">
+                  <Button variant="ghost" size="sm" asChild className="text-foreground/80 hover:text-foreground hover:bg-white/10 transition-all duration-300">
+                    <Link href={item.href} className="text-sm">
                       {item.label}
                     </Link>
                   </Button>
