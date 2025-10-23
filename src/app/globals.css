@@ -71,6 +71,7 @@
   background: var(--glass);
   border: 1px solid var(--glass-border);
   box-shadow: var(--glow);
+  transition: all 0.3s ease-in-out;
 }
 
 /* Mobile responsive adjustments */
@@ -83,6 +84,23 @@
   /* Add padding to main content to account for fixed header */
   main {
     padding-top: 4rem;
+  }
+  
+  /* Responsive adjustments for cards */
+  .responsive-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .responsive-card-image {
+    aspect-ratio: 16/9;
+    width: 100%;
+    height: auto;
+  }
+  
+  .responsive-card-content {
+    padding: 1rem;
   }
 }
 
@@ -117,6 +135,7 @@ html, body {
   color: var(--foreground);
   font-family: var(--font-geist-sans), system-ui, sans-serif;
   transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-x: hidden;
 }
 
 /* Enhanced animations for 2025 */

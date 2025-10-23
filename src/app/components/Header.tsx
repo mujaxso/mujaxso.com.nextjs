@@ -53,7 +53,7 @@ export default function Header() {
               {navigationItems.map((item) => (
                 <li key={item.href}>
                   <Button variant="ghost" size="sm" asChild>
-                    <Link href={item.href}>
+                    <Link href={item.href} className="text-sm sm:text-base">
                       {item.label}
                     </Link>
                   </Button>

@@ -64,9 +64,11 @@ export default async function BlogPage() {
     // Ensure posts is always an array
     const safePosts = Array.isArray(posts) ? posts : [];
     return (
-      <div>
-        <h1>BLOG PAGE - MUJAHID SIYAM</h1>
-        <p>This is the blog page accessed via blog.mujaxso.com subdomain</p>
+      <div className="container mx-auto px-4 py-20">
+        <div className="max-w-3xl mx-auto">
+          <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">BLOG PAGE - MUJAHID SIYAM</h1>
+          <p className="text-lg text-center mb-8 text-muted-foreground">This is the blog page accessed via blog.mujaxso.com subdomain</p>
+        </div>
         <BlogPageClient posts={safePosts} />
       </div>
     );
@@ -74,9 +76,11 @@ export default async function BlogPage() {
     console.error('Error in BlogPage:', error);
     // Return empty array to prevent crashes
     return (
-      <div>
-        <h1>BLOG PAGE - MUJAHID SIYAM</h1>
-        <p>This is the blog page accessed via blog.mujaxso.com subdomain</p>
+      <div className="container mx-auto px-4 py-20">
+        <div className="max-w-3xl mx-auto">
+          <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">BLOG PAGE - MUJAHID SIYAM</h1>
+          <p className="text-lg text-center mb-8 text-muted-foreground">This is the blog page accessed via blog.mujaxso.com subdomain</p>
+        </div>
         <BlogPageClient posts={[]} />
       </div>
     );
