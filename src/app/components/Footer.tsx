@@ -114,10 +114,10 @@ export default function Footer() {
 
         {/* Bottom Section */}
         <div className="pt-8 border-t border-border/30">
-          <div className="flex flex-col lg:flex-row justify-between items-center gap-6">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-6 max-w-7xl mx-auto">
             {/* Copyright */}
-            <div className="text-sm text-muted-foreground">
-              © 2024 Mujahid Siyam. All rights reserved.
+            <div className="text-sm text-center md:text-left text-muted-foreground mb-4 md:mb-0">
+              © {new Date().getFullYear()} Mujahid Siyam. All rights reserved.
             </div>
             
             {/* Build with love and open source */}
@@ -137,7 +137,7 @@ export default function Footer() {
               {['Next.js', 'React', 'TypeScript', 'Tailwind'].map((tech) => (
                 <span 
                   key={tech}
-                  className="px-3 py-1 bg-primary/10 text-primary text-xs rounded-full border border-primary/20 hover:bg-primary/20 hover:scale-105 transition-all duration-300"
+                  className="px-3 py-1 bg-primary/10 text-primary text-xs sm:text-sm rounded-full border border-primary/20 hover:bg-primary/20 hover:scale-105 transition-all duration-300"
                 >
                   {tech}
                 </span>
