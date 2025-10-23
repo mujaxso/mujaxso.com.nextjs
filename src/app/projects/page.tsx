@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ExternalLink, Github } from "lucide-react";
 import { join } from "path";
 import { promises as fs } from "fs";
+import { Hero } from "../components/Hero";
 
 interface Project {
   slug: string;
@@ -92,12 +93,11 @@ export default async function ProjectsPage() {
   return (
     <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold mb-4">Featured Projects</h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            A collection of my open-source projects and contributions
-          </p>
-        </div>
+        <Hero 
+          title="Featured Projects" 
+          subtitle="My Work" 
+          description="A collection of my open-source projects and contributions"
+        />
         
         <div className="grid gap-6 md:grid-cols-2 lg:gap-8">
           {projects.map((project) => (
