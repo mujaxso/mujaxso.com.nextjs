@@ -64,19 +64,7 @@ export default function BlogPageClient({ posts }: BlogPageProps) {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
-        <div className="text-center mb-12 md:mb-16">
-          <div className="inline-flex items-center px-4 py-2 bg-primary/10 text-primary text-sm font-medium rounded-full mb-4 animate-fade-in-up">
-            <Sparkles className="w-4 h-4 mr-2" />
-            Latest Insights
-          </div>
-          <h1 className="text-4xl md:text-5xl font-bold mb-6 animate-fade-in-up">
-            Blog
-          </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-            Thoughts, ideas, and insights on software engineering, AI, and technology
-          </p>
-        </div>
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
 
         {/* Search, Filters and Sort Controls */}
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-8 gap-4 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>

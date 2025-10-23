@@ -67,9 +67,9 @@ export default async function BlogPage() {
     return (
       <div className="container mx-auto px-4 py-20">
         <Hero 
-          title="Blog" 
-          subtitle="Latest Insights" 
-          description="Thoughts, ideas, and insights on software engineering, AI, and technology"
+          title="My Blog" 
+          subtitle="Personal Musings" 
+          description="Exploring technology, development, and creative ideas through writing"
         />
         <BlogPageClient posts={safePosts} />
       </div>
