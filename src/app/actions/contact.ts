@@ -17,17 +17,23 @@ export async function submitContactForm(formData: FormData) {
     return { error: 'Invalid email format' };
   }
 
-  // Here you would typically send email, save to database, etc.
-  console.log('Contact form submission:', {
-    name,
-    email,
-    subject,
-    message,
-    timestamp: new Date().toISOString(),
-  });
+  try {
+    // Here you would typically send email, save to database, etc.
+    console.log('Contact form submission:', {
+      name,
+      email,
+      subject,
+      message,
+      timestamp: new Date().toISOString(),
+    });
 
-  // Simulate processing delay
-  await new Promise(resolve => setTimeout(resolve, 1000));
+    // Simulate processing delay
+    await new Promise(resolve => setTimeout(resolve, 1000));
 
-  return { success: true, message: 'Message sent successfully!' };
+    // Return success without an error field
+    return { success: true };
+  } catch (error) {
+    console.error('Contact form error:', error);
+    return { error: 'Failed to send message. Please try again later.' };
+  }
 }
