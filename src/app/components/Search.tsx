@@ -87,7 +87,7 @@ export default function Search() {
         onClick={() => setIsOpen(true)}
         className="flex items-center gap-2 px-4 py-2 text-card-foreground/80 hover:text-primary transition-all duration-300 
                    font-medium hover:scale-105 bg-primary/5 hover:bg-primary/10 rounded-xl border border-border/50 
-                   shadow-sm hover:shadow-md"
+                   shadow-sm hover:shadow-md backdrop-blur-sm"
         aria-label="Search"
       >
         <SearchIcon className="w-4 h-4" />
@@ -96,18 +96,18 @@ export default function Search() {
 
       {/* Search Modal */}
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50">
           {/* Backdrop */}
           <div 
             className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300"
             onClick={() => setIsOpen(false)}
           />
           
-          {/* Search Container - Centered */}
-          <div className="relative w-full max-w-2xl max-h-[85vh]">
+          {/* Search Container - Truly Centered */}
+          <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl p-4 animate-in zoom-in-95 duration-300">
             <div className="bg-card/95 backdrop-blur-xl border border-border/50 rounded-2xl overflow-hidden 
                            shadow-2xl shadow-black/30 dark:shadow-black/50 
-                           ring-1 ring-white/10 flex flex-col">
+                           ring-1 ring-white/10 flex flex-col max-h-[70vh]">
               {/* Search Input */}
               <div className="relative p-6 border-b border-border/50">
                 <div className="flex items-center">
@@ -133,7 +133,7 @@ export default function Search() {
               </div>
 
               {/* Search Results */}
-              <div className="flex-1 max-h-60 md:max-h-80 overflow-y-auto">
+              <div className="flex-1 overflow-y-auto">
                 {results.length > 0 ? (
                   <div className="p-2">
                     {results.map((result, index) => (
