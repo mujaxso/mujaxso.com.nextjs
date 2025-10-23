@@ -31,36 +31,36 @@ export default function Header() {
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-2xl bg-background/30 border-b border-white/10">
+    <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-3xl bg-background/20 border-b border-white/5 shadow-lg shadow-black/5">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center py-3">
+        <div className="flex justify-between items-center py-4">
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-8 h-8 md:w-10 md:h-10 rounded-full overflow-hidden border-2 border-primary/20 group-hover:border-primary transition-all duration-300">
+            <div className="w-10 h-10 md:w-12 md:h-12 rounded-full overflow-hidden border-2 border-primary/30 group-hover:border-primary transition-all duration-300 shadow-md">
               <img 
                 src="/img/profile.png" 
                 alt="Mujahid Siyam" 
                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
               />
             </div>
-            <span className="text-base md:text-lg font-bold bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)] bg-clip-text text-transparent">
+            <span className="text-xl md:text-2xl font-extrabold bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)] bg-clip-text text-transparent">
               Mujahid Siyam
             </span>
           </Link>
           
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-4">
-            <ul className="flex gap-1">
+          <nav className="hidden md:flex items-center gap-6">
+            <ul className="flex gap-2">
               {navigationItems.map((item) => (
                 <li key={item.href}>
-                  <Button variant="ghost" size="sm" asChild className="text-foreground/80 hover:text-foreground hover:bg-white/10 transition-all duration-300">
-                    <Link href={item.href} className="text-sm">
+                  <Button variant="ghost" size="md" asChild className="text-foreground/90 hover:text-foreground hover:bg-white/15 transition-all duration-300 font-semibold text-base">
+                    <Link href={item.href}>
                       {item.label}
                     </Link>
                   </Button>
                 </li>
               ))}
             </ul>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-4">
               <Search />
               <ModeToggle />
             </div>
@@ -95,16 +95,16 @@ export default function Header() {
               onClick={() => setIsMobileMenuOpen(false)}
             />
             {/* Menu */}
-            <div className="md:hidden fixed top-16 left-0 right-0 backdrop-blur-2xl bg-background/40 border-t border-white/10 shadow-lg z-50">
-              <nav className="p-4">
-                <ul className="space-y-2">
+            <div className="md:hidden fixed top-20 left-0 right-0 backdrop-blur-3xl bg-background/30 border-t border-white/5 shadow-xl z-50">
+              <nav className="p-6">
+                <ul className="space-y-3">
                   {navigationItems.map((item) => (
                     <li key={item.href}>
                       <Button
                         variant="ghost"
-                        size="sm"
+                        size="md"
                         asChild
-                        className="w-full justify-start text-sm py-3 text-foreground/80 hover:text-foreground hover:bg-white/10 transition-colors duration-300"
+                        className="w-full justify-start text-base font-semibold py-4 text-foreground/90 hover:text-foreground hover:bg-white/15 transition-all duration-300"
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
                         <Link href={item.href}>
