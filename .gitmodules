@@ -1,0 +1,3 @@
+[submodule "funmacs-docs"]
+	path = funmacs-docs
+	url = https://github.com/mujaxso/funmacs.mujaxso.com.git
