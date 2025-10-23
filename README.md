@@ -20,6 +20,7 @@ The website uses MDX files for dynamic content management:
 - **Blog Posts**: Add `.mdx` files to `src/content/blog/` with frontmatter
 
 ### Project Frontmatter Example:
+
 ```yaml
 ---
 title: "Project Name"
@@ -34,12 +35,14 @@ featured: true
 ```
 
 ### Adding New Projects:
+
 1. Create a new `.mdx` file in `src/content/projects/`
 2. Add the frontmatter with project details
 3. Write your project content using Markdown/MDX
 4. The project will automatically appear on the projects page
 
 ### Project Structure:
+
 - Projects are dynamically loaded from MDX files
 - Project cards are fully clickable and navigate to individual project pages
 - GitHub and live demo links work independently without navigation conflicts
