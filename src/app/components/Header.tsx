@@ -91,20 +91,20 @@ export default function Header() {
           <>
             {/* Backdrop */}
             <div 
-              className="md:hidden fixed inset-0 bg-black/20 backdrop-blur-sm z-40 top-0"
+              className="md:hidden fixed inset-0 bg-black/10 backdrop-blur-sm z-40 top-0"
               onClick={() => setIsMobileMenuOpen(false)}
             />
             {/* Menu */}
-            <div className="md:hidden fixed top-16 left-0 right-0 glass border-t border-white/20 shadow-2xl z-50">
+            <div className="md:hidden fixed top-16 left-0 right-0 backdrop-blur-2xl bg-background/40 border-t border-white/10 shadow-lg z-50">
               <nav className="p-4">
-                <ul className="space-y-3">
+                <ul className="space-y-2">
                   {navigationItems.map((item) => (
                     <li key={item.href}>
                       <Button
                         variant="ghost"
                         size="sm"
                         asChild
-                        className="w-full justify-start text-base py-3"
+                        className="w-full justify-start text-sm py-3 text-foreground/80 hover:text-foreground hover:bg-white/10 transition-colors duration-300"
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
                         <Link href={item.href}>
