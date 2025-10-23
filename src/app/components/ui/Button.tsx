@@ -16,15 +16,15 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <Comp
         className={cn(
-          "inline-flex items-center justify-center rounded-2xl font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 group relative overflow-hidden",
+          "inline-flex items-center justify-center rounded-2xl font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 group relative overflow-hidden",
           {
-            "bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)] text-white shadow-lg hover:shadow-xl hover:scale-105 active:scale-95": 
+            "bg-gradient-to-r from-primary to-secondary text-primary-foreground shadow-lg hover:shadow-xl hover:scale-105 active:scale-95": 
               variant === "default",
-            "border-2 border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-foreground)] hover:bg-[var(--color-primary)]/10 hover:border-[var(--color-primary)]/50 hover:scale-105 active:scale-95":
+            "border-2 border-border bg-card text-foreground hover:bg-primary/10 hover:border-primary/50 hover:scale-105 active:scale-95":
               variant === "outline",
-            "hover:bg-[var(--color-primary)]/10 text-[var(--color-foreground)] hover:scale-105 active:scale-95": 
+            "hover:bg-primary/10 text-foreground hover:scale-105 active:scale-95": 
               variant === "ghost",
-            "text-[var(--color-primary)] underline-offset-4 hover:underline": 
+            "text-primary underline-offset-4 hover:underline": 
               variant === "link",
           },
           {
@@ -34,14 +34,35 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           },
           className
         )}
+        style={{
+          '--primary': 'var(--color-primary)',
+          '--secondary': 'var(--color-secondary)',
+          '--primary-foreground': 'var(--color-primary-foreground)',
+          '--foreground': 'var(--color-foreground)',
+          '--card': 'var(--color-card)',
+          '--border': 'var(--color-border)',
+        } as React.CSSProperties}
         ref={ref}
         {...props}
       >
         {/* Animated gradient border effect for default variant */}
         {variant === "default" && (
           <>
-            <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[var(--color-primary)] via-[var(--color-secondary)] to-[var(--color-accent)] opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm group-hover:blur-md scale-95 group-hover:scale-105"></div>
-            <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[var(--color-primary)]/10 to-[var(--color-secondary)]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div 
+              className="absolute inset-0 rounded-2xl bg-gradient-to-r from-primary via-secondary to-accent opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm group-hover:blur-md scale-95 group-hover:scale-105"
+              style={{
+                '--primary': 'var(--color-primary)',
+                '--secondary': 'var(--color-secondary)',
+                '--accent': 'var(--color-accent)',
+              } as React.CSSProperties}
+            ></div>
+            <div 
+              className="absolute inset-0 rounded-2xl bg-gradient-to-r from-primary/10 to-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              style={{
+                '--primary': 'var(--color-primary)',
+                '--secondary': 'var(--color-secondary)',
+              } as React.CSSProperties}
+            ></div>
           </>
         )}
         

@@ -13,10 +13,15 @@ export function Card({ children, className, hoverEffect = true }: CardProps) {
   return (
     <div 
       className={cn(
-        "bg-card/50 backdrop-blur-xl border border-border/50 rounded-2xl p-4 sm:p-6 transition-all duration-300 flex flex-col h-full",
+        "backdrop-blur-xl border rounded-2xl p-4 sm:p-6 transition-all duration-300 flex flex-col h-full",
         hoverEffect && "hover:shadow-xl hover:scale-105",
         className
       )}
+      style={{
+        backgroundColor: 'var(--color-card)',
+        borderColor: 'var(--color-border)',
+        color: 'var(--color-card-foreground)'
+      }}
     >
       {children}
     </div>
