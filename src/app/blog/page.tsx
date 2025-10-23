@@ -65,10 +65,6 @@ export default async function BlogPage() {
     const safePosts = Array.isArray(posts) ? posts : [];
     return (
       <div className="container mx-auto px-4 py-20">
-        <div className="max-w-3xl mx-auto">
-          <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">Blog</h1>
-          <p className="text-lg text-center mb-8 text-muted-foreground">Thoughts, stories, and ideas from my journey in technology.</p>
-        </div>
         <BlogPageClient posts={safePosts} />
       </div>
     );
@@ -77,10 +73,6 @@ export default async function BlogPage() {
     // Return empty array to prevent crashes
     return (
       <div className="container mx-auto px-4 py-20">
-        <div className="max-w-3xl mx-auto">
-          <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">Blog</h1>
-          <p className="text-lg text-center mb-8 text-muted-foreground">Thoughts, stories, and ideas from my journey in technology.</p>
-        </div>
         <BlogPageClient posts={[]} />
       </div>
     );
