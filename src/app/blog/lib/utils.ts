@@ -8,6 +8,7 @@ export interface BlogPost {
   tags?: string[];
   readingTime?: string;
   featured?: boolean;
+  draft?: boolean;
 }
 
 export function filterPosts(

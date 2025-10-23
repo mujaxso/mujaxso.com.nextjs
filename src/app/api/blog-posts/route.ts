@@ -22,6 +22,14 @@ async function getBlogPosts() {
           const titleMatch = content.match(/title:\s*["']?([^"'\n]+)["']?/);
           const descriptionMatch = content.match(/description:\s*["']?([^"'\n]+)["']?/);
           
+          // Parse the full frontmatter to check for draft status
+          const { data } = matter(content);
+          
+          // Skip draft posts
+          if (data.draft === true) {
+            return null;
+          }
+          
           return {
             slug,
             title: titleMatch ? titleMatch[1] : slug,
@@ -40,7 +48,9 @@ async function getBlogPosts() {
 export async function GET() {
   try {
     const posts = await getBlogPosts();
-    return NextResponse.json(posts);
+    // Filter out null values from draft posts
+    const filteredPosts = posts.filter(post => post !== null);
+    return NextResponse.json(filteredPosts);
   } catch (error) {
     console.error('Error fetching blog posts:', error);
     // Fallback to static data

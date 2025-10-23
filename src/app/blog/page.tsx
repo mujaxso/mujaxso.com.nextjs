@@ -47,12 +47,15 @@ async function getBlogPosts(): Promise<BlogPost[]> {
             tags: data.tags || [],
             readingTime: calculateReadingTime(content),
             featured: data.featured || false,
+            draft: data.draft || false,
           };
         })
     );
     
-    // Sort posts by date in descending order
-    return posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    // Filter out draft posts and sort by date in descending order
+    return posts
+      .filter(post => !post.draft)
+      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   } catch (error) {
     console.error('Error reading blog posts:', error);
     return [];
