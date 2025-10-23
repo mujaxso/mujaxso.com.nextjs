@@ -12,9 +12,10 @@ export function proxy(request: NextRequest) {
   // Redirect www.subdomain to subdomain (e.g., www.blog.mujaxso.com -> blog.mujaxso.com)
   if (host.startsWith('www.')) {
     const newHost = host.replace('www.', '')
-    url.host = newHost
+    const redirectUrl = new URL(request.url)
+    redirectUrl.host = newHost
     console.log('Redirecting www to non-www:', newHost)
-    return NextResponse.redirect(url, 301)
+    return NextResponse.redirect(redirectUrl, 301)
   }
   
   // Extract subdomain from hostname
@@ -106,14 +107,6 @@ export function proxy(request: NextRequest) {
 
 export const config = {
   matcher: [
-    /*
-     * Match all paths except:
-     * - api routes
-     * - _next/static (static files)
-     * - _next/image (image optimization)
-     * - favicon.ico
-     * - files with extensions (images, fonts, etc)
-     */
     '/((?!api|_next/static|_next/image|favicon.ico|.*\\..*).*)',
   ],
 }
