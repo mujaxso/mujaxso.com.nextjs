@@ -66,8 +66,8 @@ export default async function BlogPage() {
     return (
       <div className="container mx-auto px-4 py-20">
         <div className="max-w-3xl mx-auto">
-          <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">BLOG PAGE - MUJAHID SIYAM</h1>
-          <p className="text-lg text-center mb-8 text-muted-foreground">This is the blog page accessed via blog.mujaxso.com subdomain</p>
+          <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">Blog</h1>
+          <p className="text-lg text-center mb-8 text-muted-foreground">Thoughts, stories, and ideas from my journey in technology.</p>
         </div>
         <BlogPageClient posts={safePosts} />
       </div>
@@ -78,8 +78,8 @@ export default async function BlogPage() {
     return (
       <div className="container mx-auto px-4 py-20">
         <div className="max-w-3xl mx-auto">
-          <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">BLOG PAGE - MUJAHID SIYAM</h1>
-          <p className="text-lg text-center mb-8 text-muted-foreground">This is the blog page accessed via blog.mujaxso.com subdomain</p>
+          <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">Blog</h1>
+          <p className="text-lg text-center mb-8 text-muted-foreground">Thoughts, stories, and ideas from my journey in technology.</p>
         </div>
         <BlogPageClient posts={[]} />
       </div>
