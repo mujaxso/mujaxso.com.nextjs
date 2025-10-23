@@ -13,7 +13,7 @@ export default function Footer() {
       
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12 text-center md:text-left">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
           {/* Explore Section - Left (Hidden on mobile) */}
           <div className="md:order-1 hidden md:block">
             <h3 className="font-bold text-foreground mb-6 text-lg tracking-wide">
@@ -39,9 +39,9 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* About Section - Center */}
-          <div className="md:order-2">
-            <div className="flex flex-col items-center md:items-start">
+          {/* About Section - First on mobile, center on desktop */}
+          <div className="md:order-2 order-1">
+            <div className="flex flex-col items-center text-center">
               {/* Profile Photo Above Name */}
               <div className="w-20 h-20 rounded-full overflow-hidden border-2 border-white/30 shadow-lg mb-4">
                 <img 
@@ -51,7 +51,7 @@ export default function Footer() {
                 />
               </div>
               {/* Name and Title */}
-              <div className="text-center md:text-left mb-4">
+              <div className="mb-4">
                 <span className="text-2xl font-bold text-foreground block">
                   Mujahid Siyam
                 </span>
@@ -62,7 +62,7 @@ export default function Footer() {
               <p className="text-muted-foreground max-w-sm text-base leading-relaxed mb-6">
                 Building cutting-edge solutions with code, AI, and innovative technology.
               </p>
-              <div className="flex gap-4 justify-center md:justify-start">
+              <div className="flex gap-4 justify-center">
                 {[
                   { 
                     name: 'GitHub', 
@@ -95,8 +95,8 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Connect Section - Right */}
-          <div className="md:order-3">
+          {/* Connect Section - Second on mobile, right on desktop */}
+          <div className="md:order-3 order-2 text-center md:text-left">
             <h3 className="font-bold text-foreground mb-6 text-lg tracking-wide">Let's Connect</h3>
             <p className="text-muted-foreground mb-6 text-base leading-relaxed">
               Ready to bring your next project to life? Let's discuss how we can work together.
@@ -105,7 +105,7 @@ export default function Footer() {
               variant="outline" 
               size="lg" 
               asChild 
-              className="w-full md:w-auto border-white/20 hover:border-white/40 hover:bg-white/10 transition-all duration-300 px-8 py-3"
+              className="w-full md:w-auto border-white/20 hover:border-white/40 hover:bg-white/10 transition-all duration-300 px-8 py-3 mx-auto md:mx-0"
             >
               <a href="mailto:contact@mujaxso.com" className="inline-flex items-center gap-3 text-base font-medium">
                 Get in touch 
