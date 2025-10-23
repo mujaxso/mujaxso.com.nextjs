@@ -7,14 +7,22 @@ interface CardProps {
   children: ReactNode
   className?: string
   hoverEffect?: boolean
+  padding?: "sm" | "md" | "lg"
 }
 
-export function Card({ children, className, hoverEffect = true }: CardProps) {
+export function Card({ children, className, hoverEffect = true, padding = "md" }: CardProps) {
+  const paddingClass = {
+    sm: "p-4",
+    md: "p-6",
+    lg: "p-8"
+  }[padding]
+
   return (
     <div 
       className={cn(
-        "card-glass rounded-3xl p-6 sm:p-8 flex flex-col h-full",
-        hoverEffect && "hover:shadow-2xl",
+        "card-glass rounded-2xl flex flex-col h-full transition-all duration-500",
+        paddingClass,
+        hoverEffect && "hover:shadow-modern-hover",
         className
       )}
       style={{
@@ -28,7 +36,7 @@ export function Card({ children, className, hoverEffect = true }: CardProps) {
 
 export function CardHeader({ children, className }: { children: ReactNode; className?: string }) {
   return (
-    <div className={cn("mb-4", className)}>
+    <div className={cn("mb-3", className)}>
       {children}
     </div>
   )
@@ -36,7 +44,7 @@ export function CardHeader({ children, className }: { children: ReactNode; class
 
 export function CardContent({ children, className }: { children: ReactNode; className?: string }) {
   return (
-    <div className={cn("space-y-3", className)}>
+    <div className={cn("space-y-2", className)}>
       {children}
     </div>
   )
@@ -44,7 +52,7 @@ export function CardContent({ children, className }: { children: ReactNode; clas
 
 export function CardFooter({ children, className }: { children: ReactNode; className?: string }) {
   return (
-    <div className={cn("mt-4", className)}>
+    <div className={cn("mt-3", className)}>
       {children}
     </div>
   )

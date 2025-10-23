@@ -127,16 +127,16 @@ export default function MusicPage() {
     <div className="min-h-screen pt-20 pb-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-16">
-          <div className="flex justify-center mb-6">
-            <div className="p-4 bg-gradient-to-r from-primary to-secondary rounded-2xl flex items-center justify-center">
-              <Music2 className="w-8 h-8 text-white" />
+        <div className="text-center mb-12">
+          <div className="flex justify-center mb-4">
+            <div className="p-3 bg-gradient-to-r from-primary/10 to-secondary/10 border border-primary/20 rounded-xl flex items-center justify-center">
+              <Music2 className="w-6 h-6 text-primary" />
             </div>
           </div>
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
             My Music
           </h1>
-          <p className="text-xl text-foreground/60 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg text-foreground/60 max-w-2xl mx-auto leading-relaxed">
             Explore my curated playlists across different music platforms. 
             From coding focus tracks to original productions, discover the sounds that inspire my work.
           </p>
@@ -150,9 +150,9 @@ export default function MusicPage() {
             </div>
           ) : (
             playlists.map((playlist) => (
-            <Card key={playlist.id} className="group hover:shadow-modern-hover fade-in-up stagger-item">
+            <Card key={playlist.id} className="group fade-in-up stagger-item" padding="sm">
               {/* Playlist Player at the top */}
-              <div className="mb-6 rounded-2xl overflow-hidden bg-primary/5 border border-primary/20 shadow-modern">
+              <div className="mb-4 rounded-xl overflow-hidden bg-primary/5 border border-primary/20 shadow-modern">
                 <div className="aspect-video relative">
                   {/* Show loading spinner while iframe is loading */}
                   {loadingStates[playlist.id] && (
@@ -179,14 +179,14 @@ export default function MusicPage() {
                   />
                 </div>
                 {playerErrors[playlist.id] && (
-                  <div className="mt-2 p-4 bg-primary/10 border border-primary/20 rounded-xl m-4">
-                    <p className="text-primary text-center text-sm">{playerErrors[playlist.id]}</p>
-                    <div className="flex justify-center mt-3">
+                  <div className="mt-2 p-3 bg-primary/10 border border-primary/20 rounded-lg m-3">
+                    <p className="text-primary text-center text-xs">{playerErrors[playlist.id]}</p>
+                    <div className="flex justify-center mt-2">
                       <Button
                         variant="default"
                         size="sm"
                         onClick={() => window.open(playlist.url, '_blank')}
-                        className="bg-primary hover:bg-primary-hover text-white"
+                        className="bg-primary hover:bg-primary-hover text-white text-xs"
                       >
                         Open in {getServiceName(playlist.service)}
                       </Button>
@@ -196,27 +196,27 @@ export default function MusicPage() {
               </div>
 
               {/* Playlist Details */}
-              <div className="space-y-4">
+              <div className="space-y-3">
                 <div className="text-center">
-                  <h3 className="text-xl font-bold text-foreground mb-3">
+                  <h3 className="text-lg font-bold text-foreground mb-2">
                     {playlist.title}
                   </h3>
-                  <div className="flex justify-center items-center gap-3 mb-3">
-                    <div className="w-6 h-6 flex items-center justify-center text-primary">
+                  <div className="flex justify-center items-center gap-2 mb-2">
+                    <div className="w-5 h-5 flex items-center justify-center text-primary">
                       {getServiceIcon(playlist.service)}
                     </div>
-                    <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium border ${getServiceColor(playlist.service)}`}>
+                    <div className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium border ${getServiceColor(playlist.service)}`}>
                       {getServiceName(playlist.service)}
                     </div>
                   </div>
                 </div>
                 
-                <p className="text-foreground/70 text-sm leading-relaxed">
+                <p className="text-foreground/70 text-xs leading-relaxed">
                   {playlist.description}
                 </p>
 
                 {/* Stats */}
-                <div className="flex items-center gap-4 text-sm text-primary/70">
+                <div className="flex items-center gap-3 text-xs text-primary/70">
                   <span>{playlist.trackCount} tracks</span>
                   {playlist.duration && (
                     <span>{playlist.duration}</span>
@@ -226,10 +226,10 @@ export default function MusicPage() {
                 <Button
                   variant="outline"
                   size="sm"
-                  className="w-full border-primary/20 hover:border-primary hover:bg-primary/10 text-primary transition-all duration-300"
+                  className="w-full border-primary/20 hover:border-primary hover:bg-primary/10 text-primary transition-all duration-300 text-xs"
                   onClick={() => window.open(playlist.url, '_blank')}
                 >
-                  <ExternalLink className="w-4 h-4 mr-2" />
+                  <ExternalLink className="w-3 h-3 mr-1" />
                   Open in {getServiceName(playlist.service)}
                 </Button>
               </div>
@@ -240,58 +240,58 @@ export default function MusicPage() {
 
         {/* Call to Action */}
         <div className="text-center">
-          <Card className="bg-gradient-to-r from-primary/10 to-secondary/10 border-primary/20 shadow-modern">
-            <div className="p-12">
-              <h3 className="text-3xl font-bold mb-4 text-foreground">
+          <Card className="bg-gradient-to-r from-primary/10 to-secondary/10 border-primary/20 shadow-modern" padding="md">
+            <div className="p-8">
+              <h3 className="text-2xl font-bold mb-3 text-foreground">
                 Follow My Musical Journey
               </h3>
-              <p className="text-foreground/70 text-lg mb-8 max-w-2xl mx-auto">
+              <p className="text-foreground/70 text-base mb-6 max-w-2xl mx-auto">
                 Stay updated with my latest releases, playlists, and musical experiments across all platforms.
               </p>
-              <div className="flex flex-wrap justify-center gap-6">
+              <div className="flex flex-wrap justify-center gap-4">
                 <Button
                   variant="outline"
-                  size="lg"
-                  className="flex flex-col items-center justify-center gap-2 min-w-[160px] h-[120px] p-4 glass border-primary/20 hover:border-primary hover:bg-primary/10 text-primary hover:scale-105 transition-all duration-300"
+                  size="md"
+                  className="flex flex-col items-center justify-center gap-2 min-w-[140px] h-[100px] p-3 glass border-primary/20 hover:border-primary hover:bg-primary/10 text-primary hover:scale-105 transition-all duration-300"
                   onClick={() => window.open('https://open.spotify.com/user/mujaxso', '_blank')}
                 >
-                  <div className="w-8 h-8 flex items-center justify-center text-primary">
+                  <div className="w-6 h-6 flex items-center justify-center text-primary">
                     <SpotifyIcon />
                   </div>
-                  <span className="text-primary text-sm font-medium">Spotify</span>
+                  <span className="text-primary text-xs font-medium">Spotify</span>
                 </Button>
                 <Button
                   variant="outline"
-                  size="lg"
-                  className="flex flex-col items-center justify-center gap-2 min-w-[160px] h-[120px] p-4 glass border-primary/20 hover:border-primary hover:bg-primary/10 text-primary hover:scale-105 transition-all duration-300"
+                  size="md"
+                  className="flex flex-col items-center justify-center gap-2 min-w-[140px] h-[100px] p-3 glass border-primary/20 hover:border-primary hover:bg-primary/10 text-primary hover:scale-105 transition-all duration-300"
                   onClick={() => window.open('https://music.apple.com/profile/mujaxso', '_blank')}
                 >
-                  <div className="w-8 h-8 flex items-center justify-center text-primary">
+                  <div className="w-6 h-6 flex items-center justify-center text-primary">
                     <AppleMusicIcon />
                   </div>
-                  <span className="text-primary text-sm font-medium">Apple Music</span>
+                  <span className="text-primary text-xs font-medium">Apple Music</span>
                 </Button>
                 <Button
                   variant="outline"
-                  size="lg"
-                  className="flex flex-col items-center justify-center gap-2 min-w-[160px] h-[120px] p-4 glass border-primary/20 hover:border-primary hover:bg-primary/10 text-primary hover:scale-105 transition-all duration-300"
+                  size="md"
+                  className="flex flex-col items-center justify-center gap-2 min-w-[140px] h-[100px] p-3 glass border-primary/20 hover:border-primary hover:bg-primary/10 text-primary hover:scale-105 transition-all duration-300"
                   onClick={() => window.open('https://soundcloud.com/mujaxso', '_blank')}
                 >
-                  <div className="w-8 h-8 flex items-center justify-center text-primary">
+                  <div className="w-6 h-6 flex items-center justify-center text-primary">
                     <SoundCloudIcon />
                   </div>
-                  <span className="text-primary text-sm font-medium">SoundCloud</span>
+                  <span className="text-primary text-xs font-medium">SoundCloud</span>
                 </Button>
                 <Button
                   variant="outline"
-                  size="lg"
-                  className="flex flex-col items-center justify-center gap-2 min-w-[160px] h-[120px] p-4 glass border-primary/20 hover:border-primary hover:bg-primary/10 text-primary hover:scale-105 transition-all duration-300"
+                  size="md"
+                  className="flex flex-col items-center justify-center gap-2 min-w-[140px] h-[100px] p-3 glass border-primary/20 hover:border-primary hover:bg-primary/10 text-primary hover:scale-105 transition-all duration-300"
                   onClick={() => window.open('https://www.youtube.com/@mujaxso', '_blank')}
                 >
-                  <div className="w-8 h-8 flex items-center justify-center text-primary">
+                  <div className="w-6 h-6 flex items-center justify-center text-primary">
                     <YouTubeIcon />
                   </div>
-                  <span className="text-primary text-sm font-medium">YouTube</span>
+                  <span className="text-primary text-xs font-medium">YouTube</span>
                 </Button>
               </div>
             </div>
