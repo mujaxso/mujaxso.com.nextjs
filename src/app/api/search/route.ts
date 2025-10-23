@@ -1,6 +1,4 @@
 import { NextResponse } from 'next/server';
-import { promises as fs } from 'fs';
-import { join } from 'path';
 
 export const runtime = 'edge';
 
@@ -11,6 +9,8 @@ interface SearchResult {
   type: 'blog' | 'project' | 'page';
 }
 
+// Since we can't use fs in Edge Runtime, we'll need to find another approach
+// For now, let's just search static pages and return them
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const query = searchParams.get('q')?.toLowerCase() || '';
@@ -21,65 +21,6 @@ export async function GET(request: Request) {
 
   try {
     const results: SearchResult[] = [];
-
-    // Search blog posts
-    const blogDirectory = join(process.cwd(), 'src', 'content', 'blog');
-    try {
-      const blogFiles = await fs.readdir(blogDirectory);
-      for (const file of blogFiles.filter(file => file.endsWith('.mdx'))) {
-        const filePath = join(blogDirectory, file);
-        const content = await fs.readFile(filePath, 'utf-8');
-        
-        // Extract frontmatter (simplified parsing)
-        const titleMatch = content.match(/title:\s*["']?([^"'\n]+)["']?/);
-        const descriptionMatch = content.match(/description:\s*["']?([^"'\n]+)["']?/);
-        
-        const title = titleMatch ? titleMatch[1] : file.replace('.mdx', '');
-        const description = descriptionMatch ? descriptionMatch[1] : '';
-        
-        if (title.toLowerCase().includes(query) || 
-            description.toLowerCase().includes(query) ||
-            content.toLowerCase().includes(query)) {
-          results.push({
-            title,
-            description,
-            href: `/blog/${file.replace('.mdx', '')}`,
-            type: 'blog'
-          });
-        }
-      }
-    } catch (error) {
-      console.error('Error reading blog directory:', error);
-    }
-
-    // Search projects
-    const projectsDirectory = join(process.cwd(), 'src', 'content', 'projects');
-    try {
-      const projectFiles = await fs.readdir(projectsDirectory);
-      for (const file of projectFiles.filter(file => file.endsWith('.mdx'))) {
-        const filePath = join(projectsDirectory, file);
-        const content = await fs.readFile(filePath, 'utf-8');
-        
-        const titleMatch = content.match(/title:\s*["']?([^"'\n]+)["']?/);
-        const descriptionMatch = content.match(/description:\s*["']?([^"'\n]+)["']?/);
-        
-        const title = titleMatch ? titleMatch[1] : file.replace('.mdx', '');
-        const description = descriptionMatch ? descriptionMatch[1] : '';
-        
-        if (title.toLowerCase().includes(query) || 
-            description.toLowerCase().includes(query) ||
-            content.toLowerCase().includes(query)) {
-          results.push({
-            title,
-            description,
-            href: `/projects/${file.replace('.mdx', '')}`,
-            type: 'project'
-          });
-        }
-      }
-    } catch (error) {
-      console.error('Error reading projects directory:', error);
-    }
 
     // Add static pages
     const pages = [
@@ -97,6 +38,11 @@ export async function GET(request: Request) {
       }
     }
 
+    // Note: To search blog posts and projects in Edge Runtime, you would need to:
+    // 1. Pre-build a search index at build time and include it in your bundle
+    // 2. Use an external search service
+    // 3. Change the runtime to 'nodejs' (not recommended for Edge)
+    
     return NextResponse.json({ results });
   } catch (error) {
     console.error('Search error:', error);
