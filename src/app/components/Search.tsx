@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from 'react';
-import { Search as SearchIcon, X } from 'lucide-react';
+import { Search as SearchIcon, X, Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 interface SearchResult {
@@ -20,7 +20,7 @@ export default function Search() {
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
-  // Close search when clicking outside
+  // Close search when clicking outside or pressing Escape
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
@@ -28,14 +28,24 @@ export default function Search() {
       }
     }
 
+    function handleEscape(event: KeyboardEvent) {
+      if (event.key === 'Escape') {
+        setIsOpen(false);
+      }
+    }
+
     document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleEscape);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleEscape);
+    };
   }, []);
 
   // Focus input when search opens
   useEffect(() => {
     if (isOpen && inputRef.current) {
-      inputRef.current.focus();
+      setTimeout(() => inputRef.current?.focus(), 100);
     }
   }, [isOpen]);
 
@@ -75,7 +85,7 @@ export default function Search() {
       {/* Search Button */}
       <button
         onClick={() => setIsOpen(true)}
-        className="flex items-center gap-2 px-2 py-2 md:px-3 text-card-foreground/80 hover:text-primary transition-all duration-300 font-medium hover:scale-105"
+        className="flex items-center gap-2 px-3 py-2 text-card-foreground/80 hover:text-primary transition-all duration-300 font-medium hover:scale-105 hover:bg-primary/10 rounded-xl"
         aria-label="Search"
       >
         <SearchIcon className="w-4 h-4" />
@@ -84,66 +94,99 @@ export default function Search() {
 
       {/* Search Modal */}
       {isOpen && (
-        <div className="fixed inset-0 bg-black/50 z-50 flex items-start justify-center pt-4 md:pt-20 px-4">
-          <div className="bg-card border border-border rounded-2xl shadow-2xl w-full max-w-2xl">
-            {/* Search Input */}
-            <div className="relative p-3 md:p-4 border-b border-border">
-              <SearchIcon className="absolute left-4 md:left-6 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4 md:w-5 md:h-5" />
-              <input
-                ref={inputRef}
-                type="text"
-                placeholder="Search blog posts, projects, and more..."
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                className="w-full pl-10 md:pl-12 pr-8 md:pr-10 py-2 md:py-3 bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-card-foreground text-sm md:text-base"
-              />
-              <button
-                onClick={() => setIsOpen(false)}
-                className="absolute right-4 md:right-6 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-card-foreground"
-              >
-                <X className="w-4 h-4 md:w-5 md:h-5" />
-              </button>
-            </div>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          {/* Backdrop */}
+          <div 
+            className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300"
+            onClick={() => setIsOpen(false)}
+          />
+          
+          {/* Search Container */}
+          <div className="relative w-full max-w-2xl transform transition-all duration-300 scale-100 opacity-100">
+            <div className="bg-card/95 backdrop-blur-xl border border-border/50 rounded-2xl shadow-2xl overflow-hidden">
+              {/* Search Input */}
+              <div className="relative p-6 border-b border-border/50">
+                <div className="flex items-center">
+                  <SearchIcon className="w-5 h-5 text-muted-foreground mr-3 flex-shrink-0" />
+                  <input
+                    ref={inputRef}
+                    type="text"
+                    placeholder="Search blog posts, projects, and more..."
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    className="w-full bg-transparent border-none outline-none text-lg text-card-foreground placeholder:text-muted-foreground"
+                  />
+                  {isLoading && (
+                    <Loader2 className="w-5 h-5 text-muted-foreground animate-spin ml-3 flex-shrink-0" />
+                  )}
+                  <button
+                    onClick={() => setIsOpen(false)}
+                    className="ml-3 p-2 hover:bg-accent rounded-xl transition-colors flex-shrink-0"
+                  >
+                    <X className="w-5 h-5 text-muted-foreground" />
+                  </button>
+                </div>
+              </div>
 
-            {/* Search Results */}
-            <div className="max-h-64 md:max-h-96 overflow-y-auto">
-              {isLoading ? (
-                <div className="p-8 text-center text-muted-foreground">
-                  Searching...
-                </div>
-              ) : results.length > 0 ? (
-                <div className="p-2">
-                  {results.map((result, index) => (
-                    <button
-                      key={index}
-                      onClick={() => handleResultClick(result.href)}
-                      className="w-full text-left p-4 hover:bg-accent rounded-lg transition-colors"
-                    >
-                      <div className="flex items-start justify-between">
-                        <div>
-                          <h3 className="font-medium text-card-foreground">
-                            {result.title}
-                          </h3>
-                          <p className="text-sm text-muted-foreground mt-1">
-                            {result.description}
-                          </p>
+              {/* Search Results */}
+              <div className="max-h-80 overflow-y-auto">
+                {results.length > 0 ? (
+                  <div className="p-2">
+                    {results.map((result, index) => (
+                      <button
+                        key={index}
+                        onClick={() => handleResultClick(result.href)}
+                        className="w-full text-left p-4 hover:bg-accent/50 rounded-xl transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] group"
+                      >
+                        <div className="flex items-start justify-between">
+                          <div className="flex-1 min-w-0">
+                            <h3 className="font-semibold text-card-foreground group-hover:text-primary transition-colors truncate">
+                              {result.title}
+                            </h3>
+                            <p className="text-sm text-muted-foreground mt-1 line-clamp-2">
+                              {result.description}
+                            </p>
+                          </div>
+                          <span className="ml-4 px-3 py-1 text-xs font-medium bg-primary/10 text-primary rounded-full capitalize flex-shrink-0">
+                            {result.type}
+                          </span>
                         </div>
-                        <span className="px-2 py-1 text-xs bg-primary/20 text-primary rounded-full capitalize">
-                          {result.type}
-                        </span>
-                      </div>
-                    </button>
-                  ))}
-                </div>
-              ) : query ? (
-                <div className="p-8 text-center text-muted-foreground">
-                  No results found for "{query}"
-                </div>
-              ) : (
-                <div className="p-8 text-center text-muted-foreground">
-                  Type to start searching...
-                </div>
-              )}
+                      </button>
+                    ))}
+                  </div>
+                ) : query && !isLoading ? (
+                  <div className="flex flex-col items-center justify-center py-12 px-6 text-center">
+                    <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mb-4">
+                      <SearchIcon className="w-8 h-8 text-muted-foreground" />
+                    </div>
+                    <h3 className="text-lg font-medium text-card-foreground mb-2">
+                      No results found
+                    </h3>
+                    <p className="text-muted-foreground">
+                      Try adjusting your search terms
+                    </p>
+                  </div>
+                ) : !query && !isLoading ? (
+                  <div className="flex flex-col items-center justify-center py-12 px-6 text-center">
+                    <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                      <SearchIcon className="w-8 h-8 text-primary" />
+                    </div>
+                    <h3 className="text-lg font-medium text-card-foreground mb-2">
+                      Start searching
+                    </h3>
+                    <p className="text-muted-foreground">
+                      Type to discover content across the site
+                    </p>
+                  </div>
+                ) : null}
+              </div>
+            </div>
+            
+            {/* Footer hint */}
+            <div className="mt-4 text-center">
+              <p className="text-sm text-muted-foreground/70">
+                Press <kbd className="px-2 py-1 text-xs bg-border rounded-md">ESC</kbd> to close
+              </p>
             </div>
           </div>
         </div>
