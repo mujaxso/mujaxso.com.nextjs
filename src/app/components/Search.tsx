@@ -85,7 +85,9 @@ export default function Search() {
       {/* Search Button */}
       <button
         onClick={() => setIsOpen(true)}
-        className="flex items-center gap-2 px-3 py-2 text-card-foreground/80 hover:text-primary transition-all duration-300 font-medium hover:scale-105 hover:bg-primary/10 rounded-xl"
+        className="flex items-center gap-2 px-4 py-2 text-card-foreground/80 hover:text-primary transition-all duration-300 
+                   font-medium hover:scale-105 bg-primary/5 hover:bg-primary/10 rounded-xl border border-border/50 
+                   shadow-sm hover:shadow-md"
         aria-label="Search"
       >
         <SearchIcon className="w-4 h-4" />
@@ -101,9 +103,11 @@ export default function Search() {
             onClick={() => setIsOpen(false)}
           />
           
-          {/* Search Container */}
-          <div className="relative w-full max-w-2xl transform transition-all duration-300 scale-100 opacity-100">
-            <div className="bg-card/95 backdrop-blur-xl border border-border/50 rounded-2xl shadow-2xl overflow-hidden">
+          {/* Search Container - Ensure it's always centered */}
+          <div className="relative w-full max-w-2xl mx-auto my-auto transform transition-all duration-300 scale-100 opacity-100">
+            <div className="bg-card/95 backdrop-blur-xl border border-border/50 rounded-2xl overflow-hidden 
+                           shadow-2xl shadow-black/30 dark:shadow-black/50 
+                           ring-1 ring-white/10">
               {/* Search Input */}
               <div className="relative p-6 border-b border-border/50">
                 <div className="flex items-center">
@@ -136,7 +140,9 @@ export default function Search() {
                       <button
                         key={index}
                         onClick={() => handleResultClick(result.href)}
-                        className="w-full text-left p-4 hover:bg-accent/50 rounded-xl transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] group"
+                        className="w-full text-left p-4 hover:bg-accent/50 rounded-xl transition-all duration-300 
+                                   hover:scale-[1.01] active:scale-[0.99] group animate-in fade-in-0 slide-in-from-top-1"
+                        style={{ animationDelay: `${index * 50}ms` }}
                       >
                         <div className="flex items-start justify-between">
                           <div className="flex-1 min-w-0">
