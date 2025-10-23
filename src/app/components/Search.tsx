@@ -103,11 +103,11 @@ export default function Search() {
             onClick={() => setIsOpen(false)}
           />
           
-          {/* Search Container - Ensure it's always centered */}
-          <div className="relative w-full max-w-2xl mx-auto my-auto transform transition-all duration-300 scale-100 opacity-100">
+          {/* Search Container - Centered */}
+          <div className="relative w-full max-w-2xl max-h-[85vh]">
             <div className="bg-card/95 backdrop-blur-xl border border-border/50 rounded-2xl overflow-hidden 
                            shadow-2xl shadow-black/30 dark:shadow-black/50 
-                           ring-1 ring-white/10">
+                           ring-1 ring-white/10 flex flex-col">
               {/* Search Input */}
               <div className="relative p-6 border-b border-border/50">
                 <div className="flex items-center">
@@ -133,7 +133,7 @@ export default function Search() {
               </div>
 
               {/* Search Results */}
-              <div className="max-h-80 overflow-y-auto">
+              <div className="flex-1 max-h-60 md:max-h-80 overflow-y-auto">
                 {results.length > 0 ? (
                   <div className="p-2">
                     {results.map((result, index) => (
