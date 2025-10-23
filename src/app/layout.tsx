@@ -20,10 +20,12 @@ export const metadata: Metadata = {
   description: "Software Engineer | AI/ML Engineer | Data Scientist | DevSecOps building cutting-edge solutions",
   keywords: ["software engineer", "AI/ML", "data science", "DevSecOps", "full-stack developer"],
   authors: [{ name: "Mujahid Siyam" }],
+  metadataBase: new URL('https://mujaxso.com'),
   openGraph: {
     title: "Mujahid Siyam | Portfolio",
     description: "Software Engineer | AI/ML Engineer | Data Scientist | DevSecOps",
     type: "website",
+    images: ['/img/profile.png'],
   },
   robots: "index, follow",
   manifest: "/manifest.json",

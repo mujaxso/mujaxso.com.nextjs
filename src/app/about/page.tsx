@@ -30,7 +30,7 @@ export default function AboutPage() {
           {/* Left Column - Profile & Contact */}
           <div className="lg:col-span-1 space-y-6">
             {/* Profile Card */}
-            <div className="backdrop-blur-xl bg-card/50 border border-border/50 rounded-2xl p-6">
+            <div className="backdrop-blur-xl bg-[var(--color-card)] border border-[var(--color-border)]/50 rounded-2xl p-6">
               <div className="flex flex-col items-center text-center">
                 <div className="w-32 h-32 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center border-4 border-primary/20 overflow-hidden mb-4">
                   <img 
@@ -61,8 +61,8 @@ export default function AboutPage() {
             </div>
 
             {/* Skills */}
-            <div className="backdrop-blur-xl bg-card/50 border border-border/50 rounded-2xl p-6">
-              <h3 className="text-lg font-bold text-foreground mb-4">Core Competencies</h3>
+            <div className="backdrop-blur-xl bg-[var(--color-card)] border border-[var(--color-border)]/50 rounded-2xl p-6">
+              <h3 className="text-lg font-bold text-[var(--color-foreground)] mb-4">Core Competencies</h3>
               <div className="space-y-3">
                 {[
                   "Full-Stack Development",
@@ -77,16 +77,16 @@ export default function AboutPage() {
                   "Blockchain & Web3"
                 ].map((skill) => (
                   <div key={skill} className="flex items-center gap-2 group">
-                    <div className="w-2 h-2 bg-primary rounded-full group-hover:scale-150 transition-transform duration-300"></div>
-                    <span className="text-sm text-foreground/80 group-hover:text-primary transition-colors duration-300">{skill}</span>
+                    <div className="w-2 h-2 bg-[var(--color-primary)] rounded-full group-hover:scale-150 transition-transform duration-300"></div>
+                    <span className="text-sm text-[var(--color-foreground)]/80 group-hover:text-[var(--color-primary)] transition-colors duration-300">{skill}</span>
                   </div>
                 ))}
               </div>
             </div>
 
             {/* Languages */}
-            <div className="backdrop-blur-xl bg-card/50 border border-border/50 rounded-2xl p-6">
-              <h3 className="text-lg font-bold text-foreground mb-4">Languages</h3>
+            <div className="backdrop-blur-xl bg-[var(--color-card)] border border-[var(--color-border)]/50 rounded-2xl p-6">
+              <h3 className="text-lg font-bold text-[var(--color-foreground)] mb-4">Languages</h3>
               <div className="space-y-3">
                 {[
                   { language: "Arabic", level: "Native" },
@@ -94,8 +94,8 @@ export default function AboutPage() {
                   { language: "French", level: "Intermediate" }
                 ].map((item) => (
                   <div key={item.language} className="flex justify-between items-center">
-                    <span className="text-sm text-foreground/80">{item.language}</span>
-                    <span className="text-xs bg-primary/20 text-primary px-2 py-1 rounded-full">
+                    <span className="text-sm text-[var(--color-foreground)]/80">{item.language}</span>
+                    <span className="text-xs bg-[var(--color-primary)]/20 text-[var(--color-primary)] px-2 py-1 rounded-full">
                       {item.level}
                     </span>
                   </div>
@@ -107,9 +107,9 @@ export default function AboutPage() {
           {/* Right Column - Main Content */}
           <div className="lg:col-span-2 space-y-8">
             {/* About Section */}
-            <div className="backdrop-blur-xl bg-card/50 border border-border/50 rounded-2xl p-6">
-              <h3 className="text-2xl font-bold text-foreground mb-4">Professional Summary</h3>
-              <div className="space-y-4 text-foreground/80 leading-relaxed">
+            <div className="backdrop-blur-xl bg-[var(--color-card)] border border-[var(--color-border)]/50 rounded-2xl p-6">
+              <h3 className="text-2xl font-bold text-[var(--color-foreground)] mb-4">Professional Summary</h3>
+              <div className="space-y-4 text-[var(--color-foreground)]/80 leading-relaxed">
                 <p>
                   I'm a passionate Software Engineer, AI/ML Engineer, and Open Source Advocate with a deep love 
                   for creating innovative solutions that bridge cutting-edge technology with real-world applications. 
@@ -137,8 +137,8 @@ export default function AboutPage() {
             </div>
 
             {/* Experience */}
-            <div className="backdrop-blur-xl bg-card/50 border border-border/50 rounded-2xl p-6">
-              <h3 className="text-2xl font-bold text-foreground mb-6">Experience</h3>
+            <div className="backdrop-blur-xl bg-[var(--color-card)] border border-[var(--color-border)]/50 rounded-2xl p-6">
+              <h3 className="text-2xl font-bold text-[var(--color-foreground)] mb-6">Experience</h3>
               <div className="space-y-6">
                 {[
                   {
@@ -169,15 +169,15 @@ export default function AboutPage() {
                         {exp.period}
                       </span>
                     </div>
-                    <p className="text-foreground/60 text-sm">{exp.description}</p>
+                    <p className="text-[var(--color-foreground)]/60 text-sm">{exp.description}</p>
                   </div>
                 ))}
               </div>
             </div>
 
             {/* Education */}
-            <div className="backdrop-blur-xl bg-card/50 border border-border/50 rounded-2xl p-6">
-              <h3 className="text-2xl font-bold text-foreground mb-6">Education</h3>
+            <div className="backdrop-blur-xl bg-[var(--color-card)] border border-[var(--color-border)]/50 rounded-2xl p-6">
+              <h3 className="text-2xl font-bold text-[var(--color-foreground)] mb-6">Education</h3>
               <div className="space-y-4">
                 {[
                   {
@@ -195,11 +195,11 @@ export default function AboutPage() {
                 ].map((edu, index) => (
                   <div key={index} className="flex justify-between items-start">
                     <div>
-                      <h4 className="font-bold text-foreground">{edu.degree}</h4>
-                      <p className="text-foreground/70">{edu.school}</p>
-                      <p className="text-foreground/60 text-sm mt-1">{edu.description}</p>
+                      <h4 className="font-bold text-[var(--color-foreground)]">{edu.degree}</h4>
+                      <p className="text-[var(--color-foreground)]/70">{edu.school}</p>
+                      <p className="text-[var(--color-foreground)]/60 text-sm mt-1">{edu.description}</p>
                     </div>
-                    <span className="text-xs bg-primary/20 text-primary px-2 py-1 rounded-full whitespace-nowrap">
+                    <span className="text-xs bg-[var(--color-primary)]/20 text-[var(--color-primary)] px-2 py-1 rounded-full whitespace-nowrap">
                       {edu.period}
                     </span>
                   </div>
@@ -208,8 +208,8 @@ export default function AboutPage() {
             </div>
 
             {/* Technologies */}
-            <div className="backdrop-blur-xl bg-card/50 border border-border/50 rounded-2xl p-6">
-              <h3 className="text-2xl font-bold text-foreground mb-6">Technologies & Tools</h3>
+            <div className="backdrop-blur-xl bg-[var(--color-card)] border border-[var(--color-border)]/50 rounded-2xl p-6">
+              <h3 className="text-2xl font-bold text-[var(--color-foreground)] mb-6">Technologies & Tools</h3>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                 {[
                   "React/Next.js", "TypeScript", "Python", "C Programming", "Zig", 
@@ -220,9 +220,9 @@ export default function AboutPage() {
                 ].map((tech) => (
                   <div 
                     key={tech} 
-                    className="px-4 py-2 bg-primary/10 text-primary rounded-xl text-center text-sm font-medium hover:bg-primary/20 hover:scale-105 transition-all duration-300 group relative overflow-hidden"
+                    className="px-4 py-2 bg-[var(--color-primary)]/10 text-[var(--color-primary)] rounded-xl text-center text-sm font-medium hover:bg-[var(--color-primary)]/20 hover:scale-105 transition-all duration-300 group relative overflow-hidden"
                   >
-                    <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-primary)]/20 to-[var(--color-secondary)]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     <span className="relative z-10">{tech}</span>
                   </div>
                 ))}
@@ -230,9 +230,9 @@ export default function AboutPage() {
             </div>
 
             {/* Social Media Links */}
-            <div className="backdrop-blur-xl bg-card/50 border border-border/50 rounded-2xl p-6">
-              <h3 className="text-2xl font-bold text-foreground mb-6">Let's Connect</h3>
-              <p className="text-foreground/60 mb-6">
+            <div className="backdrop-blur-xl bg-[var(--color-card)] border border-[var(--color-border)]/50 rounded-2xl p-6">
+              <h3 className="text-2xl font-bold text-[var(--color-foreground)] mb-6">Let's Connect</h3>
+              <p className="text-[var(--color-foreground)]/60 mb-6">
                 Follow my journey through code, music, and open source contributions
               </p>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
@@ -249,7 +249,7 @@ export default function AboutPage() {
                     href={social.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`flex flex-col items-center justify-center p-4 rounded-xl bg-foreground/5 text-foreground/70 transition-all duration-300 hover:scale-105 ${social.color} group`}
+                    className={`flex flex-col items-center justify-center p-4 rounded-xl bg-[var(--color-foreground)]/5 text-[var(--color-foreground)]/70 transition-all duration-300 hover:scale-105 ${social.color} group`}
                   >
                     <span className="text-2xl mb-2 group-hover:scale-110 transition-transform duration-300">{social.icon}</span>
                     <span className="text-sm font-medium">{social.name}</span>

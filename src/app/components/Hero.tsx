@@ -20,7 +20,7 @@ export function Hero({ title, subtitle, description, className }: HeroProps) {
       <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 animate-fade-in-up">
         {title}
       </h1>
-      <p className="text-lg text-muted-foreground max-w-2xl mx-auto animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+      <p className="text-lg text-[var(--color-muted-foreground)] max-w-2xl mx-auto animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
         {description}
       </p>
     </div>
