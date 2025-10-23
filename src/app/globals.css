@@ -87,7 +87,7 @@
 
 /* Remove the @theme inline block and use direct CSS variable references */
 
-/* Ultra-modern glass morphism with enhanced effects */
+/* Ultra-modern glass morphism with enhanced effects and modern shadows */
 .glass {
   backdrop-filter: blur(40px) saturate(300%) brightness(1.1);
   -webkit-backdrop-filter: blur(40px) saturate(300%) brightness(1.1);
@@ -98,10 +98,12 @@
   );
   border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 
-    0 15px 35px rgba(0, 0, 0, 0.1),
-    0 3px 10px rgba(0, 0, 0, 0.05),
+    0 8px 32px 0 rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(255, 255, 255, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.3),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+    inset 0 -1px 0 rgba(0, 0, 0, 0.1),
+    0 10px 15px -3px rgba(0, 0, 0, 0.05),
+    0 4px 6px -2px rgba(0, 0, 0, 0.025);
   transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
@@ -113,10 +115,12 @@
   );
   border: 1px solid rgba(255, 255, 255, 0.15);
   box-shadow: 
-    0 15px 35px rgba(0, 0, 0, 0.3),
-    0 3px 10px rgba(0, 0, 0, 0.2),
+    0 8px 32px 0 rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.05),
     inset 0 1px 0 rgba(255, 255, 255, 0.1),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+    0 10px 15px -3px rgba(0, 0, 0, 0.2),
+    0 4px 6px -2px rgba(0, 0, 0, 0.1);
 }
 
 .glass:hover {
@@ -124,18 +128,22 @@
   -webkit-backdrop-filter: blur(50px) saturate(400%) brightness(1.2);
   transform: translateY(-2px);
   box-shadow: 
-    0 25px 50px rgba(0, 0, 0, 0.15),
-    0 10px 20px rgba(0, 0, 0, 0.1),
+    0 25px 50px -12px rgba(0, 0, 0, 0.15),
+    0 0 0 1px rgba(255, 255, 255, 0.2),
     inset 0 1px 0 rgba(255, 255, 255, 0.4),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+    inset 0 -1px 0 rgba(0, 0, 0, 0.1),
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
 .dark .glass:hover {
   box-shadow: 
-    0 25px 50px rgba(0, 0, 0, 0.4),
-    0 10px 20px rgba(0, 0, 0, 0.3),
+    0 25px 50px -12px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.15),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.4);
+    inset 0 -1px 0 rgba(0, 0, 0, 0.4),
+    0 20px 25px -5px rgba(0, 0, 0, 0.3),
+    0 10px 10px -5px rgba(0, 0, 0, 0.2);
 }
 
 /* Mobile responsive adjustments */
@@ -194,10 +202,12 @@ main {
   );
   border: 1px solid rgba(255, 255, 255, 0.25);
   box-shadow: 
-    0 20px 40px rgba(0, 0, 0, 0.1),
-    0 5px 15px rgba(0, 0, 0, 0.05),
+    0 10px 40px -10px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(255, 255, 255, 0.15),
     inset 0 1px 0 rgba(255, 255, 255, 0.4),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+    inset 0 -1px 0 rgba(0, 0, 0, 0.1),
+    0 15px 30px -10px rgba(0, 0, 0, 0.05),
+    0 5px 10px -5px rgba(0, 0, 0, 0.02);
   transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   position: relative;
   overflow: hidden;
@@ -232,31 +242,37 @@ main {
   );
   border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 
-    0 20px 40px rgba(0, 0, 0, 0.3),
-    0 5px 15px rgba(0, 0, 0, 0.2),
+    0 10px 40px -10px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.08),
     inset 0 1px 0 rgba(255, 255, 255, 0.15),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+    0 15px 30px -10px rgba(0, 0, 0, 0.2),
+    0 5px 10px -5px rgba(0, 0, 0, 0.1);
 }
 
 .card-glass:hover {
-  transform: translateY(-12px) scale(1.03) rotateX(5deg);
+  transform: translateY(-8px) scale(1.02);
   backdrop-filter: blur(40px) saturate(300%) brightness(1.1);
   -webkit-backdrop-filter: blur(40px) saturate(300%) brightness(1.1);
   box-shadow: 
-    0 35px 60px rgba(0, 0, 0, 0.2),
-    0 15px 25px rgba(0, 0, 0, 0.15),
-    0 0 100px rgba(99, 102, 241, 0.15),
+    0 40px 80px -20px rgba(0, 0, 0, 0.2),
+    0 0 0 1px rgba(255, 255, 255, 0.25),
     inset 0 1px 0 rgba(255, 255, 255, 0.5),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+    inset 0 -1px 0 rgba(0, 0, 0, 0.1),
+    0 25px 50px -12px rgba(0, 0, 0, 0.15),
+    0 12px 24px -8px rgba(0, 0, 0, 0.1),
+    0 0 80px rgba(99, 102, 241, 0.1);
 }
 
 .dark .card-glass:hover {
   box-shadow: 
-    0 35px 60px rgba(0, 0, 0, 0.5),
-    0 15px 25px rgba(0, 0, 0, 0.4),
-    0 0 100px rgba(129, 140, 248, 0.2),
+    0 40px 80px -20px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.15),
     inset 0 1px 0 rgba(255, 255, 255, 0.2),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.4);
+    inset 0 -1px 0 rgba(0, 0, 0, 0.4),
+    0 25px 50px -12px rgba(0, 0, 0, 0.3),
+    0 12px 24px -8px rgba(0, 0, 0, 0.2),
+    0 0 80px rgba(129, 140, 248, 0.15);
 }
 
 /* Ensure all elements use the CSS variables */
@@ -457,7 +473,7 @@ textarea:focus-visible {
   box-shadow: 0 0 10px var(--color-primary), 0 0 20px var(--color-primary), 0 0 40px var(--color-primary);
 }
 
-/* Modern button styles */
+/* Modern button styles with enhanced shadows */
 .btn-modern {
   background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
   border: none;
@@ -466,12 +482,84 @@ textarea:focus-visible {
   border-radius: 8px;
   font-weight: 600;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 14px color-mix(in srgb, var(--color-primary) 30%, transparent);
+  box-shadow: 
+    0 4px 14px 0 color-mix(in srgb, var(--color-primary) 30%, transparent),
+    0 2px 4px -1px rgba(0, 0, 0, 0.1),
+    0 1px 2px -1px rgba(0, 0, 0, 0.06);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-modern::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+.btn-modern:hover::before {
+  left: 100%;
 }
 
 .btn-modern:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px color-mix(in srgb, var(--color-primary) 40%, transparent);
+  box-shadow: 
+    0 12px 25px -2px color-mix(in srgb, var(--color-primary) 40%, transparent),
+    0 4px 6px -2px rgba(0, 0, 0, 0.1),
+    0 2px 4px -2px rgba(0, 0, 0, 0.06);
+}
+
+.btn-modern:active {
+  transform: translateY(0);
+  box-shadow: 
+    0 2px 8px 0 color-mix(in srgb, var(--color-primary) 25%, transparent),
+    0 1px 2px -1px rgba(0, 0, 0, 0.05);
+}
+
+/* Modern shadow utilities */
+.shadow-modern {
+  box-shadow: 
+    0 10px 40px -10px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(255, 255, 255, 0.1),
+    0 4px 6px -1px rgba(0, 0, 0, 0.05),
+    0 2px 4px -1px rgba(0, 0, 0, 0.03);
+}
+
+.dark .shadow-modern {
+  box-shadow: 
+    0 10px 40px -10px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.05),
+    0 4px 6px -1px rgba(0, 0, 0, 0.2),
+    0 2px 4px -1px rgba(0, 0, 0, 0.1);
+}
+
+.shadow-modern-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.shadow-modern-hover:hover {
+  box-shadow: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.15),
+    0 0 0 1px rgba(255, 255, 255, 0.2),
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.dark .shadow-modern-hover:hover {
+  box-shadow: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.1),
+    0 10px 15px -3px rgba(0, 0, 0, 0.3),
+    0 4px 6px -2px rgba(0, 0, 0, 0.2);
 }
 
 /* Subtle background patterns */
