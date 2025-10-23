@@ -67,30 +67,30 @@ export function FeaturedPostCard({ post, onCategoryClick }: FeaturedPostCardProp
           </div>
         </div>
         
-        {/* Title on the image overlay */}
-        <div className="absolute bottom-0 left-0 right-0 p-6 z-10">
-          <h3 className="text-xl font-bold text-white line-clamp-2 group-hover:text-primary transition-colors duration-500">
+        {/* Title always visible - positioned at the bottom of the image */}
+        <div className="absolute bottom-0 left-0 right-0 p-6 z-20">
+          <h3 className="text-xl font-bold text-white line-clamp-2">
             {post.title}
           </h3>
         </div>
 
         {/* Content Section - Show details on hover */}
         <div className="relative p-6 flex-1 flex flex-col justify-end">
-          {/* Background overlay for content */}
-          <div className="absolute inset-0 bg-card/90 backdrop-blur-sm rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          {/* Background overlay for content - appears on hover */}
+          <div className="absolute inset-0 bg-card/95 backdrop-blur-sm rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
           
-          {/* Content wrapper with proper z-index */}
-          <div className="relative z-10">
-            {/* Description - appears on hover */}
+          {/* Content wrapper - appears on hover */}
+          <div className="relative z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+            {/* Description */}
             <div className="overflow-hidden">
-              <p className="text-muted-foreground text-sm mb-4 line-clamp-3 transform translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-100">
+              <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
                 {post.description}
               </p>
             </div>
             
-            {/* Meta Information - appears on hover */}
+            {/* Meta Information */}
             <div className="overflow-hidden">
-              <div className="flex items-center text-muted-foreground text-sm mb-4 transform translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-200">
+              <div className="flex items-center text-muted-foreground text-sm mb-4">
                 <Calendar className="w-4 h-4 mr-1" />
                 <span className="mr-3">{new Date(post.date).toLocaleDateString()}</span>
                 <Clock className="w-4 h-4 mr-1" />
@@ -98,10 +98,10 @@ export function FeaturedPostCard({ post, onCategoryClick }: FeaturedPostCardProp
               </div>
             </div>
             
-            {/* Tags - appears on hover */}
+            {/* Tags */}
             {post.tags && post.tags.length > 0 && (
               <div className="overflow-hidden">
-                <div className="flex flex-wrap gap-1 transform translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-300">
+                <div className="flex flex-wrap gap-1">
                   {post.tags.slice(0, 3).map((tag) => (
                     <span
                       key={tag}
