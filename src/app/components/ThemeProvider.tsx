@@ -41,7 +41,10 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     const root = window.document.documentElement
     
     // Remove all theme classes
-    root.classList.remove('light', 'dark')
+    root.classList.remove('light', 'dark', 'system')
+    
+    // Add the current theme class
+    root.classList.add(theme)
     
     // Determine the effective theme to apply
     let effectiveTheme: 'light' | 'dark'
@@ -51,9 +54,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       effectiveTheme = theme
     }
     
-    // Apply both the theme mode and the effective theme
-    // This helps with specificity
-    root.classList.add(theme)
+    // Also add the effective theme class
     root.classList.add(effectiveTheme)
     
     // Update localStorage
@@ -61,6 +62,10 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     
     // Set cookie for SSR if needed
     document.cookie = `mujaxso-theme=${theme}; path=/; max-age=31536000`
+    
+    // Force update the body background and text color
+    document.body.style.backgroundColor = 'var(--color-background)'
+    document.body.style.color = 'var(--color-foreground)'
   }, [theme, mounted])
 
   // Provide the context value

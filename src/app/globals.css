@@ -85,12 +85,7 @@
   --shadow-glow: 0 0 20px rgba(139, 92, 246, 0.15);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* Remove the @theme inline block and use direct CSS variable references */
 
 /* Enhanced glass morphism effects for 2025 */
 .glass {
@@ -155,13 +150,13 @@ main {
 
 /* Ensure all elements use the CSS variables */
 * {
-  border-color: var(--border);
+  border-color: var(--color-border);
 }
 
 html, body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-family-primary), system-ui, sans-serif;
   transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   overflow-x: hidden;
 }
@@ -263,9 +258,9 @@ html, body {
 }
 
 /* Ensure all direct children of body inherit the theme */
-body > * {
-  background: var(--background);
-  color: var(--foreground);
+body, body > * {
+  background-color: var(--color-background) !important;
+  color: var(--color-foreground) !important;
 }
 
 /* Ensure consistent theme for all interactive elements */
