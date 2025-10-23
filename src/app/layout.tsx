@@ -55,24 +55,16 @@ export default function RootLayout({
         <PersonStructuredData />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased font-sans transition-colors duration-300`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased font-sans`}
         style={{
           fontFamily: 'var(--font-family-primary)',
           viewTransitionName: 'root-layout',
-          backgroundColor: 'var(--color-background)',
-          color: 'var(--color-foreground)',
         }}
       >
         <ThemeProvider>
-          <div className="flex flex-col min-h-screen" style={{
-            backgroundColor: 'var(--color-background)',
-            color: 'var(--color-foreground)',
-          }}>
+          <div className="flex flex-col min-h-screen">
             <Header />
-            <main className="flex-1 pt-14" style={{
-              backgroundColor: 'var(--color-background)',
-              color: 'var(--color-foreground)',
-            }}>
+            <main className="flex-1 pt-14">
               {children}
             </main>
             <Footer />

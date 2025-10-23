@@ -151,13 +151,14 @@ main {
 /* Ensure all elements use the CSS variables */
 * {
   border-color: var(--color-border);
+  transition: background-color 0.1s ease, color 0.1s ease, border-color 0.1s ease;
 }
 
 html, body {
   background: var(--color-background);
   color: var(--color-foreground);
   font-family: var(--font-family-primary), system-ui, sans-serif;
-  transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: background-color 0.2s ease, color 0.2s ease;
   overflow-x: hidden;
 }
 
@@ -265,7 +266,7 @@ body, body > * {
 
 /* Ensure consistent theme for all interactive elements */
 button, a, input, textarea, select {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.1s ease;
 }
 
 /* Enhanced focus states for accessibility */

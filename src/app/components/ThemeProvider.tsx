@@ -62,10 +62,6 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     
     // Set cookie for SSR if needed
     document.cookie = `mujaxso-theme=${theme}; path=/; max-age=31536000`
-    
-    // Force update the body background and text color
-    document.body.style.backgroundColor = 'var(--color-background)'
-    document.body.style.color = 'var(--color-foreground)'
   }, [theme, mounted])
 
   // Provide the context value
