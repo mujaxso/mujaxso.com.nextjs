@@ -3,10 +3,33 @@
 import Link from "next/link";
 import ModeToggle from "./ModeToggle";
 import Search from "./Search";
-import { Code2 } from "lucide-react";
+import { Code2, Menu, X } from "lucide-react";
 import { Button } from "./ui/Button";
+import { useState, useEffect } from "react";
 
 export default function Header() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Close mobile menu when window is resized to desktop size
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const navigationItems = [
+    { href: "/projects", label: "Projects" },
+    { href: "/blog", label: "Blog" },
+    { href: "/music", label: "Music" },
+    { href: "/about", label: "About" },
+    { href: "/contact", label: "Contact" }
+  ];
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 glass border-b border-border/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -23,15 +46,11 @@ export default function Header() {
               Mujahid Siyam
             </span>
           </Link>
-          <nav className="flex items-center gap-4">
+          
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-4">
             <ul className="flex gap-2">
-              {[
-                { href: "/projects", label: "Projects" },
-                { href: "/blog", label: "Blog" },
-                { href: "/music", label: "Music" },
-                { href: "/about", label: "About" },
-                { href: "/contact", label: "Contact" }
-              ].map((item) => (
+              {navigationItems.map((item) => (
                 <li key={item.href}>
                   <Button variant="ghost" size="sm" asChild>
                     <Link href={item.href}>
@@ -46,7 +65,50 @@ export default function Header() {
               <ModeToggle />
             </div>
           </nav>
+
+          {/* Mobile Menu Button */}
+          <div className="flex md:hidden items-center gap-2">
+            <Search />
+            <ModeToggle />
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="p-2"
+            >
+              {isMobileMenuOpen ? (
+                <X className="w-5 h-5" />
+              ) : (
+                <Menu className="w-5 h-5" />
+              )}
+            </Button>
+          </div>
         </div>
+
+        {/* Mobile Navigation Menu */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden absolute top-full left-0 right-0 glass border-t border-border/50 backdrop-blur-xl">
+            <nav className="p-4">
+              <ul className="space-y-2">
+                {navigationItems.map((item) => (
+                  <li key={item.href}>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      asChild
+                      className="w-full justify-start"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      <Link href={item.href}>
+                        {item.label}
+                      </Link>
+                    </Button>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </div>
+        )}
       </div>
     </header>
   );

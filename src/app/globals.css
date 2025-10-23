@@ -73,6 +73,14 @@
   box-shadow: var(--glow);
 }
 
+/* Mobile responsive adjustments */
+@media (max-width: 767px) {
+  .glass {
+    backdrop-filter: blur(10px) saturate(180%);
+    -webkit-backdrop-filter: blur(10px) saturate(180%);
+  }
+}
+
 .glass-dark {
   backdrop-filter: blur(30px) saturate(250%);
   -webkit-backdrop-filter: blur(30px) saturate(250%);

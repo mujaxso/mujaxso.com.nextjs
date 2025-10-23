@@ -83,29 +83,29 @@ export default function Search() {
 
       {/* Search Modal */}
       {isOpen && (
-        <div className="fixed inset-0 bg-black/50 z-50 flex items-start justify-center pt-20">
-          <div className="bg-card border border-border rounded-2xl shadow-2xl w-full max-w-2xl mx-4">
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-start justify-center pt-4 md:pt-20 px-4">
+          <div className="bg-card border border-border rounded-2xl shadow-2xl w-full max-w-2xl">
             {/* Search Input */}
-            <div className="relative p-4 border-b border-border">
-              <SearchIcon className="absolute left-6 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
+            <div className="relative p-3 md:p-4 border-b border-border">
+              <SearchIcon className="absolute left-4 md:left-6 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4 md:w-5 md:h-5" />
               <input
                 ref={inputRef}
                 type="text"
                 placeholder="Search blog posts, projects, and more..."
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                className="w-full pl-12 pr-10 py-3 bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-card-foreground"
+                className="w-full pl-10 md:pl-12 pr-8 md:pr-10 py-2 md:py-3 bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-card-foreground text-sm md:text-base"
               />
               <button
                 onClick={() => setIsOpen(false)}
-                className="absolute right-6 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-card-foreground"
+                className="absolute right-4 md:right-6 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-card-foreground"
               >
-                <X className="w-5 h-5" />
+                <X className="w-4 h-4 md:w-5 md:h-5" />
               </button>
             </div>
 
             {/* Search Results */}
-            <div className="max-h-96 overflow-y-auto">
+            <div className="max-h-64 md:max-h-96 overflow-y-auto">
               {isLoading ? (
                 <div className="p-8 text-center text-muted-foreground">
                   Searching...
