@@ -1,8 +1,7 @@
-import Link from "next/link";
-import { ExternalLink, Github } from "lucide-react";
 import { join } from "path";
 import { promises as fs } from "fs";
 import { Hero } from "../components/Hero";
+import { GitHubProjectsGrid } from "../components/ui/GitHubProjectsGrid";
 
 interface Project {
   slug: string;
@@ -14,6 +13,11 @@ interface Project {
   githubUrl?: string;
   liveUrl?: string;
   featured?: boolean;
+  language?: string;
+  languageColor?: string;
+  stars?: number;
+  forks?: number;
+  watchers?: number;
 }
 
 // Revalidate every hour for ISR
@@ -74,6 +78,21 @@ async function getProjects(): Promise<Project[]> {
                 case 'featured':
                   project.featured = value === 'true';
                   break;
+                case 'language':
+                  project.language = value;
+                  break;
+                case 'languageColor':
+                  project.languageColor = value;
+                  break;
+                case 'stars':
+                  project.stars = parseInt(value) || 0;
+                  break;
+                case 'forks':
+                  project.forks = parseInt(value) || 0;
+                  break;
+                case 'watchers':
+                  project.watchers = parseInt(value) || 0;
+                  break;
               }
             }
           });
@@ -90,8 +109,37 @@ async function getProjects(): Promise<Project[]> {
   }
 }
 
+function formatRelativeTime(dateString: string): string {
+  const date = new Date(dateString);
+  const now = new Date();
+  const diffInMs = now.getTime() - date.getTime();
+  const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
+  
+  if (diffInDays === 0) return 'today';
+  if (diffInDays === 1) return 'yesterday';
+  if (diffInDays < 7) return `${diffInDays} days ago`;
+  if (diffInDays < 30) return `${Math.floor(diffInDays / 7)} weeks ago`;
+  if (diffInDays < 365) return `${Math.floor(diffInDays / 30)} months ago`;
+  return `${Math.floor(diffInDays / 365)} years ago`;
+}
+
 export default async function ProjectsPage() {
   const projects = await getProjects();
+  
+  // Transform projects to match GitHubProjectsGrid interface
+  const githubProjects = projects.map(project => ({
+    title: project.title,
+    description: project.description,
+    language: project.language || project.category,
+    languageColor: project.languageColor,
+    stars: project.stars || 0,
+    forks: project.forks || 0,
+    watchers: project.watchers || 0,
+    updatedAt: formatRelativeTime(project.date),
+    githubUrl: project.githubUrl,
+    liveUrl: project.liveUrl,
+    isFork: false, // You can add this to your frontmatter if needed
+  }));
   
   return (
     <div className="min-h-screen bg-[var(--color-background)] text-[var(--color-foreground)] transition-colors duration-300">
@@ -102,83 +150,7 @@ export default async function ProjectsPage() {
           description="A collection of my open-source projects and contributions"
         />
         
-        <div className="grid gap-6 md:grid-cols-2 lg:gap-8">
-          {projects.map((project) => (
-            <div key={project.slug} className="group relative overflow-hidden rounded-2xl backdrop-blur-xl bg-[var(--color-card)] border border-[var(--color-border)] p-4 sm:p-6 hover:transform hover:scale-[1.02] transition-all duration-300 flex flex-col h-full">
-              <Link href={`/projects/${project.slug}`} className="block">
-                <div className="h-40 sm:h-48 bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-secondary)] rounded-lg mb-4 flex items-center justify-center">
-                  <div className="text-white text-4xl font-bold opacity-80">
-                    {project.title.split(' ').map(word => word[0]).join('').toUpperCase()}
-                  </div>
-                </div>
-                
-                <div className="flex justify-between items-start mb-3">
-                  <h3 className="text-lg sm:text-xl font-semibold group-hover:text-[var(--color-primary)] transition-colors">
-                    {project.title}
-                  </h3>
-                </div>
-                
-                <p className="text-[var(--color-muted-foreground)] mb-4 line-clamp-3 flex-1">
-                  {project.description}
-                </p>
-                
-                {project.category && (
-                  <div className="mb-4">
-                    <span className="text-sm font-medium text-[var(--color-primary)] bg-[var(--color-primary)]/20 px-3 py-1 rounded-full">
-                      {project.category}
-                    </span>
-                  </div>
-                )}
-                
-                {project.tags && project.tags.length > 0 && (
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {project.tags.slice(0, 3).map((tag) => (
-                      <span key={tag} className="px-2 py-1 text-xs sm:text-sm bg-[var(--color-muted)] text-[var(--color-muted-foreground)] rounded-full">
-                        {tag}
-                      </span>
-                    ))}
-                    {project.tags.length > 3 && (
-                      <span className="px-2 py-1 text-xs sm:text-sm bg-[var(--color-muted)] text-[var(--color-muted-foreground)] rounded-full">
-                        +{project.tags.length - 3} more
-                      </span>
-                    )}
-                  </div>
-                )}
-                
-                <div className="mt-auto inline-flex items-center text-[var(--color-primary)] group-hover:text-[var(--color-primary-hover)] font-medium transition-colors">
-                  View Project
-                  <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </div>
-              </Link>
-              
-              {/* External links positioned absolutely to avoid nesting issues */}
-              <div className="absolute top-4 right-4 flex gap-2">
-                {project.githubUrl && (
-                  <a 
-                    href={project.githubUrl} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="p-2 text-[var(--color-muted-foreground)] hover:text-[var(--color-foreground)] transition-colors backdrop-blur-sm bg-[var(--color-card)] border border-[var(--color-border)] rounded-lg hover:scale-110"
-                  >
-                    <Github className="w-4 h-4 sm:w-5 sm:h-5" />
-                  </a>
-                )}
-                {project.liveUrl && (
-                  <a 
-                    href={project.liveUrl} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="p-2 text-[var(--color-muted-foreground)] hover:text-[var(--color-foreground)] transition-colors backdrop-blur-sm bg-[var(--color-card)] border border-[var(--color-border)] rounded-lg hover:scale-110"
-                  >
-                    <ExternalLink className="w-4 h-4 sm:w-5 sm:h-5" />
-                  </a>
-                )}
-              </div>
-            </div>
-          ))}
-        </div>
+        <GitHubProjectsGrid projects={githubProjects} className="mt-12" />
         
         {projects.length === 0 && (
           <div className="text-center py-12">
