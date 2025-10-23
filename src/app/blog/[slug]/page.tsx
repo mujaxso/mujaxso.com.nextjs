@@ -200,7 +200,18 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 async function MDXContent({ content }: { content: string }) {
   try {
     const { MDXRemote } = await import('next-mdx-remote/rsc');
-    return <MDXRemote source={content} />;
+    return (
+      <MDXRemote 
+        source={content}
+        options={{
+          mdxOptions: {
+            rehypePlugins: [
+              // Syntax highlighting is now handled by the MDX configuration
+            ],
+          },
+        }}
+      />
+    );
   } catch (error) {
     console.error('Error rendering MDX:', error);
     return (

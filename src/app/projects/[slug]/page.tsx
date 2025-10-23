@@ -159,7 +159,16 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             {/* Main content */}
             <div className="flex-1 min-w-0">
               <article className="markdown-body">
+                {/* Import highlight.js styles */}
+                <link 
+                  rel="stylesheet" 
+                  href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/styles/github-dark.min.css" 
+                />
                 <ReactMarkdown
+                  rehypePlugins={[
+                    // Add syntax highlighting
+                    require('rehype-highlight'),
+                  ]}
                   components={{
                     // GitHub-like heading styles
                     h1: ({ children }) => (
