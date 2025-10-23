@@ -58,9 +58,14 @@ export function PostCard({ post, onCategoryClick, onTagClick }: PostCardProps) {
             ))}
           </div>
           
-          <h3 className="text-lg sm:text-xl font-semibold mb-3 text-foreground group-hover:text-primary transition-colors line-clamp-2">
-            {post.title}
-          </h3>
+          <div className="flex items-start justify-between mb-3">
+            <h3 className="text-lg sm:text-xl font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-2 flex-1">
+              {post.title}
+            </h3>
+            {post.featured && (
+              <Star className="w-4 h-4 text-yellow-500 ml-2 flex-shrink-0" />
+            )}
+          </div>
           <p className="text-muted-foreground mb-4 text-sm line-clamp-3 flex-1">
             {post.description}
           </p>

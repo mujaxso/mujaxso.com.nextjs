@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Add icons for new features */
+@import url('https://unpkg.com/lucide-static@0.91.0/font/lucide.css');
+
 :root {
   /* Modern 2025 Dark theme (default) */
   --background: #0a0a0a;

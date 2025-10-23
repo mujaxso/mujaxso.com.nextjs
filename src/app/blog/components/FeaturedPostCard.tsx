@@ -39,8 +39,11 @@ export function FeaturedPostCard({ post, onCategoryClick }: FeaturedPostCardProp
               {post.category}
             </button>
           )}
-          <h3 className="text-xl font-bold text-white mb-2 line-clamp-2 group-hover:text-secondary transition-colors">
+          <h3 className="text-xl font-bold text-white mb-2 line-clamp-2 group-hover:text-secondary transition-colors flex items-center">
             {post.title}
+            {post.featured && (
+              <Star className="w-5 h-5 text-yellow-400 ml-2 fill-yellow-400" />
+            )}
           </h3>
           <div className="flex items-center text-white/80 text-sm">
             <Calendar className="w-4 h-4 mr-1" />
@@ -48,6 +51,18 @@ export function FeaturedPostCard({ post, onCategoryClick }: FeaturedPostCardProp
             <Clock className="w-4 h-4 mr-1" />
             <span>{post.readingTime}</span>
           </div>
+          {post.tags && post.tags.length > 0 && (
+            <div className="flex flex-wrap gap-1 mt-3">
+              {post.tags.slice(0, 3).map((tag) => (
+                <span
+                  key={tag}
+                  className="px-2 py-1 bg-white/20 text-white text-xs rounded-full backdrop-blur-sm"
+                >
+                  #{tag}
+                </span>
+              ))}
+            </div>
+          )}
         </div>
       </article>
     </Link>
