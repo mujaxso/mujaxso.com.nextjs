@@ -74,15 +74,15 @@ export function FeaturedPostCard({ post, onCategoryClick }: FeaturedPostCardProp
           </h3>
         </div>
 
-        {/* Content Section - Show details on hover */}
-        <div className="relative p-6 flex-1 flex flex-col justify-center items-center text-center">
-          {/* Background overlay for content - appears on hover */}
-          <div className="absolute inset-0 bg-card/95 backdrop-blur-sm rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        {/* Hover Content Overlay - Covers the entire card */}
+        <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-center items-center text-center p-6">
+          {/* Background overlay */}
+          <div className="absolute inset-0 bg-card/95 backdrop-blur-sm rounded-2xl" />
           
-          {/* Content wrapper - appears on hover */}
-          <div className="relative z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 w-full h-full flex flex-col justify-center items-center">
+          {/* Content */}
+          <div className="relative z-10 w-full max-w-md">
             {/* Description */}
-            <div className="overflow-hidden mb-4 max-w-md">
+            <div className="overflow-hidden mb-4">
               <p className="text-muted-foreground text-sm line-clamp-3">
                 {post.description}
               </p>
@@ -123,10 +123,10 @@ export function FeaturedPostCard({ post, onCategoryClick }: FeaturedPostCardProp
               </div>
             )}
           </div>
-          
-          {/* Hover Border Effect */}
-          <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-primary/30 transition-all duration-500 pointer-events-none" />
         </div>
+        
+        {/* Empty content section to maintain card height */}
+        <div className="flex-1" />
         
         {/* Glow Effect */}
         <div className="absolute inset-0 rounded-2xl bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
