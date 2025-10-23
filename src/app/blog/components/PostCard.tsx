@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Calendar, Clock } from 'lucide-react';
+import { Calendar, Clock, Star } from 'lucide-react';
 import { BlogPost } from '../lib/utils';
 
 interface PostCardProps {
