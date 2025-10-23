@@ -226,7 +226,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                       
                       if (isInline) {
                         return (
-                          <code className="bg-zinc-100 dark:bg-zinc-800 px-1.5 py-0.5 rounded text-sm font-mono text-zinc-900 dark:text-white border border-zinc-200 dark:border-zinc-700" {...props}>
+                          <code className="bg-[var(--color-muted)] px-1.5 py-0.5 rounded text-sm font-mono text-[var(--color-foreground)] border border-[var(--color-border)]" {...props}>
                             {children}
                           </code>
                         );
@@ -234,10 +234,10 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                       
                       return (
                         <div className="relative my-4">
-                          <div className="absolute top-0 left-0 right-0 bg-zinc-200 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-400 text-xs px-4 py-1 rounded-t-lg font-mono">
+                          <div className="absolute top-0 left-0 right-0 bg-[var(--color-muted)] text-[var(--color-muted-foreground)] text-xs px-4 py-1 rounded-t-lg font-mono border border-[var(--color-border)] border-b-0">
                             {match[1]}
                           </div>
-                          <pre className="bg-zinc-100 dark:bg-zinc-800 p-4 rounded-lg border border-zinc-200 dark:border-zinc-700 overflow-x-auto mt-6">
+                          <pre className="bg-[var(--color-muted)] p-4 rounded-lg border border-[var(--color-border)] overflow-x-auto mt-6">
                             <code className={className} {...props}>
                               {children}
                             </code>

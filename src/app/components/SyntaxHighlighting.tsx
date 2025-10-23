@@ -4,48 +4,110 @@ import { useEffect } from 'react';
 
 export default function SyntaxHighlighting() {
   useEffect(() => {
-    // Dynamically load highlight.js styles
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/styles/github-dark.min.css';
-    document.head.appendChild(link);
-
-    // Add custom styles for code blocks
+    // Add custom styles for code blocks that override highlight.js
     const style = document.createElement('style');
     style.textContent = `
+      /* Base code block styling */
       .markdown-body pre,
       .prose pre {
-        background: rgb(24 24 27) !important;
-        border: 1px solid rgb(63 63 70) !important;
+        background: var(--color-muted) !important;
+        border: 1px solid var(--color-border) !important;
         border-radius: 0.5rem;
         padding: 1rem;
         overflow-x: auto;
         margin: 1rem 0;
+        color: var(--color-foreground) !important;
       }
-      .markdown-body code,
-      .prose code {
+      
+      /* Inline code */
+      .markdown-body code:not(pre code),
+      .prose code:not(pre code) {
+        background: var(--color-muted) !important;
+        color: var(--color-foreground) !important;
+        padding: 0.2em 0.4em !important;
+        border-radius: 0.25rem;
+        font-size: 0.875em;
+        border: 1px solid var(--color-border);
+      }
+      
+      /* Code inside pre blocks */
+      .markdown-body pre code,
+      .prose pre code {
         background: transparent !important;
+        color: inherit !important;
         padding: 0 !important;
         border: none !important;
       }
-      .markdown-body .hljs,
-      .prose .hljs {
+      
+      /* Override highlight.js styles to use theme colors */
+      .hljs {
         background: transparent !important;
-        padding: 0 !important;
+        color: var(--color-foreground) !important;
       }
-      [data-theme='light'] .markdown-body pre,
-      [data-theme='light'] .prose pre {
-        background: rgb(244 244 245) !important;
-        border-color: rgb(228 228 231) !important;
+      
+      /* Syntax token colors that match your theme */
+      .hljs-keyword,
+      .hljs-selector-tag,
+      .hljs-literal,
+      .hljs-section,
+      .hljs-link {
+        color: var(--color-primary) !important;
       }
-      [data-theme='light'] .hljs {
-        background: transparent !important;
+      
+      .hljs-string,
+      .hljs-title,
+      .hljs-name,
+      .hljs-type,
+      .hljs-attribute,
+      .hljs-symbol,
+      .hljs-bullet,
+      .hljs-built_in,
+      .hljs-addition,
+      .hljs-variable,
+      .hljs-template-tag,
+      .hljs-template-variable {
+        color: #10b981 !important; /* emerald-500 */
+      }
+      
+      .hljs-comment,
+      .hljs-quote,
+      .hljs-deletion,
+      .hljs-meta {
+        color: var(--color-muted-foreground) !important;
+      }
+      
+      .hljs-keyword,
+      .hljs-selector-tag,
+      .hljs-literal,
+      .hljs-title,
+      .hljs-section,
+      .hljs-doctag,
+      .hljs-type,
+      .hljs-name,
+      .hljs-strong {
+        font-weight: 600;
+      }
+      
+      .hljs-emphasis {
+        font-style: italic;
+      }
+      
+      /* Language-specific adjustments */
+      .hljs-number {
+        color: #f59e0b !important; /* amber-500 */
+      }
+      
+      .hljs-function .hljs-title {
+        color: #3b82f6 !important; /* blue-500 */
+      }
+      
+      .hljs-params {
+        color: var(--color-foreground) !important;
       }
     `;
     document.head.appendChild(style);
 
     return () => {
-      document.head.removeChild(link);
       document.head.removeChild(style);
     };
   }, []);

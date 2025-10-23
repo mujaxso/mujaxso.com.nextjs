@@ -16,8 +16,9 @@ export default function MDXWrapper({ children }: { children: React.ReactNode }) 
                      prose-ul:text-[var(--color-foreground)]/90
                      prose-ol:text-[var(--color-foreground)]/90
                      prose-li:text-[var(--color-foreground)]/90
-                     prose-code:text-[var(--color-foreground)]/90
-                     prose-pre:bg-[var(--color-muted)]
+                     /* Don't set code colors here - let SyntaxHighlighting handle it */
+                     prose-pre:!bg-transparent
+                     prose-code:!bg-transparent
                      prose-hr:border-[var(--color-border)]">
         {children}
       </div>
