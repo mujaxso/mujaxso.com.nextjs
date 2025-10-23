@@ -78,39 +78,42 @@ export default function BlogPageClient({ posts }: BlogPageProps) {
               posts={posts}
             />
           </div>
-          
-          {/* Move sort dropdown to the right */}
-          <div className="flex items-center gap-3 justify-end w-full max-w-4xl">
-            <label htmlFor="sort" className="text-sm font-medium text-muted-foreground whitespace-nowrap">
-              Sort by:
-            </label>
-            <select
-              id="sort"
-              value={sortBy}
-              onChange={(e) => handleSortChange(e.target.value)}
-              className="block w-40 rounded-lg border border-border/50 bg-card/50 px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary appearance-none cursor-pointer"
-            >
-              <option value="recent">Most Recent</option>
-              <option value="popular">Most Popular</option>
-              <option value="featured">Featured First</option>
-            </select>
-          </div>
         </div>
 
         {/* Center the content blocks */}
         <div className="flex flex-col items-center">
 
-        {/* Featured Posts - Aligned to the left */}
+        {/* Featured Posts and Sort Controls in the same row */}
         {featuredPosts.length > 0 && (
           <section className="mb-16 w-full max-w-4xl animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
-            <div className="flex items-center justify-start mb-8">
-              <h2 className="text-2xl font-bold text-foreground flex items-center">
-                <Star className="w-5 h-5 text-yellow-500 mr-2" />
-                Featured Posts
-              </h2>
-              <span className="text-sm text-muted-foreground bg-muted px-3 py-1 rounded-full ml-3">
-                {featuredPosts.length} highlight{featuredPosts.length !== 1 ? 's' : ''}
-              </span>
+            <div className="flex items-center justify-between mb-8">
+              {/* Featured Posts on the left */}
+              <div className="flex items-center">
+                <h2 className="text-2xl font-bold text-foreground flex items-center">
+                  <Star className="w-5 h-5 text-yellow-500 mr-2" />
+                  Featured Posts
+                </h2>
+                <span className="text-sm text-muted-foreground bg-muted px-3 py-1 rounded-full ml-3">
+                  {featuredPosts.length} highlight{featuredPosts.length !== 1 ? 's' : ''}
+                </span>
+              </div>
+              
+              {/* Sort dropdown on the right */}
+              <div className="flex items-center gap-3">
+                <label htmlFor="sort" className="text-sm font-medium text-muted-foreground whitespace-nowrap">
+                  Sort by:
+                </label>
+                <select
+                  id="sort"
+                  value={sortBy}
+                  onChange={(e) => handleSortChange(e.target.value)}
+                  className="block w-40 rounded-lg border border-border/50 bg-card/50 px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary appearance-none cursor-pointer"
+                >
+                  <option value="recent">Most Recent</option>
+                  <option value="popular">Most Popular</option>
+                  <option value="featured">Featured First</option>
+                </select>
+              </div>
             </div>
             <div className="grid gap-8 lg:grid-cols-2">
               {featuredPosts.map((post) => (
@@ -122,6 +125,27 @@ export default function BlogPageClient({ posts }: BlogPageProps) {
               ))}
             </div>
           </section>
+        )}
+
+        {/* Show sort dropdown when there are no featured posts */}
+        {featuredPosts.length === 0 && (
+          <div className="w-full max-w-4xl mb-8 flex justify-end">
+            <div className="flex items-center gap-3">
+              <label htmlFor="sort" className="text-sm font-medium text-muted-foreground whitespace-nowrap">
+                Sort by:
+              </label>
+              <select
+                id="sort"
+                value={sortBy}
+                onChange={(e) => handleSortChange(e.target.value)}
+                className="block w-40 rounded-lg border border-border/50 bg-card/50 px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary appearance-none cursor-pointer"
+              >
+                <option value="recent">Most Recent</option>
+                <option value="popular">Most Popular</option>
+                <option value="featured">Featured First</option>
+              </select>
+            </div>
+          </div>
         )}
 
         {/* All Posts - Centered and Highlighted */}
