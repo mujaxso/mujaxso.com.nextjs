@@ -75,33 +75,37 @@ export function FeaturedPostCard({ post, onCategoryClick }: FeaturedPostCardProp
         </div>
 
         {/* Content Section - Show details on hover */}
-        <div className="relative p-6 flex-1 flex flex-col justify-end">
+        <div className="relative p-6 flex-1 flex flex-col justify-center items-center text-center">
           {/* Background overlay for content - appears on hover */}
           <div className="absolute inset-0 bg-card/95 backdrop-blur-sm rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
           
           {/* Content wrapper - appears on hover */}
-          <div className="relative z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+          <div className="relative z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 w-full">
             {/* Description */}
-            <div className="overflow-hidden">
-              <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
+            <div className="overflow-hidden mb-4">
+              <p className="text-muted-foreground text-sm line-clamp-3">
                 {post.description}
               </p>
             </div>
             
             {/* Meta Information */}
-            <div className="overflow-hidden">
-              <div className="flex items-center text-muted-foreground text-sm mb-4">
-                <Calendar className="w-4 h-4 mr-1" />
-                <span className="mr-3">{new Date(post.date).toLocaleDateString()}</span>
-                <Clock className="w-4 h-4 mr-1" />
-                <span>{post.readingTime}</span>
+            <div className="overflow-hidden mb-4">
+              <div className="flex items-center justify-center text-muted-foreground text-sm flex-wrap gap-2">
+                <div className="flex items-center">
+                  <Calendar className="w-4 h-4 mr-1" />
+                  <span>{new Date(post.date).toLocaleDateString()}</span>
+                </div>
+                <div className="flex items-center">
+                  <Clock className="w-4 h-4 mr-1" />
+                  <span>{post.readingTime}</span>
+                </div>
               </div>
             </div>
             
             {/* Tags */}
             {post.tags && post.tags.length > 0 && (
               <div className="overflow-hidden">
-                <div className="flex flex-wrap gap-1">
+                <div className="flex flex-wrap gap-1 justify-center">
                   {post.tags.slice(0, 3).map((tag) => (
                     <span
                       key={tag}
