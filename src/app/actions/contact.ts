@@ -30,8 +30,8 @@ export async function submitContactForm(formData: FormData) {
     // Simulate processing delay
     await new Promise(resolve => setTimeout(resolve, 1000));
 
-    // Return success without an error field
-    return { success: true };
+    // Return success with a consistent structure
+    return { success: true, message: 'Message sent successfully!' };
   } catch (error) {
     console.error('Contact form error:', error);
     return { error: 'Failed to send message. Please try again later.' };
