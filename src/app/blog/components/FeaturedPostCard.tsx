@@ -13,7 +13,7 @@ interface FeaturedPostCardProps {
 export function FeaturedPostCard({ post, onCategoryClick }: FeaturedPostCardProps) {
   return (
     <Link href={`/blog/${post.slug}`} className="block group">
-      <article className="group relative rounded-2xl overflow-hidden backdrop-blur-xl bg-card border border-border shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] cursor-pointer h-full flex flex-col min-h-[400px]">
+      <article className="group relative rounded-2xl overflow-hidden backdrop-blur-xl bg-card border border-border shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] cursor-pointer h-full flex flex-col min-h-[450px]">
         {/* Image Container with Enhanced Effects */}
         <div className="relative w-full overflow-hidden">
           <div className="aspect-[16/9] relative overflow-hidden">
@@ -31,7 +31,7 @@ export function FeaturedPostCard({ post, onCategoryClick }: FeaturedPostCardProp
               </div>
             )}
             {/* Enhanced Overlay with Gradient - More visible title area */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-90 group-hover:opacity-10 transition-opacity duration-500" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-90 group-hover:opacity-0 transition-opacity duration-500" />
             
             {/* Shine Effect on Hover */}
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
@@ -75,17 +75,17 @@ export function FeaturedPostCard({ post, onCategoryClick }: FeaturedPostCardProp
         </div>
 
         {/* Content Section - Show details on hover */}
-        <div className="relative p-6 flex-1 flex flex-col">
+        <div className="relative p-6 flex-1 flex flex-col justify-end bg-card/80 backdrop-blur-sm">
           {/* Description - appears on hover */}
-          <div className="overflow-hidden flex-1">
-            <p className="text-muted-foreground text-sm mb-4 line-clamp-3 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-100">
+          <div className="overflow-hidden">
+            <p className="text-muted-foreground text-sm mb-4 line-clamp-3 transform translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-100">
               {post.description}
             </p>
           </div>
           
           {/* Meta Information - appears on hover */}
           <div className="overflow-hidden">
-            <div className="flex items-center text-muted-foreground text-sm mb-4 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-200">
+            <div className="flex items-center text-muted-foreground text-sm mb-4 transform translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-200">
               <Calendar className="w-4 h-4 mr-1" />
               <span className="mr-3">{new Date(post.date).toLocaleDateString()}</span>
               <Clock className="w-4 h-4 mr-1" />
@@ -96,7 +96,7 @@ export function FeaturedPostCard({ post, onCategoryClick }: FeaturedPostCardProp
           {/* Tags - appears on hover */}
           {post.tags && post.tags.length > 0 && (
             <div className="overflow-hidden">
-              <div className="flex flex-wrap gap-1 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-300">
+              <div className="flex flex-wrap gap-1 transform translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-300">
                 {post.tags.slice(0, 3).map((tag) => (
                   <span
                     key={tag}
