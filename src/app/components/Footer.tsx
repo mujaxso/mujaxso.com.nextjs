@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Github, Linkedin, Mail, ExternalLink, Code2, Heart, Sparkles } from "lucide-react";
 import { Button } from "./ui/Button";
+import { ModeToggle } from "./ModeToggle";
 
 export default function Footer() {
   return (
@@ -16,9 +17,9 @@ export default function Footer() {
       <div className="absolute -top-8 right-1/3 w-16 h-16 bg-secondary/10 rounded-full blur-lg"></div>
       <div className="absolute bottom-4 left-10 w-8 h-8 bg-accent/10 rounded-full blur-md"></div>
       
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
           {/* Brand Section */}
           <div className="md:col-span-2">
             <div className="flex items-center gap-3 mb-4">
@@ -114,19 +115,26 @@ export default function Footer() {
 
         {/* Bottom Section */}
         <div className="pt-8 border-t border-border/30">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6 max-w-7xl mx-auto">
+          <div className="flex flex-col lg:flex-row justify-between items-center gap-6 max-w-7xl mx-auto">
             {/* Copyright */}
-            <div className="text-sm text-center md:text-left text-muted-foreground mb-4 md:mb-0">
+            <div className="text-sm text-center lg:text-left text-muted-foreground">
               © {new Date().getFullYear()} Mujahid Siyam. All rights reserved.
             </div>
             
-            {/* Build with love and open source */}
-            <div className="flex items-center gap-3 text-sm">
-              <div className="flex items-center gap-2 bg-card border border-border rounded-full px-4 py-2">
-                <span className="text-muted-foreground">Built with</span>
+            {/* Center content */}
+            <div className="flex items-center gap-6">
+              {/* Theme toggle */}
+              <div className="flex items-center gap-2">
+                <span className="text-sm text-muted-foreground">Theme</span>
+                <ModeToggle />
+              </div>
+              
+              {/* Build with love */}
+              <div className="flex items-center gap-2">
+                <span className="text-sm text-muted-foreground">Built with</span>
                 <Heart className="w-4 h-4 text-red-500 fill-red-500 animate-pulse" />
-                <span className="text-muted-foreground">and</span>
-                <span className="text-primary font-medium bg-primary/10 px-2 py-1 rounded-full">
+                <span className="text-sm text-muted-foreground">and</span>
+                <span className="text-primary font-medium text-sm bg-primary/10 px-2 py-1 rounded-full">
                   Open Source
                 </span>
               </div>

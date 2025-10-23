@@ -2,6 +2,7 @@ import { promises as fs } from 'fs';
 import { join } from 'path';
 import matter from 'gray-matter';
 import BlogPageClient from './page-client';
+import { Hero } from '../components/Hero';
 
 interface BlogPost {
   slug: string;
@@ -65,6 +66,11 @@ export default async function BlogPage() {
     const safePosts = Array.isArray(posts) ? posts : [];
     return (
       <div className="container mx-auto px-4 py-20">
+        <Hero 
+          title="Blog" 
+          subtitle="Latest Insights" 
+          description="Thoughts, ideas, and insights on software engineering, AI, and technology"
+        />
         <BlogPageClient posts={safePosts} />
       </div>
     );
@@ -73,6 +79,11 @@ export default async function BlogPage() {
     // Return empty array to prevent crashes
     return (
       <div className="container mx-auto px-4 py-20">
+        <Hero 
+          title="Blog" 
+          subtitle="Latest Insights" 
+          description="Thoughts, ideas, and insights on software engineering, AI, and technology"
+        />
         <BlogPageClient posts={[]} />
       </div>
     );
