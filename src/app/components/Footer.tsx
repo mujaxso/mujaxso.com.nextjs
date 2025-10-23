@@ -7,15 +7,15 @@ import ModeToggle from "./ModeToggle";
 
 export default function Footer() {
   return (
-    <footer className="relative overflow-hidden border-t border-border/50 bg-background">
+    <footer className="relative overflow-hidden border-t border-[var(--color-border)]/50 bg-[var(--color-background)]">
       {/* Background Effects */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background/90"></div>
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent"></div>
+      <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-background)] via-[var(--color-background)]/95 to-[var(--color-background)]/90"></div>
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[var(--color-primary)]/50 to-transparent"></div>
       
       {/* Floating Elements */}
-      <div className="absolute -top-12 left-1/4 w-24 h-24 bg-primary/10 rounded-full blur-xl"></div>
-      <div className="absolute -top-8 right-1/3 w-16 h-16 bg-secondary/10 rounded-full blur-lg"></div>
-      <div className="absolute bottom-4 left-10 w-8 h-8 bg-accent/10 rounded-full blur-md"></div>
+      <div className="absolute -top-12 left-1/4 w-24 h-24 bg-[var(--color-primary)]/10 rounded-full blur-xl"></div>
+      <div className="absolute -top-8 right-1/3 w-16 h-16 bg-[var(--color-secondary)]/10 rounded-full blur-lg"></div>
+      <div className="absolute bottom-4 left-10 w-8 h-8 bg-[var(--color-accent)]/10 rounded-full blur-md"></div>
       
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Main Footer Content */}
@@ -23,30 +23,30 @@ export default function Footer() {
           {/* Brand Section */}
           <div className="md:col-span-2">
             <div className="flex items-center gap-3 mb-4">
-              <div className="p-3 bg-gradient-to-br from-primary to-secondary rounded-2xl card-glass shadow-xl hover:scale-105 transition-transform duration-300 group">
+              <div className="p-3 bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-secondary)] rounded-2xl backdrop-blur-xl bg-[var(--color-card)] border border-[var(--color-border)] shadow-xl hover:scale-105 transition-transform duration-300 group">
                 <div className="w-6 h-6 text-white flex items-center justify-center">
                   <Code2 className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
                 </div>
               </div>
               <div>
-                <span className="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                <span className="text-2xl font-bold bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)] bg-clip-text text-transparent">
                   Mujahid Siyam
                 </span>
-                <p className="text-sm text-muted-foreground mt-1">
+                <p className="text-sm text-[var(--color-muted-foreground)] mt-1">
                   Building the future with code, AI, and innovative solutions
                 </p>
               </div>
             </div>
-            <p className="text-muted-foreground max-w-md text-sm leading-relaxed">
+            <p className="text-[var(--color-muted-foreground)] max-w-md text-sm leading-relaxed">
               Software Engineer • AI/ML Engineer • Data Scientist • DevSecOps building cutting-edge solutions and sharing knowledge with the community.
             </p>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h3 className="font-semibold text-foreground mb-4 text-lg flex items-center gap-2">
+            <h3 className="font-semibold text-[var(--color-foreground)] mb-4 text-lg flex items-center gap-2">
               Explore
-              <Sparkles className="w-4 h-4 text-primary" />
+              <Sparkles className="w-4 h-4 text-[var(--color-primary)]" />
             </h3>
             <ul className="space-y-3">
               {[
@@ -59,9 +59,9 @@ export default function Footer() {
                 <li key={item.name}>
                   <Link 
                     href={item.path}
-                    className="text-muted-foreground hover:text-foreground transition-all duration-300 hover:translate-x-1 transform inline-block group"
+                    className="text-[var(--color-muted-foreground)] hover:text-[var(--color-foreground)] transition-all duration-300 hover:translate-x-1 transform inline-block group"
                   >
-                    <span className="group-hover:text-primary transition-colors">{item.name}</span>
+                    <span className="group-hover:text-[var(--color-primary)] transition-colors">{item.name}</span>
                   </Link>
                 </li>
               ))}
@@ -70,7 +70,7 @@ export default function Footer() {
 
           {/* Connect Section */}
           <div>
-            <h3 className="font-semibold text-foreground mb-4 text-lg">Connect</h3>
+            <h3 className="font-semibold text-[var(--color-foreground)] mb-4 text-lg">Connect</h3>
             <div className="flex gap-3 mb-6">
               {[
                 { 
@@ -97,10 +97,10 @@ export default function Footer() {
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`p-3 bg-card border border-border rounded-xl hover:bg-primary/10 hover:border-primary/30 hover:scale-110 transition-all duration-300 group ${social.color}`}
+                  className={`p-3 bg-[var(--color-card)] border border-[var(--color-border)] rounded-xl hover:bg-[var(--color-primary)]/10 hover:border-[var(--color-primary)]/30 hover:scale-110 transition-all duration-300 group ${social.color}`}
                   aria-label={social.name}
                 >
-                  <social.icon className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors" />
+                  <social.icon className="w-5 h-5 text-[var(--color-muted-foreground)] group-hover:text-[var(--color-foreground)] transition-colors" />
                 </a>
               ))}
             </div>
@@ -114,10 +114,10 @@ export default function Footer() {
         </div>
 
         {/* Bottom Section */}
-        <div className="pt-8 border-t border-border/30">
+        <div className="pt-8 border-t border-[var(--color-border)]/30">
           <div className="flex flex-col lg:flex-row justify-between items-center gap-6 max-w-7xl mx-auto">
             {/* Copyright */}
-            <div className="text-sm text-center lg:text-left text-muted-foreground">
+            <div className="text-sm text-center lg:text-left text-[var(--color-muted-foreground)]">
               © {new Date().getFullYear()} Mujahid Siyam. All rights reserved.
             </div>
             
@@ -125,16 +125,16 @@ export default function Footer() {
             <div className="flex items-center gap-6">
               {/* Theme toggle */}
               <div className="flex items-center gap-2">
-                <span className="text-sm text-muted-foreground">Theme</span>
+                <span className="text-sm text-[var(--color-muted-foreground)]">Theme</span>
                 <ModeToggle />
               </div>
               
               {/* Build with love */}
               <div className="flex items-center gap-2">
-                <span className="text-sm text-muted-foreground">Built with</span>
+                <span className="text-sm text-[var(--color-muted-foreground)]">Built with</span>
                 <Heart className="w-4 h-4 text-red-500 fill-red-500 animate-pulse" />
-                <span className="text-sm text-muted-foreground">and</span>
-                <span className="text-primary font-medium text-sm bg-primary/10 px-2 py-1 rounded-full">
+                <span className="text-sm text-[var(--color-muted-foreground)]">and</span>
+                <span className="text-[var(--color-primary)] font-medium text-sm bg-[var(--color-primary)]/10 px-2 py-1 rounded-full">
                   Open Source
                 </span>
               </div>
@@ -145,7 +145,7 @@ export default function Footer() {
               {['Next.js', 'React', 'TypeScript', 'Tailwind'].map((tech) => (
                 <span 
                   key={tech}
-                  className="px-3 py-1 bg-primary/10 text-primary text-xs sm:text-sm rounded-full border border-primary/20 hover:bg-primary/20 hover:scale-105 transition-all duration-300"
+                  className="px-3 py-1 bg-[var(--color-primary)]/10 text-[var(--color-primary)] text-xs sm:text-sm rounded-full border border-[var(--color-primary)]/20 hover:bg-[var(--color-primary)]/20 hover:scale-105 transition-all duration-300"
                 >
                   {tech}
                 </span>
