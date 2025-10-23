@@ -1,8 +1,5 @@
-import { BlogPost } from '../app/blog/page';
-import { Project } from '../app/projects/page';
-
-// This would be populated at build time
-// For now, we'll export an empty array
+// This file is no longer needed for the search functionality
+// The search now dynamically fetches data from API endpoints
 export const searchIndex: Array<{
   title: string;
   description: string;
