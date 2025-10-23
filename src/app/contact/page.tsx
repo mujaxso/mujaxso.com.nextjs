@@ -51,59 +51,59 @@ export default function ContactPage() {
             </p>
             
             <div className="space-y-6">
-              <div className="flex items-center backdrop-blur-xl bg-glass border border-glass-border rounded-2xl p-4 hover:scale-105 transition-all duration-300">
-                <div className="p-3 bg-primary/20 rounded-lg mr-4">
-                  <Mail className="w-6 h-6 text-primary" />
+              <div className="flex items-center backdrop-blur-xl bg-[var(--color-glass)] border border-[var(--color-glass-border)] rounded-2xl p-4 hover:scale-105 transition-all duration-300">
+                <div className="p-3 bg-[var(--color-primary)]/20 rounded-lg mr-4">
+                  <Mail className="w-6 h-6 text-[var(--color-primary)]" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-foreground">Email</h3>
-                  <p className="text-foreground/60">contact@mujaxso.com</p>
+                  <h3 className="font-semibold text-[var(--color-foreground)]">Email</h3>
+                  <p className="text-[var(--color-foreground)]/60">contact@mujaxso.com</p>
                 </div>
               </div>
               
-              <div className="flex items-center backdrop-blur-xl bg-glass border border-glass-border rounded-2xl p-4 hover:scale-105 transition-all duration-300">
-                <div className="p-3 bg-secondary/20 rounded-lg mr-4">
-                  <Github className="w-6 h-6 text-secondary" />
+              <div className="flex items-center backdrop-blur-xl bg-[var(--color-glass)] border border-[var(--color-glass-border)] rounded-2xl p-4 hover:scale-105 transition-all duration-300">
+                <div className="p-3 bg-[var(--color-secondary)]/20 rounded-lg mr-4">
+                  <Github className="w-6 h-6 text-[var(--color-secondary)]" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-foreground">GitHub</h3>
-                  <a href="https://github.com/mujaxso" className="text-foreground/60 hover:text-primary transition-colors">
+                  <h3 className="font-semibold text-[var(--color-foreground)]">GitHub</h3>
+                  <a href="https://github.com/mujaxso" className="text-[var(--color-foreground)]/60 hover:text-[var(--color-primary)] transition-colors">
                     github.com/mujaxso
                   </a>
                 </div>
               </div>
               
-              <div className="flex items-center backdrop-blur-xl bg-glass border border-glass-border rounded-2xl p-4 hover:scale-105 transition-all duration-300">
-                <div className="p-3 bg-accent/20 rounded-lg mr-4">
-                  <Instagram className="w-6 h-6 text-accent" />
+              <div className="flex items-center backdrop-blur-xl bg-[var(--color-glass)] border border-[var(--color-glass-border)] rounded-2xl p-4 hover:scale-105 transition-all duration-300">
+                <div className="p-3 bg-[var(--color-accent)]/20 rounded-lg mr-4">
+                  <Instagram className="w-6 h-6 text-[var(--color-accent)]" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-foreground">Instagram</h3>
-                  <a href="https://instagram.com/mujaxso" className="text-foreground/60 hover:text-primary transition-colors">
+                  <h3 className="font-semibold text-[var(--color-foreground)]">Instagram</h3>
+                  <a href="https://instagram.com/mujaxso" className="text-[var(--color-foreground)]/60 hover:text-[var(--color-primary)] transition-colors">
                     @mujaxso
                   </a>
                 </div>
               </div>
               
-              <div className="flex items-center backdrop-blur-xl bg-glass border border-glass-border rounded-2xl p-4 hover:scale-105 transition-all duration-300">
-                <div className="p-3 bg-primary/20 rounded-lg mr-4">
+              <div className="flex items-center backdrop-blur-xl bg-[var(--color-glass)] border border-[var(--color-glass-border)] rounded-2xl p-4 hover:scale-105 transition-all duration-300">
+                <div className="p-3 bg-[var(--color-primary)]/20 rounded-lg mr-4">
                   <span className="text-sm font-bold">TK</span>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-foreground">TikTok</h3>
-                  <a href="https://tiktok.com/@mujaxso" className="text-foreground/60 hover:text-primary transition-colors">
+                  <h3 className="font-semibold text-[var(--color-foreground)]">TikTok</h3>
+                  <a href="https://tiktok.com/@mujaxso" className="text-[var(--color-foreground)]/60 hover:text-[var(--color-primary)] transition-colors">
                     @mujaxso
                   </a>
                 </div>
               </div>
               
-              <div className="flex items-center backdrop-blur-xl bg-glass border border-glass-border rounded-2xl p-4 hover:scale-105 transition-all duration-300">
-                <div className="p-3 bg-accent/20 rounded-lg mr-4">
-                  <ExternalLink className="w-6 h-6 text-accent" />
+              <div className="flex items-center backdrop-blur-xl bg-[var(--color-glass)] border border-[var(--color-glass-border)] rounded-2xl p-4 hover:scale-105 transition-all duration-300">
+                <div className="p-3 bg-[var(--color-accent)]/20 rounded-lg mr-4">
+                  <ExternalLink className="w-6 h-6 text-[var(--color-accent)]" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-foreground">Website</h3>
-                  <a href="https://mujaxso.com" className="text-foreground/60 hover:text-primary transition-colors">
+                  <h3 className="font-semibold text-[var(--color-foreground)]">Website</h3>
+                  <a href="https://mujaxso.com" className="text-[var(--color-foreground)]/60 hover:text-[var(--color-primary)] transition-colors">
                     mujaxso.com
                   </a>
                 </div>
@@ -112,11 +112,11 @@ export default function ContactPage() {
           </div>
 
           {/* Contact Form */}
-          <div className="backdrop-blur-xl bg-glass border border-glass-border rounded-2xl p-8">
+          <div className="backdrop-blur-xl bg-[var(--color-glass)] border border-[var(--color-glass-border)] rounded-2xl p-8">
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
+                  <label htmlFor="name" className="block text-sm font-medium text-[var(--color-foreground)] mb-2">
                     Your Name
                   </label>
                   <input
@@ -126,12 +126,12 @@ export default function ContactPage() {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-glass-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent backdrop-blur-sm bg-glass text-foreground placeholder-foreground/40"
+                    className="w-full px-4 py-3 border border-[var(--color-glass-border)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent backdrop-blur-sm bg-[var(--color-glass)] text-[var(--color-foreground)] placeholder-[var(--color-foreground)]/40"
                     placeholder="Enter your name"
                   />
                 </div>
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
+                  <label htmlFor="email" className="block text-sm font-medium text-[var(--color-foreground)] mb-2">
                     Email Address
                   </label>
                   <input
@@ -141,14 +141,14 @@ export default function ContactPage() {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-glass-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent backdrop-blur-sm bg-glass text-foreground placeholder-foreground/40"
+                    className="w-full px-4 py-3 border border-[var(--color-glass-border)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent backdrop-blur-sm bg-[var(--color-glass)] text-[var(--color-foreground)] placeholder-[var(--color-foreground)]/40"
                     placeholder="Enter your email"
                   />
                 </div>
               </div>
               
               <div>
-                <label htmlFor="subject" className="block text-sm font-medium text-foreground mb-2">
+                <label htmlFor="subject" className="block text-sm font-medium text-[var(--color-foreground)] mb-2">
                   Subject
                 </label>
                 <input
@@ -158,13 +158,13 @@ export default function ContactPage() {
                   value={formData.subject}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 border border-glass-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent backdrop-blur-sm bg-glass text-foreground placeholder-foreground/40"
+                  className="w-full px-4 py-3 border border-[var(--color-glass-border)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent backdrop-blur-sm bg-[var(--color-glass)] text-[var(--color-foreground)] placeholder-[var(--color-foreground)]/40"
                   placeholder="What's this about?"
                 />
               </div>
               
               <div>
-                <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">
+                <label htmlFor="message" className="block text-sm font-medium text-[var(--color-foreground)] mb-2">
                   Message
                 </label>
                 <textarea
@@ -174,14 +174,14 @@ export default function ContactPage() {
                   onChange={handleChange}
                   required
                   rows={5}
-                  className="w-full px-4 py-3 border border-glass-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent backdrop-blur-sm bg-glass text-foreground placeholder-foreground/40"
+                  className="w-full px-4 py-3 border border-[var(--color-glass-border)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent backdrop-blur-sm bg-[var(--color-glass)] text-[var(--color-foreground)] placeholder-[var(--color-foreground)]/40"
                   placeholder="Tell me about your project or inquiry..."
                 />
               </div>
               
               <button
                 type="submit"
-                className="w-full flex items-center justify-center px-6 py-3 bg-gradient-to-r from-primary to-secondary text-white font-medium rounded-lg hover:opacity-90 transition-all duration-300 hover:scale-105"
+                className="w-full flex items-center justify-center px-6 py-3 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)] text-white font-medium rounded-lg hover:opacity-90 transition-all duration-300 hover:scale-105"
               >
                 <Send className="w-5 h-5 mr-2" />
                 Send Message

@@ -5,6 +5,8 @@ import { useTheme } from "./ThemeProvider";
 import { Button } from "./ui/Button";
 import { useState, useEffect } from "react";
 
+type Theme = 'light' | 'dark' | 'system';
+
 export default function ModeToggle() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
