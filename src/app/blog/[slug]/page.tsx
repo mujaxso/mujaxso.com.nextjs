@@ -111,7 +111,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     
     return (
       <div className="min-h-screen bg-background transition-colors duration-300">
-        <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 flex justify-center">
           <Link href="/blog" className="inline-flex items-center text-muted-foreground hover:text-foreground transition-colors mb-8 group">
             <svg className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -119,9 +119,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             Back to Blog
           </Link>
         
-          <article className="backdrop-blur-xl bg-card border border-border rounded-2xl shadow-lg p-8 md:p-12 w-full">
-            <header className="mb-8">
-              <div className="flex flex-wrap gap-2 mb-4">
+          <article className="bg-card w-full max-w-4xl mx-auto">
+            <header className="mb-12 text-center">
+              <div className="flex flex-wrap gap-2 mb-6 justify-center">
                 <span className="px-3 py-1 bg-primary text-white text-sm font-medium rounded-full">
                   {frontmatter.category || 'Uncategorized'}
                 </span>
@@ -131,10 +131,10 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                   </span>
                 ))}
               </div>
-              <h1 className="text-4xl md:text-5xl font-bold text-card-foreground mb-4">
+              <h1 className="text-4xl md:text-5xl font-bold text-card-foreground mb-6">
                 {title}
               </h1>
-              <div className="flex flex-wrap items-center gap-4 text-muted-foreground">
+              <div className="flex flex-wrap items-center gap-4 text-muted-foreground justify-center">
                 <span>{date !== 'Unknown date' ? new Date(date).toLocaleDateString('en-US', {
                   year: 'numeric',
                   month: 'long',
@@ -146,7 +146,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             </header>
           
             {frontmatter.image && (
-              <div className="mb-8 rounded-xl overflow-hidden">
+              <div className="mb-12 rounded-xl overflow-hidden">
                 <Image 
                   src={frontmatter.image} 
                   alt={title} 
@@ -157,14 +157,14 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               </div>
             )}
           
-            <div className="prose prose-xl max-w-none prose-headings:text-card-foreground prose-p:text-card-foreground/80 prose-strong:text-card-foreground prose-em:text-card-foreground prose-a:text-primary hover:prose-a:text-primary-dark prose-blockquote:text-card-foreground/60 prose-blockquote:border-primary prose-ul:text-card-foreground/80 prose-ol:text-card-foreground/80 prose-li:text-card-foreground/80 prose-code:text-card-foreground prose-pre:bg-muted">
+            <div className="prose prose-xl max-w-none mx-auto prose-headings:text-card-foreground prose-p:text-card-foreground/80 prose-strong:text-card-foreground prose-em:text-card-foreground prose-a:text-primary hover:prose-a:text-primary-dark prose-blockquote:text-card-foreground/60 prose-blockquote:border-primary prose-ul:text-card-foreground/80 prose-ol:text-card-foreground/80 prose-li:text-card-foreground/80 prose-code:text-card-foreground prose-pre:bg-muted">
               <Suspense fallback={<div className="text-center py-8">Loading content...</div>}>
                 <MDXContent content={content} />
               </Suspense>
             </div>
           
             {/* Author Section */}
-            <div className="mt-12 pt-8 border-t border-border">
+            <div className="mt-16 pt-12">
               <Author 
                 name="Mujahid Siyam"
                 image="/img/profile.png"
