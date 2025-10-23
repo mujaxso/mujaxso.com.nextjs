@@ -165,7 +165,7 @@ html, body {
 
 /* Enhanced animations for 2025 */
 @keyframes float {
-  0%, 100% { 
+  0% { 
     transform: translateY(0px) rotate(0deg); 
   }
   33% { 
@@ -173,6 +173,9 @@ html, body {
   }
   66% { 
     transform: translateY(-5px) rotate(-1deg); 
+  }
+  100% { 
+    transform: translateY(0px) rotate(0deg); 
   }
 }
 
@@ -197,11 +200,14 @@ html, body {
 }
 
 @keyframes pulse-glow {
-  0%, 100% {
+  0% {
     box-shadow: 0 0 5px rgba(139, 92, 246, 0.5);
   }
   50% {
     box-shadow: 0 0 20px rgba(139, 92, 246, 0.8), 0 0 30px rgba(139, 92, 246, 0.6);
+  }
+  100% {
+    box-shadow: 0 0 5px rgba(139, 92, 246, 0.5);
   }
 }
 
