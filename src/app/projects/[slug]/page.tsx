@@ -80,6 +80,9 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
     // Extract content
     const content = fileContent.replace(/^---\n[\s\S]*?\n---/, '').trim();
     
+    // Import rehype-highlight for syntax highlighting
+    const rehypeHighlight = (await import('rehype-highlight')).default;
+    
     return (
       <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
         <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -162,7 +165,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                 <ReactMarkdown
                   rehypePlugins={[
                     // Add syntax highlighting
-                    [require('rehype-highlight'), { detect: true }],
+                    [rehypeHighlight, { detect: true }],
                   ]}
                   components={{
                     // GitHub-like heading styles

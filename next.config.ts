@@ -31,13 +31,7 @@ const nextConfig: NextConfig = {
 };
 
 const withMDX = createMDX({
-  options: {
-    remarkPlugins: [],
-    rehypePlugins: [
-      // Add syntax highlighting
-      [require('rehype-highlight'), { detect: true }],
-    ],
-  },
+  // Add markdown plugins here, as desired
 })
 
 export default withMDX(nextConfig);

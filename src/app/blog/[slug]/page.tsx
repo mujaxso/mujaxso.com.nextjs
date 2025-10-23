@@ -200,13 +200,15 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 async function MDXContent({ content }: { content: string }) {
   try {
     const { MDXRemote } = await import('next-mdx-remote/rsc');
+    const { default: rehypeHighlight } = await import('rehype-highlight');
+    
     return (
       <MDXRemote 
         source={content}
         options={{
           mdxOptions: {
             rehypePlugins: [
-              // Syntax highlighting is now handled by the MDX configuration
+              [rehypeHighlight, { detect: true }],
             ],
           },
         }}
