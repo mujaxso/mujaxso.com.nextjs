@@ -31,7 +31,7 @@ export default function Header() {
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-[var(--color-glass)] border-b border-[var(--color-glass-border)]">
+    <header className="fixed top-0 left-0 right-0 z-50 glass border-b border-white/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-3">
           <Link href="/" className="flex items-center gap-3 group">
@@ -95,7 +95,7 @@ export default function Header() {
               onClick={() => setIsMobileMenuOpen(false)}
             />
             {/* Menu */}
-            <div className="md:hidden fixed top-16 left-0 right-0 backdrop-blur-xl bg-[var(--color-glass)] border-t border-[var(--color-glass-border)] shadow-xl z-50">
+            <div className="md:hidden fixed top-16 left-0 right-0 glass border-t border-white/20 shadow-2xl z-50">
               <nav className="p-4">
                 <ul className="space-y-3">
                   {navigationItems.map((item) => (

@@ -7,7 +7,7 @@ import ModeToggle from "./ModeToggle";
 
 export default function Footer() {
   return (
-    <footer className="relative overflow-hidden border-t border-[var(--color-border)]/50 bg-[var(--color-background)]">
+    <footer className="relative overflow-hidden glass border-t border-white/20">
       {/* Background Effects */}
       <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-background)] via-[var(--color-background)]/95 to-[var(--color-background)]/90"></div>
       <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[var(--color-primary)]/50 to-transparent"></div>
@@ -23,7 +23,7 @@ export default function Footer() {
           {/* Brand Section */}
           <div className="md:col-span-2">
             <div className="flex items-center gap-3 mb-4">
-              <div className="p-3 bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-secondary)] rounded-2xl backdrop-blur-xl bg-[var(--color-card)] border border-[var(--color-border)] shadow-xl hover:scale-105 transition-transform duration-300 group">
+              <div className="p-3 bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-secondary)] rounded-2xl card-glass shadow-2xl hover:scale-110 transition-all duration-500 group">
                 <div className="w-6 h-6 text-white flex items-center justify-center">
                   <Code2 className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
                 </div>
@@ -97,7 +97,7 @@ export default function Footer() {
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`p-3 bg-[var(--color-card)] border border-[var(--color-border)] rounded-xl hover:bg-[var(--color-primary)]/10 hover:border-[var(--color-primary)]/30 hover:scale-110 transition-all duration-300 group ${social.color}`}
+                  className={`p-3 card-glass rounded-2xl hover:scale-110 hover:rotate-6 transition-all duration-500 group ${social.color}`}
                   aria-label={social.name}
                 >
                   <social.icon className="w-5 h-5 text-[var(--color-muted-foreground)] group-hover:text-[var(--color-foreground)] transition-colors" />
