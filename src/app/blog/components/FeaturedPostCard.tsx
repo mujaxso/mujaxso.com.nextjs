@@ -31,7 +31,7 @@ export function FeaturedPostCard({ post, onCategoryClick }: FeaturedPostCardProp
               </div>
             )}
             {/* Enhanced Overlay with Gradient - More visible title area */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-90 group-hover:opacity-40 transition-opacity duration-500" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-90 group-hover:opacity-20 transition-opacity duration-500" />
             
             {/* Shine Effect on Hover */}
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
@@ -67,15 +67,15 @@ export function FeaturedPostCard({ post, onCategoryClick }: FeaturedPostCardProp
           </div>
         </div>
         
+        {/* Title on the image overlay */}
+        <div className="absolute bottom-0 left-0 right-0 p-6 z-10">
+          <h3 className="text-xl font-bold text-white line-clamp-2 group-hover:text-primary transition-colors duration-500">
+            {post.title}
+          </h3>
+        </div>
+
         {/* Content Section - Show details on hover */}
-        <div className="relative p-6 flex-1 flex flex-col">
-          {/* Title always visible with enhanced styling */}
-          <div className="mb-3">
-            <h3 className="text-xl font-bold text-foreground line-clamp-2 group-hover:text-primary transition-all duration-500 group-hover:translate-y-[-2px]">
-              {post.title}
-            </h3>
-          </div>
-          
+        <div className="relative p-6 flex-1 flex flex-col pt-16">
           {/* Description - appears on hover */}
           <div className="overflow-hidden">
             <p className="text-muted-foreground text-sm mb-4 line-clamp-3 flex-1 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-100">

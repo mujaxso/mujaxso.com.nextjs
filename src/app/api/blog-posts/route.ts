@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { promises as fs } from 'fs';
 import { join } from 'path';
+import matter from 'gray-matter';
 
 // Use Node.js runtime to access file system
 export const runtime = 'nodejs';
@@ -18,11 +19,7 @@ async function getBlogPosts() {
           const filePath = join(blogDirectory, file);
           const content = await fs.readFile(filePath, 'utf-8');
           
-          // Extract frontmatter (simplified parsing)
-          const titleMatch = content.match(/title:\s*["']?([^"'\n]+)["']?/);
-          const descriptionMatch = content.match(/description:\s*["']?([^"'\n]+)["']?/);
-          
-          // Parse the full frontmatter to check for draft status
+          // Parse the full frontmatter
           const { data } = matter(content);
           
           // Skip draft posts
@@ -32,8 +29,8 @@ async function getBlogPosts() {
           
           return {
             slug,
-            title: titleMatch ? titleMatch[1] : slug,
-            description: descriptionMatch ? descriptionMatch[1] : '',
+            title: data.title || slug,
+            description: data.description || '',
           };
         })
     );
