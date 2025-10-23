@@ -14,32 +14,51 @@ export default function Footer() {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
-          {/* Explore Section - Left (Hidden on mobile) */}
-          <div className="md:order-1 hidden md:block">
-            <h3 className="font-bold text-foreground mb-6 text-lg tracking-wide">
-              Explore
+          {/* Contact Form Section - Left */}
+          <div className="md:order-1 order-3">
+            <h3 className="font-bold text-foreground mb-6 text-lg tracking-wide text-center md:text-left">
+              Quick Message
             </h3>
-            <ul className="space-y-4">
-              {[
-                { name: 'Blog', path: '/blog' },
-                { name: 'Projects', path: '/projects' },
-                { name: 'About', path: '/about' },
-                { name: 'Contact', path: '/contact' },
-                { name: 'Music', path: '/music' }
-              ].map((item) => (
-                <li key={item.name}>
-                  <Link 
-                    href={item.path}
-                    className="text-muted-foreground hover:text-foreground transition-all duration-300 text-base hover:translate-x-1 inline-block"
-                  >
-                    {item.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            <form action="/api/contact" method="POST" className="space-y-4">
+              <div>
+                <input 
+                  type="text" 
+                  name="name"
+                  placeholder="Your Name"
+                  required
+                  className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary/50 transition-all duration-300 backdrop-blur-sm"
+                />
+              </div>
+              <div>
+                <input 
+                  type="email" 
+                  name="email"
+                  placeholder="Your Email"
+                  required
+                  className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary/50 transition-all duration-300 backdrop-blur-sm"
+                />
+              </div>
+              <div>
+                <textarea 
+                  name="message"
+                  placeholder="Your Message"
+                  rows={3}
+                  required
+                  className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary/50 transition-all duration-300 backdrop-blur-sm resize-none"
+                />
+              </div>
+              <Button 
+                type="submit"
+                variant="default" 
+                size="lg" 
+                className="w-full bg-gradient-to-r from-primary to-secondary text-primary-foreground shadow-lg hover:shadow-xl transition-all duration-300"
+              >
+                Send Message
+              </Button>
+            </form>
           </div>
 
-          {/* About Section - First on mobile, center on desktop */}
+          {/* About Section - Center */}
           <div className="md:order-2 order-1">
             <div className="flex flex-col items-center text-center">
               {/* Profile Photo Above Name */}
@@ -95,7 +114,7 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Connect Section - Second on mobile, right on desktop */}
+          {/* Connect Section - Right */}
           <div className="md:order-3 order-2 text-center md:text-left">
             <h3 className="font-bold text-foreground mb-6 text-lg tracking-wide">Let's Connect</h3>
             <p className="text-muted-foreground mb-6 text-base leading-relaxed">
