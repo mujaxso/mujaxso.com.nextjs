@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { unstable_cache } from 'next/cache';
 
 export const runtime = 'edge';
 
@@ -41,17 +42,10 @@ async function fetchWithFallback(url: string, fallbackData: any[]) {
   }
 }
 
-export async function GET(request: Request) {
-  const url = new URL(request.url);
-  const { searchParams } = url;
-  const query = searchParams.get('q')?.toLowerCase() || '';
-
-  if (!query) {
-    return NextResponse.json({ results: [] });
-  }
-
-  try {
-    const baseUrl = process.env.NEXTAUTH_URL || `${url.protocol}//${url.host}`;
+const getCachedSearchResults = unstable_cache(
+  async (query: string) => {
+    const url = new URL('http://localhost'); // Base URL will be constructed differently
+    const baseUrl = process.env.NEXTAUTH_URL || 'https://mujaxso.com';
     
     // Fetch blog posts and projects with fallback
     const [blogPosts, projects] = await Promise.all([
@@ -94,7 +88,31 @@ export async function GET(request: Request) {
       return 0;
     });
 
-    return NextResponse.json({ results });
+    return results;
+  },
+  ['search-results'],
+  {
+    revalidate: 300, // 5 minutes - search results can be more dynamic
+    tags: ['search'],
+  }
+);
+
+export async function GET(request: Request) {
+  const url = new URL(request.url);
+  const { searchParams } = url;
+  const query = searchParams.get('q')?.toLowerCase() || '';
+
+  if (!query) {
+    return NextResponse.json({ results: [] });
+  }
+
+  try {
+    const results = await getCachedSearchResults(query);
+    return NextResponse.json({ results }, {
+      headers: {
+        'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=3600',
+      },
+    });
   } catch (error) {
     console.error('Search error:', error);
     return NextResponse.json({ results: [] });
