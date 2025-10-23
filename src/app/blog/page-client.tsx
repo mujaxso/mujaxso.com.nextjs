@@ -79,7 +79,8 @@ export default function BlogPageClient({ posts }: BlogPageProps) {
             />
           </div>
           
-          <div className="flex items-center gap-3 w-full max-w-4xl justify-end">
+          {/* Center the sort dropdown */}
+          <div className="flex items-center gap-3 justify-center w-full max-w-4xl">
             <label htmlFor="sort" className="text-sm font-medium text-muted-foreground whitespace-nowrap">
               Sort by:
             </label>
@@ -102,12 +103,12 @@ export default function BlogPageClient({ posts }: BlogPageProps) {
         {/* Featured Posts */}
         {featuredPosts.length > 0 && (
           <section className="mb-16 w-full max-w-4xl animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
-            <div className="flex items-center justify-between mb-8">
+            <div className="flex items-center justify-center mb-8">
               <h2 className="text-2xl font-bold text-foreground flex items-center">
                 <Star className="w-5 h-5 text-yellow-500 mr-2" />
                 Featured Posts
               </h2>
-              <span className="text-sm text-muted-foreground bg-muted px-3 py-1 rounded-full">
+              <span className="text-sm text-muted-foreground bg-muted px-3 py-1 rounded-full ml-3">
                 {featuredPosts.length} highlight{featuredPosts.length !== 1 ? 's' : ''}
               </span>
             </div>
@@ -125,7 +126,7 @@ export default function BlogPageClient({ posts }: BlogPageProps) {
 
         {/* All Posts */}
         <section className="w-full max-w-4xl animate-fade-in-up" style={{ animationDelay: '0.8s' }}>
-          <div className="flex items-center justify-between mb-8">
+          <div className="flex items-center justify-center mb-8">
             <h2 className="text-2xl font-bold text-foreground">
               {searchQuery || selectedCategory || selectedTag 
                 ? `Search Results (${filteredPosts.length})` 
@@ -133,7 +134,7 @@ export default function BlogPageClient({ posts }: BlogPageProps) {
               }
             </h2>
             {filteredPosts.length > 0 && (
-              <span className="text-sm text-muted-foreground bg-muted px-3 py-1 rounded-full">
+              <span className="text-sm text-muted-foreground bg-muted px-3 py-1 rounded-full ml-3">
                 {filteredPosts.length} post{filteredPosts.length !== 1 ? 's' : ''}
               </span>
             )}
