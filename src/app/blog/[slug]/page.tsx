@@ -111,15 +111,20 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     
     return (
       <div className="min-h-screen bg-background transition-colors duration-300">
-        <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 flex justify-center">
-          <Link href="/blog" className="inline-flex items-center text-muted-foreground hover:text-foreground transition-colors mb-8 group">
-            <svg className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-            Back to Blog
-          </Link>
-        
-          <article className="bg-card w-full max-w-4xl mx-auto">
+        <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          {/* Back to Blog Link - Always at the top */}
+          <div className="flex justify-center mb-8">
+            <Link href="/blog" className="inline-flex items-center text-muted-foreground hover:text-foreground transition-colors group">
+              <svg className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+              Back to Blog
+            </Link>
+          </div>
+          
+          {/* Centered Article Content */}
+          <div className="flex justify-center">
+            <article className="bg-card w-full max-w-4xl">
             <header className="mb-12 text-center">
               <div className="flex flex-wrap gap-2 mb-6 justify-center">
                 <span className="px-3 py-1 bg-primary text-white text-sm font-medium rounded-full">
@@ -180,7 +185,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           
             {/* Related Posts Section */}
             <RelatedPosts currentSlug={resolvedParams.slug} category={frontmatter.category} />
-          </article>
+            </article>
+          </div>
         </main>
       </div>
     );
