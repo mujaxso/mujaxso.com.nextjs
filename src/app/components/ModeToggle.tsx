@@ -40,6 +40,7 @@ export default function ModeToggle() {
     }
   };
 
+  // Show a placeholder while mounting to avoid hydration mismatch
   if (!mounted) {
     return (
       <Button
