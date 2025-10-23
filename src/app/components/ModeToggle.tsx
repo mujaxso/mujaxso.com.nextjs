@@ -67,7 +67,7 @@ export default function ModeToggle() {
     >
       <div className="relative">
         {getIcon()}
-        <div className="absolute inset-0 bg-gradient-to-r from-primary to-accent rounded-full opacity-0 group-hover:opacity-20 blur transition-opacity duration-300"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)] rounded-full opacity-0 group-hover:opacity-20 blur transition-opacity duration-300"></div>
       </div>
     </Button>
   );

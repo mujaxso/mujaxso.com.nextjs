@@ -416,74 +416,74 @@ textarea:focus-visible {
 
 /* MDX Content Styling */
 .prose {
-  color: var(--foreground);
+  color: var(--color-foreground);
 }
 
 .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
-  color: var(--foreground);
+  color: var(--color-foreground);
 }
 
 .prose p {
-  color: var(--foreground);
+  color: var(--color-foreground);
   opacity: 0.9;
 }
 
 .prose strong {
-  color: var(--foreground);
+  color: var(--color-foreground);
 }
 
 .prose a {
-  color: var(--primary);
+  color: var(--color-primary);
 }
 
 .prose a:hover {
-  color: var(--primary-dark);
+  color: var(--color-primary-hover);
 }
 
 .prose blockquote {
-  color: var(--foreground);
+  color: var(--color-foreground);
   opacity: 0.7;
-  border-left-color: var(--border);
+  border-left-color: var(--color-border);
 }
 
 .prose ul, .prose ol {
-  color: var(--foreground);
+  color: var(--color-foreground);
   opacity: 0.9;
 }
 
 .prose li {
-  color: var(--foreground);
+  color: var(--color-foreground);
   opacity: 0.9;
 }
 
 .prose code {
-  color: var(--foreground);
+  color: var(--color-foreground);
   opacity: 0.9;
-  background-color: var(--muted);
+  background-color: var(--color-muted);
   padding: 0.125rem 0.25rem;
   border-radius: 0.25rem;
 }
 
 .prose pre {
-  background-color: var(--muted);
-  color: var(--foreground);
-  border: 1px solid var(--border);
+  background-color: var(--color-muted);
+  color: var(--color-foreground);
+  border: 1px solid var(--color-border);
 }
 
 .prose table {
-  color: var(--foreground);
+  color: var(--color-foreground);
 }
 
 .prose thead {
-  border-bottom-color: var(--border);
+  border-bottom-color: var(--color-border);
 }
 
 .prose tbody tr {
-  border-bottom-color: var(--border);
+  border-bottom-color: var(--color-border);
 }
 
 .prose hr {
-  border-color: var(--border);
+  border-color: var(--color-border);
 }
 
 /* Smooth scrolling */

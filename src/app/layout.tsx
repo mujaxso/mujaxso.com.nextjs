@@ -69,7 +69,7 @@ export default function RootLayout({
             <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyan-300/20 rounded-full blur-3xl animate-pulse-slow animation-delay-2000"></div>
             <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-pink-300/10 rounded-full blur-3xl animate-pulse-slow animation-delay-4000"></div>
             
-            <div className="relative z-10">
+            <div className="relative z-10 flex flex-col min-h-screen">
               <Header />
               <main className="flex-1 pt-14">
                 {children}
