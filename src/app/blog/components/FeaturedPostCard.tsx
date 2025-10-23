@@ -31,7 +31,7 @@ export function FeaturedPostCard({ post, onCategoryClick }: FeaturedPostCardProp
               </div>
             )}
             {/* Enhanced Overlay with Gradient - More visible title area */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-90 group-hover:opacity-0 transition-opacity duration-500" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-90 group-hover:opacity-0 transition-opacity duration-300" />
             
             {/* Shine Effect on Hover */}
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
@@ -75,44 +75,50 @@ export function FeaturedPostCard({ post, onCategoryClick }: FeaturedPostCardProp
         </div>
 
         {/* Content Section - Show details on hover */}
-        <div className="relative p-6 flex-1 flex flex-col justify-end bg-card/80 backdrop-blur-sm">
-          {/* Description - appears on hover */}
-          <div className="overflow-hidden">
-            <p className="text-muted-foreground text-sm mb-4 line-clamp-3 transform translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-100">
-              {post.description}
-            </p>
-          </div>
+        <div className="relative p-6 flex-1 flex flex-col justify-end">
+          {/* Background overlay for content */}
+          <div className="absolute inset-0 bg-card/90 backdrop-blur-sm rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
           
-          {/* Meta Information - appears on hover */}
-          <div className="overflow-hidden">
-            <div className="flex items-center text-muted-foreground text-sm mb-4 transform translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-200">
-              <Calendar className="w-4 h-4 mr-1" />
-              <span className="mr-3">{new Date(post.date).toLocaleDateString()}</span>
-              <Clock className="w-4 h-4 mr-1" />
-              <span>{post.readingTime}</span>
-            </div>
-          </div>
-          
-          {/* Tags - appears on hover */}
-          {post.tags && post.tags.length > 0 && (
+          {/* Content wrapper with proper z-index */}
+          <div className="relative z-10">
+            {/* Description - appears on hover */}
             <div className="overflow-hidden">
-              <div className="flex flex-wrap gap-1 transform translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-300">
-                {post.tags.slice(0, 3).map((tag) => (
-                  <span
-                    key={tag}
-                    className="px-2 py-1 bg-muted text-muted-foreground text-xs rounded-full backdrop-blur-sm transition-colors duration-300 group-hover:bg-primary/20 group-hover:text-primary"
-                  >
-                    #{tag}
-                  </span>
-                ))}
-                {post.tags.length > 3 && (
-                  <span className="px-2 py-1 text-muted-foreground text-xs">
-                    +{post.tags.length - 3} more
-                  </span>
-                )}
+              <p className="text-muted-foreground text-sm mb-4 line-clamp-3 transform translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-100">
+                {post.description}
+              </p>
+            </div>
+            
+            {/* Meta Information - appears on hover */}
+            <div className="overflow-hidden">
+              <div className="flex items-center text-muted-foreground text-sm mb-4 transform translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-200">
+                <Calendar className="w-4 h-4 mr-1" />
+                <span className="mr-3">{new Date(post.date).toLocaleDateString()}</span>
+                <Clock className="w-4 h-4 mr-1" />
+                <span>{post.readingTime}</span>
               </div>
             </div>
-          )}
+            
+            {/* Tags - appears on hover */}
+            {post.tags && post.tags.length > 0 && (
+              <div className="overflow-hidden">
+                <div className="flex flex-wrap gap-1 transform translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-300">
+                  {post.tags.slice(0, 3).map((tag) => (
+                    <span
+                      key={tag}
+                      className="px-2 py-1 bg-muted text-muted-foreground text-xs rounded-full backdrop-blur-sm transition-colors duration-300 group-hover:bg-primary/20 group-hover:text-primary"
+                    >
+                      #{tag}
+                    </span>
+                  ))}
+                  {post.tags.length > 3 && (
+                    <span className="px-2 py-1 text-muted-foreground text-xs">
+                      +{post.tags.length - 3} more
+                    </span>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
           
           {/* Hover Border Effect */}
           <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-primary/30 transition-all duration-500 pointer-events-none" />
