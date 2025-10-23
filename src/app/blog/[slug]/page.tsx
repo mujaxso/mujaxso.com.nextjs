@@ -178,7 +178,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             </div>
           
             {/* Author Section */}
-            <div className="mt-16 pt-12">
+            <div className="mt-16 pt-8">
               <Author 
                 name="Mujahid Siyam"
                 image="/img/profile.png"
@@ -192,6 +192,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               />
             </div>
           
+            {/* Next/Previous Navigation */}
+            <PostNavigation currentSlug={resolvedParams.slug} />
+            
             {/* Related Posts Section */}
             <RelatedPosts currentSlug={resolvedParams.slug} category={frontmatter.category} />
             </article>
@@ -231,6 +234,72 @@ async function MDXContent({ content }: { content: string }) {
       </div>
     );
   }
+}
+
+async function PostNavigation({ currentSlug }: { currentSlug: string }) {
+  const posts = await getBlogPosts();
+  const currentIndex = posts.findIndex(post => post.slug === currentSlug);
+  
+  if (currentIndex === -1) return null;
+  
+  const previousPost = currentIndex > 0 ? posts[currentIndex - 1] : null;
+  const nextPost = currentIndex < posts.length - 1 ? posts[currentIndex + 1] : null;
+
+  return (
+    <nav className="mt-16 pt-8 border-t border-border">
+      <div className={`flex flex-col sm:flex-row justify-between gap-6 ${!previousPost || !nextPost ? 'items-center' : ''}`}>
+        {/* Previous Post */}
+        {previousPost && (
+          <Link 
+            href={`/blog/${previousPost.slug}`} 
+            className={`group flex-1 max-w-md ${!nextPost ? 'sm:mx-auto' : ''}`}
+          >
+            <div className="flex items-start gap-4 p-4 rounded-lg border border-border hover:border-primary/50 hover:bg-primary/5 transition-all duration-300">
+              <div className="flex-shrink-0">
+                <svg className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="text-sm text-muted-foreground mb-1">Previous</div>
+                <h4 className="font-semibold text-card-foreground group-hover:text-primary transition-colors line-clamp-2">
+                  {previousPost.title}
+                </h4>
+                <p className="text-sm text-muted-foreground line-clamp-1 mt-1">
+                  {previousPost.description}
+                </p>
+              </div>
+            </div>
+          </Link>
+        )}
+        
+        {/* Next Post */}
+        {nextPost && (
+          <Link 
+            href={`/blog/${nextPost.slug}`} 
+            className={`group flex-1 max-w-md ${!previousPost ? 'sm:mx-auto' : 'ml-auto'}`}
+          >
+            <div className="flex items-start gap-4 p-4 rounded-lg border border-border hover:border-primary/50 hover:bg-primary/5 transition-all duration-300 text-right">
+              <div className="flex-1 min-w-0">
+                <div className="text-sm text-muted-foreground mb-1">Next</div>
+                <h4 className="font-semibold text-card-foreground group-hover:text-primary transition-colors line-clamp-2">
+                  {nextPost.title}
+                </h4>
+                <p className="text-sm text-muted-foreground line-clamp-1 mt-1">
+                  {nextPost.description}
+                </p>
+              </div>
+              <div className="flex-shrink-0">
+                <svg className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
+            </div>
+          </Link>
+        )}
+      </div>
+    </nav>
+  );
 }
 
 async function RelatedPosts({ currentSlug, category }: { currentSlug: string; category?: string }) {
