@@ -75,10 +75,11 @@ export default function Search() {
       {/* Search Button */}
       <button
         onClick={() => setIsOpen(true)}
-        className="flex items-center gap-2 px-3 py-2 text-card-foreground/80 hover:text-primary transition-all duration-300 font-medium hover:scale-105"
+        className="flex items-center gap-2 px-2 py-2 md:px-3 text-card-foreground/80 hover:text-primary transition-all duration-300 font-medium hover:scale-105"
+        aria-label="Search"
       >
         <SearchIcon className="w-4 h-4" />
-        Search
+        <span className="hidden md:inline">Search</span>
       </button>
 
       {/* Search Modal */}

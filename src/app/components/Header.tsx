@@ -35,14 +35,14 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-3">
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-primary/20 group-hover:border-primary transition-all duration-300">
+            <div className="w-8 h-8 md:w-10 md:h-10 rounded-full overflow-hidden border-2 border-primary/20 group-hover:border-primary transition-all duration-300">
               <img 
                 src="/img/profile.png" 
                 alt="Mujahid Siyam" 
                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
               />
             </div>
-            <span className="text-lg font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+            <span className="text-base md:text-lg font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
               Mujahid Siyam
             </span>
           </Link>
@@ -75,6 +75,7 @@ export default function Header() {
               size="sm"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="p-2"
+              aria-label="Toggle menu"
             >
               {isMobileMenuOpen ? (
                 <X className="w-5 h-5" />
@@ -87,27 +88,35 @@ export default function Header() {
 
         {/* Mobile Navigation Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden absolute top-full left-0 right-0 glass border-t border-border/50 backdrop-blur-xl">
-            <nav className="p-4">
-              <ul className="space-y-2">
-                {navigationItems.map((item) => (
-                  <li key={item.href}>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      asChild
-                      className="w-full justify-start"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      <Link href={item.href}>
-                        {item.label}
-                      </Link>
-                    </Button>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          </div>
+          <>
+            {/* Backdrop */}
+            <div 
+              className="md:hidden fixed inset-0 bg-black/20 backdrop-blur-sm z-40 top-0"
+              onClick={() => setIsMobileMenuOpen(false)}
+            />
+            {/* Menu */}
+            <div className="md:hidden fixed top-16 left-0 right-0 glass border-t border-border/50 backdrop-blur-xl shadow-xl z-50">
+              <nav className="p-4">
+                <ul className="space-y-3">
+                  {navigationItems.map((item) => (
+                    <li key={item.href}>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        asChild
+                        className="w-full justify-start text-base py-3"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        <Link href={item.href}>
+                          {item.label}
+                        </Link>
+                      </Button>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            </div>
+          </>
         )}
       </div>
     </header>
