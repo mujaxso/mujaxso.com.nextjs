@@ -62,7 +62,7 @@ export default function RootLayout({
         }}
       >
         <ThemeProvider>
-          <div className="flex flex-col min-h-screen">
+          <div className="flex flex-col min-h-screen bg-gradient-to-br from-blue-50/30 to-indigo-50/30 dark:from-[#0d1117] dark:to-[#161b22]">
             <Header />
             <main className="flex-1 pt-14">
               {children}

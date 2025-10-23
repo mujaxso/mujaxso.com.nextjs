@@ -3,21 +3,21 @@
 :root, 
 :root.light,
 :root.system:not(.dark) {
-  /* Light theme (default) */
+  /* GitHub-like Light theme */
   --color-background: #ffffff;
-  --color-foreground: #171717;
-  --color-primary: #8b5cf6;
-  --color-primary-hover: #7c3aed;
-  --color-secondary: #06d6a0;
-  --color-accent: #f59e0b;
-  --color-muted: #f8fafc;
-  --color-muted-foreground: #64748b;
-  --color-border: #e2e8f0;
-  --color-card: rgba(255, 255, 255, 0.6);
-  --color-card-foreground: #171717;
-  --color-glass: rgba(255, 255, 255, 0.7);
-  --color-glass-border: rgba(0, 0, 0, 0.05);
-  --color-glass-dark: rgba(255, 255, 255, 0.8);
+  --color-foreground: #24292f;
+  --color-primary: #0969da;
+  --color-primary-hover: #0550ae;
+  --color-secondary: #656d76;
+  --color-accent: #8250df;
+  --color-muted: #f6f8fa;
+  --color-muted-foreground: #656d76;
+  --color-border: #d0d7de;
+  --color-card: rgba(255, 255, 255, 0.8);
+  --color-card-foreground: #24292f;
+  --color-glass: rgba(255, 255, 255, 0.85);
+  --color-glass-border: rgba(208, 215, 222, 0.6);
+  --color-glass-dark: rgba(255, 255, 255, 0.9);
   
   /* Spacing */
   --spacing-xs: 0.25rem;
@@ -67,34 +67,40 @@
 
 :root.dark,
 :root.system.dark {
-  /* Dark theme overrides */
-  --color-background: #0a0a0a;
-  --color-foreground: #fafafa;
-  --color-primary: #8b5cf6;
-  --color-primary-hover: #7c3aed;
-  --color-secondary: #06d6a0;
-  --color-accent: #f59e0b;
-  --color-muted: #1f2937;
-  --color-muted-foreground: #9ca3af;
-  --color-border: #374151;
-  --color-card: rgba(17, 24, 39, 0.5);
-  --color-card-foreground: #fafafa;
-  --color-glass: rgba(17, 24, 39, 0.7);
-  --color-glass-border: rgba(255, 255, 255, 0.08);
-  --color-glass-dark: rgba(0, 0, 0, 0.5);
-  --shadow-glow: 0 0 20px rgba(139, 92, 246, 0.15);
+  /* GitHub-like Dark theme */
+  --color-background: #0d1117;
+  --color-foreground: #f0f6fc;
+  --color-primary: #58a6ff;
+  --color-primary-hover: #79c0ff;
+  --color-secondary: #8b949e;
+  --color-accent: #bc8cff;
+  --color-muted: #161b22;
+  --color-muted-foreground: #8b949e;
+  --color-border: #30363d;
+  --color-card: rgba(22, 27, 34, 0.7);
+  --color-card-foreground: #f0f6fc;
+  --color-glass: rgba(22, 27, 34, 0.8);
+  --color-glass-border: rgba(48, 54, 61, 0.6);
+  --color-glass-dark: rgba(13, 17, 23, 0.9);
+  --shadow-glow: 0 0 20px rgba(88, 166, 255, 0.15);
 }
 
 /* Remove the @theme inline block and use direct CSS variable references */
 
-/* Enhanced glass morphism effects for 2025 */
+/* Enhanced glass morphism effects for modern design */
 .glass {
-  backdrop-filter: blur(20px) saturate(200%);
-  -webkit-backdrop-filter: blur(20px) saturate(200%);
-  background: var(--glass);
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--glow);
-  transition: all 0.3s ease-in-out;
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  background: var(--color-glass);
+  border: 1px solid var(--color-glass-border);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dark .glass {
+  background: var(--color-glass);
+  border: 1px solid var(--color-glass-border);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
 /* Mobile responsive adjustments */
@@ -133,19 +139,34 @@ main {
 }
 
 .glass-dark {
-  backdrop-filter: blur(30px) saturate(250%);
-  -webkit-backdrop-filter: blur(30px) saturate(250%);
-  background: var(--glass-dark);
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--glow);
+  backdrop-filter: blur(24px) saturate(200%);
+  -webkit-backdrop-filter: blur(24px) saturate(200%);
+  background: var(--color-glass-dark);
+  border: 1px solid var(--color-glass-border);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
 }
 
 .card-glass {
-  backdrop-filter: blur(25px) saturate(220%);
-  -webkit-backdrop-filter: blur(25px) saturate(220%);
-  background: var(--card);
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--glow);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  background: var(--color-card);
+  border: 1px solid var(--color-glass-border);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dark .card-glass {
+  background: var(--color-card);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+}
+
+.card-glass:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.dark .card-glass:hover {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
 }
 
 /* Ensure all elements use the CSS variables */
@@ -290,11 +311,42 @@ textarea:focus-visible {
 
 /* Modern gradient backgrounds */
 .gradient-bg {
-  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
 }
 
 .neon-glow {
-  box-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary), 0 0 40px var(--primary);
+  box-shadow: 0 0 10px var(--color-primary), 0 0 20px var(--color-primary), 0 0 40px var(--color-primary);
+}
+
+/* Modern button styles */
+.btn-modern {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  border: none;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 14px rgba(var(--color-primary), 0.3);
+}
+
+.btn-modern:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(var(--color-primary), 0.4);
+}
+
+/* Subtle background patterns */
+.bg-grid-pattern {
+  background-image: 
+    linear-gradient(rgba(9, 105, 218, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(9, 105, 218, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+.dark .bg-grid-pattern {
+  background-image: 
+    linear-gradient(rgba(88, 166, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(88, 166, 255, 0.05) 1px, transparent 1px);
 }
 
 /* MDX Content Styling */
@@ -374,30 +426,34 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Custom scrollbar */
+/* Custom scrollbar matching GitHub theme */
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: var(--color-muted);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #d4d4d8;
+  background: var(--color-border);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #a1a1aa;
+  background: var(--color-primary);
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: var(--color-muted);
 }
 
 .dark ::-webkit-scrollbar-thumb {
-  background: #3f3f46;
+  background: #30363d;
 }
 
 .dark ::-webkit-scrollbar-thumb:hover {
-  background: #52525b;
+  background: var(--color-primary);
 }
 
 /* Syntax Highlighting Styles */
