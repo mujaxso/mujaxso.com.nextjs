@@ -80,9 +80,9 @@ export function FeaturedPostCard({ post, onCategoryClick }: FeaturedPostCardProp
           <div className="absolute inset-0 bg-card/95 backdrop-blur-sm rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
           
           {/* Content wrapper - appears on hover */}
-          <div className="relative z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 w-full">
+          <div className="relative z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 w-full h-full flex flex-col justify-center items-center">
             {/* Description */}
-            <div className="overflow-hidden mb-4">
+            <div className="overflow-hidden mb-4 max-w-md">
               <p className="text-muted-foreground text-sm line-clamp-3">
                 {post.description}
               </p>
