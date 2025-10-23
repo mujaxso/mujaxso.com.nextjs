@@ -62,12 +62,20 @@ export default function RootLayout({
         }}
       >
         <ThemeProvider>
-          <div className="flex flex-col min-h-screen bg-gradient-to-br from-blue-50/30 to-indigo-50/30 dark:from-[#0d1117] dark:to-[#161b22]">
-            <Header />
-            <main className="flex-1 pt-14">
-              {children}
-            </main>
-            <Footer />
+          <div className="flex flex-col min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/20 to-indigo-50/30 dark:from-[#0a0f1c] dark:via-[#0f172a] dark:to-[#1e1b4b] relative overflow-hidden">
+            {/* Animated background elements */}
+            <div className="absolute inset-0 bg-grid-pattern opacity-30"></div>
+            <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-purple-300/20 rounded-full blur-3xl animate-pulse-slow"></div>
+            <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyan-300/20 rounded-full blur-3xl animate-pulse-slow animation-delay-2000"></div>
+            <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-pink-300/10 rounded-full blur-3xl animate-pulse-slow animation-delay-4000"></div>
+            
+            <div className="relative z-10">
+              <Header />
+              <main className="flex-1 pt-14">
+                {children}
+              </main>
+              <Footer />
+            </div>
           </div>
         </ThemeProvider>
       </body>

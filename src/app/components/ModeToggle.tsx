@@ -60,12 +60,15 @@ export default function ModeToggle() {
       variant="outline"
       size="sm"
       onClick={cycleTheme}
-      className="p-2 rounded-2xl"
+      className="p-2 rounded-2xl glass border-white/20 hover:border-white/40 transition-all duration-300 hover:scale-110 group"
       aria-label={getTooltip()}
       title={getTooltip()}
       suppressHydrationWarning
     >
-      {getIcon()}
+      <div className="relative">
+        {getIcon()}
+        <div className="absolute inset-0 bg-gradient-to-r from-primary to-accent rounded-full opacity-0 group-hover:opacity-20 blur transition-opacity duration-300"></div>
+      </div>
     </Button>
   );
 }
