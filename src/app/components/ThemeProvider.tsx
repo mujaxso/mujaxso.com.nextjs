@@ -51,7 +51,9 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       effectiveTheme = theme
     }
     
-    // Apply the effective theme
+    // Apply both the theme mode and the effective theme
+    // This helps with specificity
+    root.classList.add(theme)
     root.classList.add(effectiveTheme)
     
     // Update localStorage

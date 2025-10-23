@@ -1,6 +1,8 @@
 @import "tailwindcss";
 
-:root {
+:root, 
+:root.light,
+:root.system:not(.dark) {
   /* Light theme (default) */
   --color-background: #ffffff;
   --color-foreground: #171717;
@@ -63,7 +65,8 @@
   --radius-full: 9999px;
 }
 
-.dark {
+:root.dark,
+:root.system.dark {
   /* Dark theme overrides */
   --color-background: #0a0a0a;
   --color-foreground: #fafafa;
