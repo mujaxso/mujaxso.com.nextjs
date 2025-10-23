@@ -1,13 +1,11 @@
 "use client";
 
+// Import highlight.js styles
+import 'highlight.js/styles/github-dark.css';
+
 export default function MDXWrapper({ children }: { children: React.ReactNode }) {
   return (
     <div className="bg-[var(--color-background)] text-[var(--color-foreground)] min-h-screen transition-colors duration-300">
-      {/* Import highlight.js styles */}
-      <link 
-        rel="stylesheet" 
-        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/styles/github-dark.min.css" 
-      />
       <div className="prose prose-lg max-w-none 
                      prose-headings:text-[var(--color-foreground)] 
                      prose-p:text-[var(--color-foreground)]/90

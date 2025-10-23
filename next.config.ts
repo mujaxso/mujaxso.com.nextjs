@@ -35,7 +35,7 @@ const withMDX = createMDX({
     remarkPlugins: [],
     rehypePlugins: [
       // Add syntax highlighting
-      require('rehype-highlight'),
+      [require('rehype-highlight'), { detect: true }],
     ],
   },
 })
