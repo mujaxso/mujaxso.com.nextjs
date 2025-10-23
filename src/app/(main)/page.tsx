@@ -1,9 +1,9 @@
-export default function HomePage() {
+export default function BlogPage() {
   return (
     <div>
-      <h1>Welcome to Mujahid Siyam's Portfolio</h1>
-      <p>Software Engineer | AI/ML Engineer | Data Scientist | DevSecOps</p>
-      {/* Add your main homepage content here */}
+      <h1>Blog - Mujahid Siyam</h1>
+      <p>Welcome to my blog! Here I share thoughts on software engineering, AI/ML, and technology.</p>
+      {/* Add your blog content here */}
     </div>
   );
 }
