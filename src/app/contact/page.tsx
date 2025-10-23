@@ -3,27 +3,36 @@
 import { useState } from 'react';
 import { Mail, Send, Github, ExternalLink, Instagram } from 'lucide-react';
 
-export default function ContactPage() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
+async function submitContactForm(formData: FormData) {
+  const response = await fetch('/api/contact', {
+    method: 'POST',
+    body: formData,
   });
+  
+  if (!response.ok) {
+    throw new Error('Failed to submit form');
+  }
+  
+  return response.json();
+}
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
+export default function ContactPage() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle form submission here
-    console.log('Form submitted:', formData);
-    alert('Thank you for your message! I will get back to you soon.');
-    setFormData({ name: '', email: '', subject: '', message: '' });
+  const handleSubmit = async (formData: FormData) => {
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+    
+    try {
+      await submitContactForm(formData);
+      setSubmitStatus('success');
+    } catch (error) {
+      console.error('Form submission error:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -113,7 +122,17 @@ export default function ContactPage() {
 
           {/* Contact Form */}
           <div className="backdrop-blur-xl bg-[var(--color-glass)] border border-[var(--color-glass-border)] rounded-2xl p-8">
-            <form onSubmit={handleSubmit} className="space-y-6">
+            {submitStatus === 'success' && (
+              <div className="mb-6 p-4 bg-green-500/10 border border-green-500/20 rounded-lg text-green-600">
+                Thank you for your message! I will get back to you soon.
+              </div>
+            )}
+            {submitStatus === 'error' && (
+              <div className="mb-6 p-4 bg-red-500/10 border border-red-500/20 rounded-lg text-red-600">
+                Failed to send message. Please try again.
+              </div>
+            )}
+            <form action={handleSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-[var(--color-foreground)] mb-2">
@@ -123,8 +142,6 @@ export default function ContactPage() {
                     type="text"
                     id="name"
                     name="name"
-                    value={formData.name}
-                    onChange={handleChange}
                     required
                     className="w-full px-4 py-3 border border-[var(--color-glass-border)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent backdrop-blur-sm bg-[var(--color-glass)] text-[var(--color-foreground)] placeholder-[var(--color-foreground)]/40"
                     placeholder="Enter your name"
@@ -138,8 +155,6 @@ export default function ContactPage() {
                     type="email"
                     id="email"
                     name="email"
-                    value={formData.email}
-                    onChange={handleChange}
                     required
                     className="w-full px-4 py-3 border border-[var(--color-glass-border)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent backdrop-blur-sm bg-[var(--color-glass)] text-[var(--color-foreground)] placeholder-[var(--color-foreground)]/40"
                     placeholder="Enter your email"
@@ -155,8 +170,6 @@ export default function ContactPage() {
                   type="text"
                   id="subject"
                   name="subject"
-                  value={formData.subject}
-                  onChange={handleChange}
                   required
                   className="w-full px-4 py-3 border border-[var(--color-glass-border)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent backdrop-blur-sm bg-[var(--color-glass)] text-[var(--color-foreground)] placeholder-[var(--color-foreground)]/40"
                   placeholder="What's this about?"
@@ -170,8 +183,6 @@ export default function ContactPage() {
                 <textarea
                   id="message"
                   name="message"
-                  value={formData.message}
-                  onChange={handleChange}
                   required
                   rows={5}
                   className="w-full px-4 py-3 border border-[var(--color-glass-border)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent backdrop-blur-sm bg-[var(--color-glass)] text-[var(--color-foreground)] placeholder-[var(--color-foreground)]/40"
@@ -181,10 +192,20 @@ export default function ContactPage() {
               
               <button
                 type="submit"
-                className="w-full flex items-center justify-center px-6 py-3 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)] text-white font-medium rounded-lg hover:opacity-90 transition-all duration-300 hover:scale-105"
+                disabled={isSubmitting}
+                className="w-full flex items-center justify-center px-6 py-3 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)] text-white font-medium rounded-lg hover:opacity-90 transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <Send className="w-5 h-5 mr-2" />
-                Send Message
+                {isSubmitting ? (
+                  <>
+                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
+                    Sending...
+                  </>
+                ) : (
+                  <>
+                    <Send className="w-5 h-5 mr-2" />
+                    Send Message
+                  </>
+                )}
               </button>
             </form>
           </div>
