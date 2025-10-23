@@ -42,22 +42,22 @@ export default function Footer() {
           {/* About Section - Center */}
           <div className="md:order-2">
             <div className="flex flex-col items-center md:items-start">
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-white/30 shadow-lg">
-                  <img 
-                    src="/img/profile.png" 
-                    alt="Mujahid Siyam" 
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div>
-                  <span className="text-2xl font-bold text-foreground block">
-                    Mujahid Siyam
-                  </span>
-                  <p className="text-sm text-muted-foreground mt-1">
-                    Software Engineer • AI/ML Engineer
-                  </p>
-                </div>
+              {/* Profile Photo Above Name */}
+              <div className="w-20 h-20 rounded-full overflow-hidden border-2 border-white/30 shadow-lg mb-4">
+                <img 
+                  src="/img/profile.png" 
+                  alt="Mujahid Siyam" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              {/* Name and Title */}
+              <div className="text-center md:text-left mb-4">
+                <span className="text-2xl font-bold text-foreground block">
+                  Mujahid Siyam
+                </span>
+                <p className="text-sm text-muted-foreground mt-1">
+                  Software Engineer • AI/ML Engineer
+                </p>
               </div>
               <p className="text-muted-foreground max-w-sm text-base leading-relaxed mb-6">
                 Building cutting-edge solutions with code, AI, and innovative technology.
