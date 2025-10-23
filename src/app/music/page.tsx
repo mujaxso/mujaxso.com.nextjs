@@ -95,11 +95,11 @@ export default function MusicPage() {
 
   const getServiceColor = (service: Playlist["service"]) => {
     switch (service) {
-      case "spotify": return "bg-green-500/10 text-green-600 border-green-500/20 dark:text-green-400 dark:border-green-500/30"
-      case "soundcloud": return "bg-orange-500/10 text-orange-600 border-orange-500/20 dark:text-orange-400 dark:border-orange-500/30"
-      case "apple": return "bg-pink-500/10 text-pink-600 border-pink-500/20 dark:text-pink-400 dark:border-pink-500/30"
-      case "youtube": return "bg-red-500/10 text-red-600 border-red-500/20 dark:text-red-400 dark:border-red-500/30"
-      default: return "bg-primary/10 text-primary border-primary/20 dark:border-primary/30"
+      case "spotify": return "bg-primary/10 text-primary border-primary/20"
+      case "soundcloud": return "bg-primary/10 text-primary border-primary/20"
+      case "apple": return "bg-primary/10 text-primary border-primary/20"
+      case "youtube": return "bg-primary/10 text-primary border-primary/20"
+      default: return "bg-primary/10 text-primary border-primary/20"
     }
   }
 
@@ -152,11 +152,11 @@ export default function MusicPage() {
             playlists.map((playlist) => (
             <Card key={playlist.id} className="group hover:shadow-modern-hover fade-in-up stagger-item">
               {/* Playlist Player at the top */}
-              <div className="mb-6 rounded-2xl overflow-hidden bg-muted/50 border border-border/50 shadow-modern">
+              <div className="mb-6 rounded-2xl overflow-hidden bg-primary/5 border border-primary/20 shadow-modern">
                 <div className="aspect-video relative">
                   {/* Show loading spinner while iframe is loading */}
                   {loadingStates[playlist.id] && (
-                    <div className="absolute inset-0 w-full h-full flex items-center justify-center z-10 bg-muted/50">
+                    <div className="absolute inset-0 w-full h-full flex items-center justify-center z-10 bg-primary/5">
                       <div className="text-center p-6">
                         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-2"></div>
                         <p className="text-primary text-sm">Loading...</p>
@@ -179,14 +179,14 @@ export default function MusicPage() {
                   />
                 </div>
                 {playerErrors[playlist.id] && (
-                  <div className="mt-2 p-4 bg-red-500/10 border border-red-500/20 rounded-xl m-4">
-                    <p className="text-red-400 text-center text-sm">{playerErrors[playlist.id]}</p>
+                  <div className="mt-2 p-4 bg-primary/10 border border-primary/20 rounded-xl m-4">
+                    <p className="text-primary text-center text-sm">{playerErrors[playlist.id]}</p>
                     <div className="flex justify-center mt-3">
                       <Button
                         variant="default"
                         size="sm"
                         onClick={() => window.open(playlist.url, '_blank')}
-                        className="bg-red-500 hover:bg-red-600 text-white"
+                        className="bg-primary hover:bg-primary-hover text-white"
                       >
                         Open in {getServiceName(playlist.service)}
                       </Button>
@@ -202,7 +202,7 @@ export default function MusicPage() {
                     {playlist.title}
                   </h3>
                   <div className="flex justify-center items-center gap-3 mb-3">
-                    <div className="w-6 h-6 flex items-center justify-center text-foreground/70">
+                    <div className="w-6 h-6 flex items-center justify-center text-primary">
                       {getServiceIcon(playlist.service)}
                     </div>
                     <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium border ${getServiceColor(playlist.service)}`}>
@@ -216,7 +216,7 @@ export default function MusicPage() {
                 </p>
 
                 {/* Stats */}
-                <div className="flex items-center gap-4 text-sm text-foreground/60">
+                <div className="flex items-center gap-4 text-sm text-primary/70">
                   <span>{playlist.trackCount} tracks</span>
                   {playlist.duration && (
                     <span>{playlist.duration}</span>
@@ -226,7 +226,7 @@ export default function MusicPage() {
                 <Button
                   variant="outline"
                   size="sm"
-                  className="w-full border-border/50 hover:border-primary/50 hover:bg-primary/5 transition-all duration-300"
+                  className="w-full border-primary/20 hover:border-primary hover:bg-primary/10 text-primary transition-all duration-300"
                   onClick={() => window.open(playlist.url, '_blank')}
                 >
                   <ExternalLink className="w-4 h-4 mr-2" />
@@ -252,46 +252,46 @@ export default function MusicPage() {
                 <Button
                   variant="outline"
                   size="lg"
-                  className="flex flex-col items-center justify-center gap-2 min-w-[160px] h-[120px] p-4 glass border-border/50 hover:border-primary/50 hover:scale-105 transition-all duration-300"
+                  className="flex flex-col items-center justify-center gap-2 min-w-[160px] h-[120px] p-4 glass border-primary/20 hover:border-primary hover:bg-primary/10 text-primary hover:scale-105 transition-all duration-300"
                   onClick={() => window.open('https://open.spotify.com/user/mujaxso', '_blank')}
                 >
-                  <div className="w-8 h-8 flex items-center justify-center text-foreground">
+                  <div className="w-8 h-8 flex items-center justify-center text-primary">
                     <SpotifyIcon />
                   </div>
-                  <span className="text-foreground text-sm font-medium">Spotify</span>
+                  <span className="text-primary text-sm font-medium">Spotify</span>
                 </Button>
                 <Button
                   variant="outline"
                   size="lg"
-                  className="flex flex-col items-center justify-center gap-2 min-w-[160px] h-[120px] p-4 glass border-border/50 hover:border-primary/50 hover:scale-105 transition-all duration-300"
+                  className="flex flex-col items-center justify-center gap-2 min-w-[160px] h-[120px] p-4 glass border-primary/20 hover:border-primary hover:bg-primary/10 text-primary hover:scale-105 transition-all duration-300"
                   onClick={() => window.open('https://music.apple.com/profile/mujaxso', '_blank')}
                 >
-                  <div className="w-8 h-8 flex items-center justify-center text-foreground">
+                  <div className="w-8 h-8 flex items-center justify-center text-primary">
                     <AppleMusicIcon />
                   </div>
-                  <span className="text-foreground text-sm font-medium">Apple Music</span>
+                  <span className="text-primary text-sm font-medium">Apple Music</span>
                 </Button>
                 <Button
                   variant="outline"
                   size="lg"
-                  className="flex flex-col items-center justify-center gap-2 min-w-[160px] h-[120px] p-4 glass border-border/50 hover:border-primary/50 hover:scale-105 transition-all duration-300"
+                  className="flex flex-col items-center justify-center gap-2 min-w-[160px] h-[120px] p-4 glass border-primary/20 hover:border-primary hover:bg-primary/10 text-primary hover:scale-105 transition-all duration-300"
                   onClick={() => window.open('https://soundcloud.com/mujaxso', '_blank')}
                 >
-                  <div className="w-8 h-8 flex items-center justify-center text-foreground">
+                  <div className="w-8 h-8 flex items-center justify-center text-primary">
                     <SoundCloudIcon />
                   </div>
-                  <span className="text-foreground text-sm font-medium">SoundCloud</span>
+                  <span className="text-primary text-sm font-medium">SoundCloud</span>
                 </Button>
                 <Button
                   variant="outline"
                   size="lg"
-                  className="flex flex-col items-center justify-center gap-2 min-w-[160px] h-[120px] p-4 glass border-border/50 hover:border-primary/50 hover:scale-105 transition-all duration-300"
+                  className="flex flex-col items-center justify-center gap-2 min-w-[160px] h-[120px] p-4 glass border-primary/20 hover:border-primary hover:bg-primary/10 text-primary hover:scale-105 transition-all duration-300"
                   onClick={() => window.open('https://www.youtube.com/@mujaxso', '_blank')}
                 >
-                  <div className="w-8 h-8 flex items-center justify-center text-foreground">
+                  <div className="w-8 h-8 flex items-center justify-center text-primary">
                     <YouTubeIcon />
                   </div>
-                  <span className="text-foreground text-sm font-medium">YouTube</span>
+                  <span className="text-primary text-sm font-medium">YouTube</span>
                 </Button>
               </div>
             </div>
