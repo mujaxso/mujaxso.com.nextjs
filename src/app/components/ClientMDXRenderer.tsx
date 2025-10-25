@@ -16,7 +16,24 @@ export default function ClientMDXRenderer({ content }: ClientMDXRendererProps) {
   useEffect(() => {
     async function compileMdx() {
       try {
-        const serialized = await serialize(content, {
+        // Preprocess content to fix self-closing tags
+        const processedContent = content
+          .replace(/<img\s+([^>]*[^/])>/g, '<img $1 />')
+          .replace(/<br\s*>/g, '<br />')
+          .replace(/<hr\s*>/g, '<hr />')
+          .replace(/<input\s+([^>]*[^/])>/g, '<input $1 />')
+          .replace(/<meta\s+([^>]*[^/])>/g, '<meta $1 />')
+          .replace(/<link\s+([^>]*[^/])>/g, '<link $1 />')
+          .replace(/<col\s+([^>]*[^/])>/g, '<col $1 />')
+          .replace(/<area\s+([^>]*[^/])>/g, '<area $1 />')
+          .replace(/<base\s+([^>]*[^/])>/g, '<base $1 />')
+          .replace(/<embed\s+([^>]*[^/])>/g, '<embed $1 />')
+          .replace(/<param\s+([^>]*[^/])>/g, '<param $1 />')
+          .replace(/<source\s+([^>]*[^/])>/g, '<source $1 />')
+          .replace(/<track\s+([^>]*[^/])>/g, '<track $1 />')
+          .replace(/<wbr\s*>/g, '<wbr />');
+
+        const serialized = await serialize(processedContent, {
           mdxOptions: {
             rehypePlugins: [rehypeHighlight],
           },
