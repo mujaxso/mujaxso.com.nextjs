@@ -22,6 +22,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       setThemeState(stored)
     }
     setMounted(true)
+    // Ensure body always has theme-loaded class
+    document.body.classList.add('theme-loaded')
   }, [])
 
   const setTheme = (newTheme: Theme) => {

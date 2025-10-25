@@ -289,6 +289,15 @@ html, body {
   overflow-x: hidden;
 }
 
+/* Prevent FOUC by hiding content until theme is applied */
+html:not(.light):not(.dark) {
+  visibility: hidden;
+}
+
+html.light, html.dark {
+  visibility: visible;
+}
+
 /* Ultra-modern animations */
 @keyframes float {
   0%, 100% { 
@@ -438,6 +447,16 @@ html, body {
 body, body > * {
   background-color: var(--color-background) !important;
   color: var(--color-foreground) !important;
+}
+
+/* Prevent FOUC by ensuring content is only visible after theme is set */
+body:not(.theme-loaded) {
+  opacity: 0;
+  transition: opacity 0.1s ease;
+}
+
+body.theme-loaded {
+  opacity: 1;
 }
 
 /* Ensure consistent theme for all interactive elements */

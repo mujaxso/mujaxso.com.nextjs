@@ -88,7 +88,32 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <PersonStructuredData />
-        <ThemeScript />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var theme = localStorage.getItem('mujaxso-theme');
+                  var systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                  var effectiveTheme = theme === 'system' ? systemTheme : (theme || 'light');
+                  
+                  // Apply theme immediately
+                  document.documentElement.classList.add(effectiveTheme);
+                  if (theme) {
+                    document.documentElement.classList.add(theme);
+                  }
+                  // Mark theme as loaded
+                  document.body.classList.add('theme-loaded');
+                } catch (e) {
+                  console.error('Theme initialization error:', e);
+                  // Fallback to light theme
+                  document.documentElement.classList.add('light');
+                  document.body.classList.add('theme-loaded');
+                }
+              })();
+            `,
+          }}
+        />
       </head>
       <body
         className={`${jetbrainsMono.variable} antialiased font-mono`}
