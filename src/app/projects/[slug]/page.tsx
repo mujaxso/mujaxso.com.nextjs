@@ -140,11 +140,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           <div className="flex justify-center">
             <div className="w-full max-w-3xl">
               {/* GitHub-like Markdown Content - Clean and Centered */}
-              <div className="flex justify-center">
-                <div className="w-full max-w-2xl">
-                  <ClientMDXRenderer content={content} />
-                </div>
-              </div>
+              <ClientMDXRenderer content={content} />
               
               {/* Tags at the bottom */}
               {project.tags && project.tags.length > 0 && (

@@ -172,11 +172,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               )}
             
               {/* GitHub-like Markdown Content - Clean and Centered */}
-              <div className="flex justify-center">
-                <div className="w-full max-w-2xl">
-                  <ClientMDXRenderer content={content} />
-                </div>
-              </div>
+              <ClientMDXRenderer content={content} />
             
               {/* Author Section */}
               <div className="mt-8">

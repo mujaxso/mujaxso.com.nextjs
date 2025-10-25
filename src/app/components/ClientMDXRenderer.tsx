@@ -4,6 +4,7 @@ import { MDXRemote } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
 import rehypeHighlight from 'rehype-highlight';
 import { useState, useEffect } from 'react';
+import SyntaxHighlighting from './SyntaxHighlighting';
 
 interface ClientMDXRendererProps {
   content: string;
@@ -64,7 +65,9 @@ export default function ClientMDXRenderer({ content }: ClientMDXRendererProps) {
   }
 
   return (
-    <div className="prose prose-lg max-w-none 
+    <>
+      <SyntaxHighlighting />
+      <div className="prose prose-xl max-w-2xl mx-auto
                   prose-headings:font-bold 
                   prose-p:leading-relaxed 
                   prose-strong:font-bold 
@@ -109,12 +112,13 @@ export default function ClientMDXRenderer({ content }: ClientMDXRendererProps) {
                   prose-pre:text-card-foreground 
                   prose-th:text-card-foreground 
                   prose-td:text-card-foreground">
-      <MDXRemote 
-        {...mdxSource}
-        components={{
-          style: () => null
-        }}
-      />
-    </div>
+        <MDXRemote 
+          {...mdxSource}
+          components={{
+            style: () => null
+          }}
+        />
+      </div>
+    </>
   );
 }
