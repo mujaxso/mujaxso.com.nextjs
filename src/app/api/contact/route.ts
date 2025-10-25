@@ -10,8 +10,28 @@ export async function POST(request: Request) {
     const subject = formData.get('subject') as string;
     const message = formData.get('message') as string;
 
-    // Validate required fields
+    // Log form data for debugging
+    if (process.env.NODE_ENV === 'development') {
+      console.log('Contact form data received:', { name, email, subject, message });
+    }
+
+    // Check if fields exist and are not null/undefined
     if (!name || !email || !subject || !message) {
+      console.log('Missing fields detected:', { name, email, subject, message });
+      return NextResponse.json(
+        { error: 'All fields are required' },
+        { status: 400 }
+      );
+    }
+
+    // Trim values and check if they become empty
+    const trimmedName = name.trim();
+    const trimmedEmail = email.trim();
+    const trimmedSubject = subject.trim();
+    const trimmedMessage = message.trim();
+
+    if (!trimmedName || !trimmedEmail || !trimmedSubject || !trimmedMessage) {
+      console.log('Empty fields after trimming:', { trimmedName, trimmedEmail, trimmedSubject, trimmedMessage });
       return NextResponse.json(
         { error: 'All fields are required' },
         { status: 400 }
@@ -20,7 +40,7 @@ export async function POST(request: Request) {
 
     // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
+    if (!emailRegex.test(trimmedEmail)) {
       return NextResponse.json(
         { error: 'Invalid email format' },
         { status: 400 }
@@ -34,10 +54,10 @@ export async function POST(request: Request) {
 
     // For now, we'll just log and return success
     console.log('Contact form submission:', {
-      name,
-      email,
-      subject,
-      message,
+      name: trimmedName,
+      email: trimmedEmail,
+      subject: trimmedSubject,
+      message: trimmedMessage,
       timestamp: new Date().toISOString(),
     });
 
