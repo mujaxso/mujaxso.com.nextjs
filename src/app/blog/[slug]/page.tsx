@@ -4,9 +4,8 @@ import Image from 'next/image';
 import { promises as fs } from 'fs';
 import { join } from 'path';
 import matter from 'gray-matter';
-import { MDXRemote } from 'next-mdx-remote/rsc';
 import Author from '../../components/Author';
-import { Suspense } from 'react';
+import ClientMDXRenderer from '../../components/ClientMDXRenderer';
 
 function calculateReadingTime(content: string): string {
   const wordsPerMinute = 200;
@@ -172,9 +171,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             )}
           
             <div className="prose prose-xl max-w-none mx-auto prose-headings:text-card-foreground prose-p:text-card-foreground/80 prose-strong:text-card-foreground prose-em:text-card-foreground prose-a:text-primary hover:prose-a:text-primary-dark prose-blockquote:text-card-foreground/60 prose-blockquote:border-primary prose-ul:text-card-foreground/80 prose-ol:text-card-foreground/80 prose-li:text-card-foreground/80 prose-code:text-card-foreground prose-pre:bg-muted">
-              <Suspense fallback={<div className="text-center py-8">Loading content...</div>}>
-                <MDXContent content={content} />
-              </Suspense>
+              <ClientMDXRenderer content={content} />
             </div>
           
             {/* Author Section */}
@@ -208,36 +205,6 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   }
 }
 
-// Separate component for MDX content to handle errors better
-async function MDXContent({ content }: { content: string }) {
-  try {
-    const { MDXRemote } = await import('next-mdx-remote/rsc');
-    const { default: rehypeHighlight } = await import('rehype-highlight');
-    
-    return (
-      <MDXRemote 
-        source={content}
-        options={{
-          mdxOptions: {
-            rehypePlugins: [
-              [rehypeHighlight, { detect: true }],
-            ],
-          },
-        }}
-        components={{
-          style: () => null
-        }}
-      />
-    );
-  } catch (error) {
-    console.error('Error rendering MDX:', error);
-    return (
-      <div className="text-center py-8 text-red-500">
-        Error loading content. Please try refreshing the page.
-      </div>
-    );
-  }
-}
 
 async function PostNavigation({ currentSlug }: { currentSlug: string }) {
   const posts = await getBlogPosts();

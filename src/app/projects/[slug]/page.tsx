@@ -4,7 +4,7 @@ import { promises as fs } from 'fs';
 import { join } from 'path';
 import matter from 'gray-matter';
 import { Github, ExternalLink } from 'lucide-react';
-import { Suspense } from 'react';
+import ClientMDXRenderer from '../../components/ClientMDXRenderer';
 
 interface Project {
   slug: string;
@@ -140,9 +140,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           <div className="flex justify-center">
             <div className="w-full max-w-3xl">
               <article className="markdown-body">
-                <Suspense fallback={<div className="text-center py-8">Loading content...</div>}>
-                  <MDXContent content={content} />
-                </Suspense>
+                <ClientMDXRenderer content={content} />
               </article>
               
               {/* Tags at the bottom */}
@@ -172,36 +170,6 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   }
 }
 
-// Separate component for MDX content to handle errors better
-async function MDXContent({ content }: { content: string }) {
-  try {
-    const { MDXRemote } = await import('next-mdx-remote/rsc');
-    const { default: rehypeHighlight } = await import('rehype-highlight');
-    
-    return (
-      <MDXRemote 
-        source={content}
-        options={{
-          mdxOptions: {
-            rehypePlugins: [
-              [rehypeHighlight, { detect: true }],
-            ],
-          },
-        }}
-        components={{
-          style: () => null
-        }}
-      />
-    );
-  } catch (error) {
-    console.error('Error rendering MDX:', error);
-    return (
-      <div className="text-center py-8 text-red-500">
-        Error loading content. Please try refreshing the page.
-      </div>
-    );
-  }
-}
 
 export async function generateStaticParams() {
   const projectsDirectory = join(process.cwd(), 'src', 'content', 'projects');
