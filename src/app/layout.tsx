@@ -106,15 +106,13 @@ export default function RootLayout({
                   
                   // Store in a data attribute for easy access
                   document.documentElement.setAttribute('data-theme', effectiveTheme);
-                  
-                  // Mark theme as loaded immediately
-                  document.body.classList.add('theme-loaded');
                 } catch (e) {
                   // Fallback to light theme
                   document.documentElement.classList.remove('light', 'dark', 'system');
                   document.documentElement.classList.add('light');
-                  document.body.classList.add('theme-loaded');
                 }
+                // Mark theme as loaded immediately - this must be last
+                document.body.classList.add('theme-loaded');
               })();
             `,
           }}

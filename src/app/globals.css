@@ -450,13 +450,22 @@ body, body > * {
 }
 
 /* Prevent FOUC by ensuring content is only visible after theme is set */
+/* Hide everything until theme is loaded */
+body:not(.theme-loaded) * {
+  visibility: hidden !important;
+}
+
+body.theme-loaded * {
+  visibility: visible !important;
+}
+
 body:not(.theme-loaded) {
   opacity: 0;
-  transition: opacity 0.1s ease;
 }
 
 body.theme-loaded {
   opacity: 1;
+  transition: opacity 0.1s ease 0.05s;
 }
 
 /* Ensure consistent theme for all interactive elements */
