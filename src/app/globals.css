@@ -298,16 +298,16 @@ html.light, html.dark {
   visibility: visible;
 }
 
-/* Ultra-modern animations */
+/* Ultra-modern animations - optimized for performance */
 @keyframes float {
   0%, 100% {
-    transform: translateY(0px) scale(1);
+    transform: translate3d(0, 0, 0) scale(1);
   }
   33% {
-    transform: translateY(-20px) scale(1.05);
+    transform: translate3d(0, -20px, 0) scale(1.05);
   }
   66% {
-    transform: translateY(-10px) scale(1.02);
+    transform: translate3d(0, -10px, 0) scale(1.02);
   }
 }
 
@@ -320,6 +320,17 @@ html.light, html.dark {
     opacity: 0.8;
     transform: scale(1.1);
   }
+}
+
+/* Optimize animations for better performance */
+.float-animation {
+  animation: float 6s ease-in-out infinite;
+  will-change: transform;
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 8s ease-in-out infinite;
+  will-change: transform, opacity;
 }
 
 @keyframes gradient-shift {
