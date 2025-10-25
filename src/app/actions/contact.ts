@@ -35,25 +35,65 @@ export async function submitContactForm(formData: FormData) {
   }
 
   try {
-    // Log the contact form submission (this will appear in Vercel's logs)
-    console.log('CONTACT_FORM_SUBMISSION:', JSON.stringify({
+    // Check if Resend API key is available
+    if (!process.env.RESEND_API_KEY) {
+      console.log('CONTACT_FORM_SUBMISSION (Resend not configured):', JSON.stringify({
+        name: trimmedName,
+        email: trimmedEmail,
+        subject: trimmedSubject,
+        message: trimmedMessage,
+        timestamp: new Date().toISOString(),
+      }));
+      return { success: true, message: 'Message received successfully! I will get back to you soon.' };
+    }
+
+    // Send email using Resend
+    const resendResponse = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${process.env.RESEND_API_KEY}`
+      },
+      body: JSON.stringify({
+        from: 'contact@mujaxso.com',
+        to: process.env.CONTACT_EMAIL || 'your-email@example.com',
+        subject: `Contact Form: ${trimmedSubject}`,
+        html: `
+          <h3>New Contact Form Submission</h3>
+          <p><strong>Name:</strong> ${trimmedName}</p>
+          <p><strong>Email:</strong> ${trimmedEmail}</p>
+          <p><strong>Subject:</strong> ${trimmedSubject}</p>
+          <p><strong>Message:</strong></p>
+          <p>${trimmedMessage.replace(/\n/g, '<br>')}</p>
+        `,
+        text: `Name: ${trimmedName}\nEmail: ${trimmedEmail}\nSubject: ${trimmedSubject}\nMessage: ${trimmedMessage}`
+      }),
+    });
+
+    if (!resendResponse.ok) {
+      const errorData = await resendResponse.text();
+      console.error('Resend API error:', errorData);
+      // Even if email fails, we still log and return success to the user
+      console.log('CONTACT_FORM_SUBMISSION (email failed):', JSON.stringify({
+        name: trimmedName,
+        email: trimmedEmail,
+        subject: trimmedSubject,
+        message: trimmedMessage,
+        timestamp: new Date().toISOString(),
+      }));
+    }
+
+    return { success: true, message: 'Message sent successfully! I will get back to you soon.' };
+  } catch (error) {
+    console.error('Contact form error:', error);
+    // Log the submission even if there's an error
+    console.log('CONTACT_FORM_SUBMISSION (with error):', JSON.stringify({
       name: trimmedName,
       email: trimmedEmail,
       subject: trimmedSubject,
       message: trimmedMessage,
       timestamp: new Date().toISOString(),
     }));
-
-    // In a real application, you might want to:
-    // 1. Store in a database (like Supabase, which has a free tier)
-    // 2. Send to a Discord webhook
-    // 3. Use a service like Formspree
-    // 4. Send to a Google Sheet
-    // But for now, we'll just log and return success
-    
-    return { success: true, message: 'Message received successfully! I will get back to you soon.' };
-  } catch (error) {
-    console.error('Contact form error:', error);
-    return { error: 'Failed to process message. Please try again later.' };
+    return { error: 'Failed to send message. Please try again later.' };
   }
 }

@@ -47,20 +47,59 @@ export async function POST(request: Request) {
       );
     }
 
-    // Log the contact form submission (this will appear in Vercel's logs)
-    console.log('CONTACT_FORM_SUBMISSION:', JSON.stringify({
-      name: trimmedName,
-      email: trimmedEmail,
-      subject: trimmedSubject,
-      message: trimmedMessage,
-      timestamp: new Date().toISOString(),
-    }));
+    // Check if Resend API key is available
+    if (!process.env.RESEND_API_KEY) {
+      console.log('CONTACT_FORM_SUBMISSION (Resend not configured):', JSON.stringify({
+        name: trimmedName,
+        email: trimmedEmail,
+        subject: trimmedSubject,
+        message: trimmedMessage,
+        timestamp: new Date().toISOString(),
+      }));
+      return NextResponse.json(
+        { success: true, message: 'Message received successfully! I will get back to you soon.' },
+        { status: 200 }
+      );
+    }
 
-    // In a real application, you might want to store this data somewhere
-    // For now, we'll just log and return success
-    
+    // Send email using Resend
+    const resendResponse = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${process.env.RESEND_API_KEY}`
+      },
+      body: JSON.stringify({
+        from: 'contact@mujaxso.com',
+        to: process.env.CONTACT_EMAIL || 'your-email@example.com',
+        subject: `Contact Form: ${trimmedSubject}`,
+        html: `
+          <h3>New Contact Form Submission</h3>
+          <p><strong>Name:</strong> ${trimmedName}</p>
+          <p><strong>Email:</strong> ${trimmedEmail}</p>
+          <p><strong>Subject:</strong> ${trimmedSubject}</p>
+          <p><strong>Message:</strong></p>
+          <p>${trimmedMessage.replace(/\n/g, '<br>')}</p>
+        `,
+        text: `Name: ${trimmedName}\nEmail: ${trimmedEmail}\nSubject: ${trimmedSubject}\nMessage: ${trimmedMessage}`
+      }),
+    });
+
+    if (!resendResponse.ok) {
+      const errorData = await resendResponse.text();
+      console.error('Resend API error:', errorData);
+      // Even if email fails, we still log and return success to the user
+      console.log('CONTACT_FORM_SUBMISSION (email failed):', JSON.stringify({
+        name: trimmedName,
+        email: trimmedEmail,
+        subject: trimmedSubject,
+        message: trimmedMessage,
+        timestamp: new Date().toISOString(),
+      }));
+    }
+
     return NextResponse.json(
-      { success: true, message: 'Message received successfully! I will get back to you soon.' },
+      { success: true, message: 'Message sent successfully! I will get back to you soon.' },
       { status: 200 }
     );
   } catch (error) {
