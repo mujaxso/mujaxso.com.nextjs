@@ -35,17 +35,35 @@ export async function submitContactForm(formData: FormData) {
   }
 
   try {
-    // For now, we'll just log the contact form submission
-    // In a real implementation, you would integrate with an email service here
-    console.log('Contact form submission (would send email):', {
-      name: trimmedName,
-      email: trimmedEmail,
-      subject: trimmedSubject,
-      message: trimmedMessage,
-      timestamp: new Date().toISOString(),
+    // Use Resend API to send email
+    const resendResponse = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${process.env.RESEND_API_KEY}`
+      },
+      body: JSON.stringify({
+        from: 'contact@mujaxso.com', // Update this to your domain
+        to: process.env.CONTACT_EMAIL || 'your-email@example.com',
+        subject: `Contact Form: ${trimmedSubject}`,
+        html: `
+          <h3>New Contact Form Submission</h3>
+          <p><strong>Name:</strong> ${trimmedName}</p>
+          <p><strong>Email:</strong> ${trimmedEmail}</p>
+          <p><strong>Subject:</strong> ${trimmedSubject}</p>
+          <p><strong>Message:</strong></p>
+          <p>${trimmedMessage.replace(/\n/g, '<br>')}</p>
+        `,
+        text: `Name: ${trimmedName}\nEmail: ${trimmedEmail}\nSubject: ${trimmedSubject}\nMessage: ${trimmedMessage}`
+      }),
     });
 
-    // Return success message (even though we're not actually sending email)
+    if (!resendResponse.ok) {
+      const errorData = await resendResponse.text();
+      console.error('Resend API error:', errorData);
+      return { error: 'Failed to send message. Please try again later.' };
+    }
+
     return { success: true, message: 'Message sent successfully!' };
   } catch (error) {
     console.error('Contact form error:', error);
