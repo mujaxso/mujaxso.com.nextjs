@@ -143,6 +143,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                 <Suspense fallback={<div className="text-center py-8">Loading content...</div>}>
                   <MDXContent content={content} />
                 </Suspense>
+              </article>
               
               {/* Tags at the bottom */}
               {project.tags && project.tags.length > 0 && (
