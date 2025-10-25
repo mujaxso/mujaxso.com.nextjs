@@ -34,75 +34,93 @@ async function getProjects(): Promise<Project[]> {
       files
         .filter(file => file.endsWith('.mdx'))
         .map(async (file) => {
-          const slug = file.replace(/\.mdx$/, '');
-          const filePath = join(projectsDirectory, file);
-          const fileContent = await fs.readFile(filePath, 'utf8');
-          
-          // Extract frontmatter
-          const frontmatterMatch = fileContent.match(/^---\n([\s\S]*?)\n---/);
-          if (!frontmatterMatch) return null;
-          
-          const frontmatter = frontmatterMatch[1];
-          const project: Project = {
-            slug,
-            title: '',
-            description: '',
-            date: '',
-          };
-          
-          // Parse frontmatter
-          frontmatter.split('\n').forEach(line => {
-            const [key, ...valueParts] = line.split(':');
-            if (key && valueParts.length) {
-              const value = valueParts.join(':').trim().replace(/^['"](.*)['"]$/, '$1');
-              switch (key.trim()) {
-                case 'title':
-                  project.title = value;
-                  break;
-                case 'description':
-                  project.description = value;
-                  break;
-                case 'date':
-                  project.date = value;
-                  break;
-                case 'category':
-                  project.category = value;
-                  break;
-                case 'tags':
-                  project.tags = value.split(',').map(tag => tag.trim());
-                  break;
-                case 'githubUrl':
-                  project.githubUrl = value;
-                  break;
-                case 'liveUrl':
-                  project.liveUrl = value;
-                  break;
-                case 'featured':
-                  project.featured = value === 'true';
-                  break;
-                case 'language':
-                  project.language = value;
-                  break;
-                case 'languageColor':
-                  project.languageColor = value;
-                  break;
-                case 'stars':
-                  project.stars = parseInt(value) || 0;
-                  break;
-                case 'forks':
-                  project.forks = parseInt(value) || 0;
-                  break;
-                case 'watchers':
-                  project.watchers = parseInt(value) || 0;
-                  break;
-                case 'image':
-                  project.image = value;
-                  break;
-              }
+          try {
+            const slug = file.replace(/\.mdx$/, '');
+            const filePath = join(projectsDirectory, file);
+            const fileContent = await fs.readFile(filePath, 'utf8');
+            
+            // Extract frontmatter
+            const frontmatterMatch = fileContent.match(/^---\n([\s\S]*?)\n---/);
+            if (!frontmatterMatch) {
+              console.warn(`No frontmatter found for project: ${file}`);
+              return null;
             }
-          });
-          
-          return project;
+            
+            const frontmatter = frontmatterMatch[1];
+            const project: Project = {
+              slug,
+              title: '',
+              description: '',
+              date: '',
+            };
+            
+            // Parse frontmatter
+            frontmatter.split('\n').forEach(line => {
+              const [key, ...valueParts] = line.split(':');
+              if (key && valueParts.length) {
+                const value = valueParts.join(':').trim().replace(/^['"](.*)['"]$/, '$1');
+                switch (key.trim()) {
+                  case 'title':
+                    project.title = value;
+                    break;
+                  case 'description':
+                    project.description = value;
+                    break;
+                  case 'date':
+                    project.date = value;
+                    break;
+                  case 'category':
+                    project.category = value;
+                    break;
+                  case 'tags':
+                    try {
+                      // Handle array syntax
+                      if (value.startsWith('[') && value.endsWith(']')) {
+                        project.tags = JSON.parse(value);
+                      } else {
+                        project.tags = value.split(',').map(tag => tag.trim());
+                      }
+                    } catch (error) {
+                      console.warn(`Failed to parse tags for ${file}:`, error);
+                      project.tags = value.split(',').map(tag => tag.trim());
+                    }
+                    break;
+                  case 'githubUrl':
+                    project.githubUrl = value;
+                    break;
+                  case 'liveUrl':
+                    project.liveUrl = value;
+                    break;
+                  case 'featured':
+                    project.featured = value === 'true';
+                    break;
+                  case 'language':
+                    project.language = value;
+                    break;
+                  case 'languageColor':
+                    project.languageColor = value;
+                    break;
+                  case 'stars':
+                    project.stars = parseInt(value) || 0;
+                    break;
+                  case 'forks':
+                    project.forks = parseInt(value) || 0;
+                    break;
+                  case 'watchers':
+                    project.watchers = parseInt(value) || 0;
+                    break;
+                  case 'image':
+                    project.image = value;
+                    break;
+                }
+              }
+            });
+            
+            return project;
+          } catch (error) {
+            console.error(`Error processing project file ${file}:`, error);
+            return null;
+          }
         })
     );
     

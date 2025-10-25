@@ -62,7 +62,17 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             project.category = value;
             break;
           case 'tags':
-            project.tags = value.split(',').map(tag => tag.trim());
+            try {
+              // Handle array syntax
+              if (value.startsWith('[') && value.endsWith(']')) {
+                project.tags = JSON.parse(value);
+              } else {
+                project.tags = value.split(',').map(tag => tag.trim());
+              }
+            } catch (error) {
+              console.warn(`Failed to parse tags for ${slug}:`, error);
+              project.tags = value.split(',').map(tag => tag.trim());
+            }
             break;
           case 'githubUrl':
             project.githubUrl = value;
