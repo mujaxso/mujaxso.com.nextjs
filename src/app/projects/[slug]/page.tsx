@@ -86,25 +86,25 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             </Link>
           </div>
           
-          {/* Centered Header */}
-          <div className="text-center mb-12">
-            <div className="mb-6">
-              <h1 className="text-4xl md:text-5xl font-bold text-[var(--color-foreground)] mb-4">
+          {/* Modern Project Header */}
+          <div className="text-center mb-16">
+            <div className="mb-8">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-tight tracking-tight">
                 {project.title}
               </h1>
-              <p className="text-xl text-[var(--color-muted-foreground)]">
+              <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
                 {project.description}
               </p>
             </div>
             
-            {/* Action Buttons - Centered */}
-            <div className="flex justify-center gap-4 mb-6">
+            {/* Action Buttons - Modern */}
+            <div className="flex justify-center gap-4 mb-8">
               {project.githubUrl && (
                 <a 
                   href={project.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-[var(--color-primary)] text-white rounded-xl hover:bg-[var(--color-primary-hover)] transition-colors text-sm font-medium"
+                  className="inline-flex items-center gap-3 px-6 py-3 bg-primary text-white rounded-xl hover:bg-primary-dark transition-all duration-300 text-sm font-medium shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
                 >
                   <Github className="w-5 h-5" />
                   View on GitHub
@@ -115,7 +115,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                   href={project.liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 border border-[var(--color-border)] text-[var(--color-foreground)] rounded-xl hover:bg-[var(--color-muted)] transition-colors text-sm font-medium"
+                  className="inline-flex items-center gap-3 px-6 py-3 border-2 border-primary text-primary rounded-xl hover:bg-primary/5 transition-all duration-300 text-sm font-medium shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
                 >
                   <ExternalLink className="w-5 h-5" />
                   Visit Website
@@ -123,13 +123,18 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
               )}
             </div>
               
-            {/* Metadata - Centered */}
-            <div className="flex flex-wrap items-center justify-center gap-4 text-sm text-[var(--color-muted-foreground)]">
+            {/* Metadata - Modern */}
+            <div className="flex flex-wrap items-center justify-center gap-4 text-sm text-muted-foreground">
               {project.date && (
-                <span>📅 {new Date(project.date).toLocaleDateString()}</span>
+                <span className="flex items-center gap-2 bg-muted/50 px-3 py-1.5 rounded-full border border-border">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  {new Date(project.date).toLocaleDateString()}
+                </span>
               )}
               {project.category && (
-                <span className="px-3 py-1 bg-[var(--color-primary)]/20 text-[var(--color-primary)] rounded-full text-xs font-medium">
+                <span className="px-3 py-1.5 bg-primary/10 text-primary rounded-full text-xs font-medium border border-primary/20">
                   {project.category}
                 </span>
               )}
