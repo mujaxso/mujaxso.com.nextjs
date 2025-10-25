@@ -2,8 +2,9 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { promises as fs } from 'fs';
 import { join } from 'path';
-import ReactMarkdown from 'react-markdown';
+import matter from 'gray-matter';
 import { Github, ExternalLink } from 'lucide-react';
+import { Suspense } from 'react';
 
 interface Project {
   slug: string;
@@ -54,70 +55,20 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
     await fs.access(fullPath);
     const fileContent = await fs.readFile(fullPath, 'utf8');
     
-    // Extract frontmatter
-    const frontmatterMatch = fileContent.match(/^---\n([\s\S]*?)\n---/);
-    if (!frontmatterMatch) notFound();
+    // Parse frontmatter and content using gray-matter
+    const { data: frontmatter, content } = matter(fileContent);
     
-    const frontmatter = frontmatterMatch[1];
     const project: Project = {
       slug,
-      title: '',
-      description: '',
-      date: '',
+      title: frontmatter.title || '',
+      description: frontmatter.description || '',
+      date: frontmatter.date || '',
+      category: frontmatter.category,
+      tags: frontmatter.tags || [],
+      githubUrl: frontmatter.githubUrl,
+      liveUrl: frontmatter.liveUrl,
+      featured: frontmatter.featured || false,
     };
-    
-    // Parse frontmatter
-    frontmatter.split('\n').forEach(line => {
-      const [key, ...valueParts] = line.split(':');
-      if (key && valueParts.length) {
-        const value = valueParts.join(':').trim().replace(/^['"](.*)['"]$/, '$1');
-        switch (key.trim()) {
-          case 'title':
-            project.title = value;
-            break;
-          case 'description':
-            project.description = value;
-            break;
-          case 'date':
-            project.date = value;
-            break;
-          case 'category':
-            project.category = value;
-            break;
-          case 'tags':
-            try {
-              // Handle array syntax
-              if (value.startsWith('[') && value.endsWith(']')) {
-                project.tags = JSON.parse(value);
-              } else {
-                project.tags = value.split(',').map(tag => tag.trim());
-              }
-            } catch (error) {
-              console.warn(`Failed to parse tags for ${slug}:`, error);
-              project.tags = value.split(',').map(tag => tag.trim());
-            }
-            break;
-          case 'githubUrl':
-            project.githubUrl = value;
-            break;
-          case 'liveUrl':
-            project.liveUrl = value;
-            break;
-          case 'featured':
-            project.featured = value === 'true';
-            break;
-        }
-      }
-    });
-    
-    // Extract content
-    const content = fileContent.replace(/^---\n[\s\S]*?\n---/, '').trim();
-    
-    // Import rehype-highlight for syntax highlighting
-    const rehypeHighlight = (await import('rehype-highlight')).default;
-    
-    // Import the SyntaxHighlighting component
-    const SyntaxHighlighting = (await import('../../components/SyntaxHighlighting')).default;
     
     return (
       <div className="min-h-screen bg-[var(--color-background)] text-[var(--color-foreground)] transition-colors duration-300">
@@ -189,127 +140,9 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           <div className="flex justify-center">
             <div className="w-full max-w-3xl">
               <article className="markdown-body">
-                <SyntaxHighlighting />
-                <ReactMarkdown
-                  rehypePlugins={[
-                    // Add syntax highlighting
-                    [rehypeHighlight, { detect: true }],
-                  ]}
-                  components={{
-                    // Heading styles using theme variables
-                    h1: ({ children }) => (
-                      <h1 className="text-3xl font-bold mt-12 mb-6 pb-2 border-b border-[var(--color-border)] text-[var(--color-foreground)]">
-                        {children}
-                      </h1>
-                    ),
-                    h2: ({ children }) => (
-                      <h2 className="text-2xl font-semibold mt-10 mb-4 text-[var(--color-foreground)]">
-                        {children}
-                      </h2>
-                    ),
-                    h3: ({ children }) => (
-                      <h3 className="text-xl font-semibold mt-8 mb-3 text-[var(--color-foreground)]">
-                        {children}
-                      </h3>
-                    ),
-                    // Paragraph styling
-                    p: ({ children }) => (
-                      <p className="mb-6 text-[var(--color-foreground)]/80 leading-relaxed">
-                        {children}
-                      </p>
-                    ),
-                    // Links
-                    a: ({ children, href }) => (
-                      <a 
-                        href={href} 
-                        className="text-[var(--color-primary)] hover:text-[var(--color-primary-hover)] hover:underline"
-                        target={href?.startsWith('http') ? '_blank' : undefined}
-                        rel={href?.startsWith('http') ? 'noopener noreferrer' : undefined}
-                      >
-                        {children}
-                      </a>
-                    ),
-                    // Lists
-                    ul: ({ children }) => (
-                      <ul className="list-disc list-inside mb-6 text-[var(--color-foreground)]/80 space-y-2">
-                        {children}
-                      </ul>
-                    ),
-                    ol: ({ children }) => (
-                      <ol className="list-decimal list-inside mb-6 text-[var(--color-foreground)]/80 space-y-2">
-                        {children}
-                      </ol>
-                    ),
-                    li: ({ children }) => (
-                      <li className="pl-2">{children}</li>
-                    ),
-                    // Code blocks
-                    code: ({ children, className, ...props }) => {
-                      const match = /language-(\w+)/.exec(className || '');
-                      const isInline = !match;
-                      
-                      if (isInline) {
-                        return (
-                          <code className="bg-[var(--color-muted)] px-1.5 py-0.5 rounded text-sm font-mono text-[var(--color-foreground)] border border-[var(--color-border)]" {...props}>
-                            {children}
-                          </code>
-                        );
-                      }
-                      
-                      return (
-                        <div className="relative my-6">
-                          <div className="absolute top-0 left-0 right-0 bg-[var(--color-muted)] text-[var(--color-muted-foreground)] text-xs px-4 py-2 rounded-t-lg font-mono border border-[var(--color-border)] border-b-0">
-                            {match[1]}
-                          </div>
-                          <pre className="bg-[var(--color-muted)] p-4 rounded-lg border border-[var(--color-border)] overflow-x-auto mt-6">
-                            <code className={className} {...props}>
-                              {children}
-                            </code>
-                          </pre>
-                        </div>
-                      );
-                    },
-                    // Blockquotes
-                    blockquote: ({ children }) => (
-                      <blockquote className="border-l-4 border-[var(--color-primary)] bg-[var(--color-muted)] pl-4 py-2 my-6 text-[var(--color-foreground)]/70 rounded-r">
-                        {children}
-                      </blockquote>
-                    ),
-                    // Tables
-                    table: ({ children }) => (
-                      <div className="overflow-x-auto my-6 border border-[var(--color-border)] rounded-lg">
-                        <table className="min-w-full divide-y divide-[var(--color-border)]">
-                          {children}
-                        </table>
-                      </div>
-                    ),
-                    th: ({ children }) => (
-                      <th className="px-4 py-3 bg-[var(--color-muted)] font-semibold text-left text-[var(--color-foreground)] text-sm">
-                        {children}
-                      </th>
-                    ),
-                    td: ({ children }) => (
-                      <td className="px-4 py-3 text-sm text-[var(--color-foreground)]/80 border-t border-[var(--color-border)]">
-                        {children}
-                      </td>
-                    ),
-                    // Strong/bold text
-                    strong: ({ children }) => (
-                      <strong className="font-semibold text-[var(--color-foreground)]">
-                        {children}
-                      </strong>
-                    ),
-                    // Emphasis/italic text
-                    em: ({ children }) => (
-                      <em className="italic text-[var(--color-foreground)]/80">
-                        {children}
-                      </em>
-                    ),
-                  }}
-                >
-                  {content}
-                </ReactMarkdown>
-              </article>
+                <Suspense fallback={<div className="text-center py-8">Loading content...</div>}>
+                  <MDXContent content={content} />
+                </Suspense>
               
               {/* Tags at the bottom */}
               {project.tags && project.tags.length > 0 && (
@@ -335,6 +168,34 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   } catch (error) {
     console.error('Error loading project:', error);
     notFound();
+  }
+}
+
+// Separate component for MDX content to handle errors better
+async function MDXContent({ content }: { content: string }) {
+  try {
+    const { MDXRemote } = await import('next-mdx-remote/rsc');
+    const { default: rehypeHighlight } = await import('rehype-highlight');
+    
+    return (
+      <MDXRemote 
+        source={content}
+        options={{
+          mdxOptions: {
+            rehypePlugins: [
+              [rehypeHighlight, { detect: true }],
+            ],
+          },
+        }}
+      />
+    );
+  } catch (error) {
+    console.error('Error rendering MDX:', error);
+    return (
+      <div className="text-center py-8 text-red-500">
+        Error loading content. Please try refreshing the page.
+      </div>
+    );
   }
 }
 
