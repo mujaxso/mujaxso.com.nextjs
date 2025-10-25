@@ -186,7 +186,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 </div>
               )}
             
-              {/* GitHub-like Markdown Content - Clean and Centered */}
+              {/* Elegant Markdown Content */}
               <ClientMDXRenderer content={content} />
             
               {/* Author Section */}

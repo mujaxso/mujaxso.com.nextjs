@@ -68,98 +68,62 @@ export default function ClientMDXRenderer({ content }: ClientMDXRendererProps) {
     <>
       <SyntaxHighlighting />
       <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
-        <article className="prose prose-lg sm:prose-xl 
-                          prose-headings:font-semibold 
-                          prose-headings:tracking-tight
-                          prose-h1:text-4xl 
-                          prose-h2:text-3xl 
-                          prose-h3:text-2xl
-                          prose-p:leading-8 
-                          prose-p:text-foreground/90
-                          prose-strong:font-semibold 
-                          prose-strong:text-foreground
-                          prose-em:italic 
-                          prose-em:text-foreground/90
-                          prose-blockquote:border-l-4 
-                          prose-blockquote:border-primary/60
-                          prose-blockquote:pl-6 
-                          prose-blockquote:italic 
-                          prose-blockquote:bg-muted/30
-                          prose-blockquote:py-2
-                          prose-blockquote:rounded-r-lg
-                          prose-ul:list-disc 
-                          prose-ol:list-decimal 
-                          prose-li:my-2 
-                          prose-li:leading-7
-                          prose-code:bg-muted/50 
-                          prose-code:px-1.5 
-                          prose-code:py-0.5
-                          prose-code:rounded-md 
-                          prose-code:font-mono
-                          prose-code:text-sm
-                          prose-pre:bg-gradient-to-br 
-                          prose-pre:from-muted 
-                          prose-pre:to-muted/80
-                          prose-pre:p-6 
-                          prose-pre:rounded-xl 
-                          prose-pre:shadow-lg
-                          prose-pre:border 
-                          prose-pre:border-border/50
-                          prose-pre:overflow-x-auto 
-                          prose-pre:font-mono
-                          prose-table:border 
-                          prose-table:border-border 
-                          prose-table:rounded-lg
-                          prose-table:overflow-hidden
-                          prose-th:bg-muted 
-                          prose-th:p-4 
-                          prose-th:text-left
-                          prose-th:font-semibold
-                          prose-td:p-4 
-                          prose-td:border-t 
-                          prose-td:border-border 
-                          prose-img:rounded-xl 
-                          prose-img:shadow-lg
-                          prose-img:mx-auto 
-                          prose-img:border
-                          prose-img:border-border/50
-                          prose-hr:border-border
-                          dark:prose-invert 
-                          dark:prose-pre:bg-gradient-to-br 
-                          dark:prose-pre:from-muted/20 
-                          dark:prose-pre:to-muted/30
-                          prose-headings:text-foreground 
-                          prose-p:text-foreground/90 
-                          prose-strong:text-foreground 
-                          prose-em:text-foreground/90 
-                          prose-a:text-primary 
-                          prose-a:font-medium
-                          prose-a:no-underline
-                          prose-a:border-b 
-                          prose-a:border-primary/30
-                          hover:prose-a:border-primary 
-                          hover:prose-a:text-primary-dark 
-                          prose-blockquote:text-foreground/80 
-                          prose-ul:text-foreground/90 
-                          prose-ol:text-foreground/90 
-                          prose-li:text-foreground/90 
-                          prose-code:text-foreground 
-                          prose-pre:text-foreground 
-                          prose-th:text-foreground 
-                          prose-td:text-foreground/90
-                          prose-figcaption:text-center
-                          prose-figcaption:text-sm
-                          prose-figcaption:text-foreground/60
-                          prose-lead:text-foreground/80
-                          transition-all duration-300">
+        <article className="elegant-content">
           <MDXRemote 
             {...mdxSource}
             components={{
-              style: () => null
+              style: () => null,
+              // Custom components for more control
+              h1: ({ children }) => <h1 className="text-4xl font-bold text-foreground mb-8 mt-12 leading-tight tracking-tight border-b border-border/50 pb-4">{children}</h1>,
+              h2: ({ children }) => <h2 className="text-3xl font-semibold text-foreground mb-6 mt-10 leading-tight tracking-tight">{children}</h2>,
+              h3: ({ children }) => <h3 className="text-2xl font-semibold text-foreground mb-4 mt-8 leading-snug">{children}</h3>,
+              h4: ({ children }) => <h4 className="text-xl font-medium text-foreground mb-3 mt-6 leading-snug">{children}</h4>,
+              p: ({ children }) => <p className="text-foreground/90 leading-8 text-lg mb-6 font-light">{children}</p>,
+              strong: ({ children }) => <strong className="font-semibold text-foreground">{children}</strong>,
+              em: ({ children }) => <em className="italic text-foreground/90">{children}</em>,
+              blockquote: ({ children }) => <blockquote className="border-l-4 border-primary/60 bg-muted/20 pl-6 py-4 my-8 italic text-foreground/80 text-lg leading-8 rounded-r-lg">{children}</blockquote>,
+              ul: ({ children }) => <ul className="list-disc list-inside space-y-3 mb-6 text-foreground/90 text-lg leading-7">{children}</ul>,
+              ol: ({ children }) => <ol className="list-decimal list-inside space-y-3 mb-6 text-foreground/90 text-lg leading-7">{children}</ol>,
+              li: ({ children }) => <li className="pl-2">{children}</li>,
+              code: ({ children, className }) => {
+                const isInline = !className;
+                if (isInline) {
+                  return <code className="bg-muted/50 px-2 py-1 rounded-md text-foreground font-mono text-sm border border-border/50">{children}</code>;
+                }
+                return <code className={className}>{children}</code>;
+              },
+              pre: ({ children }) => <pre className="bg-muted/30 p-6 rounded-xl border border-border/50 overflow-x-auto my-8 font-mono text-sm leading-6 shadow-sm">{children}</pre>,
+              table: ({ children }) => <div className="overflow-x-auto my-8"><table className="min-w-full border-collapse border border-border rounded-lg">{children}</table></div>,
+              th: ({ children }) => <th className="bg-muted/50 p-4 text-left font-semibold text-foreground border border-border">{children}</th>,
+              td: ({ children }) => <td className="p-4 border border-border text-foreground/90">{children}</td>,
+              a: ({ children, href }) => <a href={href} className="text-primary font-medium no-underline border-b border-primary/30 hover:border-primary transition-colors duration-200">{children}</a>,
+              img: ({ src, alt }) => <img src={src} alt={alt} className="rounded-2xl shadow-lg my-8 mx-auto border border-border/50 max-w-full" />,
+              hr: () => <hr className="my-12 border-border/50" />
             }}
           />
         </article>
       </div>
+      <style jsx>{`
+        .elegant-content {
+          color: var(--color-foreground);
+        }
+        .elegant-content :global(p) {
+          line-height: 1.8;
+        }
+        .elegant-content :global(blockquote) {
+          border-left: 4px solid rgba(var(--color-primary), 0.6);
+          background: rgba(var(--color-muted), 0.2);
+          padding-left: 1.5rem;
+          padding-top: 1rem;
+          padding-bottom: 1rem;
+          margin: 2rem 0;
+          font-style: italic;
+          color: rgba(var(--color-foreground), 0.8);
+          font-size: 1.125rem;
+          line-height: 1.75;
+          border-radius: 0 0.5rem 0.5rem 0;
+        }
+      `}</style>
     </>
   );
 }

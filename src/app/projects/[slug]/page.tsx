@@ -141,21 +141,21 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             </div>
           </div>
           
-          {/* Centered Content Area - Clean GitHub Style */}
+          {/* Elegant Content Area */}
           <div className="flex justify-center">
             <div className="w-full max-w-3xl">
-              {/* GitHub-like Markdown Content - Clean and Centered */}
+              {/* Elegant Markdown Content */}
               <ClientMDXRenderer content={content} />
               
               {/* Tags at the bottom */}
               {project.tags && project.tags.length > 0 && (
-                <div className="mt-8 pt-8 border-t border-[var(--color-border)]">
-                  <h4 className="text-lg font-semibold text-[var(--color-foreground)] mb-4 text-center">Technologies Used</h4>
-                  <div className="flex flex-wrap gap-2 justify-center">
+                <div className="mt-12 pt-8 border-t border-border/50">
+                  <h4 className="text-xl font-semibold text-foreground mb-6 text-center">Technologies Used</h4>
+                  <div className="flex flex-wrap gap-3 justify-center">
                     {project.tags.map((tag) => (
                       <span 
                         key={tag}
-                        className="px-4 py-2 bg-[var(--color-primary)]/20 text-[var(--color-primary)] rounded-full text-sm font-medium hover:bg-[var(--color-primary)]/30 transition-colors"
+                        className="px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium border border-primary/20 hover:bg-primary/20 transition-all duration-300"
                       >
                         {tag}
                       </span>
