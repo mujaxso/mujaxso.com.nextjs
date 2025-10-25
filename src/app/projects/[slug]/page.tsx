@@ -136,16 +136,12 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             </div>
           </div>
           
-          {/* Centered Content Area - GitHub Style */}
+          {/* Centered Content Area - Clean GitHub Style */}
           <div className="flex justify-center">
-            <div className="w-full max-w-4xl">
-              <article className="bg-card rounded-xl border border-[var(--color-border)] overflow-hidden">
-                {/* GitHub-like Markdown Content */}
-                <div className="px-8 py-6">
-                  <div className="markdown-body github-style">
-                    <ClientMDXRenderer content={content} />
-                  </div>
-                </div>
+            <div className="w-full max-w-3xl">
+              {/* GitHub-like Markdown Content - Clean */}
+              <article className="markdown-body github-style">
+                <ClientMDXRenderer content={content} />
               </article>
               
               {/* Tags at the bottom */}

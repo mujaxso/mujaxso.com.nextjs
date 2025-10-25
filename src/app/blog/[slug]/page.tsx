@@ -130,53 +130,50 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             </Link>
           </div>
           
-          {/* Centered Article Content - GitHub Style */}
+          {/* Centered Article Content - Clean GitHub Style */}
           <div className="flex justify-center">
-            <div className="w-full max-w-4xl">
-              <article className="bg-card rounded-xl border border-[var(--color-border)] overflow-hidden">
-                <div className="px-8 py-6 border-b border-[var(--color-border)] bg-[var(--color-muted)]/50">
-                  <div className="flex flex-wrap gap-2 mb-4 justify-center">
-                    <span className="px-3 py-1 bg-primary text-white text-sm font-medium rounded-full">
-                      {frontmatter.category || 'Uncategorized'}
+            <div className="w-full max-w-3xl">
+              {/* Article Header */}
+              <div className="text-center mb-12">
+                <div className="flex flex-wrap gap-2 mb-6 justify-center">
+                  <span className="px-3 py-1 bg-primary text-white text-sm font-medium rounded-full">
+                    {frontmatter.category || 'Uncategorized'}
+                  </span>
+                  {frontmatter.tags?.map((tag: string) => (
+                    <span key={tag} className="px-3 py-1 bg-muted text-muted-foreground text-sm font-medium rounded-full">
+                      {tag}
                     </span>
-                    {frontmatter.tags?.map((tag: string) => (
-                      <span key={tag} className="px-3 py-1 bg-muted text-muted-foreground text-sm font-medium rounded-full">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                  <h1 className="text-3xl md:text-4xl font-bold text-card-foreground mb-4 text-center">
-                    {title}
-                  </h1>
-                  <div className="flex flex-wrap items-center gap-4 text-muted-foreground justify-center text-sm">
-                    <span>{date !== 'Unknown date' ? new Date(date).toLocaleDateString('en-US', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric'
-                    }) : date}</span>
-                    <span>•</span>
-                    <span>{readingTime}</span>
-                  </div>
+                  ))}
                 </div>
-              
-                {frontmatter.image && (
-                  <div className="px-8 py-6 border-b border-[var(--color-border)]">
-                    <Image 
-                      src={frontmatter.image} 
-                      alt={title} 
-                      width={800} 
-                      height={400}
-                      className="w-full h-auto object-cover rounded-lg"
-                    />
-                  </div>
-                )}
-              
-                {/* GitHub-like Markdown Content */}
-                <div className="px-8 py-6">
-                  <div className="markdown-body github-style">
-                    <ClientMDXRenderer content={content} />
-                  </div>
+                <h1 className="text-3xl md:text-4xl font-bold text-card-foreground mb-4">
+                  {title}
+                </h1>
+                <div className="flex flex-wrap items-center gap-4 text-muted-foreground justify-center text-sm">
+                  <span>{date !== 'Unknown date' ? new Date(date).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                  }) : date}</span>
+                  <span>•</span>
+                  <span>{readingTime}</span>
                 </div>
+              </div>
+            
+              {frontmatter.image && (
+                <div className="mb-12">
+                  <Image 
+                    src={frontmatter.image} 
+                    alt={title} 
+                    width={800} 
+                    height={400}
+                    className="w-full h-auto object-cover rounded-lg"
+                  />
+                </div>
+              )}
+            
+              {/* GitHub-like Markdown Content - Clean */}
+              <article className="markdown-body github-style">
+                <ClientMDXRenderer content={content} />
               </article>
             
               {/* Author Section */}
