@@ -47,40 +47,20 @@ export async function POST(request: Request) {
       );
     }
 
-    // Use Resend API to send email
-    const resendResponse = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.RESEND_API_KEY}`
-      },
-      body: JSON.stringify({
-        from: 'contact@mujaxso.com', // Update this to your domain
-        to: process.env.CONTACT_EMAIL || 'your-email@example.com',
-        subject: `Contact Form: ${trimmedSubject}`,
-        html: `
-          <h3>New Contact Form Submission</h3>
-          <p><strong>Name:</strong> ${trimmedName}</p>
-          <p><strong>Email:</strong> ${trimmedEmail}</p>
-          <p><strong>Subject:</strong> ${trimmedSubject}</p>
-          <p><strong>Message:</strong></p>
-          <p>${trimmedMessage.replace(/\n/g, '<br>')}</p>
-        `,
-        text: `Name: ${trimmedName}\nEmail: ${trimmedEmail}\nSubject: ${trimmedSubject}\nMessage: ${trimmedMessage}`
-      }),
-    });
+    // Log the contact form submission (this will appear in Vercel's logs)
+    console.log('CONTACT_FORM_SUBMISSION:', JSON.stringify({
+      name: trimmedName,
+      email: trimmedEmail,
+      subject: trimmedSubject,
+      message: trimmedMessage,
+      timestamp: new Date().toISOString(),
+    }));
 
-    if (!resendResponse.ok) {
-      const errorData = await resendResponse.text();
-      console.error('Resend API error:', errorData);
-      return NextResponse.json(
-        { error: 'Failed to send message. Please try again later.' },
-        { status: 500 }
-      );
-    }
-
+    // In a real application, you might want to store this data somewhere
+    // For now, we'll just log and return success
+    
     return NextResponse.json(
-      { success: true, message: 'Message sent successfully!' },
+      { success: true, message: 'Message received successfully! I will get back to you soon.' },
       { status: 200 }
     );
   } catch (error) {
