@@ -108,8 +108,7 @@ export default function ClientMDXRenderer({ content }: ClientMDXRendererProps) {
                   prose-code:text-card-foreground 
                   prose-pre:text-card-foreground 
                   prose-th:text-card-foreground 
-                  prose-td:text-card-foreground
-                  font-mono">
+                  prose-td:text-card-foreground">
       <MDXRemote 
         {...mdxSource}
         components={{
