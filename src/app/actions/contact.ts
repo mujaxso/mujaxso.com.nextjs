@@ -114,8 +114,7 @@ export async function submitContactForm(prevState: any, formData?: FormData) {
     console.log('submitContactForm called with:', { 
       prevState, 
       formData: formData ? 'FormData exists' : 'FormData is null/undefined',
-      formDataType: typeof formData,
-      argumentsLength: arguments.length
+      formDataType: typeof formData
     });
   }
 
