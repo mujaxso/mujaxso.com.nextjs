@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import ModeToggle from "./ModeToggle";
 import Search from "./Search";
 import { Code2, Menu, X } from "lucide-react";
@@ -54,13 +55,12 @@ export default function Header() {
         <div className="flex justify-between items-center py-4">
           <Link href="/" className="flex items-center gap-3 group">
             <div className="w-10 h-10 md:w-12 md:h-12 rounded-full overflow-hidden border-2 border-primary/30 group-hover:border-primary transition-all duration-300 shadow-md">
-              <img 
+              <Image 
                 src="/img/profile.png" 
                 alt="Mujahid Siyam" 
                 width={48}
                 height={48}
                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                loading="eager"
                 priority
               />
             </div>

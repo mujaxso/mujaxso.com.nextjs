@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { Github, Linkedin, Mail, ExternalLink, Code2, Heart, Sparkles } from "lucide-react";
 import { Button } from "./ui/Button";
 import ModeToggle from "./ModeToggle";
@@ -38,7 +39,7 @@ export default function Footer() {
             <div className="flex flex-col items-center text-center">
               {/* Profile Photo Above Name */}
               <div className="w-20 h-20 rounded-full overflow-hidden border-2 border-white/30 shadow-lg mb-4">
-                <img 
+                <Image 
                   src="/img/profile.png" 
                   alt="Mujahid Siyam" 
                   width={80}
