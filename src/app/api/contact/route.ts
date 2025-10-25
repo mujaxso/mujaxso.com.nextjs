@@ -4,15 +4,35 @@ export const runtime = 'edge';
 
 export async function POST(request: Request) {
   try {
-    const formData = await request.formData();
-    const name = formData.get('name') as string;
-    const email = formData.get('email') as string;
-    const subject = formData.get('subject') as string;
-    const message = formData.get('message') as string;
+    const contentType = request.headers.get('content-type') || '';
+    let name: string | null = null;
+    let email: string | null = null;
+    let subject: string | null = null;
+    let message: string | null = null;
+
+    if (contentType.includes('application/json')) {
+      const jsonData = await request.json();
+      name = jsonData.name;
+      email = jsonData.email;
+      subject = jsonData.subject;
+      message = jsonData.message;
+    } else if (contentType.includes('multipart/form-data') || contentType.includes('application/x-www-form-urlencoded')) {
+      const formData = await request.formData();
+      name = formData.get('name') as string;
+      email = formData.get('email') as string;
+      subject = formData.get('subject') as string;
+      message = formData.get('message') as string;
+    } else {
+      return NextResponse.json(
+        { error: 'Unsupported content type' },
+        { status: 400 }
+      );
+    }
 
     // Log form data for debugging
     if (process.env.NODE_ENV === 'development') {
       console.log('Contact form data received:', { name, email, subject, message });
+      console.log('Content-Type:', contentType);
     }
 
     // Check if fields exist and are not null/undefined
