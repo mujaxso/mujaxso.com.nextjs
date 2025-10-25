@@ -108,7 +108,7 @@ export default function Header() {
         {isMobileMenuOpen && (
           <div 
             ref={menuRef} 
-            className="md:hidden fixed top-20 left-0 right-0 backdrop-blur-3xl bg-background/95 border-b border-white/10 shadow-2xl shadow-black/20 z-50 animate-in slide-in-from-top-5 duration-300"
+            className="md:hidden fixed top-20 left-0 right-0 backdrop-blur-3xl bg-background/95 border-b border-primary/20 shadow-2xl shadow-primary/5 z-50 animate-in slide-in-from-top-5 duration-300"
           >
             <nav className="p-6">
               <ul className="space-y-3">
@@ -118,7 +118,7 @@ export default function Header() {
                       variant="ghost"
                       size="md"
                       asChild
-                      className="w-full justify-center text-base font-semibold py-4 text-foreground/90 hover:text-foreground hover:bg-white/20 transition-all duration-300 rounded-xl hover:scale-105 hover:shadow-md"
+                      className="w-full justify-center text-base font-semibold py-4 text-foreground/90 hover:text-primary hover:bg-primary/10 transition-all duration-300 rounded-xl border border-transparent hover:border-primary/20"
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
                       <Link href={item.href}>
