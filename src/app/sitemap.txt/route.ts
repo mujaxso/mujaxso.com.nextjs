@@ -35,6 +35,7 @@ async function getProjects() {
       files
         .filter(file => typeof file === 'string' && file.endsWith('.mdx'))
         .map(async (file) => {
+          // Use the directory name as slug for nested projects
           const slug = file.replace(/\.mdx$/, '').split('/').pop();
           return `${baseUrl}/projects/${slug}`;
         })
@@ -47,26 +48,26 @@ async function getProjects() {
 }
 
 export async function GET() {
-  // Static pages
+  // Static pages (aligned with sitemap.ts)
   const staticPages = [
     `${baseUrl}/`,
     `${baseUrl}/about`,
-    `${baseUrl}/blog`,
     `${baseUrl}/projects`,
+    `${baseUrl}/blog`,
     `${baseUrl}/contact`,
     `${baseUrl}/music`,
-    `${baseUrl}/theme-test`
   ];
 
   // Get dynamic content
   const blogPosts = await getBlogPosts();
   const projects = await getProjects();
 
-  // Combine all URLs
+  // Combine all URLs and remove duplicates
   const allUrls = [...staticPages, ...blogPosts, ...projects];
+  const uniqueUrls = Array.from(new Set(allUrls));
 
   // Create sitemap content
-  const sitemapContent = allUrls.join('\n');
+  const sitemapContent = uniqueUrls.join('\n');
 
   return new NextResponse(sitemapContent, {
     status: 200,
