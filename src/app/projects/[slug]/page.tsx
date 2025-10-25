@@ -17,6 +17,25 @@ interface Project {
   featured?: boolean;
 }
 
+async function findProjectFile(slug: string): Promise<string | null> {
+  const projectsDirectory = join(process.cwd(), 'src', 'content', 'projects');
+  try {
+    const files = await fs.readdir(projectsDirectory, { recursive: true });
+    for (const file of files) {
+      if (typeof file === 'string' && file.endsWith('.mdx')) {
+        const fileName = file.split('/').pop()!.replace(/\.mdx$/, '');
+        if (fileName === slug) {
+          return join(projectsDirectory, file);
+        }
+      }
+    }
+    return null;
+  } catch (error) {
+    console.error('Error searching for project file:', error);
+    return null;
+  }
+}
+
 export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
   
@@ -25,7 +44,11 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   }
   
   const slug = resolvedParams.slug;
-  const fullPath = join(process.cwd(), 'src', 'content', 'projects', `${slug}.mdx`);
+  const fullPath = await findProjectFile(slug);
+  
+  if (!fullPath) {
+    notFound();
+  }
   
   try {
     await fs.access(fullPath);
@@ -319,12 +342,13 @@ export async function generateStaticParams() {
   const projectsDirectory = join(process.cwd(), 'src', 'content', 'projects');
   
   try {
-    const files = await fs.readdir(projectsDirectory);
+    const files = await fs.readdir(projectsDirectory, { recursive: true });
     return files
-      .filter(file => file.endsWith('.mdx'))
-      .map(file => ({
-        slug: file.replace(/\.mdx$/, ''),
-      }));
+      .filter(file => typeof file === 'string' && file.endsWith('.mdx'))
+      .map(file => {
+        const slug = file.split('/').pop()!.replace(/\.mdx$/, '');
+        return { slug };
+      });
   } catch (error) {
     return [];
   }

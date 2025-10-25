@@ -9,12 +9,13 @@ async function getProjects() {
   const projectsDirectory = join(process.cwd(), 'src', 'content', 'projects');
   
   try {
-    const files = await fs.readdir(projectsDirectory);
+    const files = await fs.readdir(projectsDirectory, { recursive: true });
     const projects = await Promise.all(
       files
-        .filter(file => file.endsWith('.mdx'))
+        .filter(file => typeof file === 'string' && file.endsWith('.mdx'))
         .map(async (file) => {
-          const slug = file.replace(/\.mdx$/, '');
+          // Use the filename without extension as the slug
+          const slug = file.split('/').pop()!.replace(/\.mdx$/, '');
           const filePath = join(projectsDirectory, file);
           const content = await fs.readFile(filePath, 'utf-8');
           
