@@ -7,7 +7,6 @@ import { PersonStructuredData } from "./components/StructuredData";
 import Loading from "./loading";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import ThemeScript from "./components/ThemeScript";
 
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
@@ -93,20 +92,26 @@ export default function RootLayout({
             __html: `
               (function() {
                 try {
-                  var theme = localStorage.getItem('mujaxso-theme');
+                  // Get the stored theme or default to 'system'
+                  var theme = localStorage.getItem('mujaxso-theme') || 'system';
                   var systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-                  var effectiveTheme = theme === 'system' ? systemTheme : (theme || 'light');
+                  var effectiveTheme = theme === 'system' ? systemTheme : theme;
                   
-                  // Apply theme immediately
+                  // Remove any existing theme classes
+                  document.documentElement.classList.remove('light', 'dark', 'system');
+                  
+                  // Add both the theme and effective theme
+                  document.documentElement.classList.add(theme);
                   document.documentElement.classList.add(effectiveTheme);
-                  if (theme) {
-                    document.documentElement.classList.add(theme);
-                  }
-                  // Mark theme as loaded
+                  
+                  // Store in a data attribute for easy access
+                  document.documentElement.setAttribute('data-theme', effectiveTheme);
+                  
+                  // Mark theme as loaded immediately
                   document.body.classList.add('theme-loaded');
                 } catch (e) {
-                  console.error('Theme initialization error:', e);
                   // Fallback to light theme
+                  document.documentElement.classList.remove('light', 'dark', 'system');
                   document.documentElement.classList.add('light');
                   document.body.classList.add('theme-loaded');
                 }
