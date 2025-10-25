@@ -89,32 +89,37 @@ export default function Header() {
         {/* Mobile Navigation Menu */}
         {isMobileMenuOpen && (
           <>
-            {/* Backdrop */}
+            {/* Enhanced Backdrop */}
             <div 
-              className="md:hidden fixed inset-0 bg-black/10 backdrop-blur-sm z-40 top-0"
+              className="md:hidden fixed inset-0 bg-black/40 backdrop-blur-xl z-40"
               onClick={() => setIsMobileMenuOpen(false)}
             />
-            {/* Menu */}
-            <div className="md:hidden fixed top-20 left-0 right-0 backdrop-blur-3xl bg-background/30 border-t border-white/5 shadow-xl z-50">
-              <nav className="p-6">
-                <ul className="space-y-3">
-                  {navigationItems.map((item) => (
-                    <li key={item.href}>
-                      <Button
-                        variant="ghost"
-                        size="md"
-                        asChild
-                        className="w-full justify-start text-base font-semibold py-4 text-foreground/90 hover:text-foreground hover:bg-white/15 transition-all duration-300"
-                        onClick={() => setIsMobileMenuOpen(false)}
-                      >
-                        <Link href={item.href}>
-                          {item.label}
-                        </Link>
-                      </Button>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
+            {/* Centered Menu */}
+            <div className="md:hidden fixed inset-0 z-50 flex items-center justify-center p-6">
+              <div 
+                className="backdrop-blur-3xl bg-background/70 border border-white/10 rounded-3xl shadow-2xl w-full max-w-sm transform transition-all duration-300 ease-out animate-in fade-in-90 zoom-in-95"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <nav className="p-8">
+                  <ul className="space-y-4">
+                    {navigationItems.map((item) => (
+                      <li key={item.href}>
+                        <Button
+                          variant="ghost"
+                          size="md"
+                          asChild
+                          className="w-full justify-center text-xl font-semibold py-6 text-foreground hover:text-foreground hover:bg-white/20 transition-all duration-300 rounded-2xl"
+                          onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                          <Link href={item.href}>
+                            {item.label}
+                          </Link>
+                        </Button>
+                      </li>
+                    ))}
+                  </ul>
+                </nav>
+              </div>
             </div>
           </>
         )}
