@@ -41,7 +41,10 @@ export default function Footer() {
                 <img 
                   src="/img/profile.png" 
                   alt="Mujahid Siyam" 
+                  width={80}
+                  height={80}
                   className="w-full h-full object-cover"
+                  loading="lazy"
                 />
               </div>
               {/* Name and Title */}

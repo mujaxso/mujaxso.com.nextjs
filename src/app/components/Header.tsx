@@ -57,7 +57,11 @@ export default function Header() {
               <img 
                 src="/img/profile.png" 
                 alt="Mujahid Siyam" 
+                width={48}
+                height={48}
                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                loading="eager"
+                priority
               />
             </div>
             <span className="text-xl md:text-2xl font-extrabold bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)] bg-clip-text text-transparent">
