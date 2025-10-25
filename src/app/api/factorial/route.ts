@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { unstable_cache } from 'next/cache';
 
+export const runtime = 'nodejs';
+
 function calculateFactorial(num: number): number {
   let result = 1;
   for (let i = 2; i <= num; i++) {

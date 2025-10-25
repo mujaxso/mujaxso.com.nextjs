@@ -1,8 +1,6 @@
 import { NextResponse } from 'next/server';
 import { unstable_cache } from 'next/cache';
 
-export const runtime = 'edge';
-
 interface SearchResult {
   title: string;
   description: string;
