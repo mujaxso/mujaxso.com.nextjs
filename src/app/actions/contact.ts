@@ -101,5 +101,20 @@ async function submitForm(formData: FormData) {
 
 // Wrapper function for useFormState
 export async function submitContactForm(prevState: any, formData: FormData) {
+  // Log the arguments for debugging
+  if (process.env.NODE_ENV === 'development') {
+    console.log('submitContactForm called with:', { 
+      prevState, 
+      formData: formData ? 'FormData exists' : 'FormData is null/undefined',
+      formDataType: typeof formData
+    });
+  }
+
+  // Check if formData is valid
+  if (!formData || !(formData instanceof FormData)) {
+    console.error('Invalid form data received:', formData);
+    return { error: 'Invalid form data. Please try again.', success: false };
+  }
+
   return submitForm(formData);
 }
