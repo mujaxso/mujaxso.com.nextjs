@@ -14,10 +14,16 @@ export const metadata: Metadata = {
 };
 
 export default function HomePage() {
+  const technologies = [
+    "React", "TypeScript", "Python", "TensorFlow", "AWS", "Docker",
+    "Kubernetes", "PostgreSQL", "GraphQL", "Next.js", "FastAPI", "Redis"
+  ];
+
   return (
     <div className="min-h-screen pt-20">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center">
+        {/* Hero Section */}
+        <div className="text-center mb-20">
           <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)] bg-clip-text text-transparent">
             Mujahid Siyam
           </h1>
@@ -41,6 +47,59 @@ export default function HomePage() {
             </Button>
           </div>
         </div>
+
+        {/* About Me Section */}
+        <section className="mb-20">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-3xl md:text-4xl font-bold mb-8 text-foreground">About Me</h2>
+            <div className="space-y-6 text-lg text-muted-foreground leading-relaxed">
+              <p>
+                I'm a passionate Software Engineer, AI/ML Engineer, Data Scientist, and DevSecOps professional with a deep love for creating innovative solutions that bridge the gap between cutting-edge technology and real-world applications. My expertise spans across full-stack development, machine learning model deployment, data-driven insights, and secure software practices.
+              </p>
+              <p>
+                Beyond the world of code and algorithms, I'm also an avid musician, finding creative expression through music as a side hobby. This artistic pursuit complements my technical work, bringing balance and inspiration to my problem-solving approach.
+              </p>
+              <p>
+                I believe in building technology that not only solves complex challenges but also enhances human experiences and creates meaningful impact.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Technologies & Tools Section */}
+        <section className="mb-20">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">Technologies & Tools</h2>
+            <p className="text-lg text-muted-foreground mb-12 max-w-2xl mx-auto">
+              A versatile toolkit for building robust, scalable, and intelligent applications
+            </p>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {technologies.map((tech) => (
+                <div
+                  key={tech}
+                  className="px-6 py-4 bg-card border border-border rounded-2xl text-foreground font-medium hover:bg-primary/10 hover:border-primary/20 transition-all duration-300"
+                >
+                  {tech}
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Let's Build Something Amazing Section */}
+        <section className="mb-20">
+          <div className="max-w-2xl mx-auto text-center">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-foreground">Let's Build Something Amazing</h2>
+            <p className="text-lg text-muted-foreground mb-8">
+              Ready to bring your ideas to life with cutting-edge technology and innovative solutions?
+            </p>
+            <Button asChild variant="default" size="lg">
+              <a href="mailto:contact@mujahid.com">
+                Start a Conversation
+              </a>
+            </Button>
+          </div>
+        </section>
       </div>
     </div>
   );
