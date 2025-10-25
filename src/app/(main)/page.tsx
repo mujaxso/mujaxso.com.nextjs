@@ -35,12 +35,12 @@ export default function HomePage() {
             Passionate about open-source, machine learning, and creating impactful software.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button asChild variant="default" size="lg" className="text-center">
+            <Button asChild variant="default" size="lg" className="w-full sm:w-auto justify-center">
               <Link href="/projects">
                 Explore Projects
               </Link>
             </Button>
-            <Button asChild variant="outline" size="lg" className="text-center">
+            <Button asChild variant="outline" size="lg" className="w-full sm:w-auto justify-center">
               <Link href="/blog">
                 Read Blog
               </Link>
