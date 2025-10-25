@@ -28,6 +28,20 @@ export const metadata: Metadata = {
     title: "Mujahid Siyam | Portfolio",
     description: "Software Engineer | AI/ML Engineer | Data Scientist | DevSecOps",
     type: "website",
+    images: [
+      {
+        url: '/img/profile.png',
+        width: 1200,
+        height: 630,
+        alt: 'Mujahid Siyam Portfolio',
+      },
+    ],
+    siteName: 'Mujahid Siyam Portfolio',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "Mujahid Siyam | Portfolio",
+    description: "Software Engineer | AI/ML Engineer | Data Scientist | DevSecOps",
     images: ['/img/profile.png'],
   },
   robots: {
@@ -36,6 +50,9 @@ export const metadata: Metadata = {
     googleBot: {
       index: true,
       follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
     },
   },
   manifest: "/manifest.json",
@@ -43,6 +60,10 @@ export const metadata: Metadata = {
     icon: '/img/favicon.ico',
     shortcut: '/img/favicon.ico',
     apple: '/img/apple-touch-icon.png',
+  },
+  verification: {
+    // Add Google Search Console verification here when available
+    // google: 'verification-token',
   },
 };
 
@@ -53,6 +74,8 @@ export const viewport: Viewport = {
   ],
   width: "device-width",
   initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 };
 
 export default function RootLayout({
@@ -67,9 +90,7 @@ export default function RootLayout({
       </head>
       <body
         className={`${jetbrainsMono.variable} antialiased font-mono`}
-        style={{
-          fontFamily: 'var(--font-jetbrains-mono)',
-        }}
+        suppressHydrationWarning
       >
         <ThemeProvider>
           <div className="flex flex-col min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/20 to-indigo-50/30 dark:from-[#0a0f1c] dark:via-[#0f172a] dark:to-[#1e1b4b] relative overflow-hidden">
@@ -80,7 +101,9 @@ export default function RootLayout({
             <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-pink-300/10 rounded-full blur-3xl animate-pulse-slow animation-delay-4000"></div>
             
             <div className="relative z-10 flex flex-col min-h-screen">
-              <Header />
+              <Suspense fallback={<div>Loading header...</div>}>
+                <Header />
+              </Suspense>
               <main className="flex-1 pt-14">
                 <Suspense fallback={<Loading />}>
                   {children}

@@ -1,13 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
 import { ArrowRight, Sparkles } from "lucide-react";
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/10">
-      <Header />
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Hero Section */}
         <section className="min-h-screen flex items-center justify-center text-center py-20">
@@ -15,16 +12,21 @@ export default function Home() {
             {/* Profile Photo */}
             <div className="flex justify-center mb-8">
               <div className="w-48 h-48 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center border-4 border-primary/20 overflow-hidden group hover:border-primary/40 transition-all duration-300">
-                <img 
+                <Image 
                   src="/img/profile.png" 
                   alt="Mujahid Siyam" 
+                  width={192}
+                  height={192}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                  priority
+                  placeholder="blur"
+                  blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
                 />
               </div>
             </div>
             
             {/* Name */}
-            <h1 className="text-6xl md:text-8xl font-bold mb-6 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent text-foreground">
+            <h1 className="text-6xl md:text-8xl font-bold mb-6 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
               Mujahid Siyam
             </h1>
             
@@ -43,8 +45,9 @@ export default function Home() {
                   key={item.label}
                   href={item.href}
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="noopener noreferrer nofollow"
                   className="p-3 text-muted-foreground hover:text-primary transition-all duration-300 hover:scale-110 backdrop-blur-sm bg-glass border border-glass-border rounded-lg"
+                  aria-label={`Visit ${item.label} profile`}
                 >
                   <span className="text-sm font-medium">{item.icon}</span>
                 </a>
