@@ -224,6 +224,9 @@ async function MDXContent({ content }: { content: string }) {
             ],
           },
         }}
+        components={{
+          style: () => null
+        }}
       />
     );
   } catch (error) {
