@@ -5,10 +5,11 @@ import ModeToggle from "./ModeToggle";
 import Search from "./Search";
 import { Code2, Menu, X } from "lucide-react";
 import { Button } from "./ui/Button";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   // Close mobile menu when window is resized to desktop size
   useEffect(() => {
@@ -21,6 +22,23 @@ export default function Header() {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  // Close mobile menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    if (isMobileMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isMobileMenuOpen]);
 
   const navigationItems = [
     { href: "/projects", label: "Projects" },
@@ -88,35 +106,27 @@ export default function Header() {
 
         {/* Mobile Navigation Menu */}
         {isMobileMenuOpen && (
-          <>
-            {/* Backdrop */}
-            <div 
-              className="md:hidden fixed inset-0 bg-black/20 backdrop-blur-sm z-40 top-0"
-              onClick={() => setIsMobileMenuOpen(false)}
-            />
-            {/* Menu */}
-            <div className="md:hidden fixed top-20 left-0 right-0 backdrop-blur-3xl bg-background/95 border-b border-white/5 shadow-xl z-50">
-              <nav className="p-6">
-                <ul className="space-y-3">
-                  {navigationItems.map((item) => (
-                    <li key={item.href}>
-                      <Button
-                        variant="ghost"
-                        size="md"
-                        asChild
-                        className="w-full justify-center text-base font-semibold py-4 text-foreground/90 hover:text-foreground hover:bg-white/15 transition-all duration-300"
-                        onClick={() => setIsMobileMenuOpen(false)}
-                      >
-                        <Link href={item.href}>
-                          {item.label}
-                        </Link>
-                      </Button>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
-            </div>
-          </>
+          <div ref={menuRef} className="md:hidden fixed top-20 left-0 right-0 backdrop-blur-3xl bg-background/95 border-b border-white/5 shadow-xl z-50">
+            <nav className="p-6">
+              <ul className="space-y-3">
+                {navigationItems.map((item) => (
+                  <li key={item.href}>
+                    <Button
+                      variant="ghost"
+                      size="md"
+                      asChild
+                      className="w-full justify-center text-base font-semibold py-4 text-foreground/90 hover:text-foreground hover:bg-white/15 transition-all duration-300"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      <Link href={item.href}>
+                        {item.label}
+                      </Link>
+                    </Button>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </div>
         )}
       </div>
     </header>
