@@ -130,71 +130,76 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             </Link>
           </div>
           
-          {/* Centered Article Content */}
+          {/* Centered Article Content - GitHub Style */}
           <div className="flex justify-center">
-            <article className="bg-card w-full max-w-4xl">
-            <header className="mb-12 text-center">
-              <div className="flex flex-wrap gap-2 mb-6 justify-center">
-                <span className="px-3 py-1 bg-primary text-white text-sm font-medium rounded-full">
-                  {frontmatter.category || 'Uncategorized'}
-                </span>
-                {frontmatter.tags?.map((tag: string) => (
-                  <span key={tag} className="px-3 py-1 bg-muted text-muted-foreground text-sm font-medium rounded-full">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-              <h1 className="text-4xl md:text-5xl font-bold text-card-foreground mb-6">
-                {title}
-              </h1>
-              <div className="flex flex-wrap items-center gap-4 text-muted-foreground justify-center">
-                <span>{date !== 'Unknown date' ? new Date(date).toLocaleDateString('en-US', {
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric'
-                }) : date}</span>
-                <span>•</span>
-                <span>{readingTime}</span>
-              </div>
-            </header>
-          
-            {frontmatter.image && (
-              <div className="mb-12 rounded-xl overflow-hidden">
-                <Image 
-                  src={frontmatter.image} 
-                  alt={title} 
-                  width={800} 
-                  height={400}
-                  className="w-full h-auto object-cover"
+            <div className="w-full max-w-4xl">
+              <article className="bg-card rounded-xl border border-[var(--color-border)] overflow-hidden">
+                <div className="px-8 py-6 border-b border-[var(--color-border)] bg-[var(--color-muted)]/50">
+                  <div className="flex flex-wrap gap-2 mb-4 justify-center">
+                    <span className="px-3 py-1 bg-primary text-white text-sm font-medium rounded-full">
+                      {frontmatter.category || 'Uncategorized'}
+                    </span>
+                    {frontmatter.tags?.map((tag: string) => (
+                      <span key={tag} className="px-3 py-1 bg-muted text-muted-foreground text-sm font-medium rounded-full">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  <h1 className="text-3xl md:text-4xl font-bold text-card-foreground mb-4 text-center">
+                    {title}
+                  </h1>
+                  <div className="flex flex-wrap items-center gap-4 text-muted-foreground justify-center text-sm">
+                    <span>{date !== 'Unknown date' ? new Date(date).toLocaleDateString('en-US', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric'
+                    }) : date}</span>
+                    <span>•</span>
+                    <span>{readingTime}</span>
+                  </div>
+                </div>
+              
+                {frontmatter.image && (
+                  <div className="px-8 py-6 border-b border-[var(--color-border)]">
+                    <Image 
+                      src={frontmatter.image} 
+                      alt={title} 
+                      width={800} 
+                      height={400}
+                      className="w-full h-auto object-cover rounded-lg"
+                    />
+                  </div>
+                )}
+              
+                {/* GitHub-like Markdown Content */}
+                <div className="px-8 py-6">
+                  <div className="markdown-body github-style">
+                    <ClientMDXRenderer content={content} />
+                  </div>
+                </div>
+              </article>
+            
+              {/* Author Section */}
+              <div className="mt-8">
+                <Author 
+                  name="Mujahid Siyam"
+                  image="/img/profile.png"
+                  bio="Software Engineer • AI/ML Engineer • Data Scientist • DevSecOps building cutting-edge solutions"
+                  socialLinks={{
+                    github: "https://github.com/mujaxso",
+                    twitter: "https://twitter.com/mujaxso",
+                    linkedin: "https://linkedin.com/in/mujaxso",
+                    website: "https://mujaxso.com"
+                  }}
                 />
               </div>
-            )}
-          
-            <div className="prose prose-xl max-w-none mx-auto prose-headings:text-card-foreground prose-p:text-card-foreground/80 prose-strong:text-card-foreground prose-em:text-card-foreground prose-a:text-primary hover:prose-a:text-primary-dark prose-blockquote:text-card-foreground/60 prose-blockquote:border-primary prose-ul:text-card-foreground/80 prose-ol:text-card-foreground/80 prose-li:text-card-foreground/80 prose-code:text-card-foreground prose-pre:bg-muted">
-              <ClientMDXRenderer content={content} />
-            </div>
-          
-            {/* Author Section */}
-            <div className="mt-16 pt-8">
-              <Author 
-                name="Mujahid Siyam"
-                image="/img/profile.png"
-                bio="Software Engineer • AI/ML Engineer • Data Scientist • DevSecOps building cutting-edge solutions"
-                socialLinks={{
-                  github: "https://github.com/mujaxso",
-                  twitter: "https://twitter.com/mujaxso",
-                  linkedin: "https://linkedin.com/in/mujaxso",
-                  website: "https://mujaxso.com"
-                }}
-              />
-            </div>
-          
-            {/* Next/Previous Navigation */}
-            <PostNavigation currentSlug={resolvedParams.slug} />
             
-            {/* Related Posts Section */}
-            <RelatedPosts currentSlug={resolvedParams.slug} category={frontmatter.category} />
-            </article>
+              {/* Next/Previous Navigation */}
+              <PostNavigation currentSlug={resolvedParams.slug} />
+              
+              {/* Related Posts Section */}
+              <RelatedPosts currentSlug={resolvedParams.slug} category={frontmatter.category} />
+            </div>
           </div>
         </main>
       </div>
