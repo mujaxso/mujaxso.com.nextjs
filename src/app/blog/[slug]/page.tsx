@@ -130,9 +130,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             </Link>
           </div>
           
-          {/* Centered Article Content - Clean GitHub Style */}
+          {/* Centered Article Content - Wider */}
           <div className="flex justify-center">
-            <div className="w-full max-w-3xl">
+            <div className="w-full max-w-4xl">
               {/* Modern Article Header */}
               <div className="text-center mb-16">
                 <div className="flex flex-wrap gap-3 mb-8 justify-center">
@@ -174,7 +174,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             
               {frontmatter.image && (
                 <div className="mb-16">
-                  <div className="relative aspect-video w-full max-w-4xl mx-auto">
+                  <div className="relative aspect-video w-full max-w-5xl mx-auto">
                     <Image 
                       src={frontmatter.image} 
                       alt={title} 

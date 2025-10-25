@@ -141,9 +141,9 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             </div>
           </div>
           
-          {/* Elegant Content Area */}
+          {/* Elegant Content Area - Wider */}
           <div className="flex justify-center">
-            <div className="w-full max-w-3xl">
+            <div className="w-full max-w-4xl">
               {/* Elegant Markdown Content */}
               <ClientMDXRenderer content={content} />
               
