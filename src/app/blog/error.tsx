@@ -11,26 +11,38 @@ export default function BlogError({
   reset: () => void;
 }) {
   useEffect(() => {
+    // Log to error reporting service
     console.error('Blog error:', error);
   }, [error]);
 
   return (
-    <div className="min-h-screen pt-20 flex items-center justify-center">
+    <div className="min-h-screen pt-20 flex items-center justify-center px-4">
       <div className="max-w-md mx-auto text-center">
         <div className="text-6xl mb-4">📝</div>
-        <h2 className="text-2xl font-bold text-[var(--color-foreground)] mb-4">
+        <h2 className="text-2xl font-bold text-foreground mb-4">
           Something went wrong!
         </h2>
-        <p className="text-[var(--color-muted-foreground)] mb-6">
-          We couldn't load the blog posts. Please try again.
+        <p className="text-muted-foreground mb-6">
+          {error.digest 
+            ? `Error reference: ${error.digest}`
+            : 'We couldn\'t load the blog posts. Please try again.'
+          }
         </p>
-        <Button
-          onClick={reset}
-          variant="default"
-          className="bg-[var(--color-primary)] hover:bg-[var(--color-primary-hover)]"
-        >
-          Try Again
-        </Button>
+        <div className="flex gap-4 justify-center">
+          <Button
+            onClick={reset}
+            variant="default"
+            className="bg-primary hover:bg-primary-hover"
+          >
+            Try Again
+          </Button>
+          <Button
+            onClick={() => window.location.href = '/'}
+            variant="outline"
+          >
+            Go Home
+          </Button>
+        </div>
       </div>
     </div>
   );
