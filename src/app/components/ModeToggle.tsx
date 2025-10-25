@@ -41,16 +41,19 @@ export default function ModeToggle() {
   };
 
   // Show a placeholder while mounting to avoid hydration mismatch
+  // Use the same styling as the actual button to prevent layout shift
   if (!mounted) {
     return (
       <Button
         variant="outline"
         size="sm"
-        className="p-2 rounded-2xl"
+        className="p-2 rounded-2xl glass border-white/20"
         aria-label="Loading theme"
         suppressHydrationWarning
       >
-        <div className="w-4 h-4"></div>
+        <div className="w-4 h-4">
+          <Monitor className="w-4 h-4" />
+        </div>
       </Button>
     );
   }

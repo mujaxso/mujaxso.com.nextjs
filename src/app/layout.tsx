@@ -7,6 +7,7 @@ import { PersonStructuredData } from "./components/StructuredData";
 import Loading from "./loading";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import ThemeScript from "./components/ThemeScript";
 
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
@@ -87,6 +88,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <PersonStructuredData />
+        <ThemeScript />
       </head>
       <body
         className={`${jetbrainsMono.variable} antialiased font-mono`}

@@ -15,18 +15,13 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setThemeState] = useState<Theme>('system')
   const [mounted, setMounted] = useState(false)
 
+  // Initialize theme from localStorage on mount
   useEffect(() => {
-    setMounted(true)
-    // Get the stored theme from localStorage
     const stored = localStorage.getItem('mujaxso-theme') as Theme | null
     if (stored) {
       setThemeState(stored)
-    } else {
-      // If no stored theme, use system preference
-      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
-      // We still set the theme to 'system' but apply the system preference
-      setThemeState('system')
     }
+    setMounted(true)
   }, [])
 
   const setTheme = (newTheme: Theme) => {
@@ -35,6 +30,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem('mujaxso-theme', newTheme)
   }
 
+  // Apply theme changes when theme state updates
   useEffect(() => {
     if (!mounted) return
 
