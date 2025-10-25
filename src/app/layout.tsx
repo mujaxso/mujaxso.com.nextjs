@@ -1,19 +1,23 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import { Suspense } from "react";
 import { ThemeProvider } from "./components/ThemeProvider";
 import { PersonStructuredData } from "./components/StructuredData";
+import Loading from "./loading";
 
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
   subsets: ["latin"],
   display: "swap",
+  preload: true,
 });
 
 export const metadata: Metadata = {
-  title: "Mujahid Siyam | Portfolio",
+  title: {
+    template: "%s | Mujahid Siyam",
+    default: "Mujahid Siyam | Portfolio",
+  },
   description: "Software Engineer | AI/ML Engineer | Data Scientist | DevSecOps building cutting-edge solutions",
   keywords: ["software engineer", "AI/ML", "data science", "DevSecOps", "full-stack developer"],
   authors: [{ name: "Mujahid Siyam" }],
@@ -24,7 +28,14 @@ export const metadata: Metadata = {
     type: "website",
     images: ['/img/profile.png'],
   },
-  robots: "index, follow",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
+  },
   manifest: "/manifest.json",
   icons: {
     icon: '/img/favicon.ico',
@@ -33,11 +44,13 @@ export const metadata: Metadata = {
   },
 };
 
-export const viewport = {
+export const viewport: Viewport = {
   themeColor: [
     { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
     { media: "(prefers-color-scheme: light)", color: "#ffffff" },
   ],
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({
@@ -49,13 +62,11 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <PersonStructuredData />
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jetbrains-mono@1.0.6/css/jetbrains-mono.css" />
       </head>
       <body
         className={`${jetbrainsMono.variable} antialiased font-mono`}
         style={{
           fontFamily: 'var(--font-jetbrains-mono)',
-          viewTransitionName: 'root-layout',
         }}
       >
         <ThemeProvider>
@@ -67,11 +78,9 @@ export default function RootLayout({
             <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-pink-300/10 rounded-full blur-3xl animate-pulse-slow animation-delay-4000"></div>
             
             <div className="relative z-10 flex flex-col min-h-screen">
-              <Header />
-              <main className="flex-1 pt-14">
+              <Suspense fallback={<Loading />}>
                 {children}
-              </main>
-              <Footer />
+              </Suspense>
             </div>
           </div>
         </ThemeProvider>

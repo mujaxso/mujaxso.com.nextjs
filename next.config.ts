@@ -5,21 +5,64 @@ import createMDX from '@next/mdx'
 const nextConfig: NextConfig = {
   reactCompiler: true,
   pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
-  // Ensure trailing slashes are handled correctly for subdomains
   trailingSlash: false,
-  // Enable cross-origin requests for subdomains if needed
+  // Security headers
   async headers() {
     return [
       {
         source: '/:path*',
         headers: [
           {
-            key: 'Access-Control-Allow-Origin',
-            value: '*'
+            key: 'X-DNS-Prefetch-Control',
+            value: 'on'
+          },
+          {
+            key: 'Strict-Transport-Security',
+            value: 'max-age=63072000; includeSubDomains; preload'
+          },
+          {
+            key: 'X-Frame-Options',
+            value: 'DENY'
+          },
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff'
+          },
+          {
+            key: 'Referrer-Policy',
+            value: 'strict-origin-when-cross-origin'
+          },
+          {
+            key: 'Permissions-Policy',
+            value: 'camera=(), microphone=(), geolocation=()'
           }
         ],
       },
     ]
+  },
+  // Image optimization
+  images: {
+    formats: ['image/avif', 'image/webp'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
+    ],
+  },
+  // Compress responses
+  compress: true,
+  // Production logging
+  logging: {
+    fetches: {
+      fullUrl: true,
+    },
+  },
+  experimental: {
+    // Enable React compiler
+    reactCompiler: true,
+    // Optimize bundle splitting
+    optimizeCss: true,
   },
   webpack(config) {
     config.module.rules.push({

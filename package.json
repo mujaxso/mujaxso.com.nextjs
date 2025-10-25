@@ -6,8 +6,11 @@
     "dev": "next dev --turbo",
     "build": "next build",
     "start": "next start",
-    "lint": "biome check",
-    "format": "biome format --write"
+    "lint": "next lint && biome check",
+    "format": "biome format --write",
+    "type-check": "tsc --noEmit",
+    "test": "vitest run",
+    "test:ui": "vitest --ui"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.1",
@@ -27,7 +30,8 @@
     "react-markdown": "^9.0.1",
     "react-player": "^3.3.3",
     "rehype-highlight": "^7.0.1",
-    "tailwind-merge": "^3.3.1"
+    "tailwind-merge": "^3.3.1",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@biomejs/biome": "2.2.0",
@@ -35,8 +39,12 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@vitest/ui": "^1.3.1",
     "babel-plugin-react-compiler": "1.0.0",
+    "eslint": "^8.56.0",
+    "eslint-config-next": "16.0.0",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^1.3.1"
   }
 }
