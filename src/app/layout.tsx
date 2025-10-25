@@ -5,6 +5,8 @@ import { Suspense } from "react";
 import { ThemeProvider } from "./components/ThemeProvider";
 import { PersonStructuredData } from "./components/StructuredData";
 import Loading from "./loading";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
@@ -78,9 +80,13 @@ export default function RootLayout({
             <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-pink-300/10 rounded-full blur-3xl animate-pulse-slow animation-delay-4000"></div>
             
             <div className="relative z-10 flex flex-col min-h-screen">
-              <Suspense fallback={<Loading />}>
-                {children}
-              </Suspense>
+              <Header />
+              <main className="flex-1 pt-14">
+                <Suspense fallback={<Loading />}>
+                  {children}
+                </Suspense>
+              </main>
+              <Footer />
             </div>
           </div>
         </ThemeProvider>

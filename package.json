@@ -6,7 +6,7 @@
     "dev": "next dev --turbo",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint && biome check",
+    "lint": "biome check",
     "format": "biome format --write",
     "type-check": "tsc --noEmit",
     "test": "vitest run",

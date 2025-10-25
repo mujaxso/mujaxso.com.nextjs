@@ -59,8 +59,6 @@ const nextConfig: NextConfig = {
     },
   },
   experimental: {
-    // Enable React compiler
-    reactCompiler: true,
     // Optimize bundle splitting
     optimizeCss: true,
   },
