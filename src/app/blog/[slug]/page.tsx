@@ -133,41 +133,56 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           {/* Centered Article Content - Clean GitHub Style */}
           <div className="flex justify-center">
             <div className="w-full max-w-3xl">
-              {/* Article Header */}
-              <div className="text-center mb-12">
-                <div className="flex flex-wrap gap-2 mb-6 justify-center">
-                  <span className="px-3 py-1 bg-primary text-white text-sm font-medium rounded-full">
+              {/* Modern Article Header */}
+              <div className="text-center mb-16">
+                <div className="flex flex-wrap gap-3 mb-8 justify-center">
+                  <span className="px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium border border-primary/20">
                     {frontmatter.category || 'Uncategorized'}
                   </span>
                   {frontmatter.tags?.map((tag: string) => (
-                    <span key={tag} className="px-3 py-1 bg-muted text-muted-foreground text-sm font-medium rounded-full">
+                    <span key={tag} className="px-3 py-1.5 bg-muted/50 text-muted-foreground rounded-full text-xs font-medium border border-border">
                       {tag}
                     </span>
                   ))}
                 </div>
-                <h1 className="text-3xl md:text-4xl font-bold text-card-foreground mb-4">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-tight tracking-tight">
                   {title}
                 </h1>
+                <p className="text-lg text-muted-foreground mb-6 max-w-2xl mx-auto leading-relaxed">
+                  {frontmatter.description}
+                </p>
                 <div className="flex flex-wrap items-center gap-4 text-muted-foreground justify-center text-sm">
-                  <span>{date !== 'Unknown date' ? new Date(date).toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                  }) : date}</span>
+                  <span className="flex items-center gap-2">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    {date !== 'Unknown date' ? new Date(date).toLocaleDateString('en-US', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric'
+                    }) : date}
+                  </span>
                   <span>•</span>
-                  <span>{readingTime}</span>
+                  <span className="flex items-center gap-2">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    {readingTime}
+                  </span>
                 </div>
               </div>
             
               {frontmatter.image && (
-                <div className="mb-12">
-                  <Image 
-                    src={frontmatter.image} 
-                    alt={title} 
-                    width={800} 
-                    height={400}
-                    className="w-full h-auto object-cover rounded-lg"
-                  />
+                <div className="mb-16">
+                  <div className="relative aspect-video w-full max-w-4xl mx-auto">
+                    <Image 
+                      src={frontmatter.image} 
+                      alt={title} 
+                      fill
+                      className="object-cover rounded-2xl shadow-2xl border border-border/50"
+                      priority
+                    />
+                  </div>
                 </div>
               )}
             
