@@ -1,6 +1,6 @@
 'use server';
 
-export async function submitContactForm(formData: FormData) {
+export async function submitContactForm(prevState: any, formData: FormData) {
   const name = formData.get('name') as string;
   const email = formData.get('email') as string;
   const subject = formData.get('subject') as string;
@@ -14,7 +14,7 @@ export async function submitContactForm(formData: FormData) {
   // Check if fields exist and are not null/undefined
   if (!name || !email || !subject || !message) {
     console.log('Missing fields detected:', { name, email, subject, message });
-    return { error: 'All fields are required' };
+    return { error: 'All fields are required', success: false };
   }
 
   // Trim values and check if they become empty
@@ -25,13 +25,13 @@ export async function submitContactForm(formData: FormData) {
 
   if (!trimmedName || !trimmedEmail || !trimmedSubject || !trimmedMessage) {
     console.log('Empty fields after trimming:', { trimmedName, trimmedEmail, trimmedSubject, trimmedMessage });
-    return { error: 'All fields are required' };
+    return { error: 'All fields are required', success: false };
   }
 
   // Validate email format
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(trimmedEmail)) {
-    return { error: 'Invalid email format' };
+    return { error: 'Invalid email format', success: false };
   }
 
   try {
@@ -94,6 +94,6 @@ export async function submitContactForm(formData: FormData) {
       message: trimmedMessage,
       timestamp: new Date().toISOString(),
     }));
-    return { error: 'Failed to send message. Please try again later.' };
+    return { error: 'Failed to send message. Please try again later.', success: false };
   }
 }
