@@ -101,14 +101,21 @@ async function submitForm(formData: FormData) {
   }
 }
 
-// Wrapper function for useFormState
-export async function submitContactForm(prevState: any, formData: FormData) {
+// Wrapper function that works with both direct calls and useFormState
+export async function submitContactForm(prevState: any, formData?: FormData) {
+  // Handle case when called directly (without useFormState)
+  if (!formData) {
+    formData = prevState;
+    prevState = null;
+  }
+
   // Log the arguments for debugging
   if (process.env.NODE_ENV === 'development') {
     console.log('submitContactForm called with:', { 
       prevState, 
       formData: formData ? 'FormData exists' : 'FormData is null/undefined',
-      formDataType: typeof formData
+      formDataType: typeof formData,
+      argumentsLength: arguments.length
     });
   }
 
