@@ -64,11 +64,58 @@ export default function ClientMDXRenderer({ content }: ClientMDXRendererProps) {
   }
 
   return (
-    <MDXRemote 
-      {...mdxSource}
-      components={{
-        style: () => null
-      }}
-    />
+    <div className="prose prose-lg max-w-none 
+                  prose-headings:font-bold 
+                  prose-p:leading-relaxed 
+                  prose-strong:font-bold 
+                  prose-em:italic 
+                  prose-blockquote:border-l-4 
+                  prose-blockquote:border-primary 
+                  prose-blockquote:pl-4 
+                  prose-blockquote:italic 
+                  prose-ul:list-disc 
+                  prose-ol:list-decimal 
+                  prose-li:my-1 
+                  prose-code:bg-muted 
+                  prose-code:px-1 
+                  prose-code:rounded 
+                  prose-code:font-mono
+                  prose-pre:bg-muted 
+                  prose-pre:p-4 
+                  prose-pre:rounded 
+                  prose-pre:overflow-x-auto 
+                  prose-pre:font-mono
+                  prose-table:border 
+                  prose-table:border-border 
+                  prose-th:bg-muted 
+                  prose-th:p-2 
+                  prose-td:p-2 
+                  prose-td:border 
+                  prose-td:border-border 
+                  prose-img:rounded 
+                  prose-img:mx-auto 
+                  dark:prose-invert 
+                  prose-headings:text-card-foreground 
+                  prose-p:text-card-foreground 
+                  prose-strong:text-card-foreground 
+                  prose-em:text-card-foreground 
+                  prose-a:text-primary 
+                  hover:prose-a:text-primary-dark 
+                  prose-blockquote:text-card-foreground/70 
+                  prose-ul:text-card-foreground 
+                  prose-ol:text-card-foreground 
+                  prose-li:text-card-foreground 
+                  prose-code:text-card-foreground 
+                  prose-pre:text-card-foreground 
+                  prose-th:text-card-foreground 
+                  prose-td:text-card-foreground
+                  font-mono">
+      <MDXRemote 
+        {...mdxSource}
+        components={{
+          style: () => null
+        }}
+      />
+    </div>
   );
 }
