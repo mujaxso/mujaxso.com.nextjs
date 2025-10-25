@@ -1,10 +1,39 @@
 'use server';
 
-export async function submitContactForm(prevState: any, formData: FormData) {
+// This is the actual form submission logic
+async function submitForm(formData: FormData) {
   const name = formData.get('name') as string;
   const email = formData.get('email') as string;
   const subject = formData.get('subject') as string;
   const message = formData.get('message') as string;
+
+  // Log form data for debugging
+  if (process.env.NODE_ENV === 'development') {
+    console.log('Contact form data received:', { name, email, subject, message });
+  }
+
+  // Check if fields exist and are not null/undefined
+  if (!name || !email || !subject || !message) {
+    console.log('Missing fields detected:', { name, email, subject, message });
+    return { error: 'All fields are required', success: false };
+  }
+
+  // Trim values and check if they become empty
+  const trimmedName = name.trim();
+  const trimmedEmail = email.trim();
+  const trimmedSubject = subject.trim();
+  const trimmedMessage = message.trim();
+
+  if (!trimmedName || !trimmedEmail || !trimmedSubject || !trimmedMessage) {
+    console.log('Empty fields after trimming:', { trimmedName, trimmedEmail, trimmedSubject, trimmedMessage });
+    return { error: 'All fields are required', success: false };
+  }
+
+  // Validate email format
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(trimmedEmail)) {
+    return { error: 'Invalid email format', success: false };
+  }
 
   // Log form data for debugging
   if (process.env.NODE_ENV === 'development') {
@@ -96,4 +125,9 @@ export async function submitContactForm(prevState: any, formData: FormData) {
     }));
     return { error: 'Failed to send message. Please try again later.', success: false };
   }
+}
+
+// Wrapper function for useFormState
+export async function submitContactForm(prevState: any, formData: FormData) {
+  return submitForm(formData);
 }
