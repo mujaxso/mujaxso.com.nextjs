@@ -101,7 +101,7 @@ export default function Footer() {
                   name="name"
                   placeholder="Your Name"
                   required
-                  className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary/50 transition-all duration-300 backdrop-blur-sm"
+                  className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary/50 transition-all duration-300 backdrop-blur-sm text-center placeholder:text-center"
                 />
               </div>
               <div>
@@ -110,7 +110,7 @@ export default function Footer() {
                   name="email"
                   placeholder="Your Email"
                   required
-                  className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary/50 transition-all duration-300 backdrop-blur-sm"
+                  className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary/50 transition-all duration-300 backdrop-blur-sm text-center placeholder:text-center"
                 />
               </div>
               <div>
@@ -119,7 +119,7 @@ export default function Footer() {
                   placeholder="Your Message"
                   rows={3}
                   required
-                  className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary/50 transition-all duration-300 backdrop-blur-sm resize-none"
+                  className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary/50 transition-all duration-300 backdrop-blur-sm resize-none text-center placeholder:text-center"
                 />
               </div>
               <Button 
