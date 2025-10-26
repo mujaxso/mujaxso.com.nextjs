@@ -23,26 +23,35 @@ export default function ContactPage() {
 
     setPending(true);
     try {
-      // Prepare the data according to Web3Forms requirements
-      const formData = {
-        access_key: 'c5ce3857-f4f2-47f4-a977-126b08374ab1',
-        name: fd.get('name'),
-        email: fd.get('email'),
-        subject: fd.get('subject_line'),
-        message: fd.get('message'),
-        from_name: 'My Website Contact Form',
-        // Add optional settings
-        botcheck: fd.get('botcheck') // Use honeypot as botcheck
-      };
+      // Use FormData directly as Web3Forms might prefer this
+      const submitData = new FormData();
+      submitData.append('access_key', 'c5ce3857-f4f2-47f4-a977-126b08374ab1');
+      submitData.append('name', fd.get('name') as string);
+      submitData.append('email', fd.get('email') as string);
+      submitData.append('subject', fd.get('subject_line') as string);
+      submitData.append('message', fd.get('message') as string);
+      submitData.append('from_name', 'My Website Contact Form');
+      submitData.append('botcheck', fd.get('botcheck') as string);
+
+      console.log('Sending form data');
+
+      // Add timeout to fetch
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
 
       const res = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        headers: { 
-          'Content-Type': 'application/json', 
-          'Accept': 'application/json' 
-        },
-        body: JSON.stringify(formData),
+        body: submitData,
+        signal: controller.signal
       });
+
+      clearTimeout(timeoutId);
+
+      console.log('Response status:', res.status);
+      
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
 
       const result = await res.json();
       console.log('Web3Forms response:', result);
@@ -55,7 +64,13 @@ export default function ContactPage() {
       }
     } catch (err) {
       console.error('Submission error:', err);
-      setMsg({ ok: false, text: 'I apologize for the inconvenience, but there seems to be a network issue. Please try again in a moment or use one of my other contact methods.' });
+      if (err.name === 'AbortError') {
+        setMsg({ ok: false, text: 'The request timed out. Please check your internet connection and try again.' });
+      } else if (err.message?.includes('HTTP error')) {
+        setMsg({ ok: false, text: `Server error: ${err.message}. Please try again later.` });
+      } else {
+        setMsg({ ok: false, text: 'Network error. Please check your internet connection and try again.' });
+      }
     } finally {
       setPending(false);
     }
