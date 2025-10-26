@@ -95,13 +95,14 @@ export default function RootLayout({
                   var systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
                   var effectiveTheme = theme === 'system' ? systemTheme : (theme || 'light');
                   
+                  // Remove any existing theme classes first
+                  document.documentElement.classList.remove('light', 'dark');
                   // Apply theme immediately
                   document.documentElement.classList.add(effectiveTheme);
-                  document.documentElement.style.visibility = 'visible';
                 } catch (e) {
                   // Fallback to light theme
+                  document.documentElement.classList.remove('light', 'dark');
                   document.documentElement.classList.add('light');
-                  document.documentElement.style.visibility = 'visible';
                 }
               })();
             `,

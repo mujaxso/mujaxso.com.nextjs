@@ -450,16 +450,24 @@ html {
   color: inherit;
 }
 
+/* Hide content until theme is applied to prevent FOUC */
+html {
+  visibility: hidden;
+}
+
+html.light, html.dark {
+  visibility: visible;
+}
+
 /* Ensure all direct children of body inherit the theme */
 body, body > * {
   background-color: var(--color-background) !important;
   color: var(--color-foreground) !important;
 }
 
-/* next-themes handles FOUC prevention automatically */
-/* Add a smooth transition for theme changes */
+/* Smooth transitions for theme changes */
 * {
-  transition: background-color 0.2s ease, border-color 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 
 /* Ensure consistent theme for all interactive elements */

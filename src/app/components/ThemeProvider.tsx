@@ -16,12 +16,12 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    setMounted(true)
     // Get initial theme from localStorage
     const stored = localStorage.getItem('theme') as Theme | null
     if (stored) {
       setThemeState(stored)
     }
+    setMounted(true)
   }, [])
 
   const setTheme = (newTheme: Theme) => {
