@@ -153,9 +153,9 @@
     -webkit-backdrop-filter: blur(10px) saturate(180%);
   }
   
-  /* Add padding to main content to account for fixed header */
+  /* Ensure proper padding for main content to account for fixed header */
   main {
-    padding-top: 4rem;
+    padding-top: 4.5rem !important;
   }
   
   /* Responsive adjustments for cards */
@@ -174,11 +174,26 @@
   .responsive-card-content {
     padding: 1rem;
   }
+  
+  /* Fix header to prevent movement and overlapping */
+  header {
+    transform: translate3d(0, 0, 0);
+    will-change: transform;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
 }
 
 /* Ensure proper spacing on all screen sizes */
 main {
   min-height: 100vh;
+  padding-top: 5rem;
+}
+
+@media (max-width: 767px) {
+  main {
+    padding-top: 4.5rem;
+  }
 }
 
 .glass-dark {

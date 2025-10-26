@@ -22,9 +22,9 @@ export default function Header() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-40 backdrop-blur-3xl bg-background/20 border-b border-white/5 shadow-lg shadow-black/5">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 border-b border-white/5 shadow-lg shadow-black/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-4">
+          <div className="flex justify-between items-center py-3 md:py-4">
             <Link href="/" className="flex items-center gap-3 group">
               <div className="w-10 h-10 md:w-12 md:h-12 rounded-full overflow-hidden border-2 border-primary/30 group-hover:border-primary transition-all duration-300 shadow-md">
                 <Image 
