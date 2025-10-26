@@ -18,8 +18,13 @@ export default function ThemeScript() {
         }
         // Always add the effective theme for styling
         document.documentElement.classList.add(effectiveTheme);
+        
+        // Mark theme as loaded immediately
+        document.body.classList.add('theme-loaded');
       } catch (e) {
         console.error('Theme initialization error:', e);
+        // Ensure theme is marked as loaded even if there's an error
+        document.body.classList.add('theme-loaded');
       }
     })();
   `;

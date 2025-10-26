@@ -60,6 +60,9 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     
     // Set cookie for SSR if needed
     document.cookie = `mujaxso-theme=${theme}; path=/; max-age=31536000`
+    
+    // Ensure body always has theme-loaded class
+    document.body.classList.add('theme-loaded')
   }, [theme, mounted])
 
   // Provide the context value
