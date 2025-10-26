@@ -32,7 +32,7 @@ export default function ContactPage() {
         message: fd.get('message'),
         from_name: 'My Website Contact Form',
         // Add optional settings
-        botcheck: fd.get('website') // Use honeypot as botcheck
+        botcheck: fd.get('botcheck') // Use honeypot as botcheck
       };
 
       const res = await fetch('https://api.web3forms.com/submit', {
