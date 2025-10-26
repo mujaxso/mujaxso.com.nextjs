@@ -86,7 +86,28 @@ export default function RootLayout({
         className="antialiased font-mono"
         suppressHydrationWarning
       >
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var theme = localStorage.getItem('theme');
+                  var systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                  var effectiveTheme = theme === 'system' ? systemTheme : (theme || 'light');
+                  
+                  // Apply theme immediately
+                  document.documentElement.classList.add(effectiveTheme);
+                  document.documentElement.style.visibility = 'visible';
+                } catch (e) {
+                  // Fallback to light theme
+                  document.documentElement.classList.add('light');
+                  document.documentElement.style.visibility = 'visible';
+                }
+              })();
+            `,
+          }}
+        />
+        <ThemeProvider>
           <div className="flex flex-col min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/20 to-indigo-50/30 dark:from-[#0a0f1c] dark:via-[#0f172a] dark:to-[#1e1b4b] relative overflow-hidden">
             {/* Optimized background elements - reduced for better performance */}
             <div className="absolute inset-0 bg-grid-pattern opacity-30"></div>
