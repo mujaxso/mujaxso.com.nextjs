@@ -671,20 +671,76 @@ textarea:focus-visible {
   border: 1px solid var(--color-border);
 }
 
+/* Enhanced table styling */
 .prose table {
   color: var(--color-foreground);
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
 }
 
 .prose thead {
-  border-bottom-color: var(--color-border);
+  background-color: var(--color-muted);
+  border-bottom: 2px solid var(--color-border);
 }
 
 .prose tbody tr {
-  border-bottom-color: var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  transition: background-color 0.2s ease;
+}
+
+.prose tbody tr:hover {
+  background-color: var(--color-muted);
+}
+
+.prose th {
+  background-color: var(--color-muted);
+  color: var(--color-foreground);
+  font-weight: 600;
+  text-align: left;
+  padding: 0.75rem 1rem;
+  border-right: 1px solid var(--color-border);
+}
+
+.prose th:last-child {
+  border-right: none;
+}
+
+.prose td {
+  padding: 0.75rem 1rem;
+  border-right: 1px solid var(--color-border);
+  color: var(--color-foreground);
+  opacity: 0.9;
+}
+
+.prose td:last-child {
+  border-right: none;
 }
 
 .prose hr {
   border-color: var(--color-border);
+}
+
+/* Ensure tables are responsive */
+.prose > div > table {
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+/* For better mobile experience */
+@media (max-width: 768px) {
+  .prose table {
+    font-size: 0.875rem;
+  }
+  
+  .prose th,
+  .prose td {
+    padding: 0.5rem 0.75rem;
+  }
 }
 
 /* Smooth scrolling */

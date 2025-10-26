@@ -93,9 +93,16 @@ export default function ClientMDXRenderer({ content }: ClientMDXRendererProps) {
                 return <code className={className}>{children}</code>;
               },
               pre: ({ children }) => <pre className="bg-muted/30 p-6 rounded-xl border border-border/50 overflow-x-auto my-8 font-mono text-sm leading-6 shadow-sm">{children}</pre>,
-              table: ({ children }) => <div className="overflow-x-auto my-8"><table className="min-w-full border-collapse border border-border rounded-lg">{children}</table></div>,
-              th: ({ children }) => <th className="bg-muted/50 p-4 text-left font-semibold text-foreground border border-border">{children}</th>,
-              td: ({ children }) => <td className="p-4 border border-border text-foreground/90">{children}</td>,
+              table: ({ children }) => (
+                <div className="overflow-x-auto my-8 border border-border rounded-lg shadow-sm">
+                  <table className="min-w-full divide-y divide-border">{children}</table>
+                </div>
+              ),
+              thead: ({ children }) => <thead className="bg-muted/50">{children}</thead>,
+              tbody: ({ children }) => <tbody className="divide-y divide-border bg-background">{children}</tbody>,
+              tr: ({ children }) => <tr className="even:bg-muted/20">{children}</tr>,
+              th: ({ children }) => <th className="px-6 py-3 text-left text-sm font-semibold text-foreground border-r last:border-r-0 border-border">{children}</th>,
+              td: ({ children }) => <td className="px-6 py-4 text-sm text-foreground/90 border-r last:border-r-0 border-border whitespace-nowrap">{children}</td>,
               a: ({ children, href }) => <a href={href} className="text-primary font-medium no-underline border-b border-primary/30 hover:border-primary transition-colors duration-200">{children}</a>,
               img: ({ src, alt }) => <img src={src} alt={alt} className="rounded-2xl shadow-lg my-8 mx-auto border border-border/50 max-w-full" />,
               hr: () => <hr className="my-12 border-border/50" />

@@ -16,6 +16,19 @@ export default function MDXWrapper({ children }: { children: React.ReactNode }) 
                      prose-ul:text-[var(--color-foreground)]/90
                      prose-ol:text-[var(--color-foreground)]/90
                      prose-li:text-[var(--color-foreground)]/90
+                     prose-table:overflow-hidden
+                     prose-th:bg-[var(--color-muted)]/50
+                     prose-th:text-[var(--color-foreground)]
+                     prose-th:font-semibold
+                     prose-th:px-6
+                     prose-th:py-3
+                     prose-th:border
+                     prose-th:border-[var(--color-border)]
+                     prose-td:px-6
+                     prose-td:py-4
+                     prose-td:border
+                     prose-td:border-[var(--color-border)]
+                     prose-td:text-[var(--color-foreground)]/90
                      /* Don't set code colors here - let SyntaxHighlighting handle it */
                      prose-pre:!bg-transparent
                      prose-code:!bg-transparent
