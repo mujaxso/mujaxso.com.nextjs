@@ -2,34 +2,59 @@
 
 import { useState } from 'react';
 import { Mail, Send, Github, ExternalLink, Instagram } from 'lucide-react';
-import { submitContactForm } from '../actions/contact';
 
 export default function ContactPage() {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [pending, setPending] = useState(false);
+  const [msg, setMsg] = useState<{ ok: boolean; text: string } | null>(null);
 
-  const handleSubmit = async (formData: FormData) => {
-    setIsSubmitting(true);
-    setSubmitStatus('idle');
-    
-    try {
-      const result = await submitContactForm(formData);
-      
-      if (result.error) {
-        setSubmitStatus('error');
-      } else {
-        setSubmitStatus('success');
-        // Reset form on success
-        const form = document.querySelector('form') as HTMLFormElement;
-        if (form) form.reset();
-      }
-    } catch (error) {
-      console.error('Form submission error:', error);
-      setSubmitStatus('error');
-    } finally {
-      setIsSubmitting(false);
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setMsg(null);
+
+    const form = e.currentTarget;
+    const fd = new FormData(form);
+
+    // Honeypot: if filled, skip sending
+    if ((fd.get('website') as string)?.trim()) {
+      setMsg({ ok: true, text: 'Thanks!' });
+      form.reset();
+      return;
     }
-  };
+
+    setPending(true);
+    try {
+      // Convert FormData to object
+      const data = Object.fromEntries(fd.entries());
+      // Add Web3Forms specific fields
+      const payload = {
+        ...data,
+        access_key: 'c5ce3857-f4f2-47f4-a977-126b08374ab1',
+        from_name: 'My Website',
+        subject: 'New message from website contact form'
+      };
+
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json', 
+          'Accept': 'application/json' 
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const result = await res.json();
+      if (result?.success) {
+        setMsg({ ok: true, text: 'Message sent successfully!' });
+        form.reset();
+      } else {
+        setMsg({ ok: false, text: result?.message || 'Failed to send. Please try again.' });
+      }
+    } catch (err) {
+      setMsg({ ok: false, text: 'Network error. Please try again.' });
+    } finally {
+      setPending(false);
+    }
+  }
 
   return (
     <div className="pt-24 pb-16">
@@ -118,17 +143,27 @@ export default function ContactPage() {
 
           {/* Contact Form */}
           <div className="backdrop-blur-xl bg-[var(--color-glass)] border border-[var(--color-glass-border)] rounded-2xl p-8">
-            {submitStatus === 'success' && (
-              <div className="mb-6 p-4 bg-green-500/10 border border-green-500/20 rounded-lg text-green-600">
-                Thank you for your message! I will get back to you soon.
+            {msg && (
+              <div className={`mb-6 p-4 rounded-lg ${
+                msg.ok 
+                  ? 'bg-green-500/10 border border-green-500/20 text-green-600' 
+                  : 'bg-red-500/10 border border-red-500/20 text-red-600'
+              }`}>
+                {msg.text}
               </div>
             )}
-            {submitStatus === 'error' && (
-              <div className="mb-6 p-4 bg-red-500/10 border border-red-500/20 rounded-lg text-red-600">
-                Failed to send message. Please try again.
-              </div>
-            )}
-            <form action={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6">
+              {/* Hidden fields */}
+              <input type="hidden" name="subject" value="New message from website contact form" />
+              <input
+                type="text"
+                name="website"
+                tabIndex={-1}
+                autoComplete="off"
+                className="hidden"
+                aria-hidden="true"
+              />
+
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-[var(--color-foreground)] mb-2">
@@ -159,13 +194,13 @@ export default function ContactPage() {
               </div>
               
               <div>
-                <label htmlFor="subject" className="block text-sm font-medium text-[var(--color-foreground)] mb-2">
+                <label htmlFor="subject_line" className="block text-sm font-medium text-[var(--color-foreground)] mb-2">
                   Subject
                 </label>
                 <input
                   type="text"
-                  id="subject"
-                  name="subject"
+                  id="subject_line"
+                  name="subject_line"
                   required
                   className="w-full px-4 py-3 border border-[var(--color-glass-border)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent backdrop-blur-sm bg-[var(--color-glass)] text-[var(--color-foreground)] placeholder-[var(--color-foreground)]/40"
                   placeholder="What's this about?"
@@ -188,10 +223,10 @@ export default function ContactPage() {
               
               <button
                 type="submit"
-                disabled={isSubmitting}
+                disabled={pending}
                 className="w-full flex items-center justify-center px-6 py-3 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)] text-white font-medium rounded-lg hover:opacity-90 transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl shadow-[var(--color-primary)]/30 hover:shadow-[var(--color-primary)]/50"
               >
-                {isSubmitting ? (
+                {pending ? (
                   <>
                     <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
                     Sending...
