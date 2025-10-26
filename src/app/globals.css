@@ -198,11 +198,13 @@
   }
 
 
-  /* Ensure all header buttons are completely transparent */
+  /* Ensure all header buttons are completely transparent with rounded corners */
   header button {
     background: transparent !important;
     border: none !important;
     box-shadow: none !important;
+    border-radius: 12px !important;
+    transition: all 0.3s ease !important;
   }
 
   header button:hover {
