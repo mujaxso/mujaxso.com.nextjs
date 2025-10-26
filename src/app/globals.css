@@ -198,7 +198,7 @@
   }
 
   /* Fix mobile header buttons to be transparent and elegant */
-  header button {
+  .mobile-header-buttons button {
     background: transparent !important;
     border: none !important;
     box-shadow: none !important;
@@ -206,13 +206,14 @@
     border-radius: 12px !important;
   }
 
-  header button:hover {
+  .mobile-header-buttons button:hover {
     background: rgba(255, 255, 255, 0.08) !important;
     transform: scale(1.05);
   }
 
   /* Ensure the search and theme toggle buttons are perfectly integrated */
-  header .flex.md\\:hidden button {
+  /* Target mobile header buttons using a class-based approach */
+  .mobile-header-buttons button {
     border-radius: 12px !important;
     padding: 8px !important;
     margin: 0 2px !important;
@@ -222,24 +223,24 @@
   }
 
   /* Light theme specific adjustments */
-  :root.light header .flex.md\\:hidden button,
-  :root.system:not(.dark) header .flex.md\\:hidden button {
+  :root.light .mobile-header-buttons button,
+  :root.system:not(.dark) .mobile-header-buttons button {
     color: rgba(26, 29, 41, 0.9) !important;
   }
 
-  :root.light header .flex.md\\:hidden button:hover,
-  :root.system:not(.dark) header .flex.md\\:hidden button:hover {
+  :root.light .mobile-header-buttons button:hover,
+  :root.system:not(.dark) .mobile-header-buttons button:hover {
     background: rgba(255, 255, 255, 0.15) !important;
   }
 
   /* Dark theme specific adjustments */
-  :root.dark header .flex.md\\:hidden button,
-  :root.system.dark header .flex.md\\:hidden button {
+  :root.dark .mobile-header-buttons button,
+  :root.system.dark .mobile-header-buttons button {
     color: rgba(241, 245, 249, 0.9) !important;
   }
 
-  :root.dark header .flex.md\\:hidden button:hover,
-  :root.system.dark header .flex.md\\:hidden button:hover {
+  :root.dark .mobile-header-buttons button:hover,
+  :root.system.dark .mobile-header-buttons button:hover {
     background: rgba(255, 255, 255, 0.08) !important;
   }
 

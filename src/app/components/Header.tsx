@@ -70,7 +70,7 @@ export default function Header() {
             </nav>
 
             {/* Mobile Menu Button */}
-            <div className="flex md:hidden items-center gap-1">
+            <div className="flex md:hidden items-center gap-1 mobile-header-buttons">
               <div className="[&_button]:bg-transparent [&_button]:hover:bg-white/10 [&_button]:border-0 [&_button]:shadow-none [&_button]:rounded-xl">
                 <Search />
               </div>
