@@ -155,7 +155,7 @@ export default function MobileMenu({ isOpen, onClose, navigationItems }: MobileM
                     variant="ghost"
                     size="md"
                     asChild
-                    className="w-full justify-start text-base font-semibold py-4 px-4 hover:bg-gradient-to-r hover:from-primary/10 hover:to-secondary/10 transition-all duration-300 rounded-xl border border-transparent hover:border-white/10 hover:shadow-lg group"
+                    className="w-full justify-center text-base font-semibold py-4 px-4 hover:bg-gradient-to-r hover:from-primary/10 hover:to-secondary/10 transition-all duration-300 rounded-xl border border-transparent hover:border-white/10 hover:shadow-lg group"
                     onClick={onClose}
                   >
                     <Link href={item.href} className="group-hover:text-primary transition-colors duration-300">
