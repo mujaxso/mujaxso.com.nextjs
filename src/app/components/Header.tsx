@@ -62,13 +62,17 @@ export default function Header() {
 
             {/* Mobile Menu Button */}
             <div className="flex md:hidden items-center gap-2">
-              <Search />
-              <ModeToggle />
+              <div className="[&_button]:bg-transparent [&_button]:hover:bg-white/10 [&_button]:border-0">
+                <Search />
+              </div>
+              <div className="[&_button]:bg-transparent [&_button]:hover:bg-white/10 [&_button]:border-0">
+                <ModeToggle />
+              </div>
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => setIsMobileMenuOpen(true)}
-                className="p-2"
+                className="p-2 bg-transparent hover:bg-white/10 border-0 shadow-none"
                 aria-label="Open menu"
               >
                 <Menu className="w-5 h-5" />

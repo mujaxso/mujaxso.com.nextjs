@@ -196,6 +196,30 @@
     background: rgba(10, 15, 28, 0.7) !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
+
+  /* Fix mobile header buttons to be transparent */
+  header button {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  header button:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+  }
+
+  /* Ensure search component is transparent */
+  header [data-radix-popper-content-wrapper] {
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    background: rgba(250, 252, 255, 0.9) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .dark header [data-radix-popper-content-wrapper] {
+    background: rgba(10, 15, 28, 0.9) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
 }
 
 /* Ensure proper spacing on all screen sizes */
