@@ -15,7 +15,7 @@ export default function ContactPage() {
     const fd = new FormData(form);
 
     // Honeypot: if filled, skip sending
-    if ((fd.get('website') as string)?.trim()) {
+    if ((fd.get('botcheck') as string)?.trim()) {
       setMsg({ ok: true, text: 'Thanks!' });
       form.reset();
       return;
@@ -23,14 +23,16 @@ export default function ContactPage() {
 
     setPending(true);
     try {
-      // Convert FormData to object
-      const data = Object.fromEntries(fd.entries());
-      // Add Web3Forms specific fields
-      const payload = {
-        ...data,
+      // Prepare the data according to Web3Forms requirements
+      const formData = {
         access_key: 'c5ce3857-f4f2-47f4-a977-126b08374ab1',
-        from_name: 'My Website',
-        subject: 'New message from website contact form'
+        name: fd.get('name'),
+        email: fd.get('email'),
+        subject: fd.get('subject_line'),
+        message: fd.get('message'),
+        from_name: 'My Website Contact Form',
+        // Add optional settings
+        botcheck: fd.get('website') // Use honeypot as botcheck
       };
 
       const res = await fetch('https://api.web3forms.com/submit', {
@@ -39,17 +41,20 @@ export default function ContactPage() {
           'Content-Type': 'application/json', 
           'Accept': 'application/json' 
         },
-        body: JSON.stringify(payload),
+        body: JSON.stringify(formData),
       });
 
       const result = await res.json();
-      if (result?.success) {
+      console.log('Web3Forms response:', result);
+      
+      if (result.success) {
         setMsg({ ok: true, text: 'Message sent successfully!' });
         form.reset();
       } else {
-        setMsg({ ok: false, text: result?.message || 'Failed to send. Please try again.' });
+        setMsg({ ok: false, text: result.message || 'Failed to send. Please try again.' });
       }
     } catch (err) {
+      console.error('Submission error:', err);
       setMsg({ ok: false, text: 'Network error. Please try again.' });
     } finally {
       setPending(false);
@@ -154,10 +159,9 @@ export default function ContactPage() {
             )}
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Hidden fields */}
-              <input type="hidden" name="subject" value="New message from website contact form" />
               <input
                 type="text"
-                name="website"
+                name="botcheck"
                 tabIndex={-1}
                 autoComplete="off"
                 className="hidden"
