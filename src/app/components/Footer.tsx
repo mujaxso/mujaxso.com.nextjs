@@ -53,7 +53,7 @@ export default function Footer() {
               variant="outline" 
               size="lg" 
               asChild 
-              className="w-full md:w-auto border-white/20 hover:border-white/40 hover:bg-white/10 transition-all duration-300 px-8 py-3 mx-auto md:mx-0"
+              className="w-full md:w-auto border-white/20 hover:border-white/40 hover:bg-white/10 transition-all duration-300 px-8 py-6 mx-auto md:mx-0 h-auto"
             >
               <a href="mailto:contact@mujaxso.com" className="inline-flex items-center gap-3 text-base font-medium">
                 Get in touch 
