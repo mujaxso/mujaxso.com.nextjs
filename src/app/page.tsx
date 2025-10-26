@@ -76,9 +76,10 @@ export default function Home() {
               </Link>
               <Link 
                 href="/blog" 
-                className="inline-flex items-center justify-center px-8 py-4 backdrop-blur-sm bg-glass border border-glass-border text-foreground rounded-2xl font-medium hover:bg-secondary hover:text-white transition-all duration-300 hover:scale-105"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 backdrop-blur-sm bg-glass border border-glass-border text-white rounded-2xl font-semibold hover:bg-white hover:text-primary transition-all duration-300 hover:scale-105"
               >
                 Read Blog
+                <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
           </div>
@@ -91,9 +92,14 @@ export default function Home() {
             <div className="prose prose-lg text-foreground/80 max-w-none">
               <p className="text-xl leading-relaxed mb-6">
                 I'm a passionate Software Engineer, AI/ML Engineer, Data Scientist, and DevSecOps professional 
-                with a deep love for creating innovative solutions that bridge the gap between cutting-edge 
-                technology and real-world applications. My expertise spans across full-stack development, 
-                machine learning model deployment, data-driven insights, and secure software practices.
+                with expertise in both high-level and low-level programming. My journey spans from systems programming 
+                with Zig and C/C++ to building modern web applications with React and TypeScript, and developing 
+                intelligent solutions with Python and machine learning frameworks.
+              </p>
+              <p className="text-xl leading-relaxed mb-6">
+                I specialize in creating end-to-end solutions that leverage the full stack of modern technology, 
+                from efficient low-level algorithms to scalable cloud infrastructure. My work focuses on building 
+                systems that are not only performant and secure but also intelligent and user-centric.
               </p>
               <p className="text-xl leading-relaxed mb-6">
                 Beyond the world of code and algorithms, I'm also an avid musician, finding creative expression 
@@ -102,7 +108,7 @@ export default function Home() {
               </p>
               <p className="text-xl leading-relaxed">
                 I believe in building technology that not only solves complex challenges but also enhances 
-                human experiences and creates meaningful impact.
+                human experiences and creates meaningful impact across different domains.
               </p>
             </div>
           </div>
@@ -116,8 +122,8 @@ export default function Home() {
               A versatile toolkit for building robust, scalable, and intelligent applications
             </p>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6 max-w-4xl mx-auto">
-            {['Zig', 'React', 'TypeScript', 'Python', 'TensorFlow', 'AWS', 'Docker', 'Kubernetes', 'PostgreSQL', 'GraphQL', 'Next.js', 'FastAPI', 'Redis'].map((skill) => (
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-6 max-w-5xl mx-auto">
+            {['Zig', 'C/C++', 'React', 'TypeScript', 'Python', 'TensorFlow', 'AWS', 'Docker', 'Kubernetes', 'PostgreSQL', 'GraphQL', 'Next.js', 'FastAPI', 'Redis'].map((skill) => (
               <div 
                 key={skill} 
                 className="p-6 backdrop-blur-xl bg-glass border border-glass-border rounded-2xl text-center hover:scale-105 hover:bg-primary/20 transition-all duration-300"
