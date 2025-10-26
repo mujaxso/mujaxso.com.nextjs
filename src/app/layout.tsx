@@ -87,6 +87,9 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
+                // Mark theme as loaded immediately to ensure content is visible
+                document.body.classList.add('theme-loaded');
+                
                 try {
                   // Get the stored theme or default to 'system'
                   var theme = localStorage.getItem('mujaxso-theme') || 'system';
@@ -107,8 +110,6 @@ export default function RootLayout({
                   document.documentElement.classList.remove('light', 'dark', 'system');
                   document.documentElement.classList.add('light');
                 }
-                // Mark theme as loaded immediately - this must be last
-                document.body.classList.add('theme-loaded');
               })();
             `,
           }}

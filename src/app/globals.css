@@ -289,13 +289,9 @@ html, body {
   overflow-x: hidden;
 }
 
-/* Prevent FOUC by hiding content until theme is applied */
-html:not(.light):not(.dark) {
-  visibility: hidden;
-}
-
-html.light, html.dark {
-  visibility: visible;
+/* Always show content to prevent PageSpeed errors */
+html {
+  visibility: visible !important;
 }
 
 /* Ultra-modern animations - optimized for performance */

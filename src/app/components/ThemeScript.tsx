@@ -4,6 +4,9 @@ export default function ThemeScript() {
   // This script runs before React hydration to prevent FOUC
   const scriptContent = `
     (function() {
+      // Mark theme as loaded immediately to ensure content is visible for PageSpeed
+      document.body.classList.add('theme-loaded');
+      
       try {
         var theme = localStorage.getItem('mujaxso-theme');
         var systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
@@ -18,13 +21,8 @@ export default function ThemeScript() {
         }
         // Always add the effective theme for styling
         document.documentElement.classList.add(effectiveTheme);
-        
-        // Mark theme as loaded immediately
-        document.body.classList.add('theme-loaded');
       } catch (e) {
         console.error('Theme initialization error:', e);
-        // Ensure theme is marked as loaded even if there's an error
-        document.body.classList.add('theme-loaded');
       }
     })();
   `;
