@@ -450,14 +450,8 @@ html {
   color: inherit;
 }
 
-/* Hide content until theme is applied to prevent FOUC */
-html {
-  visibility: hidden;
-}
-
-html.light, html.dark {
-  visibility: visible;
-}
+/* next-themes handles FOUC prevention automatically */
+/* No need to hide content */
 
 /* Ensure all direct children of body inherit the theme */
 body, body > * {
