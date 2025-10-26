@@ -38,6 +38,10 @@ const nextConfig: NextConfig = {
           },
           // Content Security Policy
           {
+            key: 'Cross-Origin-Opener-Policy',
+            value: 'same-origin'
+          },
+          {
             key: 'Content-Security-Policy',
             value: `
               default-src 'self';
