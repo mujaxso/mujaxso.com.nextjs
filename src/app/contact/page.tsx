@@ -16,7 +16,7 @@ export default function ContactPage() {
 
     // Honeypot: if filled, skip sending
     if ((fd.get('botcheck') as string)?.trim()) {
-      setMsg({ ok: true, text: 'Thanks!' });
+      setMsg({ ok: true, text: 'Thank you for your message! I will get back to you soon.' });
       form.reset();
       return;
     }
@@ -48,14 +48,14 @@ export default function ContactPage() {
       console.log('Web3Forms response:', result);
       
       if (result.success) {
-        setMsg({ ok: true, text: 'Message sent successfully!' });
+        setMsg({ ok: true, text: 'Thank you for your message! I have received it and will get back to you within 24 hours.' });
         form.reset();
       } else {
-        setMsg({ ok: false, text: result.message || 'Failed to send. Please try again.' });
+        setMsg({ ok: false, text: result.message || 'I apologize, but there was an issue sending your message. Please try again or reach out through one of my other contact methods.' });
       }
     } catch (err) {
       console.error('Submission error:', err);
-      setMsg({ ok: false, text: 'Network error. Please try again.' });
+      setMsg({ ok: false, text: 'I apologize for the inconvenience, but there seems to be a network issue. Please try again in a moment or use one of my other contact methods.' });
     } finally {
       setPending(false);
     }
@@ -77,12 +77,12 @@ export default function ContactPage() {
           {/* Contact Information */}
           <div>
             <h2 className="text-2xl font-bold text-[var(--color-foreground)] mb-6">
-              Let's Start a Conversation
+              Start a Conversation
             </h2>
             <p className="text-[var(--color-foreground)]/60 mb-8">
-              I'm always open to discussing new opportunities, creative ideas, 
-              or opportunities to be part of your vision. Feel free to reach out 
-              through any of the channels below.
+              Whether you have a project in mind, want to explore collaboration opportunities, 
+              or simply wish to connect, I'm here to listen. Let's discuss how we can work together 
+              to bring your ideas to life.
             </p>
             
             <div className="space-y-6">
@@ -92,7 +92,8 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <h3 className="font-semibold text-[var(--color-foreground)]">Email</h3>
-                  <p className="text-[var(--color-foreground)]/60">contact@mujaxso.com</p>
+                  <p className="text-[var(--color-foreground)]/60">I typically respond within a few hours</p>
+                  <p className="text-sm text-[var(--color-primary)] font-medium">contact@mujaxso.com</p>
                 </div>
               </div>
               
@@ -102,7 +103,8 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <h3 className="font-semibold text-[var(--color-foreground)]">GitHub</h3>
-                  <a href="https://github.com/mujaxso" className="text-[var(--color-foreground)]/60 hover:text-[var(--color-primary)] transition-colors">
+                  <p className="text-[var(--color-foreground)]/60">Explore my latest projects and contributions</p>
+                  <a href="https://github.com/mujaxso" className="text-sm text-[var(--color-primary)] font-medium hover:text-[var(--color-primary)] transition-colors">
                     github.com/mujaxso
                   </a>
                 </div>
@@ -114,7 +116,8 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <h3 className="font-semibold text-[var(--color-foreground)]">Instagram</h3>
-                  <a href="https://instagram.com/mujaxso" className="text-[var(--color-foreground)]/60 hover:text-[var(--color-primary)] transition-colors">
+                  <p className="text-[var(--color-foreground)]/60">Follow for creative insights and updates</p>
+                  <a href="https://instagram.com/mujaxso" className="text-sm text-[var(--color-primary)] font-medium hover:text-[var(--color-primary)] transition-colors">
                     @mujaxso
                   </a>
                 </div>
@@ -126,7 +129,8 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <h3 className="font-semibold text-[var(--color-foreground)]">TikTok</h3>
-                  <a href="https://tiktok.com/@mujaxso" className="text-[var(--color-foreground)]/60 hover:text-[var(--color-primary)] transition-colors">
+                  <p className="text-[var(--color-foreground)]/60">Creative content and tech insights</p>
+                  <a href="https://tiktok.com/@mujaxso" className="text-sm text-[var(--color-primary)] font-medium hover:text-[var(--color-primary)] transition-colors">
                     @mujaxso
                   </a>
                 </div>
@@ -138,7 +142,8 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <h3 className="font-semibold text-[var(--color-foreground)]">Website</h3>
-                  <a href="https://mujaxso.com" className="text-[var(--color-foreground)]/60 hover:text-[var(--color-primary)] transition-colors">
+                  <p className="text-[var(--color-foreground)]/60">Explore my portfolio and blog</p>
+                  <a href="https://mujaxso.com" className="text-sm text-[var(--color-primary)] font-medium hover:text-[var(--color-primary)] transition-colors">
                     mujaxso.com
                   </a>
                 </div>
