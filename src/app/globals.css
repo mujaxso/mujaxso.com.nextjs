@@ -202,9 +202,8 @@
     background: transparent !important;
     border: none !important;
     box-shadow: none !important;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
     transition: all 0.3s ease !important;
+    border-radius: 12px !important;
   }
 
   header button:hover {
@@ -217,6 +216,9 @@
     border-radius: 12px !important;
     padding: 8px !important;
     margin: 0 2px !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
   }
 
   /* Light theme specific adjustments */
@@ -228,7 +230,6 @@
   :root.light header .flex.md\\:hidden button:hover,
   :root.system:not(.dark) header .flex.md\\:hidden button:hover {
     background: rgba(255, 255, 255, 0.15) !important;
-    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.3) !important;
   }
 
   /* Dark theme specific adjustments */
@@ -240,7 +241,6 @@
   :root.dark header .flex.md\\:hidden button:hover,
   :root.system.dark header .flex.md\\:hidden button:hover {
     background: rgba(255, 255, 255, 0.08) !important;
-    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1) !important;
   }
 
   /* Ensure search component is transparent */
