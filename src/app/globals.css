@@ -199,7 +199,9 @@
 
 
   /* Ensure all header buttons are completely transparent with rounded corners */
-  header button {
+  header button,
+  .mobile-header-buttons button,
+  header .flex button {
     background: transparent !important;
     border: none !important;
     box-shadow: none !important;
@@ -207,7 +209,9 @@
     transition: all 0.3s ease !important;
   }
 
-  header button:hover {
+  header button:hover,
+  .mobile-header-buttons button:hover,
+  header .flex button:hover {
     background: rgba(255, 255, 255, 0.1) !important;
   }
 
@@ -245,6 +249,16 @@ header {
   width: 100vw !important;
   left: 0 !important;
   right: 0 !important;
+}
+
+/* Ensure desktop navigation buttons have rounded corners */
+header nav ul li button {
+  border-radius: 12px !important;
+}
+
+/* Ensure search and mode toggle buttons in desktop have rounded corners */
+header nav div[class*="flex"] button {
+  border-radius: 12px !important;
 }
 
 /* Light theme header */
