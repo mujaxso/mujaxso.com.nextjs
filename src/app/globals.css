@@ -257,13 +257,22 @@ header {
   right: 0 !important;
 }
 
-/* Ensure desktop navigation buttons have rounded corners */
-header nav ul li button {
+/* Ensure ALL header buttons have rounded corners - more specific rules */
+header button,
+header .flex button,
+header nav button,
+header nav ul li button,
+header nav div[class*="flex"] button,
+.mobile-header-buttons button,
+header .flex button[class*="Button"],
+header nav button[class*="Button"] {
   border-radius: 12px !important;
 }
 
-/* Ensure search and mode toggle buttons in desktop have rounded corners */
-header nav div[class*="flex"] button {
+/* Force rounded corners for all button variants in header */
+header button[class*="rounded"],
+header .flex button[class*="rounded"],
+header nav button[class*="rounded"] {
   border-radius: 12px !important;
 }
 

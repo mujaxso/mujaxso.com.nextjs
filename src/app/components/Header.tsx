@@ -50,7 +50,7 @@ export default function Header() {
                       variant="ghost" 
                       size="md" 
                       asChild 
-                      className="text-foreground/90 hover:text-foreground hover:bg-white/10 transition-all duration-300 font-medium text-base rounded-xl px-4 py-2"
+                      className="text-foreground/90 hover:text-foreground hover:bg-white/10 transition-all duration-300 font-medium text-base rounded-xl px-4 py-2 !rounded-xl"
                     >
                       <Link href={item.href}>
                         {item.label}
@@ -60,10 +60,10 @@ export default function Header() {
                 ))}
               </ul>
               <div className="flex items-center gap-2">
-                <div className="[&_button]:bg-transparent [&_button]:hover:bg-white/10 [&_button]:border-0 [&_button]:shadow-none [&_button]:rounded-xl">
+                <div className="[&_button]:bg-transparent [&_button]:hover:bg-white/10 [&_button]:border-0 [&_button]:shadow-none [&_button]:!rounded-xl">
                   <Search />
                 </div>
-                <div className="[&_button]:bg-transparent [&_button]:hover:bg-white/10 [&_button]:border-0 [&_button]:shadow-none [&_button]:rounded-xl">
+                <div className="[&_button]:bg-transparent [&_button]:hover:bg-white/10 [&_button]:border-0 [&_button]:shadow-none [&_button]:!rounded-xl">
                   <ModeToggle />
                 </div>
               </div>
@@ -71,17 +71,17 @@ export default function Header() {
 
             {/* Mobile Menu Button */}
             <div className="flex md:hidden items-center gap-2 mobile-header-buttons">
-              <div className="[&_button]:bg-transparent [&_button]:hover:bg-white/10 [&_button]:border-0 [&_button]:shadow-none [&_button]:rounded-xl">
+              <div className="[&_button]:bg-transparent [&_button]:hover:bg-white/10 [&_button]:border-0 [&_button]:shadow-none [&_button]:!rounded-xl">
                 <Search />
               </div>
-              <div className="[&_button]:bg-transparent [&_button]:hover:bg-white/10 [&_button]:border-0 [&_button]:shadow-none [&_button]:rounded-xl">
+              <div className="[&_button]:bg-transparent [&_button]:hover:bg-white/10 [&_button]:border-0 [&_button]:shadow-none [&_button]:!rounded-xl">
                 <ModeToggle />
               </div>
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => setIsMobileMenuOpen(true)}
-                className="p-2 bg-transparent hover:bg-white/10 border-0 shadow-none rounded-xl"
+                className="p-2 bg-transparent hover:bg-white/10 border-0 shadow-none !rounded-xl"
                 aria-label="Open menu"
               >
                 <Menu className="w-5 h-5" />
