@@ -176,6 +176,7 @@ export function MusicContent() {
                     onError={() => handlePlayerError(playlist.id)}
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
+                    sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
                   />
                 </div>
                 {playerErrors[playlist.id] && (
@@ -193,6 +194,18 @@ export function MusicContent() {
                     </div>
                   </div>
                 )}
+                {/* Always show a fallback button */}
+                <div className="p-3">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="w-full border-primary/20 hover:border-primary hover:bg-primary/10 text-primary transition-all duration-300 text-xs"
+                    onClick={() => window.open(playlist.url, '_blank')}
+                  >
+                    <ExternalLink className="w-3 h-3 mr-1" />
+                    Open in {getServiceName(playlist.service)}
+                  </Button>
+                </div>
               </div>
 
               {/* Playlist Details */}

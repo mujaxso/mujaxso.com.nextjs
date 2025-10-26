@@ -72,12 +72,12 @@ const nextConfig: NextConfig = {
             key: 'Content-Security-Policy',
             value: `
               default-src 'self';
-              script-src 'self' 'unsafe-eval' 'unsafe-inline' *.googletagmanager.com *.google-analytics.com vercel.live;
+              script-src 'self' 'unsafe-eval' 'unsafe-inline' *.googletagmanager.com *.google-analytics.com vercel.live open.spotify.com www.youtube.com;
               style-src 'self' 'unsafe-inline' fonts.googleapis.com;
               img-src 'self' data: blob: https:;
               font-src 'self' fonts.gstatic.com;
               connect-src 'self' *.google-analytics.com *.analytics.google.com *.googletagmanager.com;
-              frame-src 'self';
+              frame-src 'self' open.spotify.com www.youtube.com *.youtube.com;
               object-src 'none';
               base-uri 'self';
               form-action 'self';
