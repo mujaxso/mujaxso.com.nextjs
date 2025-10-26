@@ -66,10 +66,11 @@ export default function ContactPage() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-[var(--color-foreground)] mb-4">
-            Get In Touch
+            Let's Connect
           </h1>
           <p className="text-xl text-[var(--color-foreground)]/60 max-w-2xl mx-auto">
-            Have a project in mind or want to collaborate? I'd love to hear from you.
+            I'm always excited to discuss new opportunities, creative projects, or potential collaborations. 
+            Feel free to reach out—I'd be delighted to hear from you.
           </p>
         </div>
 
