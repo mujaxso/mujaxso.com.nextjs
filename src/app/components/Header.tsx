@@ -42,15 +42,15 @@ export default function Header() {
             </Link>
             
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center gap-4">
-              <ul className="flex gap-1">
+            <nav className="hidden md:flex items-center gap-6">
+              <ul className="flex gap-2">
                 {navigationItems.map((item) => (
                   <li key={item.href}>
                     <Button 
                       variant="ghost" 
                       size="md" 
                       asChild 
-                      className="text-foreground/90 hover:text-foreground bg-white/5 hover:bg-white/15 border border-transparent hover:border-white/20 backdrop-blur-md transition-all duration-300 font-medium text-base px-4 py-2 rounded-xl hover:scale-105 active:scale-95"
+                      className="text-foreground/90 hover:text-foreground hover:bg-white/15 transition-all duration-300 font-semibold text-base"
                     >
                       <Link href={item.href}>
                         {item.label}
@@ -59,29 +59,21 @@ export default function Header() {
                   </li>
                 ))}
               </ul>
-              <div className="flex items-center gap-2">
-                <div className="[&_button]:bg-white/5 [&_button]:hover:bg-white/15 [&_button]:border [&_button]:border-white/20 [&_button]:shadow-sm [&_button]:rounded-xl [&_button]:backdrop-blur-md [&_button]:transition-all [&_button]:duration-300 [&_button]:hover:scale-105 [&_button]:active:scale-95">
-                  <Search />
-                </div>
-                <div className="[&_button]:bg-white/5 [&_button]:hover:bg-white/15 [&_button]:border [&_button]:border-white/20 [&_button]:shadow-sm [&_button]:rounded-xl [&_button]:backdrop-blur-md [&_button]:transition-all [&_button]:duration-300 [&_button]:hover:scale-105 [&_button]:active:scale-95">
-                  <ModeToggle />
-                </div>
+              <div className="flex items-center gap-4">
+                <Search />
+                <ModeToggle />
               </div>
             </nav>
 
             {/* Mobile Menu Button */}
-            <div className="flex md:hidden items-center gap-2 mobile-header-buttons">
-              <div className="[&_button]:bg-white/5 [&_button]:hover:bg-white/15 [&_button]:border [&_button]:border-white/20 [&_button]:shadow-sm [&_button]:rounded-xl [&_button]:backdrop-blur-md [&_button]:transition-all [&_button]:duration-300">
-                <Search />
-              </div>
-              <div className="[&_button]:bg-white/5 [&_button]:hover:bg-white/15 [&_button]:border [&_button]:border-white/20 [&_button]:shadow-sm [&_button]:rounded-xl [&_button]:backdrop-blur-md [&_button]:transition-all [&_button]:duration-300">
-                <ModeToggle />
-              </div>
+            <div className="flex md:hidden items-center gap-2">
+              <Search />
+              <ModeToggle />
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => setIsMobileMenuOpen(true)}
-                className="p-2 bg-white/5 hover:bg-white/15 border border-white/20 shadow-sm rounded-xl backdrop-blur-md transition-all duration-300 hover:scale-105 active:scale-95"
+                className="p-2"
                 aria-label="Open menu"
               >
                 <Menu className="w-5 h-5" />

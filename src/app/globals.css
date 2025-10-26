@@ -197,67 +197,6 @@
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
 
-  /* Modern and elegant mobile header buttons */
-  .mobile-header-buttons button {
-    background: rgba(255, 255, 255, 0.08) !important;
-    border: 1px solid rgba(255, 255, 255, 0.15) !important;
-    box-shadow: 
-      0 2px 8px rgba(0, 0, 0, 0.1),
-      inset 0 1px 0 rgba(255, 255, 255, 0.1),
-      0 0 0 1px rgba(255, 255, 255, 0.05) !important;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-    border-radius: 12px !important;
-    backdrop-filter: blur(12px) !important;
-    -webkit-backdrop-filter: blur(12px) !important;
-  }
-
-  .mobile-header-buttons button:hover {
-    background: rgba(255, 255, 255, 0.12) !important;
-    border-color: rgba(255, 255, 255, 0.25) !important;
-    transform: translateY(-1px) scale(1.02);
-    box-shadow: 
-      0 4px 16px rgba(0, 0, 0, 0.15),
-      inset 0 1px 0 rgba(255, 255, 255, 0.15),
-      0 0 0 1px rgba(255, 255, 255, 0.1) !important;
-  }
-
-  .mobile-header-buttons button:active {
-    transform: translateY(0) scale(0.98);
-    transition-duration: 0.1s !important;
-  }
-
-  /* Light theme specific adjustments */
-  :root.light .mobile-header-buttons button,
-  :root.system:not(.dark) .mobile-header-buttons button {
-    color: rgba(26, 29, 41, 0.9) !important;
-    background: rgba(255, 255, 255, 0.7) !important;
-    border: 1px solid rgba(255, 255, 255, 0.4) !important;
-    box-shadow: 
-      0 2px 8px rgba(0, 0, 0, 0.08),
-      inset 0 1px 0 rgba(255, 255, 255, 0.6),
-      0 0 0 1px rgba(255, 255, 255, 0.2) !important;
-  }
-
-  :root.light .mobile-header-buttons button:hover,
-  :root.system:not(.dark) .mobile-header-buttons button:hover {
-    background: rgba(255, 255, 255, 0.85) !important;
-    border-color: rgba(255, 255, 255, 0.6) !important;
-    box-shadow: 
-      0 4px 16px rgba(0, 0, 0, 0.12),
-      inset 0 1px 0 rgba(255, 255, 255, 0.8),
-      0 0 0 1px rgba(255, 255, 255, 0.3) !important;
-  }
-
-  /* Dark theme specific adjustments */
-  :root.dark .mobile-header-buttons button,
-  :root.system.dark .mobile-header-buttons button {
-    color: rgba(241, 245, 249, 0.95) !important;
-  }
-
-  :root.dark .mobile-header-buttons button:hover,
-  :root.system.dark .mobile-header-buttons button:hover {
-    background: rgba(255, 255, 255, 0.12) !important;
-  }
 
   /* Ensure search component is transparent */
   header [data-radix-popper-content-wrapper] {
