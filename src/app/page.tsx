@@ -69,10 +69,10 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link 
                 href="/projects" 
-                className="group px-8 py-4 backdrop-blur-sm bg-glass border border-glass-border text-foreground rounded-2xl font-medium hover:bg-primary hover:text-white transition-all duration-300 flex items-center gap-2 hover:scale-105"
+                className="inline-flex items-center gap-2 px-8 py-4 backdrop-blur-sm bg-glass border border-glass-border text-white rounded-2xl font-semibold hover:bg-white hover:text-primary transition-all duration-300 hover:scale-105"
               >
                 Explore Projects
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-4 h-4" />
               </Link>
               <Link 
                 href="/blog" 
