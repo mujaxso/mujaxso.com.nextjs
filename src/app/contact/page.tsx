@@ -2,75 +2,30 @@
 
 import { useState } from 'react';
 import { Mail, Send, Github, ExternalLink, Instagram } from 'lucide-react';
+import { submitContactForm } from '../actions/contact';
 
 export default function ContactPage() {
   const [pending, setPending] = useState(false);
   const [msg, setMsg] = useState<{ ok: boolean; text: string } | null>(null);
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+  async function handleSubmit(formData: FormData) {
     setMsg(null);
-
-    const form = e.currentTarget;
-    const fd = new FormData(form);
-
-    // Honeypot: if filled, skip sending
-    if ((fd.get('botcheck') as string)?.trim()) {
-      setMsg({ ok: true, text: 'Thank you for your message! I will get back to you soon.' });
-      form.reset();
-      return;
-    }
-
     setPending(true);
+    
     try {
-      // Use FormData directly as Web3Forms might prefer this
-      const submitData = new FormData();
-      submitData.append('access_key', 'c5ce3857-f4f2-47f4-a977-126b08374ab1');
-      submitData.append('name', fd.get('name') as string);
-      submitData.append('email', fd.get('email') as string);
-      submitData.append('subject', fd.get('subject_line') as string);
-      submitData.append('message', fd.get('message') as string);
-      submitData.append('from_name', 'My Website Contact Form');
-      submitData.append('botcheck', fd.get('botcheck') as string);
-
-      console.log('Sending form data');
-
-      // Add timeout to fetch
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
-
-      const res = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        body: submitData,
-        signal: controller.signal
-      });
-
-      clearTimeout(timeoutId);
-
-      console.log('Response status:', res.status);
-      
-      if (!res.ok) {
-        throw new Error(`HTTP error! status: ${res.status}`);
-      }
-
-      const result = await res.json();
-      console.log('Web3Forms response:', result);
+      const result = await submitContactForm(formData);
       
       if (result.success) {
-        setMsg({ ok: true, text: 'Thank you for your message! I have received it and will get back to you within 24 hours.' });
-        form.reset();
+        setMsg({ ok: true, text: result.message });
+        // Reset the form
+        const form = document.querySelector('form') as HTMLFormElement;
+        if (form) form.reset();
       } else {
-        setMsg({ ok: false, text: result.message || 'I apologize, but there was an issue sending your message. Please try again or reach out through one of my other contact methods.' });
+        setMsg({ ok: false, text: result.message });
       }
     } catch (err) {
       console.error('Submission error:', err);
-      if (err.name === 'AbortError') {
-        setMsg({ ok: false, text: 'The request timed out. Please check your internet connection and try again.' });
-      } else if (err.message?.includes('HTTP error')) {
-        setMsg({ ok: false, text: `Server error: ${err.message}. Please try again later.` });
-      } else {
-        setMsg({ ok: false, text: 'Network error. Please check your internet connection and try again.' });
-      }
+      setMsg({ ok: false, text: 'I apologize for the inconvenience, but there seems to be a network issue. Please try again in a moment or use one of my other contact methods.' });
     } finally {
       setPending(false);
     }
@@ -178,7 +133,7 @@ export default function ContactPage() {
                 {msg.text}
               </div>
             )}
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form action={handleSubmit} className="space-y-6">
               {/* Hidden fields */}
               <input
                 type="text"
