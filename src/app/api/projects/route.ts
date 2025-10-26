@@ -41,7 +41,10 @@ async function getProjects() {
 export async function GET() {
   try {
     const projects = await getProjects();
-    return NextResponse.json(projects);
+    const response = NextResponse.json(projects);
+    // Add headers to ensure fresh content
+    response.headers.set('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=30');
+    return response;
   } catch (error) {
     console.error('Error fetching projects:', error);
     // Fallback to static data
@@ -50,6 +53,8 @@ export async function GET() {
       { title: 'AI Chat Application', description: 'Real-time chat application with AI-powered responses', slug: 'ai-chat-app' },
       { title: 'Data Visualization Dashboard', description: 'Interactive dashboard for data analysis and visualization', slug: 'data-dashboard' },
     ];
-    return NextResponse.json(projects);
+    const response = NextResponse.json(projects);
+    response.headers.set('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=30');
+    return response;
   }
 }

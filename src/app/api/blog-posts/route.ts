@@ -47,7 +47,11 @@ export async function GET() {
     const posts = await getBlogPosts();
     // Filter out null values from draft posts
     const filteredPosts = posts.filter(post => post !== null);
-    return NextResponse.json(filteredPosts);
+    
+    const response = NextResponse.json(filteredPosts);
+    // Add headers to ensure fresh content
+    response.headers.set('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=30');
+    return response;
   } catch (error) {
     console.error('Error fetching blog posts:', error);
     // Fallback to static data
@@ -56,6 +60,8 @@ export async function GET() {
       { title: 'React Best Practices', description: 'Essential patterns and practices for React development', slug: 'react-best-practices' },
       { title: 'Machine Learning Fundamentals', description: 'Introduction to core concepts in machine learning and AI', slug: 'machine-learning-fundamentals' },
     ];
-    return NextResponse.json(blogPosts);
+    const response = NextResponse.json(blogPosts);
+    response.headers.set('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=30');
+    return response;
   }
 }

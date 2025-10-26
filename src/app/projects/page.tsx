@@ -22,8 +22,8 @@ interface Project {
   image?: string;
 }
 
-// Revalidate every hour for ISR
-export const revalidate = 3600;
+// Revalidate every minute for ISR to ensure new content is indexed quickly
+export const revalidate = 60;
 
 async function getProjects(): Promise<Project[]> {
   const projectsDirectory = join(process.cwd(), 'src', 'content', 'projects');

@@ -97,5 +97,5 @@ export default async function BlogPage() {
   }
 }
 
-// Revalidate every hour for ISR
-export const revalidate = 3600;
+// Revalidate every minute for ISR to ensure new content is indexed quickly
+export const revalidate = 60;
