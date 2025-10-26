@@ -189,7 +189,7 @@ export default function Footer() {
                   </div>
                 ) : (
                   <div className="flex flex-col items-center space-y-2">
-                    <Send className="w-5 h-5 transition-transform duration-300 group-hover:translate-y-[-2px] group-hover:scale-110" />
+                    <Send className="w-5 h-5 transition-transform duration-300 group-hover:translate-y-[-2px]" />
                     <span>Send Message</span>
                   </div>
                 )}
