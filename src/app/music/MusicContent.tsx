@@ -194,7 +194,7 @@ export function MusicContent() {
                     </div>
                   </div>
                 )}
-                {/* Always show a fallback button */}
+                {/* Fallback button that's always visible */}
                 <div className="p-3">
                   <Button
                     variant="outline"
