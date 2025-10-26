@@ -204,16 +204,16 @@ export default function ContactPage() {
               <button
                 type="submit"
                 disabled={pending}
-                className="w-full flex flex-col items-center justify-center px-8 py-8 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)] text-white font-medium rounded-xl hover:opacity-95 transition-all duration-300 hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl shadow-[var(--color-primary)]/20 hover:shadow-[var(--color-primary)]/40 group border border-white/10"
+                className="w-full flex flex-col items-center justify-center px-8 py-8 backdrop-blur-xl bg-[var(--color-glass)] border border-[var(--color-glass-border)] text-[var(--color-foreground)] font-medium rounded-xl hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed group hover:border-[var(--color-primary)]/50"
               >
                 {pending ? (
                   <div className="flex flex-col items-center space-y-3">
-                    <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    <div className="w-6 h-6 border-2 border-[var(--color-primary)] border-t-transparent rounded-full animate-spin" />
                     <span>Sending...</span>
                   </div>
                 ) : (
                   <div className="flex flex-col items-center space-y-3">
-                    <Send className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
+                    <Send className="w-5 h-5 transition-transform duration-300 group-hover:scale-110 text-[var(--color-primary)]" />
                     <span>Send Message</span>
                   </div>
                 )}
