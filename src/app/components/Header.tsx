@@ -50,7 +50,7 @@ export default function Header() {
                       variant="ghost" 
                       size="md" 
                       asChild 
-                      className="text-foreground/90 hover:text-foreground hover:bg-white/15 transition-all duration-300 font-semibold text-base"
+                      className="text-foreground/90 hover:text-foreground hover:bg-white/10 transition-all duration-300 font-medium text-base"
                     >
                       <Link href={item.href}>
                         {item.label}
@@ -59,21 +59,29 @@ export default function Header() {
                   </li>
                 ))}
               </ul>
-              <div className="flex items-center gap-4">
-                <Search />
-                <ModeToggle />
+              <div className="flex items-center gap-2">
+                <div className="[&_button]:bg-transparent [&_button]:hover:bg-white/10 [&_button]:border-0 [&_button]:shadow-none">
+                  <Search />
+                </div>
+                <div className="[&_button]:bg-transparent [&_button]:hover:bg-white/10 [&_button]:border-0 [&_button]:shadow-none">
+                  <ModeToggle />
+                </div>
               </div>
             </nav>
 
             {/* Mobile Menu Button */}
             <div className="flex md:hidden items-center gap-2">
-              <Search />
-              <ModeToggle />
+              <div className="[&_button]:bg-transparent [&_button]:hover:bg-white/10 [&_button]:border-0 [&_button]:shadow-none">
+                <Search />
+              </div>
+              <div className="[&_button]:bg-transparent [&_button]:hover:bg-white/10 [&_button]:border-0 [&_button]:shadow-none">
+                <ModeToggle />
+              </div>
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => setIsMobileMenuOpen(true)}
-                className="p-2"
+                className="p-2 bg-transparent hover:bg-white/10 border-0 shadow-none"
                 aria-label="Open menu"
               >
                 <Menu className="w-5 h-5" />

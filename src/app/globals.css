@@ -198,6 +198,17 @@
   }
 
 
+  /* Ensure all header buttons are completely transparent */
+  header button {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  header button:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+  }
+
   /* Ensure search component is transparent */
   header [data-radix-popper-content-wrapper] {
     backdrop-filter: blur(20px) saturate(180%);
