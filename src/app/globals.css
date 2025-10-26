@@ -204,7 +204,8 @@
   header .flex button,
   header .flex button[class*="Button"],
   header nav button,
-  header nav button[class*="Button"] {
+  header nav button[class*="Button"],
+  header button[class*="Button"] {
     background: transparent !important;
     border: none !important;
     box-shadow: none !important;
@@ -217,7 +218,8 @@
   header .flex button:hover,
   header .flex button[class*="Button"]:hover,
   header nav button:hover,
-  header nav button[class*="Button"]:hover {
+  header nav button[class*="Button"]:hover,
+  header button[class*="Button"]:hover {
     background: rgba(255, 255, 255, 0.1) !important;
   }
 
