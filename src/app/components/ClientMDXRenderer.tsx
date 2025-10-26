@@ -3,6 +3,7 @@
 import { MDXRemote } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
 import rehypeHighlight from 'rehype-highlight';
+import remarkGfm from 'remark-gfm';
 import { useState, useEffect } from 'react';
 import SyntaxHighlighting from './SyntaxHighlighting';
 
@@ -36,9 +37,11 @@ export default function ClientMDXRenderer({ content }: ClientMDXRendererProps) {
 
         const serialized = await serialize(processedContent, {
           mdxOptions: {
+            remarkPlugins: [remarkGfm], // Add GitHub Flavored Markdown support for tables
             rehypePlugins: [rehypeHighlight],
           },
-          scope: { style: {} }
+          scope: { style: {} },
+          parseFrontmatter: false
         });
         setMdxSource(serialized);
       } catch (err) {
@@ -93,16 +96,29 @@ export default function ClientMDXRenderer({ content }: ClientMDXRendererProps) {
                 return <code className={className}>{children}</code>;
               },
               pre: ({ children }) => <pre className="bg-muted/30 p-6 rounded-xl border border-border/50 overflow-x-auto my-8 font-mono text-sm leading-6 shadow-sm">{children}</pre>,
-              table: ({ children }) => (
-                <div className="overflow-x-auto my-8 border border-border rounded-lg shadow-sm">
-                  <table className="min-w-full divide-y divide-border">{children}</table>
-                </div>
-              ),
+              table: ({ children }) => {
+                // Ensure children is treated as a table structure
+                return (
+                  <div className="overflow-x-auto my-8 border border-border rounded-lg shadow-sm">
+                    <table className="min-w-full divide-y divide-border border-collapse">
+                      {children}
+                    </table>
+                  </div>
+                );
+              },
               thead: ({ children }) => <thead className="bg-muted/50">{children}</thead>,
               tbody: ({ children }) => <tbody className="divide-y divide-border bg-background">{children}</tbody>,
-              tr: ({ children }) => <tr className="even:bg-muted/20">{children}</tr>,
-              th: ({ children }) => <th className="px-6 py-3 text-left text-sm font-semibold text-foreground border-r last:border-r-0 border-border">{children}</th>,
-              td: ({ children }) => <td className="px-6 py-4 text-sm text-foreground/90 border-r last:border-r-0 border-border whitespace-nowrap">{children}</td>,
+              tr: ({ children }) => <tr className="even:bg-muted/20 border-b border-border">{children}</tr>,
+              th: ({ children }) => (
+                <th className="px-6 py-3 text-left text-sm font-semibold text-foreground border-r border-border last:border-r-0">
+                  {children}
+                </th>
+              ),
+              td: ({ children }) => (
+                <td className="px-6 py-4 text-sm text-foreground/90 border-r border-border last:border-r-0 whitespace-normal">
+                  {children}
+                </td>
+              ),
               a: ({ children, href }) => <a href={href} className="text-primary font-medium no-underline border-b border-primary/30 hover:border-primary transition-colors duration-200">{children}</a>,
               img: ({ src, alt }) => <img src={src} alt={alt} className="rounded-2xl shadow-lg my-8 mx-auto border border-border/50 max-w-full" />,
               hr: () => <hr className="my-12 border-border/50" />

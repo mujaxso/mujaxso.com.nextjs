@@ -680,6 +680,7 @@ textarea:focus-visible {
   border-radius: 0.5rem;
   overflow: hidden;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  border: 1px solid var(--color-border);
 }
 
 .prose thead {
@@ -690,6 +691,10 @@ textarea:focus-visible {
 .prose tbody tr {
   border-bottom: 1px solid var(--color-border);
   transition: background-color 0.2s ease;
+}
+
+.prose tbody tr:last-child {
+  border-bottom: none;
 }
 
 .prose tbody tr:hover {
@@ -714,6 +719,7 @@ textarea:focus-visible {
   border-right: 1px solid var(--color-border);
   color: var(--color-foreground);
   opacity: 0.9;
+  vertical-align: top;
 }
 
 .prose td:last-child {
@@ -728,7 +734,6 @@ textarea:focus-visible {
 .prose > div > table {
   display: block;
   overflow-x: auto;
-  white-space: nowrap;
 }
 
 /* For better mobile experience */
@@ -741,6 +746,15 @@ textarea:focus-visible {
   .prose td {
     padding: 0.5rem 0.75rem;
   }
+}
+
+/* Fix for table wrapper */
+.prose > div.overflow-x-auto {
+  margin: 1.5rem 0;
+}
+
+.prose > div.overflow-x-auto > table {
+  margin: 0;
 }
 
 /* Smooth scrolling */
