@@ -2,11 +2,39 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Github, Linkedin, Mail, ExternalLink, Code2, Heart, Sparkles } from "lucide-react";
+import { Github, Linkedin, Mail, ExternalLink, Code2, Heart, Sparkles, Send } from "lucide-react";
 import { Button } from "./ui/Button";
 import ModeToggle from "./ModeToggle";
+import { useState } from "react";
+import { submitContactForm } from "../actions/contact";
 
 export default function Footer() {
+  const [pending, setPending] = useState(false);
+  const [msg, setMsg] = useState<{ ok: boolean; text: string } | null>(null);
+
+  async function handleSubmit(formData: FormData) {
+    setMsg(null);
+    setPending(true);
+    
+    try {
+      const result = await submitContactForm(formData);
+      
+      if (result.success) {
+        setMsg({ ok: true, text: result.message });
+        // Reset the form
+        const form = document.querySelector('form') as HTMLFormElement;
+        if (form) form.reset();
+      } else {
+        setMsg({ ok: false, text: result.message });
+      }
+    } catch (err) {
+      console.error('Submission error:', err);
+      setMsg({ ok: false, text: 'I apologize for the inconvenience, but there seems to be a network issue. Please try again in a moment or use one of my other contact methods.' });
+    } finally {
+      setPending(false);
+    }
+  }
+
   return (
     <footer className="relative overflow-hidden backdrop-blur-2xl bg-background/30 border-t border-white/10">
       {/* Subtle gradient overlay */}
@@ -98,14 +126,35 @@ export default function Footer() {
             <h3 className="font-bold text-foreground mb-6 text-lg tracking-wide text-center md:text-left">
               Quick Message
             </h3>
-            <form action="/api/contact" method="POST" className="space-y-4">
+            {msg && (
+              <div className={`mb-4 p-3 rounded-lg text-sm ${
+                msg.ok 
+                  ? 'bg-green-500/10 border border-green-500/20 text-green-600' 
+                  : 'bg-red-500/10 border border-red-500/20 text-red-600'
+              }`}>
+                {msg.text}
+              </div>
+            )}
+            <form action={handleSubmit} className="space-y-4">
+              {/* Hidden honeypot field */}
+              <input
+                type="text"
+                name="botcheck"
+                tabIndex={-1}
+                autoComplete="off"
+                className="hidden"
+                aria-hidden="true"
+              />
+              {/* Hidden subject field */}
+              <input type="hidden" name="subject_line" value="Quick message from website footer" />
+              
               <div>
                 <input 
                   type="text" 
                   name="name"
                   placeholder="Your Name"
                   required
-                  className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary/50 transition-all duration-300 backdrop-blur-sm text-center placeholder:text-center"
+                  className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary/50 transition-all duration-300 backdrop-blur-sm"
                 />
               </div>
               <div>
@@ -114,7 +163,7 @@ export default function Footer() {
                   name="email"
                   placeholder="Your Email"
                   required
-                  className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary/50 transition-all duration-300 backdrop-blur-sm text-center placeholder:text-center"
+                  className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary/50 transition-all duration-300 backdrop-blur-sm"
                 />
               </div>
               <div>
@@ -123,16 +172,27 @@ export default function Footer() {
                   placeholder="Your Message"
                   rows={3}
                   required
-                  className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary/50 transition-all duration-300 backdrop-blur-sm resize-none text-center placeholder:text-center"
+                  className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary/50 transition-all duration-300 backdrop-blur-sm resize-none"
                 />
               </div>
               <Button 
                 type="submit"
                 variant="default" 
                 size="lg" 
-                className="w-full bg-gradient-to-r from-primary to-secondary text-primary-foreground shadow-lg hover:shadow-xl transition-all duration-300"
+                disabled={pending}
+                className="w-full bg-gradient-to-r from-primary to-secondary text-primary-foreground shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Send Message
+                {pending ? (
+                  <>
+                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
+                    Sending...
+                  </>
+                ) : (
+                  <>
+                    <Send className="w-4 h-4 mr-2" />
+                    Send Message
+                  </>
+                )}
               </Button>
             </form>
           </div>
