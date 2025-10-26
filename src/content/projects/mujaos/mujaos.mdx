@@ -1,13 +1,15 @@
 ---
 title: "MujaOS - Modular NixOS Configuration"
-description: "Lightweight Modular nix configuration for modern systems"
-image: /projects/mujaos/mujaos1.png
+description: "Lightweight modular NixOS configuration for modern systems — declarative, reproducible, and future-ready."
+image: "/projects/mujaos/mujaos1.png"
 date: "2025-10-22"
 category: "Operating Systems"
 tags: ["nixos", "linux", "configuration", "flake", "declarative"]
-githubUrl: "https://github.com/mujaxso/MujaOS"
-liveUrl: "https://mujaos.mujaxso.com"
+githubUrl: "[https://github.com/mujaxso/MujaOS](https://github.com/mujaxso/MujaOS)"
+liveUrl: "[https://mujaos.mujaxso.com](https://mujaos.mujaxso.com)"
 featured: true
+---
+
 ---
 
 # MujaOS — Modular NixOS Configuration
@@ -17,137 +19,188 @@ featured: true
 ![License](https://img.shields.io/github/license/mujaxso/mujaos?style=for-the-badge)
 ![CI](https://img.shields.io/github/actions/workflow/status/mujaxso/mujaos/ci.yml?branch=main&label=CI&style=for-the-badge)
 
-![Alt text](/projects/mujaos/mujaos1.png)
+![MujaOS Screenshot](/projects/mujaos/mujaos1.png)
 
 ### **Declarative. Modular. Reproducible.**
 
-_A modern, flake-based NixOS configuration designed for clarity, maintainability, and reliability._
+_A lightweight, flake-based NixOS configuration designed for modern systems and developers who value clarity, speed, and control._
 
-## 🧠 Philosophy
+---
 
-**NixOS done right.**\
-MujaOS delivers a clean, reproducible, and modular approach to NixOS configuration built around Nix flakes. It aims to make system management predictable and maintainable by design.
+## 🧩 Overview
 
-Key goals:
+**MujaOS** is more than just a NixOS configuration — it’s a **framework for reproducible Linux environments**.
+Built on the power of Nix flakes, MujaOS turns the complex world of system configuration into something elegant, scalable, and maintainable.
 
-- 💡 Build and rebuild **identical systems** — every time
-- 🧩 **Modular architecture** that's easy to customize safely
-- 🪶 **Lightweight, readable structure** for long-term maintainability
-- 🔁 **Versioned configurations** — rollback to any state with Git
+Whether you’re setting up a personal workstation, deploying servers, or managing multiple devices, MujaOS ensures every build is **identical, version-controlled, and clean**.
 
-No fragile scripts. No "snowflake" systems. Just reproducible infrastructure as code.
+> **Goal:** Deliver a modern, opinionated foundation for NixOS that balances flexibility with simplicity — perfect for both enthusiasts and professionals.
 
-## ✨ Features
+---
 
-- ⚙️ **Flake-based design** — modern, self-contained configuration
-- 🧩 **Modular system components** — plug-and-play modules for services and settings
-- 🧰 **User profiles** — separate user environments for clarity
-- 🔁 **Reproducible builds** — eliminate configuration drift
-- 🌐 **Multi-host support** — manage desktops, laptops, and servers from one repo
-- 🔒 **Security-focused defaults** — consistency meets hardening
-- 🪶 **Minimal boilerplate** — simple to read, simple to extend
+## ⚙️ Why MujaOS?
 
-## 🧩 Requirements
+| Traditional NixOS                           | With MujaOS                               |
+| ------------------------------------------- | ----------------------------------------- |
+| Manual configuration scattered across files | Modular structure with clear separation   |
+| Rebuilding feels uncertain                  | Deterministic builds via flakes           |
+| Hard to share between devices               | Multi-host & multi-user ready             |
+| Customization is error-prone                | Safe, declarative modules with versioning |
+| Setup knowledge barrier                     | Simplified onboarding and examples        |
 
-### **Software Requirements**
+MujaOS bridges the gap between **Nix purity** and **developer pragmatism**, making it accessible and production-ready.
 
-- **Nix** ≥ 2.18 with flakes enabled
-- **NixOS 25.05** or newer
-- **Git** for fetching and versioning
-- **sudo** privileges for system rebuilds
-- (Optional) `nix-command` enabled in `/etc/nix/nix.conf`
+---
 
-### **Hardware Recommendations**
+## 🧠 Core Architecture
 
-- Architecture: **x86_64** or **aarch64**
-- Memory: **2 GB+ RAM** (4 GB recommended)
-- Storage: **10 GB free disk space** minimum
-- Network: Reliable Internet connection for fetching dependencies
+MujaOS is built with three key layers, making it modular yet cohesive:
 
-### **Knowledge Requirements**
+1. **Flake Root (`flake.nix`)** — the project entrypoint defining dependencies, inputs, and outputs.
+2. **Modules Layer (`modules/`)** — independent building blocks for services, networking, security, and UI.
+3. **Hosts Layer (`hosts/`)** — defines individual systems (e.g., `laptop`, `server`, `desktop`) as unique compositions of modules.
 
-- Familiarity with:
-  - Basic **Nix expressions** and the **NixOS module system**
-  - Using `nixos-rebuild` and `flake` commands
-  - **Git** workflow basics
-  - General **Linux system administration**
+Add optional layers for:
 
-> 💡 _New to NixOS? Start with [Nix Pills](https://nixos.org/guides/nix-pills/) or the [NixOS Flakes Wiki](https://nixos.wiki/wiki/Flakes)._
+- **Users (`users/`)** — personalized development environments
+- **Overlays (`overlays/`)** — extend or override package definitions
 
-## 🚀 Installation
+This design keeps your infrastructure composable, reusable, and easy to reason about.
 
-1. **Clone the repository**
+> 🧩 Every host is just a collection of modules — plug in, remove, or swap components without breaking the system.
+
+---
+
+## ✨ Features at a Glance
+
+- ⚙️ **Flake-based design** — self-contained, modern, and version-controlled
+- 🧩 **True modularity** — services, hardware, and users separated cleanly
+- 🌐 **Multi-host management** — run servers, desktops, and VMs from one repo
+- 🔒 **Security-focused defaults** — hardened settings out of the box
+- 🔁 **Reproducible builds** — deterministic and rollback-ready
+- 🧰 **User profiles** — tailor user environments with zero overlap
+- 🪶 **Minimal boilerplate** — human-readable structure built to scale
+
+---
+
+## 🚀 Getting Started
+
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/mujaxso/mujaos.git
 cd mujaos
 ```
 
-2. **Build and switch to your host configuration**
+### 2. Switch to your host configuration
 
 ```bash
 sudo nixos-rebuild switch --flake .#laptop --show-trace
 ```
 
-Replace `laptop` with your target host name (as defined under `hosts/`).
+> Replace `laptop` with your host name (e.g. `server`, `desktop`, or `workstation`).
 
-3. **Reboot your system**
+### 3. Reboot & enjoy
 
-Once rebuilt, reboot to load the new configuration.
+Once complete, reboot to load your fully declarative system.
 
-## 🧭 Repository Structure
+> 💡 _New to NixOS? Check out [Nix Pills](https://nixos.org/guides/nix-pills/) or the [NixOS Flakes Wiki](https://nixos.wiki/wiki/Flakes)._
 
-```
+---
+
+## 🧭 Project Structure
+
+```bash
 mujaos/
-├── flake.nix              # Main Nix flake entrypoint
-├── flake.lock             # Pin exact dependency versions
-├── hosts/                 # Host-specific configurations
-│   ├── laptop/            # Example laptop profile
-│   └── server/            # Example server profile
-├── modules/               # Modular components (network, desktop, etc.)
-├── users/                 # User-specific configurations
-├── overlays/              # Custom Nix package overlays
-├── assets/                # Images, branding, and docs
+├── flake.nix              # Main flake entrypoint
+├── flake.lock             # Dependency lock file
+├── hosts/                 # Host-specific definitions
+│   ├── laptop/
+│   └── server/
+├── modules/               # Modular system components
+├── users/                 # User configurations
+├── overlays/              # Custom package overrides
+├── assets/                # Images and docs
 └── README.md              # Project documentation
 ```
 
-> 🧩 Each folder and module is self-contained for clarity and scalability. Add or remove hosts without affecting others.
+> Clean. Predictable. Extensible.
+> You can add or remove hosts without affecting others — every system stays isolated yet maintainable.
 
-## ⚙️ Example Usage
+---
 
-To rebuild or switch configurations:
+## 🧰 Example Commands
+
+Rebuild or switch configurations:
 
 ```bash
 sudo nixos-rebuild switch --flake .#desktop
 ```
 
-To update flake inputs (e.g., Nixpkgs, Home Manager):
+Update inputs (Nixpkgs, Home Manager, etc.):
 
 ```bash
 nix flake update
 ```
 
-To test configurations without applying them:
+Test changes without applying:
 
 ```bash
 sudo nixos-rebuild test --flake .#server
 ```
 
+Rollback to previous generations:
+
+```bash
+sudo nixos-rebuild rollback
+```
+
+---
+
+## 💬 Philosophy
+
+MujaOS is founded on three principles:
+
+- **Declarative by Design** — Systems should describe _what_ they are, not _how_ to become that.
+- **Modular by Default** — Small, composable modules are easier to maintain.
+- **Reproducible Forever** — Your system today should be buildable tomorrow — byte-for-byte identical.
+
+> “If it can’t be rebuilt exactly, it’s not truly declarative.”
+
+---
+
+## 📈 Roadmap
+
+**Upcoming Enhancements:**
+
+- 🧩 Plug-and-play desktop environments (GNOME, KDE, Hyprland)
+- ☁️ Remote provisioning via SSH and NixOps integration
+- 🔄 Template generator for new hosts and modules
+- 🧠 Documentation site with interactive examples
+- 🧰 Cross-platform build support (x86_64 & aarch64)
+
+> 💬 _Want to shape MujaOS? Join discussions on [GitHub Issues](https://github.com/mujaxso/MujaOS/issues)._
+
+---
+
 ## 🤝 Contributing
 
-Contributions are always welcome!\
-Here's how you can help improve MujaOS:
+Contributions are welcome!
+If you believe in modular, reproducible systems, here’s how to help:
 
-- 🐛 **Report bugs** — open an issue
-- 💡 **Suggest features** — share ideas to improve modularity or usability
-- 🔧 **Submit pull requests** — keep your commits clean and atomic
+- 🐛 **Report bugs** — create an issue
+- 💡 **Suggest features** — ideas that enhance maintainability or developer experience
+- 🔧 **Submit pull requests** — keep commits atomic and follow **conventional commits** style (`feat:`, `fix:`, `docs:`, etc.)
 
-> Please follow **conventional commits** (`feat:`, `fix:`, `docs:`, etc.) and ensure your changes remain modular.
+> Contributions are reviewed with clarity, modularity, and reproducibility in mind.
 
-## 📄 License
+---
 
-This project is licensed under the **MIT License**.\
-You're free to use, modify, and distribute under the same terms.
+## 📜 License
 
-**MujaOS — Declarative, Modular, Reproducible.**\
-Built with ❤️ for NixOS and the open-source community.
+Licensed under the **MIT License** — you’re free to use, modify, and distribute under the same terms.
+
+**MujaOS — Declarative. Modular. Reproducible.**
+Built with ❤️ for the NixOS and open-source community.
+
+---
