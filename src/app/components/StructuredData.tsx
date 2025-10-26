@@ -5,6 +5,7 @@ export function PersonStructuredData() {
     name: 'Mujahid Siyam',
     url: 'https://mujaxso.com',
     image: 'https://mujaxso.com/img/profile.png',
+    email: 'contact@mujaxso.com',
     sameAs: [
       'https://github.com/mujaxso',
       'https://twitter.com/mujaxso',

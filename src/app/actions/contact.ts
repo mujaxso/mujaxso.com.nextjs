@@ -57,7 +57,7 @@ async function submitForm(formData: FormData) {
       },
       body: JSON.stringify({
         from: 'contact@mujaxso.com',
-        to: process.env.CONTACT_EMAIL || 'your-email@example.com',
+        to: process.env.CONTACT_EMAIL || 'contact@mujaxso.com',
         subject: `Contact Form: ${trimmedSubject}`,
         html: `
           <h3>New Contact Form Submission</h3>
