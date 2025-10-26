@@ -92,14 +92,21 @@ export default function Home() {
             <div className="prose prose-lg text-foreground/80 max-w-none">
               <p className="text-xl leading-relaxed mb-6">
                 I'm a passionate Software Engineer, AI/ML Engineer, Data Scientist, and DevSecOps professional 
-                with expertise in both high-level and low-level programming. My journey spans from systems programming 
-                with Zig and C/C++ to building modern web applications with React and TypeScript, and developing 
-                intelligent solutions with Python and machine learning frameworks.
+                with expertise spanning from systems programming to modern web development and artificial intelligence. 
+                My technical journey encompasses everything from low-level systems programming with Zig and C/C++ 
+                to building scalable web applications with React and TypeScript, and developing intelligent solutions 
+                using Python and machine learning frameworks.
               </p>
               <p className="text-xl leading-relaxed mb-6">
-                I specialize in creating end-to-end solutions that leverage the full stack of modern technology, 
-                from efficient low-level algorithms to scalable cloud infrastructure. My work focuses on building 
-                systems that are not only performant and secure but also intelligent and user-centric.
+                With deep experience in Linux environments and a strong commitment to open-source development, 
+                I specialize in creating robust, end-to-end solutions that leverage the full spectrum of modern technology. 
+                My work focuses on building systems that are not only performant and secure but also intelligent, 
+                scalable, and user-centric.
+              </p>
+              <p className="text-xl leading-relaxed mb-6">
+                I actively contribute to open-source projects and believe in the power of collaborative development 
+                to drive innovation. My expertise in Linux systems administration and open-source technologies enables 
+                me to build solutions that are both technically sophisticated and community-driven.
               </p>
               <p className="text-xl leading-relaxed mb-6">
                 Beyond the world of code and algorithms, I'm also an avid musician, finding creative expression 
@@ -108,7 +115,8 @@ export default function Home() {
               </p>
               <p className="text-xl leading-relaxed">
                 I believe in building technology that not only solves complex challenges but also enhances 
-                human experiences and creates meaningful impact across different domains.
+                human experiences and creates meaningful impact across different domains through open collaboration 
+                and innovative thinking.
               </p>
             </div>
           </div>
