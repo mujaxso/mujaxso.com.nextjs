@@ -204,7 +204,7 @@ export default function ContactPage() {
               <button
                 type="submit"
                 disabled={pending}
-                className="w-full flex flex-col items-center justify-center px-6 py-6 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)] text-white font-medium rounded-2xl hover:opacity-90 transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl shadow-[var(--color-primary)]/30 hover:shadow-[var(--color-primary)]/50 group"
+                className="w-full flex flex-col items-center justify-center px-6 py-4 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)] text-white font-medium rounded-xl hover:opacity-95 transition-all duration-300 hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl shadow-[var(--color-primary)]/20 hover:shadow-[var(--color-primary)]/40 group border border-white/10"
               >
                 {pending ? (
                   <div className="flex flex-col items-center space-y-2">
@@ -213,7 +213,7 @@ export default function ContactPage() {
                   </div>
                 ) : (
                   <div className="flex flex-col items-center space-y-2">
-                    <Send className="w-5 h-5 transition-transform duration-300 group-hover:translate-y-[-2px]" />
+                    <Send className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
                     <span>Send Message</span>
                   </div>
                 )}
