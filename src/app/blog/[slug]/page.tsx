@@ -6,6 +6,7 @@ import { join } from 'path';
 import matter from 'gray-matter';
 import Author from '../../components/Author';
 import ClientMDXRenderer from '../../components/ClientMDXRenderer';
+import type { Metadata } from "next";
 
 function calculateReadingTime(content: string): string {
   const wordsPerMinute = 200;
