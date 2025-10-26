@@ -5,6 +5,7 @@ import { join } from 'path';
 import matter from 'gray-matter';
 import { Github, ExternalLink } from 'lucide-react';
 import ClientMDXRenderer from '../../components/ClientMDXRenderer';
+import type { Metadata } from "next";
 
 interface Project {
   slug: string;
