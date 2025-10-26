@@ -37,6 +37,20 @@ async function findProjectFile(slug: string): Promise<string | null> {
   }
 }
 
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const resolvedParams = await params;
+  const slug = resolvedParams.slug;
+  
+  return {
+    alternates: {
+      canonical: `https://mujaxso.com/projects/${slug}`,
+    },
+    openGraph: {
+      url: `https://mujaxso.com/projects/${slug}`,
+    },
+  };
+}
+
 export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
   

@@ -3,11 +3,15 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "About | Mujahid Siyam",
   description: "Learn more about Mujahid Siyam - Software Engineer, AI/ML Specialist, and Open Source Advocate",
+  alternates: {
+    canonical: 'https://mujaxso.com/about',
+  },
   openGraph: {
     title: "About | Mujahid Siyam",
     description: "Software Engineer | AI/ML Engineer | Data Scientist | DevSecOps",
     type: "profile",
-    images: ['/img/profile.png'],
+    url: 'https://mujaxso.com/about',
+    images: ['https://mujaxso.com/img/profile.png'],
   },
 };
 

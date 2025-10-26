@@ -6,6 +6,33 @@ const nextConfig: NextConfig = {
   reactCompiler: true,
   pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
   trailingSlash: false,
+  async redirects() {
+    return [
+      {
+        source: '/:path*',
+        has: [
+          {
+            type: 'host',
+            value: 'www.mujaxso.com',
+          },
+        ],
+        destination: 'https://mujaxso.com/:path*',
+        permanent: true,
+      },
+      {
+        source: '/:path*',
+        has: [
+          {
+            type: 'header',
+            key: 'x-forwarded-proto',
+            value: 'http',
+          },
+        ],
+        destination: 'https://mujaxso.com/:path*',
+        permanent: true,
+      },
+    ];
+  },
   // Security headers
   async headers() {
     return [

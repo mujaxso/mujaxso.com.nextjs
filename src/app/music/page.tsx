@@ -42,6 +42,22 @@ interface Playlist {
   duration?: string
 }
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Music | Mujahid Siyam",
+  description: "Explore my curated playlists and musical journey across different platforms",
+  alternates: {
+    canonical: 'https://mujaxso.com/music',
+  },
+  openGraph: {
+    title: "Music | Mujahid Siyam",
+    description: "Explore my curated playlists and musical journey across different platforms",
+    url: 'https://mujaxso.com/music',
+    type: 'website',
+  },
+};
+
 export default function MusicPage() {
   const [playerErrors, setPlayerErrors] = useState<Record<string, string | null>>({})
   const [loadingStates, setLoadingStates] = useState<Record<string, boolean>>({})

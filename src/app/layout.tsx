@@ -16,13 +16,17 @@ export const metadata: Metadata = {
   keywords: ["software engineer", "AI/ML", "data science", "DevSecOps", "full-stack developer"],
   authors: [{ name: "Mujahid Siyam" }],
   metadataBase: new URL('https://mujaxso.com'),
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
     title: "Mujahid Siyam | Portfolio",
     description: "Software Engineer | AI/ML Engineer | Data Scientist | DevSecOps",
     type: "website",
+    url: 'https://mujaxso.com',
     images: [
       {
-        url: '/img/profile.png',
+        url: 'https://mujaxso.com/img/profile.png',
         width: 1200,
         height: 630,
         alt: 'Mujahid Siyam Portfolio',
@@ -34,7 +38,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: "Mujahid Siyam | Portfolio",
     description: "Software Engineer | AI/ML Engineer | Data Scientist | DevSecOps",
-    images: ['/img/profile.png'],
+    images: ['https://mujaxso.com/img/profile.png'],
   },
   robots: {
     index: true,

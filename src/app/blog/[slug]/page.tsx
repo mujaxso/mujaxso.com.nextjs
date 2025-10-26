@@ -80,6 +80,20 @@ async function getBlogPosts() {
   }
 }
 
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const resolvedParams = await params;
+  const slug = resolvedParams.slug;
+  
+  return {
+    alternates: {
+      canonical: `https://mujaxso.com/blog/${slug}`,
+    },
+    openGraph: {
+      url: `https://mujaxso.com/blog/${slug}`,
+    },
+  };
+}
+
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   try {
     // Await the params to ensure they're resolved

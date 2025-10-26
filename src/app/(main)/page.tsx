@@ -5,11 +5,15 @@ import { Button } from "../components/ui/Button";
 export const metadata: Metadata = {
   title: "Mujahid Siyam | Software Engineer & AI/ML Specialist",
   description: "Full-stack developer, AI/ML engineer, and open-source advocate building cutting-edge solutions with modern technology stacks.",
+  alternates: {
+    canonical: 'https://mujaxso.com/',
+  },
   openGraph: {
     title: "Mujahid Siyam | Portfolio",
     description: "Software Engineer | AI/ML Engineer | Data Scientist | DevSecOps",
     type: "website",
-    images: ['/img/profile.png'],
+    url: 'https://mujaxso.com',
+    images: ['https://mujaxso.com/img/profile.png'],
   },
 };
 
