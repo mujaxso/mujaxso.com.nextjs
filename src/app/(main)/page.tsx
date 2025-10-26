@@ -39,13 +39,13 @@ export default function HomePage() {
             Passionate about open-source, machine learning, and creating impactful software.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button asChild variant="default" size="lg" className="w-full sm:w-auto mx-auto">
-              <Link href="/projects" className="flex items-center justify-center">
+            <Button asChild variant="default" size="lg">
+              <Link href="/projects">
                 Explore Projects
               </Link>
             </Button>
-            <Button asChild variant="outline" size="lg" className="w-full sm:w-auto mx-auto">
-              <Link href="/blog" className="flex items-center justify-center">
+            <Button asChild variant="outline" size="lg">
+              <Link href="/blog">
                 Read Blog
               </Link>
             </Button>
