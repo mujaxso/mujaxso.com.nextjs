@@ -181,6 +181,15 @@
     will-change: transform;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    background: rgba(250, 252, 255, 0.85) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  .dark header {
+    background: rgba(10, 15, 28, 0.85) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
 }
 
@@ -194,6 +203,45 @@ main {
   main {
     padding-top: 4.5rem;
   }
+}
+
+/* Enhanced header styling for desktop */
+header {
+  transition: all 0.3s ease;
+}
+
+/* Light theme header */
+:root.light header,
+:root.system:not(.dark) header {
+  backdrop-filter: blur(32px) saturate(200%);
+  -webkit-backdrop-filter: blur(32px) saturate(200%);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(255, 255, 255, 0.6) 100%
+  ) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.05);
+}
+
+/* Dark theme header */
+:root.dark header,
+:root.system.dark header {
+  backdrop-filter: blur(32px) saturate(200%);
+  -webkit-backdrop-filter: blur(32px) saturate(200%);
+  background: linear-gradient(
+    135deg,
+    rgba(30, 41, 59, 0.8) 0%,
+    rgba(15, 23, 42, 0.6) 100%
+  ) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3);
 }
 
 .glass-dark {
