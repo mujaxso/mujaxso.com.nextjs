@@ -456,18 +456,8 @@ body, body > * {
   color: var(--color-foreground) !important;
 }
 
-/* Prevent FOUC by ensuring content is only visible after theme is set */
-/* Use opacity transitions instead of visibility to ensure PageSpeed can see content */
-body:not(.theme-loaded) {
-  opacity: 0;
-}
-
-body.theme-loaded {
-  opacity: 1;
-  transition: opacity 0.1s ease 0.05s;
-}
-
-/* Remove visibility restrictions that prevent PageSpeed from seeing content */
+/* next-themes handles FOUC prevention automatically */
+/* No custom FOUC prevention needed */
 
 /* Ensure consistent theme for all interactive elements */
 button, a, input, textarea, select {
