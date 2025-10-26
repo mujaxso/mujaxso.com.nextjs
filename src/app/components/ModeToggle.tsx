@@ -1,11 +1,9 @@
 "use client"
 
 import { Moon, Sun, Monitor } from "lucide-react";
-import { useTheme } from "./ThemeProvider";
+import { useTheme } from "next-themes";
 import { Button } from "./ui/Button";
 import { useState, useEffect } from "react";
-
-type Theme = 'light' | 'dark' | 'system';
 
 export default function ModeToggle() {
   const { theme, setTheme } = useTheme();
@@ -16,13 +14,14 @@ export default function ModeToggle() {
   }, []);
 
   const cycleTheme = () => {
-    const themes: Theme[] = ['light', 'dark', 'system'];
-    const currentIndex = themes.indexOf(theme);
+    const themes = ['light', 'dark', 'system'] as const;
+    const currentIndex = themes.indexOf(theme as typeof themes[number]);
     const nextIndex = (currentIndex + 1) % themes.length;
     setTheme(themes[nextIndex]);
   };
 
   const getTooltip = () => {
+    if (!mounted) return "Toggle theme";
     switch (theme) {
       case 'light': return "Light theme - Click to cycle themes";
       case 'dark': return "Dark theme - Click to cycle themes";
@@ -32,6 +31,7 @@ export default function ModeToggle() {
   };
 
   const getIcon = () => {
+    if (!mounted) return <Monitor className="w-4 h-4" />;
     switch (theme) {
       case 'light': return <Sun className="w-4 h-4" />;
       case 'dark': return <Moon className="w-4 h-4" />;
