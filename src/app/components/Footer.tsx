@@ -180,16 +180,16 @@ export default function Footer() {
                 variant="default" 
                 size="lg" 
                 disabled={pending}
-                className="w-full bg-gradient-to-r from-primary to-secondary text-primary-foreground shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed group py-4 border border-white/10 hover:opacity-95 hover:scale-[1.02]"
+                className="w-full bg-gradient-to-r from-primary to-secondary text-primary-foreground shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed group py-6 border border-white/10 hover:opacity-95 hover:scale-[1.02]"
               >
                 {pending ? (
-                  <div className="flex flex-col items-center space-y-2">
-                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                  <div className="flex flex-col items-center space-y-3">
+                    <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin" />
                     <span>Sending...</span>
                   </div>
                 ) : (
-                  <div className="flex flex-col items-center space-y-2">
-                    <Send className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
+                  <div className="flex flex-col items-center space-y-3">
+                    <Send className="w-6 h-6 transition-transform duration-300 group-hover:scale-110" />
                     <span>Send Message</span>
                   </div>
                 )}
