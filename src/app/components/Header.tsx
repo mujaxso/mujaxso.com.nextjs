@@ -108,32 +108,54 @@ export default function Header() {
           </div>
         </div>
 
-        {/* Mobile Navigation Menu */}
+        {/* Mobile Navigation Menu - Right Side Drawer */}
         {isMobileMenuOpen && (
-          <div 
-            ref={menuRef} 
-            className="md:hidden fixed top-20 left-0 right-0 backdrop-blur-3xl bg-background/95 border-b border-primary/20 shadow-2xl shadow-primary/5 z-50 animate-in slide-in-from-top-5 duration-300"
-          >
-            <nav className="p-6">
-              <ul className="space-y-3">
-                {navigationItems.map((item) => (
-                  <li key={item.href}>
-                    <Button
-                      variant="ghost"
-                      size="md"
-                      asChild
-                      className="w-full justify-center text-base font-semibold py-4 text-foreground/90 hover:text-primary hover:bg-primary/10 transition-all duration-300 rounded-xl border border-transparent hover:border-primary/20"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      <Link href={item.href}>
-                        {item.label}
-                      </Link>
-                    </Button>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          </div>
+          <>
+            {/* Backdrop */}
+            <div 
+              className="md:hidden fixed inset-0 bg-black/50 z-40 animate-in fade-in duration-300"
+              onClick={() => setIsMobileMenuOpen(false)}
+            />
+            {/* Drawer */}
+            <div 
+              ref={menuRef} 
+              className="md:hidden fixed top-0 right-0 bottom-0 w-80 backdrop-blur-3xl bg-background/95 border-l border-primary/20 shadow-2xl shadow-primary/5 z-50 animate-in slide-in-from-right duration-300"
+            >
+              {/* Header */}
+              <div className="flex items-center justify-between p-6 border-b border-white/10">
+                <h2 className="text-lg font-semibold text-foreground">Menu</h2>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="p-2"
+                  aria-label="Close menu"
+                >
+                  <X className="w-5 h-5" />
+                </Button>
+              </div>
+              {/* Navigation */}
+              <nav className="p-6">
+                <ul className="space-y-3">
+                  {navigationItems.map((item) => (
+                    <li key={item.href}>
+                      <Button
+                        variant="ghost"
+                        size="md"
+                        asChild
+                        className="w-full justify-start text-base font-semibold py-4 text-foreground/90 hover:text-primary hover:bg-primary/10 transition-all duration-300 rounded-xl border border-transparent hover:border-primary/20"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        <Link href={item.href}>
+                          {item.label}
+                        </Link>
+                      </Button>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            </div>
+          </>
         )}
       </div>
     </header>
