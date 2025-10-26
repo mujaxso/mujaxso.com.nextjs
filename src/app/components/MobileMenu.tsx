@@ -113,7 +113,7 @@ export default function MobileMenu({ isOpen, onClose, navigationItems }: MobileM
       {/* Overlay */}
       {isOpen && (
         <div 
-          className="fixed inset-0 bg-black/50 z-50 md:hidden"
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 md:hidden animate-in fade-in duration-300"
           onClick={handleOverlayClick}
           aria-hidden="true"
         />
@@ -122,22 +122,24 @@ export default function MobileMenu({ isOpen, onClose, navigationItems }: MobileM
       {/* Drawer */}
       <div
         ref={menuRef}
-        className={`fixed top-0 right-0 h-full w-80 max-w-full bg-background border-l border-white/10 shadow-2xl z-50 md:hidden transform transition-transform duration-200 ease-out ${
+        className={`fixed top-0 right-0 h-screen w-80 max-w-full z-50 md:hidden transform transition-all duration-300 ease-out ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
         role="dialog"
         aria-modal="true"
         aria-label="Mobile navigation menu"
       >
-        <div className="flex flex-col h-full">
+        <div className="flex flex-col h-full bg-background/80 backdrop-blur-3xl border-l border-white/20 shadow-2xl shadow-black/30">
           {/* Header */}
-          <div className="flex items-center justify-between p-6 border-b border-white/10">
-            <h2 className="text-lg font-semibold">Menu</h2>
+          <div className="flex items-center justify-between p-6 border-b border-white/10 bg-white/5">
+            <h2 className="text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+              Navigation
+            </h2>
             <Button
               variant="ghost"
               size="sm"
               onClick={onClose}
-              className="p-2"
+              className="p-2 hover:bg-white/10 transition-all duration-200 rounded-xl border border-white/10 hover:border-white/20"
               aria-label="Close menu"
             >
               <X className="w-5 h-5" />
@@ -146,17 +148,17 @@ export default function MobileMenu({ isOpen, onClose, navigationItems }: MobileM
 
           {/* Navigation Items */}
           <nav className="flex-1 p-6">
-            <ul className="space-y-4">
+            <ul className="space-y-3">
               {navigationItems.map((item) => (
                 <li key={item.href}>
                   <Button
                     variant="ghost"
                     size="md"
                     asChild
-                    className="w-full justify-start text-base font-semibold py-4 hover:bg-primary/10 transition-all duration-300 rounded-xl"
+                    className="w-full justify-start text-base font-semibold py-4 px-4 hover:bg-gradient-to-r hover:from-primary/10 hover:to-secondary/10 transition-all duration-300 rounded-xl border border-transparent hover:border-white/10 hover:shadow-lg group"
                     onClick={onClose}
                   >
-                    <Link href={item.href}>
+                    <Link href={item.href} className="group-hover:text-primary transition-colors duration-300">
                       {item.label}
                     </Link>
                   </Button>
@@ -164,6 +166,14 @@ export default function MobileMenu({ isOpen, onClose, navigationItems }: MobileM
               ))}
             </ul>
           </nav>
+
+          {/* Footer */}
+          <div className="p-6 border-t border-white/10 bg-white/5">
+            <div className="text-sm text-foreground/60 text-center">
+              <p>Mujahid Siyam</p>
+              <p className="text-xs mt-1">Software Engineer</p>
+            </div>
+          </div>
         </div>
       </div>
     </>
