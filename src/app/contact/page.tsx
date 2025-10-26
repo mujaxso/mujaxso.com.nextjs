@@ -4,22 +4,6 @@ import { useState } from 'react';
 import { Mail, Send, Github, ExternalLink, Instagram } from 'lucide-react';
 import { submitContactForm } from '../actions/contact';
 
-import type { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "Contact | Mujahid Siyam",
-  description: "Get in touch with Mujahid Siyam for collaborations, projects, or inquiries",
-  alternates: {
-    canonical: 'https://mujaxso.com/contact',
-  },
-  openGraph: {
-    title: "Contact | Mujahid Siyam",
-    description: "Get in touch with Mujahid Siyam for collaborations, projects, or inquiries",
-    url: 'https://mujaxso.com/contact',
-    type: 'website',
-  },
-};
-
 export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
