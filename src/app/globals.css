@@ -457,7 +457,10 @@ body, body > * {
 }
 
 /* next-themes handles FOUC prevention automatically */
-/* No custom FOUC prevention needed */
+/* Add a smooth transition for theme changes */
+* {
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
 
 /* Ensure consistent theme for all interactive elements */
 button, a, input, textarea, select {
