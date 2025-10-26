@@ -201,7 +201,10 @@
   /* Ensure all header buttons are completely transparent with rounded corners */
   header button,
   .mobile-header-buttons button,
-  header .flex button {
+  header .flex button,
+  header .flex button[class*="Button"],
+  header nav button,
+  header nav button[class*="Button"] {
     background: transparent !important;
     border: none !important;
     box-shadow: none !important;
@@ -211,7 +214,10 @@
 
   header button:hover,
   .mobile-header-buttons button:hover,
-  header .flex button:hover {
+  header .flex button:hover,
+  header .flex button[class*="Button"]:hover,
+  header nav button:hover,
+  header nav button[class*="Button"]:hover {
     background: rgba(255, 255, 255, 0.1) !important;
   }
 
