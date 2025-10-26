@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Mail, Send, Github, ExternalLink, Instagram } from 'lucide-react';
+import { Mail, Send, Github, ExternalLink, Instagram, Linkedin } from 'lucide-react';
 import { submitContactForm } from '../actions/contact';
 
 export default function ContactPage() {
@@ -77,6 +77,19 @@ export default function ContactPage() {
                   <p className="text-[var(--color-foreground)]/60">Explore my latest projects and contributions</p>
                   <a href="https://github.com/mujaxso" className="text-sm text-[var(--color-primary)] font-medium hover:text-[var(--color-primary)] transition-colors">
                     github.com/mujaxso
+                  </a>
+                </div>
+              </div>
+              
+              <div className="flex items-center backdrop-blur-xl bg-[var(--color-glass)] border border-[var(--color-glass-border)] rounded-2xl p-4 hover:scale-105 transition-all duration-300">
+                <div className="p-3 bg-[var(--color-primary)]/20 rounded-lg mr-4">
+                  <Linkedin className="w-6 h-6 text-[var(--color-primary)]" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-[var(--color-foreground)]">LinkedIn</h3>
+                  <p className="text-[var(--color-foreground)]/60">Connect with me professionally</p>
+                  <a href="https://linkedin.com/in/mujaxso" className="text-sm text-[var(--color-primary)] font-medium hover:text-[var(--color-primary)] transition-colors">
+                    @mujaxso
                   </a>
                 </div>
               </div>
