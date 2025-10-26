@@ -1,9 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import { Suspense } from "react";
 import { ThemeProvider } from "./components/ThemeProvider";
 import { PersonStructuredData } from "./components/StructuredData";
-import Loading from "./loading";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
@@ -83,43 +81,12 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <PersonStructuredData />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                // Mark theme as loaded immediately to ensure content is visible
-                document.body.classList.add('theme-loaded');
-                
-                try {
-                  // Get the stored theme or default to 'system'
-                  var theme = localStorage.getItem('mujaxso-theme') || 'system';
-                  var systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-                  var effectiveTheme = theme === 'system' ? systemTheme : theme;
-                  
-                  // Remove any existing theme classes
-                  document.documentElement.classList.remove('light', 'dark', 'system');
-                  
-                  // Add both the theme and effective theme
-                  document.documentElement.classList.add(theme);
-                  document.documentElement.classList.add(effectiveTheme);
-                  
-                  // Store in a data attribute for easy access
-                  document.documentElement.setAttribute('data-theme', effectiveTheme);
-                } catch (e) {
-                  // Fallback to light theme
-                  document.documentElement.classList.remove('light', 'dark', 'system');
-                  document.documentElement.classList.add('light');
-                }
-              })();
-            `,
-          }}
-        />
       </head>
       <body
         className="antialiased font-mono"
         suppressHydrationWarning
       >
-        <ThemeProvider>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <div className="flex flex-col min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/20 to-indigo-50/30 dark:from-[#0a0f1c] dark:via-[#0f172a] dark:to-[#1e1b4b] relative overflow-hidden">
             {/* Optimized background elements - reduced for better performance */}
             <div className="absolute inset-0 bg-grid-pattern opacity-30"></div>
