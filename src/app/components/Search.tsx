@@ -95,19 +95,19 @@ export default function Search() {
   return (
     <>
       {/* Search Button - Always render this on both server and client */}
-      <div className="relative" ref={searchRef} suppressHydrationWarning={true}>
+      <div className="relative" ref={searchRef}>
         <button
           onClick={() => setIsOpen(true)}
           className="flex items-center justify-center w-10 h-10 text-foreground/90 transition-all duration-300 
-                     font-medium hover:scale-110 rounded-2xl glass border border-white/20 
+                     font-medium rounded-2xl glass border border-white/20 
                      bg-gradient-to-r from-white/10 to-white/5 backdrop-blur-sm 
-                     hover:from-white/15 hover:to-white/10 hover:border-white/30
-                     shadow-lg hover:shadow-xl md:w-auto md:px-4 md:py-2.5 md:gap-2"
+                     shadow-lg md:w-auto md:px-4 md:py-2.5 md:gap-2"
           aria-label="Search"
+          suppressHydrationWarning
         >
           <div className="relative">
             <SearchIcon className="w-4 h-4" />
-            <div className="absolute inset-0 bg-gradient-to-r from-primary to-accent rounded-full opacity-0 hover:opacity-20 blur transition-opacity duration-300"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-primary to-accent rounded-full opacity-0 blur transition-opacity duration-300"></div>
           </div>
           <span className="hidden md:inline bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent font-semibold">
             Search
@@ -116,7 +116,7 @@ export default function Search() {
       </div>
 
       {/* Search Modal - Rendered as a portal-like component at the root level */}
-      {isMounted && isOpen && (
+      {isOpen && (
         <div className="fixed inset-0 z-[99999] search-modal-root" style={{ 
           position: 'fixed', 
           zIndex: 99999,

@@ -16,17 +16,20 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <Comp
         className={cn(
-          "inline-flex items-center justify-center rounded-2xl font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 group relative overflow-hidden",
+          "inline-flex items-center justify-center font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 group relative overflow-hidden",
+          // Always include rounded-2xl to ensure consistent rendering
+          "rounded-2xl",
           {
-            "bg-gradient-to-r from-primary to-secondary text-primary-foreground shadow-lg hover:shadow-xl hover:scale-105 active:scale-95": 
+            "bg-gradient-to-r from-primary to-secondary text-primary-foreground shadow-lg": 
               variant === "default",
-            "border-2 border-border bg-card text-foreground hover:bg-primary/10 hover:border-primary/50 hover:scale-105 active:scale-95":
+            "border-2 border-border bg-card text-foreground":
               variant === "outline",
-            "hover:bg-primary/10 text-foreground hover:scale-105 active:scale-95": 
+            "text-foreground": 
               variant === "ghost",
-            "text-primary underline-offset-4 hover:underline": 
+            "text-primary underline-offset-4": 
               variant === "link",
           },
+          // Remove hover and active transforms from base classes to prevent hydration mismatch
           {
             "h-9 px-4 py-2 text-sm": size === "sm",
             "h-10 px-6 py-3": size === "md",

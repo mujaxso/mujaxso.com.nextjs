@@ -64,7 +64,8 @@ export default function Header() {
                       variant="ghost" 
                       size="md" 
                       asChild 
-                      className="text-foreground/90 font-medium text-base rounded-2xl focus-visible:ring-2 focus-visible:ring-primary/50 px-4 py-2 transition-all duration-300"
+                      className="text-foreground/90 font-medium text-base focus-visible:ring-2 focus-visible:ring-primary/50 px-4 py-2"
+                      suppressHydrationWarning
                     >
                       <Link href={item.href}>
                         {item.label}
@@ -78,9 +79,7 @@ export default function Header() {
                   <Search />
                 </div>
                 <div>
-                  <ClientOnly>
-                    <ModeToggle />
-                  </ClientOnly>
+                  <ModeToggle />
                 </div>
               </div>
             </nav>
