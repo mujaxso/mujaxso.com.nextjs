@@ -33,14 +33,24 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
   useEffect(() => {
     if (!isMounted) return;
     
+    function handleClickOutside(event: MouseEvent) {
+      const target = event.target as HTMLElement;
+      if (target.closest('.search-modal-content')) {
+        return;
+      }
+      onClose();
+    }
+
     function handleEscape(event: KeyboardEvent) {
       if (event.key === 'Escape') {
         onClose();
       }
     }
 
+    document.addEventListener('mousedown', handleClickOutside);
     document.addEventListener('keydown', handleEscape);
     return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
       document.removeEventListener('keydown', handleEscape);
     };
   }, [isMounted, onClose]);
@@ -106,7 +116,6 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
       {/* Backdrop */}
       <div 
         className="fixed inset-0 bg-black/95 transition-all duration-300 animate-in fade-in-0"
-        onClick={onClose}
         style={{
           backgroundColor: 'rgba(0, 0, 0, 0.95)'
         }}
