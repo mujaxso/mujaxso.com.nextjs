@@ -45,9 +45,9 @@ export default function ModeToggle() {
   if (!mounted) {
     return (
       <Button
-        variant="outline"
+        variant="default"
         size="sm"
-        className="h-10 w-10 flex items-center justify-center p-0 glass border-white/20"
+        className="h-10 w-10 flex items-center justify-center p-0"
         aria-label="Loading theme"
         suppressHydrationWarning
       >
@@ -58,10 +58,10 @@ export default function ModeToggle() {
 
   return (
     <Button
-      variant="outline"
+      variant="default"
       size="sm"
       onClick={cycleTheme}
-      className="h-10 w-10 flex items-center justify-center p-0 glass border-white/20"
+      className="h-10 w-10 flex items-center justify-center p-0"
       aria-label={getTooltip()}
       title={getTooltip()}
       suppressHydrationWarning

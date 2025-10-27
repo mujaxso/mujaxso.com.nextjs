@@ -13,7 +13,7 @@ export default function Search() {
       {/* Search Button - Always render this on both server and client */}
       <div className="relative" suppressHydrationWarning>
         <Button
-          variant="ghost"
+          variant="default"
           size="sm"
           onClick={() => setIsOpen(true)}
           className="h-10 w-10 flex items-center justify-center p-0"
