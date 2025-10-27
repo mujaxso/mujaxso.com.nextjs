@@ -99,8 +99,7 @@ export default function Search() {
         <button
           onClick={() => setIsOpen(true)}
           className="flex items-center gap-2 px-4 py-2 text-foreground/90 hover:text-primary transition-all duration-300 
-                     font-medium hover:scale-105 rounded-xl border border-white/20 hover:border-white/40 
-                     shadow-sm hover:shadow-md backdrop-blur-sm bg-white/10 dark:bg-gray-800/10 hover:bg-white/20 dark:hover:bg-gray-800/20"
+                     font-medium hover:scale-105 rounded-xl"
           aria-label="Search"
         >
           <SearchIcon className="w-4 h-4" />

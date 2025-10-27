@@ -61,10 +61,10 @@ export default function Header() {
                 {navigationItems.map((item) => (
                   <li key={item.href}>
                     <Button 
-                      variant="outline" 
+                      variant="ghost" 
                       size="md" 
                       asChild 
-                      className="text-foreground/90 font-medium text-base rounded-2xl focus-visible:ring-2 focus-visible:ring-primary/50 px-4 py-2 border-white/20 hover:border-white/40 shadow-sm hover:shadow-md transition-all duration-300"
+                      className="text-foreground/90 font-medium text-base rounded-2xl focus-visible:ring-2 focus-visible:ring-primary/50 px-4 py-2 transition-all duration-300"
                     >
                       <Link href={item.href}>
                         {item.label}
@@ -74,10 +74,10 @@ export default function Header() {
                 ))}
               </ul>
               <div className="flex items-center gap-4">
-                <div className="relative z-50">
+                <div className="relative">
                   <Search />
                 </div>
-                <div className="[&_button]:rounded-xl [&_button]:border-white/20 [&_button]:hover:border-white/40 [&_button]:shadow-sm [&_button]:hover:shadow-md">
+                <div>
                   <ClientOnly>
                     <ModeToggle />
                   </ClientOnly>
@@ -86,20 +86,20 @@ export default function Header() {
             </nav>
 
             {/* Mobile Menu Button */}
-            <div className="flex md:hidden items-center gap-2 mobile-header-buttons">
-              <div className="mobile-header-button-wrapper">
+            <div className="flex md:hidden items-center gap-2">
+              <div>
                 <Search />
               </div>
-              <div className="mobile-header-button-wrapper [&_button]:rounded-xl [&_button]:border-white/20 [&_button]:hover:border-white/40 [&_button]:shadow-sm [&_button]:hover:shadow-md">
+              <div>
                 <ClientOnly>
                   <ModeToggle />
                 </ClientOnly>
               </div>
               <Button
-                variant="outline"
+                variant="ghost"
                 size="sm"
                 onClick={() => setIsMobileMenuOpen(true)}
-                className="p-2 mobile-header-button !rounded-xl border-white/20 hover:border-white/40 shadow-sm hover:shadow-md transition-all duration-300"
+                className="p-2"
                 aria-label="Open menu"
               >
                 <Menu className="w-5 h-5" />
