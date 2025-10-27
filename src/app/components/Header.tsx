@@ -46,14 +46,14 @@ export default function Header() {
             
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center gap-6">
-              <ul className="flex gap-1">
+              <ul className="flex gap-6">
                 {navigationItems.map((item) => (
                   <li key={item.href}>
                     <Button 
                       variant="ghost" 
                       size="md" 
                       asChild 
-                      className="text-foreground/90 font-medium text-base"
+                      className="text-foreground font-medium text-base"
                       suppressHydrationWarning
                     >
                       <Link href={item.href}>
@@ -63,7 +63,7 @@ export default function Header() {
                   </li>
                 ))}
               </ul>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-4">
                 <div className="relative">
                   <Search />
                 </div>
@@ -74,7 +74,7 @@ export default function Header() {
             </nav>
 
             {/* Mobile Menu Button */}
-            <div className="flex md:hidden items-center gap-2">
+            <div className="flex md:hidden items-center gap-4">
               <div>
                 <Search />
               </div>
