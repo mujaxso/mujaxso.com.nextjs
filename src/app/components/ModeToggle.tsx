@@ -31,12 +31,12 @@ export default function ModeToggle() {
   };
 
   const getIcon = () => {
-    if (!mounted) return <Monitor className="w-4 h-4" />;
+    if (!mounted) return <Monitor className="w-6 h-6" />;
     switch (theme) {
-      case 'light': return <Sun className="w-4 h-4" />;
-      case 'dark': return <Moon className="w-4 h-4" />;
-      case 'system': return <Monitor className="w-4 h-4" />;
-      default: return <Monitor className="w-4 h-4" />;
+      case 'light': return <Sun className="w-6 h-6" />;
+      case 'dark': return <Moon className="w-6 h-6" />;
+      case 'system': return <Monitor className="w-6 h-6" />;
+      default: return <Monitor className="w-6 h-6" />;
     }
   };
 
@@ -51,8 +51,8 @@ export default function ModeToggle() {
         aria-label="Loading theme"
         suppressHydrationWarning
       >
-        <div className="w-4 h-4">
-          <Monitor className="w-4 h-4" />
+        <div className="w-6 h-6">
+          <Monitor className="w-6 h-6" />
         </div>
       </Button>
     );
@@ -68,7 +68,7 @@ export default function ModeToggle() {
       title={getTooltip()}
       suppressHydrationWarning
     >
-      <div className="relative">
+      <div className="relative w-6 h-6">
         {getIcon()}
         <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)] rounded-full opacity-0 group-hover:opacity-20 blur transition-opacity duration-300"></div>
       </div>

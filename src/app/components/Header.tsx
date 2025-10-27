@@ -89,7 +89,7 @@ export default function Header() {
                 aria-label="Open menu"
                 suppressHydrationWarning
               >
-                <Menu className="w-6 h-6" />
+                <Menu className="w-8 h-8" />
               </Button>
             </div>
           </div>
