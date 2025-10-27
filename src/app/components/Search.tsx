@@ -20,7 +20,7 @@ export default function Search() {
           aria-label="Search"
           suppressHydrationWarning
         >
-          <SearchIcon className="w-4 h-4" />
+          <SearchIcon className="w-6 h-6" />
           <span className="hidden md:inline ml-2">
             Search
           </span>
