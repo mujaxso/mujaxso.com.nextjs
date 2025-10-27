@@ -47,7 +47,7 @@ export default function ModeToggle() {
       <Button
         variant="outline"
         size="sm"
-        className="h-10 w-10 flex items-center justify-center p-0 glass border-white/20"
+        className="h-10 w-10 flex items-center justify-center p-0 glass border-white/20 rounded-full shadow-lg"
         aria-label="Loading theme"
         suppressHydrationWarning
       >
@@ -61,7 +61,7 @@ export default function ModeToggle() {
       variant="outline"
       size="sm"
       onClick={cycleTheme}
-      className="h-10 w-10 flex items-center justify-center p-0 glass border-white/20"
+      className="h-10 w-10 flex items-center justify-center p-0 glass border-white/20 rounded-full shadow-lg"
       aria-label={getTooltip()}
       title={getTooltip()}
       suppressHydrationWarning
