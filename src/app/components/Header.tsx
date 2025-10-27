@@ -7,7 +7,21 @@ import Search from "./Search";
 import MobileMenu from "./MobileMenu";
 import { Menu } from "lucide-react";
 import { Button } from "./ui/Button";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+function ClientOnly({ children }: { children: React.ReactNode }) {
+  const [hasMounted, setHasMounted] = useState(false);
+
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
+
+  if (!hasMounted) {
+    return null;
+  }
+
+  return <>{children}</>;
+}
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -61,10 +75,14 @@ export default function Header() {
               </ul>
               <div className="flex items-center gap-2">
                 <div className="[&_button]:bg-transparent [&_button]:border-0 [&_button]:shadow-none [&_button]:rounded-xl">
-                  <Search />
+                  <ClientOnly>
+                    <Search />
+                  </ClientOnly>
                 </div>
                 <div className="[&_button]:bg-transparent [&_button]:border-0 [&_button]:shadow-none [&_button]:rounded-xl">
-                  <ModeToggle />
+                  <ClientOnly>
+                    <ModeToggle />
+                  </ClientOnly>
                 </div>
               </div>
             </nav>
@@ -72,10 +90,14 @@ export default function Header() {
             {/* Mobile Menu Button */}
             <div className="flex md:hidden items-center gap-2 mobile-header-buttons">
               <div className="mobile-header-button-wrapper">
-                <Search />
+                <ClientOnly>
+                  <Search />
+                </ClientOnly>
               </div>
               <div className="mobile-header-button-wrapper">
-                <ModeToggle />
+                <ClientOnly>
+                  <ModeToggle />
+                </ClientOnly>
               </div>
               <Button
                 variant="ghost"
