@@ -48,31 +48,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         {...props}
       >
-        {/* Animated effects - only render on client to prevent hydration mismatch */}
-        {variant === "default" && (
-          <>
-            <div 
-              className="absolute inset-0 rounded-2xl bg-gradient-to-r from-primary via-secondary to-accent opacity-0 blur-sm scale-95"
-              style={{
-                '--primary': 'var(--color-primary)',
-                '--secondary': 'var(--color-secondary)',
-                '--accent': 'var(--color-accent)',
-              } as React.CSSProperties}
-            ></div>
-            <div 
-              className="absolute inset-0 rounded-2xl bg-gradient-to-r from-primary/10 to-secondary/10 opacity-0"
-              style={{
-                '--primary': 'var(--color-primary)',
-                '--secondary': 'var(--color-secondary)',
-              } as React.CSSProperties}
-            ></div>
-          </>
-        )}
-        
-        {/* Shimmer effect */}
-        <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full"></div>
-        
-        <span className="relative z-10">{props.children}</span>
+        <span>{props.children}</span>
       </Comp>
     )
   }

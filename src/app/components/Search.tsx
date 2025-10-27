@@ -13,15 +13,12 @@ export default function Search() {
       <div className="relative" suppressHydrationWarning>
         <button
           onClick={() => setIsOpen(true)}
-          className="flex items-center justify-center w-10 h-10 text-foreground/90 font-medium rounded-2xl glass border border-white/20 bg-gradient-to-r from-white/10 to-white/5 backdrop-blur-sm shadow-lg md:w-auto md:px-4 md:py-2.5 md:gap-2"
+          className="flex items-center justify-center w-10 h-10 text-foreground/90 font-medium rounded-2xl border border-border bg-card hover:bg-primary/10 transition-colors md:w-auto md:px-4 md:py-2.5 md:gap-2"
           aria-label="Search"
           suppressHydrationWarning
         >
-          <div className="relative">
-            <SearchIcon className="w-4 h-4" />
-            <div className="absolute inset-0 bg-gradient-to-r from-primary to-accent rounded-full opacity-0 blur"></div>
-          </div>
-          <span className="hidden md:inline bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent font-semibold">
+          <SearchIcon className="w-4 h-4" />
+          <span className="hidden md:inline ml-2">
             Search
           </span>
         </button>

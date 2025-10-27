@@ -82,19 +82,14 @@ export default function Header() {
                 <ModeToggle />
               </div>
               <Button
-                variant="default"
+                variant="ghost"
                 size="sm"
                 onClick={() => setIsMobileMenuOpen(true)}
-                className="h-10 px-4 rounded-2xl glass border border-white/20 
-                           bg-gradient-to-r from-white/10 to-white/5 backdrop-blur-sm 
-                           shadow-lg flex items-center gap-2"
+                className="h-10 w-10 rounded-2xl flex items-center justify-center"
                 aria-label="Open menu"
                 suppressHydrationWarning
               >
-                <Menu className="w-4 h-4" />
-                <span className="text-sm font-semibold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent" suppressHydrationWarning>
-                  Menu
-                </span>
+                <Menu className="w-5 h-5" />
               </Button>
             </div>
           </div>
