@@ -95,7 +95,7 @@ export default function Search() {
   return (
     <>
       {/* Search Button - Always render this on both server and client */}
-      <div className="relative" ref={searchRef}>
+      <div className="relative" ref={searchRef} suppressHydrationWarning>
         <button
           onClick={() => setIsOpen(true)}
           className="flex items-center justify-center w-10 h-10 text-foreground/90 transition-all duration-300 
@@ -103,7 +103,6 @@ export default function Search() {
                      bg-gradient-to-r from-white/10 to-white/5 backdrop-blur-sm 
                      shadow-lg md:w-auto md:px-4 md:py-2.5 md:gap-2"
           aria-label="Search"
-          suppressHydrationWarning
         >
           <div className="relative">
             <SearchIcon className="w-4 h-4" />
@@ -115,8 +114,8 @@ export default function Search() {
         </button>
       </div>
 
-      {/* Search Modal - Rendered as a portal-like component at the root level */}
-      {isOpen && (
+      {/* Search Modal - Only render on client after mount */}
+      {isMounted && isOpen && (
         <div className="fixed inset-0 z-[99999] search-modal-root" style={{ 
           position: 'fixed', 
           zIndex: 99999,

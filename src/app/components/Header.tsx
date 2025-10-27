@@ -9,20 +9,6 @@ import { Menu } from "lucide-react";
 import { Button } from "./ui/Button";
 import { useState, useEffect } from "react";
 
-function ClientOnly({ children, fallback = null }: { children: React.ReactNode; fallback?: React.ReactNode }) {
-  const [hasMounted, setHasMounted] = useState(false);
-
-  useEffect(() => {
-    setHasMounted(true);
-  }, []);
-
-  if (!hasMounted) {
-    return <>{fallback}</>;
-  }
-
-  return <>{children}</>;
-}
-
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -36,7 +22,10 @@ export default function Header() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-2xl bg-background/95 border-b border-white/10 shadow-[0_0_20px_rgba(0,0,0,0.1)]">
+      <header 
+        className="fixed top-0 left-0 right-0 z-50 backdrop-blur-2xl bg-background/95 border-b border-white/10 shadow-[0_0_20px_rgba(0,0,0,0.1)]"
+        suppressHydrationWarning
+      >
         <div className="w-full px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-3 md:py-4">
             <Link href="/" className="flex items-center gap-3 group">
@@ -46,7 +35,7 @@ export default function Header() {
                   alt="Mujahid Siyam" 
                   width={48}
                   height={48}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                  className="w-full h-full object-cover"
                   priority
                 />
               </div>
@@ -90,9 +79,7 @@ export default function Header() {
                 <Search />
               </div>
               <div>
-                <ClientOnly>
-                  <ModeToggle />
-                </ClientOnly>
+                <ModeToggle />
               </div>
               <Button
                 variant="default"
@@ -100,9 +87,9 @@ export default function Header() {
                 onClick={() => setIsMobileMenuOpen(true)}
                 className="h-10 px-4 rounded-2xl glass border border-white/20 
                            bg-gradient-to-r from-white/10 to-white/5 backdrop-blur-sm 
-                           hover:from-white/15 hover:to-white/10 hover:border-white/30
-                           shadow-lg hover:shadow-xl flex items-center gap-2 transition-all duration-300"
+                           shadow-lg flex items-center gap-2"
                 aria-label="Open menu"
+                suppressHydrationWarning
               >
                 <Menu className="w-4 h-4" />
                 <span className="text-sm font-semibold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
