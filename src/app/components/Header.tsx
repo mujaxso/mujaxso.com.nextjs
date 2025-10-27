@@ -96,13 +96,19 @@ export default function Header() {
                 </ClientOnly>
               </div>
               <Button
-                variant="ghost"
+                variant="default"
                 size="sm"
                 onClick={() => setIsMobileMenuOpen(true)}
-                className="w-10 h-10 p-2 rounded-2xl border border-transparent hover:border-white/20 flex items-center justify-center"
+                className="h-10 px-4 rounded-2xl glass border border-white/20 
+                           bg-gradient-to-r from-white/10 to-white/5 backdrop-blur-sm 
+                           hover:from-white/15 hover:to-white/10 hover:border-white/30
+                           shadow-lg hover:shadow-xl flex items-center gap-2 transition-all duration-300"
                 aria-label="Open menu"
               >
-                <Menu className="w-5 h-5" />
+                <Menu className="w-4 h-4" />
+                <span className="text-sm font-semibold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                  Menu
+                </span>
               </Button>
             </div>
           </div>
