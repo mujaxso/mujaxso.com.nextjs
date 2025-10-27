@@ -267,6 +267,7 @@ header button:not([type]):hover {
 
 /* Mobile header button styling */
 .mobile-header-buttons .mobile-header-button,
+.mobile-header-buttons .mobile-header-button-wrapper button,
 .mobile-header-buttons button {
   border-radius: 12px !important;
   background: transparent !important;
@@ -277,6 +278,7 @@ header button:not([type]):hover {
 }
 
 .mobile-header-buttons .mobile-header-button:hover,
+.mobile-header-buttons .mobile-header-button-wrapper button:hover,
 .mobile-header-buttons button:hover {
   background: rgba(255, 255, 255, 0.1) !important;
 }
@@ -284,6 +286,7 @@ header button:not([type]):hover {
 /* Mobile-specific button styling */
 @media (max-width: 767px) {
   .mobile-header-buttons .mobile-header-button,
+  .mobile-header-buttons .mobile-header-button-wrapper button,
   .mobile-header-buttons button {
     border-radius: 12px !important;
     background: transparent !important;
@@ -293,8 +296,23 @@ header button:not([type]):hover {
   }
   
   .mobile-header-buttons .mobile-header-button:hover,
+  .mobile-header-buttons .mobile-header-button-wrapper button:hover,
   .mobile-header-buttons button:hover {
     background: rgba(255, 255, 255, 0.1) !important;
+  }
+  
+  /* Ensure the button background is properly clipped */
+  .mobile-header-buttons .mobile-header-button-wrapper button::before,
+  .mobile-header-buttons button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: inherit;
+    border-radius: inherit;
+    z-index: -1;
   }
 }
 
@@ -302,6 +320,7 @@ header button:not([type]):hover {
 header button {
   border-radius: 12px !important;
   overflow: hidden !important;
+  position: relative;
 }
 
 /* Mobile-specific button styling with higher specificity */
@@ -309,19 +328,31 @@ header button {
   header button,
   header .flex button,
   header .flex button[class*="Button"],
-  header .flex button[class*="rounded"] {
+  header .flex button[class*="rounded"],
+  .mobile-header-buttons button,
+  .mobile-header-buttons .mobile-header-button-wrapper button {
     border-radius: 12px !important;
     overflow: hidden !important;
     background: transparent !important;
     border: none !important;
     box-shadow: none !important;
+    position: relative;
   }
   
   header button:hover,
   header .flex button:hover,
   header .flex button[class*="Button"]:hover,
-  header .flex button[class*="rounded"]:hover {
+  header .flex button[class*="rounded"]:hover,
+  .mobile-header-buttons button:hover,
+  .mobile-header-buttons .mobile-header-button-wrapper button:hover {
     background: rgba(255, 255, 255, 0.1) !important;
+  }
+  
+  /* Force background to be clipped to border radius */
+  .mobile-header-buttons button,
+  .mobile-header-buttons .mobile-header-button-wrapper button {
+    background-clip: padding-box !important;
+    -webkit-background-clip: padding-box !important;
   }
 }
 

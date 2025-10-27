@@ -71,17 +71,17 @@ export default function Header() {
 
             {/* Mobile Menu Button */}
             <div className="flex md:hidden items-center gap-2 mobile-header-buttons">
-              <div className="mobile-header-button">
+              <div className="mobile-header-button-wrapper">
                 <Search />
               </div>
-              <div className="mobile-header-button">
+              <div className="mobile-header-button-wrapper">
                 <ModeToggle />
               </div>
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => setIsMobileMenuOpen(true)}
-                className="p-2 mobile-header-button"
+                className="p-2 mobile-header-button !rounded-xl"
                 aria-label="Open menu"
               >
                 <Menu className="w-5 h-5" />
