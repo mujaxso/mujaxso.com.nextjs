@@ -85,11 +85,11 @@ export default function Header() {
                 variant="ghost"
                 size="sm"
                 onClick={() => setIsMobileMenuOpen(true)}
-                className="h-10 w-10 flex items-center justify-center"
+                className="h-12 w-12 flex items-center justify-center p-0"
                 aria-label="Open menu"
                 suppressHydrationWarning
               >
-                <Menu className="w-8 h-8" />
+                <Menu className="w-6 h-6" />
               </Button>
             </div>
           </div>

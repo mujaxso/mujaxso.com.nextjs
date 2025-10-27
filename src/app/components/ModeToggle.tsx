@@ -47,13 +47,11 @@ export default function ModeToggle() {
       <Button
         variant="outline"
         size="sm"
-        className="p-2 rounded-2xl glass border-white/20"
+        className="h-12 w-12 flex items-center justify-center p-0 glass border-white/20"
         aria-label="Loading theme"
         suppressHydrationWarning
       >
-        <div className="w-6 h-6">
-          <Monitor className="w-6 h-6" />
-        </div>
+        <Monitor className="w-6 h-6" />
       </Button>
     );
   }
@@ -63,15 +61,12 @@ export default function ModeToggle() {
       variant="outline"
       size="sm"
       onClick={cycleTheme}
-      className="p-2 rounded-2xl glass border-white/20 hover:border-white/40 transition-all duration-300 hover:scale-110 group"
+      className="h-12 w-12 flex items-center justify-center p-0 glass border-white/20"
       aria-label={getTooltip()}
       title={getTooltip()}
       suppressHydrationWarning
     >
-      <div className="relative w-6 h-6">
-        {getIcon()}
-        <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)] rounded-full opacity-0 group-hover:opacity-20 blur transition-opacity duration-300"></div>
-      </div>
+      {getIcon()}
     </Button>
   );
 }
