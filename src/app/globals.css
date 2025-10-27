@@ -205,9 +205,23 @@
     box-shadow: none !important;
     border-radius: 12px !important;
     transition: all 0.3s ease !important;
+    overflow: hidden !important;
   }
 
   header button:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+  }
+
+  /* Specific targeting for mobile header buttons */
+  .flex.md\\:hidden button {
+    border-radius: 12px !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    overflow: hidden !important;
+  }
+
+  .flex.md\\:hidden button:hover {
     background: rgba(255, 255, 255, 0.1) !important;
   }
 
@@ -255,6 +269,7 @@ header button:not([type]) {
   border: none !important;
   box-shadow: none !important;
   transition: all 0.3s ease !important;
+  overflow: hidden !important;
 }
 
 header button[type="button"]:hover,
@@ -262,14 +277,46 @@ header button:not([type]):hover {
   background: rgba(255, 255, 255, 0.1) !important;
 }
 
+/* Mobile-specific button styling */
+@media (max-width: 767px) {
+  header .flex.items-center.gap-2 button {
+    border-radius: 12px !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    overflow: hidden !important;
+  }
+  
+  header .flex.items-center.gap-2 button:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+  }
+}
+
 /* Ensure ALL header buttons have rounded corners */
 header button {
   border-radius: 12px !important;
+  overflow: hidden !important;
 }
 
-/* Ensure button backgrounds are properly clipped to rounded corners */
-header button {
-  overflow: hidden;
+/* Mobile-specific button styling with higher specificity */
+@media (max-width: 767px) {
+  header button,
+  header .flex button,
+  header .flex button[class*="Button"],
+  header .flex button[class*="rounded"] {
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+  
+  header button:hover,
+  header .flex button:hover,
+  header .flex button[class*="Button"]:hover,
+  header .flex button[class*="rounded"]:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+  }
 }
 
 /* Light theme header */
