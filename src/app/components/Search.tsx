@@ -14,13 +14,13 @@ export default function Search() {
       <div className="relative" suppressHydrationWarning>
         <Button
           variant="default"
-          size="sm"
+          size="md"
           onClick={() => setIsOpen(true)}
           className="h-10 w-10 flex items-center justify-center p-0"
           aria-label="Search"
           suppressHydrationWarning
         >
-          <SearchIcon className="w-5 h-5" />
+          <SearchIcon className="w-4 h-4" />
         </Button>
       </div>
 
