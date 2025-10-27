@@ -141,14 +141,14 @@ export default function Search() {
               </div>
 
               {/* Search Results */}
-              <div className="flex-1 overflow-y-auto border-t border-gray-200/50 dark:border-gray-700/50">
+              <div className="flex-1 overflow-y-auto border-t border-gray-200 dark:border-gray-700">
                 {results.length > 0 ? (
                   <div className="py-2">
                     {results.map((result, index) => (
                       <button
                         key={index}
                         onClick={() => handleResultClick(result.href)}
-                        className="w-full text-left px-6 py-4 hover:bg-gray-100/50 dark:hover:bg-gray-800/50 transition-all duration-200 group"
+                        className="w-full text-left px-6 py-4 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200 group"
                       >
                         <div className="flex items-center space-x-4">
                           <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center flex-shrink-0">
@@ -164,7 +164,7 @@ export default function Search() {
                               {result.description}
                             </p>
                           </div>
-                          <span className="px-2 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 rounded-full capitalize flex-shrink-0">
+                          <span className="px-2 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 rounded-full capitalize flex-shrink-0">
                             {result.type}
                           </span>
                         </div>
@@ -173,7 +173,7 @@ export default function Search() {
                   </div>
                 ) : query && !isLoading ? (
                   <div className="flex flex-col items-center justify-center py-12 px-6 text-center">
-                    <div className="w-16 h-16 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mb-4">
+                    <div className="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mb-4">
                       <SearchIcon className="w-8 h-8 text-gray-400" />
                     </div>
                     <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
@@ -185,7 +185,7 @@ export default function Search() {
                   </div>
                 ) : !query && !isLoading ? (
                   <div className="flex flex-col items-center justify-center py-12 px-6 text-center">
-                    <div className="w-16 h-16 bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900/20 dark:to-purple-900/20 rounded-full flex items-center justify-center mb-4">
+                    <div className="w-16 h-16 bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900 dark:to-purple-900 rounded-full flex items-center justify-center mb-4">
                       <SearchIcon className="w-8 h-8 text-blue-500" />
                     </div>
                     <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">

@@ -107,7 +107,7 @@ export default function BlogPageClient({ posts }: BlogPageProps) {
                   id="sort"
                   value={sortBy}
                   onChange={(e) => handleSortChange(e.target.value)}
-                  className="block w-40 rounded-lg border border-border/50 bg-card/50 px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary appearance-none cursor-pointer"
+                  className="block w-40 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary appearance-none cursor-pointer"
                 >
                   <option value="recent">Most Recent</option>
                   <option value="popular">Most Popular</option>
@@ -138,7 +138,7 @@ export default function BlogPageClient({ posts }: BlogPageProps) {
                 id="sort"
                 value={sortBy}
                 onChange={(e) => handleSortChange(e.target.value)}
-                className="block w-40 rounded-lg border border-border/50 bg-card/50 px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary appearance-none cursor-pointer"
+                className="block w-40 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary appearance-none cursor-pointer"
               >
                 <option value="recent">Most Recent</option>
                 <option value="popular">Most Popular</option>
@@ -151,7 +151,7 @@ export default function BlogPageClient({ posts }: BlogPageProps) {
         {/* All Posts - Full Width */}
         <section className="w-full animate-fade-in-up" style={{ animationDelay: '0.8s' }}>
           <div className="flex items-center justify-center mb-8">
-            <div className="bg-primary/10 border border-primary/20 rounded-2xl px-6 py-4">
+            <div className="bg-primary/10 border border-primary/20 rounded-2xl px-6 py-4 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm">
               <h2 className="text-2xl font-bold text-foreground text-center">
                 {searchQuery || selectedCategory || selectedTag 
                   ? `Search Results (${filteredPosts.length})` 
