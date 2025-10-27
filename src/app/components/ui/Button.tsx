@@ -16,17 +16,17 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <Comp
         className={cn(
-          "inline-flex items-center justify-center font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 group relative overflow-hidden",
+          "inline-flex items-center justify-center font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
           // Always include rounded-2xl to ensure consistent rendering
           "rounded-2xl",
           {
-            "bg-gradient-to-r from-primary to-secondary text-primary-foreground shadow-lg": 
+            "glass border border-white/20 bg-white/10 backdrop-blur-sm text-foreground hover:bg-white/15 hover:border-white/30": 
               variant === "default",
-            "border-2 border-border bg-card text-foreground":
+            "glass border border-white/20 bg-white/10 backdrop-blur-sm text-foreground hover:bg-white/15 hover:border-white/30":
               variant === "outline",
-            "text-foreground": 
+            "text-foreground hover:bg-white/10": 
               variant === "ghost",
-            "text-primary underline-offset-4": 
+            "text-primary underline-offset-4 hover:underline": 
               variant === "link",
           },
           // Remove hover and active transforms from base classes to prevent hydration mismatch
@@ -37,18 +37,10 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           },
           className
         )}
-        style={{
-          '--primary': 'var(--color-primary)',
-          '--secondary': 'var(--color-secondary)',
-          '--primary-foreground': 'var(--color-primary-foreground)',
-          '--foreground': 'var(--color-foreground)',
-          '--card': 'var(--color-card)',
-          '--border': 'var(--color-border)',
-        } as React.CSSProperties}
         ref={ref}
         {...props}
       >
-        <span>{props.children}</span>
+        {props.children}
       </Comp>
     )
   }

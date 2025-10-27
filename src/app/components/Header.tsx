@@ -45,15 +45,15 @@ export default function Header() {
             </Link>
             
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center gap-6">
+            <nav className="hidden md:flex items-center gap-4">
               <ul className="flex gap-2">
                 {navigationItems.map((item) => (
                   <li key={item.href}>
                     <Button 
-                      variant="ghost" 
+                      variant="default" 
                       size="md" 
                       asChild 
-                      className="text-foreground/90 font-medium text-base focus-visible:ring-2 focus-visible:ring-primary/50 px-4 py-2"
+                      className="text-foreground/90 font-medium text-base px-4 py-2"
                       suppressHydrationWarning
                     >
                       <Link href={item.href}>
@@ -63,7 +63,7 @@ export default function Header() {
                   </li>
                 ))}
               </ul>
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-3">
                 <div className="relative">
                   <Search />
                 </div>
@@ -82,7 +82,7 @@ export default function Header() {
                 <ModeToggle />
               </div>
               <Button
-                variant="ghost"
+                variant="default"
                 size="sm"
                 onClick={() => setIsMobileMenuOpen(true)}
                 className="h-10 w-10 rounded-2xl flex items-center justify-center"

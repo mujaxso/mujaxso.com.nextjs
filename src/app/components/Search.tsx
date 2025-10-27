@@ -13,7 +13,7 @@ export default function Search() {
       <div className="relative" suppressHydrationWarning>
         <button
           onClick={() => setIsOpen(true)}
-          className="flex items-center justify-center w-10 h-10 text-foreground/90 font-medium rounded-2xl border border-border bg-card hover:bg-primary/10 transition-colors md:w-auto md:px-4 md:py-2.5 md:gap-2"
+          className="flex items-center justify-center w-10 h-10 text-foreground/90 font-medium rounded-2xl glass border border-white/20 bg-white/10 backdrop-blur-sm hover:bg-white/15 hover:border-white/30 transition-all duration-300 md:w-auto md:px-4 md:py-2.5 md:gap-2"
           aria-label="Search"
           suppressHydrationWarning
         >
