@@ -109,16 +109,16 @@ export default function Search() {
       {/* Always render the modal container, but conditionally show content */}
       <div style={{ display: isMounted && isOpen ? 'block' : 'none' }}>
         {isMounted && isOpen && (
-        <div className="fixed inset-0 z-[100] flex items-start justify-center pt-20 md:pt-40 px-4">
+        <div className="fixed inset-0 z-[9999] flex items-start justify-center pt-20 md:pt-40 px-4">
           {/* Backdrop */}
           <div 
-            className="fixed inset-0 bg-black/80 transition-all duration-300 animate-in fade-in-0"
+            className="fixed inset-0 bg-black/90 transition-all duration-300 animate-in fade-in-0"
             onClick={() => setIsOpen(false)}
           />
           
           {/* Search Container - macOS Spotlight Style */}
           <div className="relative w-full max-w-2xl transform transition-all duration-300 scale-95 animate-in fade-in-0 zoom-in-95 slide-in-from-top-10">
-            <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-2xl overflow-hidden 
+            <div className="bg-white dark:bg-gray-900 border-0 rounded-2xl shadow-2xl overflow-hidden 
                            flex flex-col max-h-[70vh]">
               {/* Search Input - macOS Spotlight Style */}
               <div className="p-6">
@@ -155,7 +155,7 @@ export default function Search() {
                         className="w-full text-left px-6 py-4 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200 group"
                       >
                         <div className="flex items-center space-x-4">
-                          <div className="w-10 h-10 rounded-lg bg-blue-600 dark:bg-blue-700 flex items-center justify-center flex-shrink-0">
+                          <div className="w-10 h-10 rounded-lg bg-blue-600 dark:bg-blue-700 flex items-center justify-center flex-shrink-0" style={{backgroundColor: 'rgb(37 99 235)'}}>
                             <span className="text-white text-xs font-medium">
                               {result.type.charAt(0).toUpperCase()}
                             </span>
@@ -177,7 +177,7 @@ export default function Search() {
                   </div>
                 ) : query && !isLoading ? (
                   <div className="flex flex-col items-center justify-center py-12 px-6 text-center">
-                    <div className="w-16 h-16 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center mb-4">
+                    <div className="w-16 h-16 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center mb-4" style={{backgroundColor: 'rgb(229 231 235)'}}>
                       <SearchIcon className="w-8 h-8 text-gray-500 dark:text-gray-400" />
                     </div>
                     <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
@@ -189,7 +189,7 @@ export default function Search() {
                   </div>
                 ) : !query && !isLoading ? (
                   <div className="flex flex-col items-center justify-center py-12 px-6 text-center">
-                    <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mb-4">
+                    <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mb-4" style={{backgroundColor: 'rgb(219 234 254)'}}>
                       <SearchIcon className="w-8 h-8 text-blue-600 dark:text-blue-400" />
                     </div>
                     <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">

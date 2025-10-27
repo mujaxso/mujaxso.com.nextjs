@@ -74,7 +74,7 @@ export default function Header() {
                 ))}
               </ul>
               <div className="flex items-center gap-4">
-                <div className="relative">
+                <div className="relative z-50">
                   <Search />
                 </div>
                 <div className="[&_button]:bg-transparent [&_button]:border-0 [&_button]:shadow-none [&_button]:rounded-xl">
