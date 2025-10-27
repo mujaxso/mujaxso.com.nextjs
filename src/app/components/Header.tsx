@@ -45,15 +45,15 @@ export default function Header() {
             </Link>
             
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center gap-4">
-              <ul className="flex gap-2">
+            <nav className="hidden md:flex items-center gap-6">
+              <ul className="flex gap-1">
                 {navigationItems.map((item) => (
                   <li key={item.href}>
                     <Button 
-                      variant="default" 
+                      variant="ghost" 
                       size="md" 
                       asChild 
-                      className="text-foreground/90 font-medium text-base px-4 py-2"
+                      className="text-foreground/90 font-medium text-base"
                       suppressHydrationWarning
                     >
                       <Link href={item.href}>
@@ -63,7 +63,7 @@ export default function Header() {
                   </li>
                 ))}
               </ul>
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2">
                 <div className="relative">
                   <Search />
                 </div>
@@ -74,21 +74,23 @@ export default function Header() {
             </nav>
 
             {/* Mobile Menu Button */}
-            <div className="flex md:hidden items-center gap-3">
+            <div className="flex md:hidden items-center gap-2">
               <div>
                 <Search />
               </div>
               <div>
                 <ModeToggle />
               </div>
-              <button
+              <Button
+                variant="ghost"
+                size="sm"
                 onClick={() => setIsMobileMenuOpen(true)}
-                className="h-10 w-10 rounded-2xl flex items-center justify-center border border-white/20 bg-transparent hover:bg-white/10 transition-colors"
+                className="h-10 w-10 flex items-center justify-center"
                 aria-label="Open menu"
                 suppressHydrationWarning
               >
-                <Menu className="w-5 h-5 text-foreground" />
-              </button>
+                <Menu className="w-5 h-5" />
+              </Button>
             </div>
           </div>
         </div>

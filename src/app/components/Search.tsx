@@ -11,9 +11,11 @@ export default function Search() {
     <>
       {/* Search Button - Always render this on both server and client */}
       <div className="relative" suppressHydrationWarning>
-        <button
+        <Button
+          variant="ghost"
+          size="sm"
           onClick={() => setIsOpen(true)}
-          className="flex items-center justify-center w-10 h-10 text-foreground/90 font-medium rounded-2xl border border-white/20 bg-transparent hover:bg-white/10 transition-colors md:w-auto md:px-4 md:py-2.5 md:gap-2"
+          className="h-10 w-10 md:w-auto md:px-4 md:py-2 flex items-center justify-center"
           aria-label="Search"
           suppressHydrationWarning
         >
@@ -21,7 +23,7 @@ export default function Search() {
           <span className="hidden md:inline ml-2">
             Search
           </span>
-        </button>
+        </Button>
       </div>
 
       {/* Search Modal - Always render but conditionally show */}
