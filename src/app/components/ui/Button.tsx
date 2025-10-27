@@ -18,13 +18,13 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         className={cn(
           "inline-flex items-center justify-center font-medium transition-colors duration-200 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50",
           {
-            "bg-transparent text-foreground": 
+            "bg-primary text-primary-foreground": 
               variant === "default",
-            "bg-transparent text-foreground":
+            "border border-input bg-background hover:bg-accent hover:text-accent-foreground":
               variant === "outline",
-            "text-foreground": 
+            "hover:bg-accent hover:text-accent-foreground": 
               variant === "ghost",
-            "text-primary": 
+            "text-primary underline-offset-4 hover:underline": 
               variant === "link",
           },
           {

@@ -16,7 +16,7 @@ export default function Search() {
           variant="ghost"
           size="sm"
           onClick={() => setIsOpen(true)}
-          className="h-10 w-10 flex items-center justify-center p-0 rounded-full shadow-[0_4px_12px_rgba(0,0,0,0.15)]"
+          className="h-10 w-10 flex items-center justify-center p-0 rounded-full shadow-[0_4px_12px_rgba(0,0,0,0.15)] bg-background/50"
           aria-label="Search"
           suppressHydrationWarning
         >
