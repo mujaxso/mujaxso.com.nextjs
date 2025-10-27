@@ -85,7 +85,7 @@ export default function Header() {
                 variant="ghost"
                 size="sm"
                 onClick={() => setIsMobileMenuOpen(true)}
-                className="h-10 w-10 flex items-center justify-center p-0"
+                className="h-10 w-10 flex items-center justify-center p-0 rounded-full shadow-[0_4px_12px_rgba(0,0,0,0.15)]"
                 aria-label="Open menu"
                 suppressHydrationWarning
               >
