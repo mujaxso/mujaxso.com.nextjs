@@ -47,7 +47,7 @@ export function SearchAndFilters({
             placeholder="Search posts, tags, categories..."
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
-            className="w-full pl-10 pr-10 py-3 bg-card border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-foreground placeholder-muted-foreground"
+            className="w-full pl-10 pr-10 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-foreground placeholder-muted-foreground"
           />
           {searchQuery && (
             <button
@@ -63,7 +63,7 @@ export function SearchAndFilters({
       {/* Active Filters Display */}
       {hasActiveFilters && (
         <div className="text-center">
-          <div className="inline-flex items-center gap-2 bg-card border border-border rounded-full px-4 py-2">
+          <div className="inline-flex items-center gap-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-full px-4 py-2">
             <span className="text-sm text-muted-foreground">Active filters:</span>
             {selectedTag && (
               <span className="inline-flex items-center gap-1 px-2 py-1 bg-primary text-white text-xs rounded-full">
@@ -110,7 +110,7 @@ export function SearchAndFilters({
           className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
             !selectedCategory && !selectedTag && !searchQuery
               ? 'bg-primary text-white'
-              : 'bg-card border border-border text-foreground hover:bg-primary/20'
+              : 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-foreground hover:bg-primary/20'
           }`}
         >
           All Posts ({posts.length})
@@ -126,7 +126,7 @@ export function SearchAndFilters({
             className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
               selectedCategory === category
                 ? 'bg-primary text-white'
-                : 'bg-card border border-border text-foreground hover:bg-primary/20'
+                : 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-foreground hover:bg-primary/20'
             }`}
           >
             {category} ({posts.filter(post => post.category === category).length})
@@ -148,7 +148,7 @@ export function SearchAndFilters({
               className={`px-3 py-1 rounded-full text-xs font-medium transition-all duration-300 ${
                 selectedTag === tag
                   ? 'bg-primary text-white'
-                  : 'bg-card border border-border text-foreground hover:bg-primary/20'
+                  : 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-foreground hover:bg-primary/20'
               }`}
             >
               #{tag}
