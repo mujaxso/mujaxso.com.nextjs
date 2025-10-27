@@ -316,14 +316,44 @@ header button:not([type]):hover {
   }
 }
 
-/* Ensure ALL header buttons have rounded corners */
+/* Ensure ALL header buttons have consistent styling */
 header button {
   border-radius: 12px !important;
   overflow: hidden !important;
   position: relative;
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06) !important;
+  transition: all 0.3s ease !important;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+header button:hover {
+  border-color: rgba(255, 255, 255, 0.4) !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+  transform: translateY(-1px);
+}
+
+/* Light theme header button backgrounds */
+:root.light header button,
+:root.system:not(.dark) header button {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+:root.light header button:hover,
+:root.system:not(.dark) header button:hover {
+  background: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Dark theme header button backgrounds */
+:root.dark header button,
+:root.system.dark header button {
+  background: rgba(30, 41, 59, 0.1) !important;
+}
+
+:root.dark header button:hover,
+:root.system.dark header button:hover {
+  background: rgba(30, 41, 59, 0.2) !important;
 }
 
 /* Search Modal Root - Ensure it's completely separate from header */
@@ -396,10 +426,12 @@ header {
   .mobile-header-buttons .mobile-header-button-wrapper button {
     border-radius: 12px !important;
     overflow: hidden !important;
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06) !important;
     position: relative;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: all 0.3s ease !important;
   }
   
   header button:hover,
@@ -408,7 +440,39 @@ header {
   header .flex button[class*="rounded"]:hover,
   .mobile-header-buttons button:hover,
   .mobile-header-buttons .mobile-header-button-wrapper button:hover {
+    border-color: rgba(255, 255, 255, 0.4) !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+    transform: translateY(-1px);
+  }
+
+  /* Light theme mobile button backgrounds */
+  :root.light header button,
+  :root.system:not(.dark) header button,
+  :root.light .mobile-header-buttons button,
+  :root.system:not(.dark) .mobile-header-buttons button {
     background: rgba(255, 255, 255, 0.1) !important;
+  }
+
+  :root.light header button:hover,
+  :root.system:not(.dark) header button:hover,
+  :root.light .mobile-header-buttons button:hover,
+  :root.system:not(.dark) .mobile-header-buttons button:hover {
+    background: rgba(255, 255, 255, 0.2) !important;
+  }
+
+  /* Dark theme mobile button backgrounds */
+  :root.dark header button,
+  :root.system.dark header button,
+  :root.dark .mobile-header-buttons button,
+  :root.system.dark .mobile-header-buttons button {
+    background: rgba(30, 41, 59, 0.1) !important;
+  }
+
+  :root.dark header button:hover,
+  :root.system.dark header button:hover,
+  :root.dark .mobile-header-buttons button:hover,
+  :root.system.dark .mobile-header-buttons button:hover {
+    background: rgba(30, 41, 59, 0.2) !important;
   }
   
   /* Force background to be clipped to border radius */

@@ -61,10 +61,10 @@ export default function Header() {
                 {navigationItems.map((item) => (
                   <li key={item.href}>
                     <Button 
-                      variant="ghost" 
+                      variant="outline" 
                       size="md" 
                       asChild 
-                      className="text-foreground/90 font-medium text-base rounded-2xl focus-visible:ring-2 focus-visible:ring-primary/50 px-4 py-2"
+                      className="text-foreground/90 font-medium text-base rounded-2xl focus-visible:ring-2 focus-visible:ring-primary/50 px-4 py-2 border-white/20 hover:border-white/40 shadow-sm hover:shadow-md transition-all duration-300"
                     >
                       <Link href={item.href}>
                         {item.label}
@@ -77,7 +77,7 @@ export default function Header() {
                 <div className="relative z-50">
                   <Search />
                 </div>
-                <div className="[&_button]:bg-transparent [&_button]:border-0 [&_button]:shadow-none [&_button]:rounded-xl">
+                <div className="[&_button]:rounded-xl [&_button]:border-white/20 [&_button]:hover:border-white/40 [&_button]:shadow-sm [&_button]:hover:shadow-md">
                   <ClientOnly>
                     <ModeToggle />
                   </ClientOnly>
@@ -90,16 +90,16 @@ export default function Header() {
               <div className="mobile-header-button-wrapper">
                 <Search />
               </div>
-              <div className="mobile-header-button-wrapper">
+              <div className="mobile-header-button-wrapper [&_button]:rounded-xl [&_button]:border-white/20 [&_button]:hover:border-white/40 [&_button]:shadow-sm [&_button]:hover:shadow-md">
                 <ClientOnly>
                   <ModeToggle />
                 </ClientOnly>
               </div>
               <Button
-                variant="ghost"
+                variant="outline"
                 size="sm"
                 onClick={() => setIsMobileMenuOpen(true)}
-                className="p-2 mobile-header-button !rounded-xl"
+                className="p-2 mobile-header-button !rounded-xl border-white/20 hover:border-white/40 shadow-sm hover:shadow-md transition-all duration-300"
                 aria-label="Open menu"
               >
                 <Menu className="w-5 h-5" />
