@@ -53,7 +53,7 @@ export default function Header() {
                       variant="ghost" 
                       size="md" 
                       asChild 
-                      className="text-foreground font-medium text-base"
+                      className="text-foreground font-bold text-base"
                       suppressHydrationWarning
                     >
                       <Link href={item.href}>
