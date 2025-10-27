@@ -326,44 +326,64 @@ header button {
   box-shadow: none !important;
 }
 
-/* Ensure search modal is always solid and on top */
-.search-modal-container {
+/* Search Modal Root - Ensure it's completely separate from header */
+.search-modal-root {
   position: fixed !important;
-  z-index: 9999 !important;
+  z-index: 99999 !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
   background: transparent !important;
+  isolation: isolate !important;
 }
 
-/* Ensure no blur effects on search modal */
-.search-modal-container * {
+/* Ensure search modal content is solid */
+.search-modal-root .search-modal-content {
+  background: rgb(255 255 255) !important;
+  border: 1px solid rgb(229 231 235) !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
 }
 
-/* Force search modal to be solid */
-.search-modal-container .search-modal-content {
-  background: rgb(255 255 255) !important;
-  border: 1px solid rgb(229 231 235) !important;
-}
-
-.dark .search-modal-container .search-modal-content {
+.dark .search-modal-root .search-modal-content {
   background: rgb(17 24 39) !important;
   border: 1px solid rgb(55 65 81) !important;
 }
 
-/* Ensure the search modal is not affected by header styles */
-header ~ .search-modal-container {
+/* Ensure no header styling affects the search modal */
+header ~ .search-modal-root,
+.search-modal-root {
   position: fixed !important;
-  z-index: 9999 !important;
+  z-index: 99999 !important;
 }
 
-/* Remove any header-specific styling from search modal */
-header .search-modal-container,
-header ~ .search-modal-container {
-  background: transparent !important;
+/* Completely isolate search modal from any parent styling */
+.search-modal-root * {
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
+  background: transparent !important;
+}
+
+.search-modal-root .bg-white {
+  background: rgb(255 255 255) !important;
+}
+
+.dark .search-modal-root .dark\:bg-gray-900 {
+  background: rgb(17 24 39) !important;
+}
+
+/* Ensure the header doesn't affect the search modal */
+header {
+  z-index: 50 !important;
+}
+
+.search-modal-root {
+  z-index: 99999 !important;
 }
 
 /* Mobile-specific button styling with higher specificity */

@@ -108,20 +108,27 @@ export default function Search() {
         </button>
       </div>
 
-      {/* Always render the modal container, but conditionally show content */}
-      <div style={{ display: isMounted && isOpen ? 'block' : 'none' }}>
-        {isMounted && isOpen && (
-          <div className="fixed inset-0 z-[9999] flex items-start justify-center pt-20 md:pt-40 px-4 search-modal-container" style={{ position: 'fixed', zIndex: 9999 }}>
-            {/* Backdrop */}
-            <div 
-              className="fixed inset-0 bg-black/95 transition-all duration-300 animate-in fade-in-0"
-              onClick={() => setIsOpen(false)}
-              style={{
-                backgroundColor: 'rgba(0, 0, 0, 0.95)'
-              }}
-            />
-            
-            {/* Search Container - macOS Spotlight Style */}
+      {/* Search Modal - Rendered as a portal-like component at the root level */}
+      {isMounted && isOpen && (
+        <div className="fixed inset-0 z-[99999] search-modal-root" style={{ 
+          position: 'fixed', 
+          zIndex: 99999,
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0
+        }}>
+          {/* Backdrop */}
+          <div 
+            className="fixed inset-0 bg-black/95 transition-all duration-300 animate-in fade-in-0"
+            onClick={() => setIsOpen(false)}
+            style={{
+              backgroundColor: 'rgba(0, 0, 0, 0.95)'
+            }}
+          />
+          
+          {/* Search Container */}
+          <div className="fixed inset-0 flex items-start justify-center pt-20 md:pt-40 px-4">
             <div className="relative w-full max-w-2xl transform transition-all duration-300 scale-95 animate-in fade-in-0 zoom-in-95 slide-in-from-top-10">
               <div 
                 className="bg-white dark:bg-gray-900 border-0 rounded-2xl shadow-2xl overflow-hidden 
@@ -213,9 +220,11 @@ export default function Search() {
               </div>
             </div>
           </div>
+              </div>
+            </div>
+          </div>
         </div>
-        )}
-      </div>
+      )}
     </>
   );
 }
