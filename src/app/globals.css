@@ -321,6 +321,9 @@ header button {
   border-radius: 12px !important;
   overflow: hidden !important;
   position: relative;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 /* Mobile-specific button styling with higher specificity */
