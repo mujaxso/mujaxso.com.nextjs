@@ -9,7 +9,7 @@ import { Menu } from "lucide-react";
 import { Button } from "./ui/Button";
 import { useState, useEffect } from "react";
 
-function ClientOnly({ children }: { children: React.ReactNode }) {
+function ClientOnly({ children, fallback = null }: { children: React.ReactNode; fallback?: React.ReactNode }) {
   const [hasMounted, setHasMounted] = useState(false);
 
   useEffect(() => {
@@ -17,7 +17,7 @@ function ClientOnly({ children }: { children: React.ReactNode }) {
   }, []);
 
   if (!hasMounted) {
-    return null;
+    return <>{fallback}</>;
   }
 
   return <>{children}</>;
@@ -75,7 +75,13 @@ export default function Header() {
               </ul>
               <div className="flex items-center gap-2">
                 <div className="[&_button]:bg-transparent [&_button]:border-0 [&_button]:shadow-none [&_button]:rounded-xl">
-                  <ClientOnly>
+                  <ClientOnly 
+                    fallback={
+                      <div className="relative">
+                        {/* This matches the structure that the Search component renders on the client */}
+                      </div>
+                    }
+                  >
                     <Search />
                   </ClientOnly>
                 </div>
@@ -90,7 +96,13 @@ export default function Header() {
             {/* Mobile Menu Button */}
             <div className="flex md:hidden items-center gap-2 mobile-header-buttons">
               <div className="mobile-header-button-wrapper">
-                <ClientOnly>
+                <ClientOnly 
+                  fallback={
+                    <div className="relative">
+                      {/* This matches the structure that the Search component renders on the client */}
+                    </div>
+                  }
+                >
                   <Search />
                 </ClientOnly>
               </div>
