@@ -1,105 +1,16 @@
 "use client";
 
-import { useState, useEffect, useRef } from 'react';
-import { Search as SearchIcon, X, Loader2 } from 'lucide-react';
-import { useRouter } from 'next/navigation';
-
-interface SearchResult {
-  title: string;
-  description: string;
-  href: string;
-  type: 'blog' | 'project' | 'page';
-}
+import { useState } from 'react';
+import { Search as SearchIcon } from 'lucide-react';
+import SearchModal from './SearchModal';
 
 export default function Search() {
   const [isOpen, setIsOpen] = useState(false);
-  const [query, setQuery] = useState('');
-  const [results, setResults] = useState<SearchResult[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
-  const searchRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
-  const router = useRouter();
 
-  // Track when component is mounted to avoid hydration mismatch
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  // Close search when clicking outside or pressing Escape
-  useEffect(() => {
-    if (!isMounted) return;
-    
-    function handleClickOutside(event: MouseEvent) {
-      if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    }
-
-    function handleEscape(event: KeyboardEvent) {
-      if (event.key === 'Escape') {
-        setIsOpen(false);
-      }
-    }
-
-    document.addEventListener('mousedown', handleClickOutside);
-    document.addEventListener('keydown', handleEscape);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-      document.removeEventListener('keydown', handleEscape);
-    };
-  }, [isMounted]);
-
-  // Focus input when search opens
-  useEffect(() => {
-    if (isOpen && inputRef.current && isMounted) {
-      setTimeout(() => inputRef.current?.focus(), 100);
-    }
-  }, [isOpen, isMounted]);
-
-  // Perform search
-  useEffect(() => {
-    if (!isMounted) return;
-    
-    if (!query.trim()) {
-      setResults([]);
-      return;
-    }
-
-    const searchAll = async () => {
-      setIsLoading(true);
-      try {
-        const response = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
-        const data = await response.json();
-        setResults(data.results || []);
-      } catch (error) {
-        console.error('Search failed:', error);
-        setResults([]);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    const timeoutId = setTimeout(searchAll, 300);
-    return () => clearTimeout(timeoutId);
-  }, [query, isMounted]);
-
-  const handleResultClick = (href: string) => {
-    setIsOpen(false);
-    setQuery('');
-    router.push(href);
-  };
-
-  // Use two-pass rendering to avoid hydration mismatch
-  // On the server, render a placeholder that matches the client's initial render
-  // On the client, render the full interactive component after hydration
-  
-  // On the server, always render the button
-  // On the client, after hydration, we can render the modal conditionally
   return (
     <>
       {/* Search Button - Always render this on both server and client */}
-      <div className="relative" ref={searchRef} suppressHydrationWarning>
+      <div className="relative" suppressHydrationWarning>
         <button
           onClick={() => setIsOpen(true)}
           className="flex items-center justify-center w-10 h-10 text-foreground/90 font-medium rounded-2xl glass border border-white/20 bg-gradient-to-r from-white/10 to-white/5 backdrop-blur-sm shadow-lg md:w-auto md:px-4 md:py-2.5 md:gap-2"
@@ -116,8 +27,11 @@ export default function Search() {
         </button>
       </div>
 
-      {/* Search Modal - Render only on client and when open */}
-      {isMounted && isOpen && (
+      {/* Search Modal - Always render but conditionally show */}
+      <SearchModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
+    </>
+  );
+}
         <div className="fixed inset-0 z-[99999] search-modal-root" style={{ 
           position: 'fixed', 
           zIndex: 99999,

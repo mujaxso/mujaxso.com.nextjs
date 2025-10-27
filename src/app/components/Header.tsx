@@ -56,7 +56,7 @@ export default function Header() {
                       className="text-foreground/90 font-medium text-base focus-visible:ring-2 focus-visible:ring-primary/50 px-4 py-2"
                       suppressHydrationWarning
                     >
-                      <Link href={item.href} suppressHydrationWarning>
+                      <Link href={item.href}>
                         {item.label}
                       </Link>
                     </Button>
