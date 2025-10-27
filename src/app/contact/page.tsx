@@ -57,7 +57,7 @@ export default function ContactPage() {
             </p>
             
             <div className="space-y-6">
-              <div className="flex items-center backdrop-blur-xl bg-[var(--color-glass)] border border-[var(--color-glass-border)] rounded-2xl p-4 hover:scale-105 transition-all duration-300">
+              <div className="flex items-center backdrop-blur-sm bg-glass border border-glass-border rounded-2xl p-4 hover:scale-105 transition-all duration-300">
                 <div className="p-3 bg-[var(--color-primary)]/20 rounded-lg mr-4">
                   <Mail className="w-6 h-6 text-[var(--color-primary)]" />
                 </div>
@@ -68,7 +68,7 @@ export default function ContactPage() {
                 </div>
               </div>
               
-              <div className="flex items-center backdrop-blur-xl bg-[var(--color-glass)] border border-[var(--color-glass-border)] rounded-2xl p-4 hover:scale-105 transition-all duration-300">
+              <div className="flex items-center backdrop-blur-sm bg-glass border border-glass-border rounded-2xl p-4 hover:scale-105 transition-all duration-300">
                 <div className="p-3 bg-[var(--color-secondary)]/20 rounded-lg mr-4">
                   <Github className="w-6 h-6 text-[var(--color-secondary)]" />
                 </div>
@@ -81,7 +81,7 @@ export default function ContactPage() {
                 </div>
               </div>
               
-              <div className="flex items-center backdrop-blur-xl bg-[var(--color-glass)] border border-[var(--color-glass-border)] rounded-2xl p-4 hover:scale-105 transition-all duration-300">
+              <div className="flex items-center backdrop-blur-sm bg-glass border border-glass-border rounded-2xl p-4 hover:scale-105 transition-all duration-300">
                 <div className="p-3 bg-[var(--color-primary)]/20 rounded-lg mr-4">
                   <Linkedin className="w-6 h-6 text-[var(--color-primary)]" />
                 </div>
@@ -94,7 +94,7 @@ export default function ContactPage() {
                 </div>
               </div>
               
-              <div className="flex items-center backdrop-blur-xl bg-[var(--color-glass)] border border-[var(--color-glass-border)] rounded-2xl p-4 hover:scale-105 transition-all duration-300">
+              <div className="flex items-center backdrop-blur-sm bg-glass border border-glass-border rounded-2xl p-4 hover:scale-105 transition-all duration-300">
                 <div className="p-3 bg-[var(--color-accent)]/20 rounded-lg mr-4">
                   <Instagram className="w-6 h-6 text-[var(--color-accent)]" />
                 </div>
@@ -107,7 +107,7 @@ export default function ContactPage() {
                 </div>
               </div>
               
-              <div className="flex items-center backdrop-blur-xl bg-[var(--color-glass)] border border-[var(--color-glass-border)] rounded-2xl p-4 hover:scale-105 transition-all duration-300">
+              <div className="flex items-center backdrop-blur-sm bg-glass border border-glass-border rounded-2xl p-4 hover:scale-105 transition-all duration-300">
                 <div className="p-3 bg-[var(--color-primary)]/20 rounded-lg mr-4">
                   <span className="text-sm font-bold">TK</span>
                 </div>
@@ -120,7 +120,7 @@ export default function ContactPage() {
                 </div>
               </div>
               
-              <div className="flex items-center backdrop-blur-xl bg-[var(--color-glass)] border border-[var(--color-glass-border)] rounded-2xl p-4 hover:scale-105 transition-all duration-300">
+              <div className="flex items-center backdrop-blur-sm bg-glass border border-glass-border rounded-2xl p-4 hover:scale-105 transition-all duration-300">
                 <div className="p-3 bg-[var(--color-accent)]/20 rounded-lg mr-4">
                   <ExternalLink className="w-6 h-6 text-[var(--color-accent)]" />
                 </div>
@@ -136,7 +136,7 @@ export default function ContactPage() {
           </div>
 
           {/* Contact Form */}
-          <div className="backdrop-blur-xl bg-[var(--color-glass)] border border-[var(--color-glass-border)] rounded-2xl p-8">
+          <div className="backdrop-blur-sm bg-glass border border-glass-border rounded-2xl p-8">
             {msg && (
               <div className={`mb-6 p-4 rounded-lg ${
                 msg.ok 
@@ -217,7 +217,7 @@ export default function ContactPage() {
               <button
                 type="submit"
                 disabled={pending}
-                className="w-full flex flex-col items-center justify-center px-8 py-8 backdrop-blur-xl bg-[var(--color-glass)] border border-[var(--color-glass-border)] text-[var(--color-foreground)] font-medium rounded-2xl hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed group hover:border-[var(--color-primary)]/50"
+                className="w-full flex flex-col items-center justify-center px-8 py-8 backdrop-blur-sm bg-glass border border-glass-border text-white rounded-2xl font-semibold hover:bg-white hover:text-primary transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed group"
               >
                 {pending ? (
                   <div className="flex flex-col items-center space-y-3">
