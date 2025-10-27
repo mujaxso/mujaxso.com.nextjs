@@ -22,17 +22,17 @@ export default function Header() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-2xl bg-background/70 border-b border-white/10 shadow-lg shadow-black/10">
+      <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-2xl bg-background/70 border-b border-white/10 shadow-[0_0_20px_rgba(0,0,0,0.1)]">
         <div className="w-full px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-3 md:py-4">
-            <Link href="/" className="flex items-center gap-3 group">
-              <div className="w-10 h-10 md:w-12 md:h-12 rounded-full overflow-hidden border-2 border-primary/30 group-hover:border-primary transition-all duration-300 shadow-md">
+            <Link href="/" className="flex items-center gap-3">
+              <div className="w-10 h-10 md:w-12 md:h-12 rounded-full overflow-hidden border-2 border-primary/30 shadow-md">
                 <Image 
                   src="/img/profile.png" 
                   alt="Mujahid Siyam" 
                   width={48}
                   height={48}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                  className="w-full h-full object-cover"
                   priority
                 />
               </div>
@@ -50,7 +50,7 @@ export default function Header() {
                       variant="ghost" 
                       size="md" 
                       asChild 
-                      className="text-foreground/90 hover:text-foreground hover:bg-white/10 transition-all duration-300 font-medium text-base rounded-xl px-4 py-2"
+                      className="text-foreground/90 font-medium text-base rounded-xl px-4 py-2"
                     >
                       <Link href={item.href}>
                         {item.label}
@@ -60,10 +60,10 @@ export default function Header() {
                 ))}
               </ul>
               <div className="flex items-center gap-2">
-                <div className="[&_button]:bg-transparent [&_button]:hover:bg-white/10 [&_button]:border-0 [&_button]:shadow-none [&_button]:rounded-xl">
+                <div className="[&_button]:bg-transparent [&_button]:border-0 [&_button]:shadow-none [&_button]:rounded-xl">
                   <Search />
                 </div>
-                <div className="[&_button]:bg-transparent [&_button]:hover:bg-white/10 [&_button]:border-0 [&_button]:shadow-none [&_button]:rounded-xl">
+                <div className="[&_button]:bg-transparent [&_button]:border-0 [&_button]:shadow-none [&_button]:rounded-xl">
                   <ModeToggle />
                 </div>
               </div>
