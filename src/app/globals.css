@@ -211,6 +211,7 @@
     box-shadow: none !important;
     border-radius: 12px !important;
     transition: all 0.3s ease !important;
+    overflow: hidden !important;
   }
 
   header button:hover,
@@ -221,6 +222,7 @@
   header nav button[class*="Button"]:hover,
   header button[class*="Button"]:hover {
     background: rgba(255, 255, 255, 0.1) !important;
+    border-radius: 12px !important;
   }
 
   /* Ensure search component is transparent */
@@ -269,6 +271,7 @@ header nav div[class*="flex"] button,
 header .flex button[class*="Button"],
 header nav button[class*="Button"] {
   border-radius: 12px !important;
+  overflow: hidden !important;
 }
 
 /* Force rounded corners for all button variants in header */
@@ -276,6 +279,15 @@ header button[class*="rounded"],
 header .flex button[class*="rounded"],
 header nav button[class*="rounded"] {
   border-radius: 12px !important;
+  overflow: hidden !important;
+}
+
+/* Ensure button backgrounds are properly clipped to rounded corners */
+header button *,
+header .flex button *,
+header nav button *,
+.mobile-header-buttons button * {
+  border-radius: inherit !important;
 }
 
 /* Light theme header */
