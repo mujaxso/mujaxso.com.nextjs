@@ -109,10 +109,10 @@ export default function Search() {
       {/* Always render the modal container, but conditionally show content */}
       <div style={{ display: isMounted && isOpen ? 'block' : 'none' }}>
         {isMounted && isOpen && (
-        <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 md:pt-40 px-4">
+        <div className="fixed inset-0 z-[100] flex items-start justify-center pt-20 md:pt-40 px-4">
           {/* Backdrop */}
           <div 
-            className="fixed inset-0 bg-black/40 backdrop-blur-sm transition-all duration-300 animate-in fade-in-0"
+            className="fixed inset-0 bg-black/60 transition-all duration-300 animate-in fade-in-0"
             onClick={() => setIsOpen(false)}
           />
           
