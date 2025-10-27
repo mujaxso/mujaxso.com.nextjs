@@ -150,7 +150,7 @@ export default function Home() {
               Ready to bring your ideas to life with cutting-edge technology and innovative solutions?
             </p>
             <Link 
-              href="mailto:contact@mujahid.com" 
+              href="mailto:contact@mujaxso.com" 
               className="inline-flex items-center gap-2 px-8 py-4 backdrop-blur-sm bg-glass border border-glass-border text-white rounded-2xl font-semibold hover:bg-white hover:text-primary transition-all duration-300 hover:scale-105"
             >
               Start a Conversation

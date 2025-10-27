@@ -100,7 +100,7 @@ export async function GET(request: Request) {
     const { searchParams } = url;
     const query = searchParams.get('q')?.toLowerCase() || '';
 
-    if (!query) {
+    if (!query || query.trim().length === 0) {
       return NextResponse.json({ results: [] });
     }
 
@@ -113,6 +113,6 @@ export async function GET(request: Request) {
   } catch (error) {
     console.error('Search error:', error);
     // Return empty results instead of throwing to prevent 500 errors
-    return NextResponse.json({ results: [] });
+    return NextResponse.json({ results: [] }, { status: 200 });
   }
 }
