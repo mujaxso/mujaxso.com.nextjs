@@ -90,23 +90,25 @@ export default function Search() {
     router.push(href);
   };
 
-  // Always render the same structure on server and client
-  // The modal will be empty on the server and populated on the client
+  // Use two-pass rendering to avoid hydration mismatch
+  // On the server, render a placeholder that matches the client's initial render
+  // On the client, render the full interactive component after hydration
+  
+  // On the server, always render the button
+  // On the client, after hydration, we can render the modal conditionally
   return (
     <>
       {/* Search Button - Always render this on both server and client */}
       <div className="relative" ref={searchRef} suppressHydrationWarning>
         <button
           onClick={() => setIsOpen(true)}
-          className="flex items-center justify-center w-10 h-10 text-foreground/90 transition-all duration-300 
-                     font-medium rounded-2xl glass border border-white/20 
-                     bg-gradient-to-r from-white/10 to-white/5 backdrop-blur-sm 
-                     shadow-lg md:w-auto md:px-4 md:py-2.5 md:gap-2"
+          className="flex items-center justify-center w-10 h-10 text-foreground/90 font-medium rounded-2xl glass border border-white/20 bg-gradient-to-r from-white/10 to-white/5 backdrop-blur-sm shadow-lg md:w-auto md:px-4 md:py-2.5 md:gap-2"
           aria-label="Search"
+          suppressHydrationWarning
         >
           <div className="relative">
             <SearchIcon className="w-4 h-4" />
-            <div className="absolute inset-0 bg-gradient-to-r from-primary to-accent rounded-full opacity-0 blur transition-opacity duration-300"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-primary to-accent rounded-full opacity-0 blur"></div>
           </div>
           <span className="hidden md:inline bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent font-semibold">
             Search
@@ -114,7 +116,7 @@ export default function Search() {
         </button>
       </div>
 
-      {/* Search Modal - Only render on client after mount */}
+      {/* Search Modal - Render only on client and when open */}
       {isMounted && isOpen && (
         <div className="fixed inset-0 z-[99999] search-modal-root" style={{ 
           position: 'fixed', 

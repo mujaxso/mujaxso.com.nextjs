@@ -56,7 +56,7 @@ export default function Header() {
                       className="text-foreground/90 font-medium text-base focus-visible:ring-2 focus-visible:ring-primary/50 px-4 py-2"
                       suppressHydrationWarning
                     >
-                      <Link href={item.href}>
+                      <Link href={item.href} suppressHydrationWarning>
                         {item.label}
                       </Link>
                     </Button>
@@ -92,7 +92,7 @@ export default function Header() {
                 suppressHydrationWarning
               >
                 <Menu className="w-4 h-4" />
-                <span className="text-sm font-semibold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                <span className="text-sm font-semibold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent" suppressHydrationWarning>
                   Menu
                 </span>
               </Button>
