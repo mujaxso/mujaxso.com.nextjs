@@ -327,10 +327,12 @@ header button {
 }
 
 /* Ensure search modal is always solid and on top */
-[data-radix-popper-content-wrapper] {
-  background: transparent !important;
+.search-modal-container {
+  position: fixed !important;
+  z-index: 9999 !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
+  background: transparent !important;
 }
 
 /* Ensure no blur effects on search modal */
@@ -342,10 +344,26 @@ header button {
 /* Force search modal to be solid */
 .search-modal-container .search-modal-content {
   background: rgb(255 255 255) !important;
+  border: 1px solid rgb(229 231 235) !important;
 }
 
 .dark .search-modal-container .search-modal-content {
   background: rgb(17 24 39) !important;
+  border: 1px solid rgb(55 65 81) !important;
+}
+
+/* Ensure the search modal is not affected by header styles */
+header ~ .search-modal-container {
+  position: fixed !important;
+  z-index: 9999 !important;
+}
+
+/* Remove any header-specific styling from search modal */
+header .search-modal-container,
+header ~ .search-modal-container {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }
 
 /* Mobile-specific button styling with higher specificity */

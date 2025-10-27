@@ -93,41 +93,43 @@ export default function Search() {
   // Always render the same structure on server and client
   // The modal will be empty on the server and populated on the client
   return (
-    <div className="relative" ref={searchRef} suppressHydrationWarning={true}>
+    <>
       {/* Search Button - Always render this on both server and client */}
-      <button
-        onClick={() => setIsOpen(true)}
-        className="flex items-center gap-2 px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 
-                   font-medium hover:scale-105 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-xl border border-gray-200 dark:border-gray-700 
-                   shadow-sm hover:shadow-md"
-        aria-label="Search"
-      >
-        <SearchIcon className="w-4 h-4" />
-        <span className="hidden md:inline">Search</span>
-      </button>
+      <div className="relative" ref={searchRef} suppressHydrationWarning={true}>
+        <button
+          onClick={() => setIsOpen(true)}
+          className="flex items-center gap-2 px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 
+                     font-medium hover:scale-105 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-xl border border-gray-200 dark:border-gray-700 
+                     shadow-sm hover:shadow-md"
+          aria-label="Search"
+        >
+          <SearchIcon className="w-4 h-4" />
+          <span className="hidden md:inline">Search</span>
+        </button>
+      </div>
 
       {/* Always render the modal container, but conditionally show content */}
       <div style={{ display: isMounted && isOpen ? 'block' : 'none' }}>
         {isMounted && isOpen && (
-        <div className="fixed inset-0 z-[9999] flex items-start justify-center pt-20 md:pt-40 px-4 search-modal-container">
-          {/* Backdrop */}
-          <div 
-            className="fixed inset-0 bg-black/95 transition-all duration-300 animate-in fade-in-0"
-            onClick={() => setIsOpen(false)}
-            style={{
-              backgroundColor: 'rgba(0, 0, 0, 0.95)'
-            }}
-          />
-          
-          {/* Search Container - macOS Spotlight Style */}
-          <div className="relative w-full max-w-2xl transform transition-all duration-300 scale-95 animate-in fade-in-0 zoom-in-95 slide-in-from-top-10">
+          <div className="fixed inset-0 z-[9999] flex items-start justify-center pt-20 md:pt-40 px-4 search-modal-container" style={{ position: 'fixed', zIndex: 9999 }}>
+            {/* Backdrop */}
             <div 
-              className="bg-white dark:bg-gray-900 border-0 rounded-2xl shadow-2xl overflow-hidden 
-                         flex flex-col max-h-[70vh] search-modal-content"
+              className="fixed inset-0 bg-black/95 transition-all duration-300 animate-in fade-in-0"
+              onClick={() => setIsOpen(false)}
               style={{
-                backgroundColor: 'rgb(255 255 255)',
+                backgroundColor: 'rgba(0, 0, 0, 0.95)'
               }}
-            >
+            />
+            
+            {/* Search Container - macOS Spotlight Style */}
+            <div className="relative w-full max-w-2xl transform transition-all duration-300 scale-95 animate-in fade-in-0 zoom-in-95 slide-in-from-top-10">
+              <div 
+                className="bg-white dark:bg-gray-900 border-0 rounded-2xl shadow-2xl overflow-hidden 
+                           flex flex-col max-h-[70vh] search-modal-content"
+                style={{
+                  backgroundColor: 'rgb(255 255 255)',
+                }}
+              >
               {/* Search Input - macOS Spotlight Style */}
               <div className="p-6">
                 <div className="flex items-center space-x-3">
