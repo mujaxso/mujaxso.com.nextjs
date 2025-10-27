@@ -23,59 +23,73 @@ export default function Header() {
   return (
     <>
       <header 
-        className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-background/80 border-b border-border/40"
+        className="fixed top-0 left-0 right-0 z-50 backdrop-blur-2xl bg-background/95 border-b border-white/10 shadow-[0_0_20px_rgba(0,0,0,0.1)]"
         suppressHydrationWarning
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
+        <div className="w-full px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center py-3 md:py-4">
             <Link href="/" className="flex items-center gap-3 group">
-              <div className="w-8 h-8 rounded-full overflow-hidden border border-primary/20">
+              <div className="w-10 h-10 md:w-12 md:h-12 rounded-full overflow-hidden border-2 border-primary/30 shadow-md">
                 <Image 
                   src="/img/profile.png" 
                   alt="Mujahid Siyam" 
-                  width={32}
-                  height={32}
+                  width={48}
+                  height={48}
                   className="w-full h-full object-cover"
                   priority
                 />
               </div>
-              <span className="text-lg font-semibold text-foreground">
+              <span className="text-xl md:text-2xl font-extrabold bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)] bg-clip-text text-transparent">
                 Mujahid Siyam
               </span>
             </Link>
             
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center space-x-8">
-              {navigationItems.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="text-sm font-medium text-foreground/70 hover:text-foreground transition-colors"
-                >
-                  {item.label}
-                </Link>
-              ))}
+            <nav className="hidden md:flex items-center gap-6">
+              <ul className="flex gap-6">
+                {navigationItems.map((item) => (
+                  <li key={item.href}>
+                    <Button 
+                      variant="ghost" 
+                      size="md" 
+                      asChild 
+                      className="text-foreground font-medium text-base"
+                      suppressHydrationWarning
+                    >
+                      <Link href={item.href}>
+                        {item.label}
+                      </Link>
+                    </Button>
+                  </li>
+                ))}
+              </ul>
+              <div className="flex items-center gap-4">
+                <div className="relative">
+                  <Search />
+                </div>
+                <div>
+                  <ModeToggle />
+                </div>
+              </div>
             </nav>
 
-            {/* Desktop Actions */}
-            <div className="hidden md:flex items-center space-x-2">
-              <Search />
-              <ModeToggle />
-            </div>
-
             {/* Mobile Menu Button */}
-            <div className="flex md:hidden items-center space-x-2">
-              <Search />
-              <ModeToggle />
+            <div className="flex md:hidden items-center gap-4">
+              <div>
+                <Search />
+              </div>
+              <div>
+                <ModeToggle />
+              </div>
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => setIsMobileMenuOpen(true)}
-                className="h-9 w-9 flex items-center justify-center p-0"
+                className="h-10 w-10 flex items-center justify-center p-0"
                 aria-label="Open menu"
                 suppressHydrationWarning
               >
-                <Menu className="w-4 h-4" />
+                <Menu className="w-5 h-5" />
               </Button>
             </div>
           </div>
