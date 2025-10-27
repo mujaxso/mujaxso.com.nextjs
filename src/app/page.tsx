@@ -46,7 +46,7 @@ export default function Home() {
                   href={item.href}
                   target="_blank"
                   rel="noopener noreferrer nofollow"
-                  className="p-3 text-muted-foreground hover:text-primary transition-all duration-300 hover:scale-110 backdrop-blur-sm bg-glass border border-glass-border rounded-lg"
+                  className="p-3 text-muted-foreground hover:text-primary transition-all duration-300 hover:scale-110 backdrop-blur-sm bg-glass border border-glass-border rounded-2xl"
                   aria-label={`Visit ${item.label} profile`}
                 >
                   <span className="text-sm font-medium">{item.icon}</span>

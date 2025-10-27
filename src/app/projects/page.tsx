@@ -187,7 +187,7 @@ export default async function ProjectsPage() {
                       href={project.liveUrl} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="p-2 bg-[var(--color-card)]/90 backdrop-blur-sm text-[var(--color-foreground)] hover:text-[var(--color-primary)] rounded-xl border border-[var(--color-border)] hover:border-[var(--color-primary)]/50 transition-all duration-300"
+                      className="p-2 bg-[var(--color-card)]/90 backdrop-blur-sm text-[var(--color-foreground)] hover:text-[var(--color-primary)] rounded-2xl border border-[var(--color-border)] hover:border-[var(--color-primary)]/50 transition-all duration-300"
                     >
                       <ExternalLink className="w-4 h-4" />
                     </a>
@@ -197,7 +197,7 @@ export default async function ProjectsPage() {
                       href={project.githubUrl} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="p-2 bg-[var(--color-card)]/90 backdrop-blur-sm text-[var(--color-foreground)] hover:text-[var(--color-primary)] rounded-xl border border-[var(--color-border)] hover:border-[var(--color-primary)]/50 transition-all duration-300"
+                      className="p-2 bg-[var(--color-card)]/90 backdrop-blur-sm text-[var(--color-foreground)] hover:text-[var(--color-primary)] rounded-2xl border border-[var(--color-border)] hover:border-[var(--color-primary)]/50 transition-all duration-300"
                     >
                       <Github className="w-4 h-4" />
                     </a>
