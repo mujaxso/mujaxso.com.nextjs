@@ -114,12 +114,8 @@ export default function Search() {
           
           {/* Search Container - macOS Spotlight Style */}
           <div className="relative w-full max-w-2xl transform transition-all duration-300 scale-95 animate-in fade-in-0 zoom-in-95 slide-in-from-top-10">
-            <div className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-2xl border border-white/20 dark:border-gray-700/50 rounded-2xl shadow-2xl overflow-hidden 
-                           flex flex-col max-h-[70vh]"
-                 style={{
-                   backdropFilter: 'blur(20px)',
-                   WebkitBackdropFilter: 'blur(20px)',
-                 }}>
+            <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-2xl overflow-hidden 
+                           flex flex-col max-h-[70vh]">
               {/* Search Input - macOS Spotlight Style */}
               <div className="p-6">
                 <div className="flex items-center space-x-3">
