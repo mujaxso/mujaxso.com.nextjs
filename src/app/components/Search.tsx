@@ -109,17 +109,25 @@ export default function Search() {
       {/* Always render the modal container, but conditionally show content */}
       <div style={{ display: isMounted && isOpen ? 'block' : 'none' }}>
         {isMounted && isOpen && (
-        <div className="fixed inset-0 z-[9999] flex items-start justify-center pt-20 md:pt-40 px-4">
+        <div className="fixed inset-0 z-[9999] flex items-start justify-center pt-20 md:pt-40 px-4 search-modal-container">
           {/* Backdrop */}
           <div 
-            className="fixed inset-0 bg-black/90 transition-all duration-300 animate-in fade-in-0"
+            className="fixed inset-0 bg-black/95 transition-all duration-300 animate-in fade-in-0"
             onClick={() => setIsOpen(false)}
+            style={{
+              backgroundColor: 'rgba(0, 0, 0, 0.95)'
+            }}
           />
           
           {/* Search Container - macOS Spotlight Style */}
           <div className="relative w-full max-w-2xl transform transition-all duration-300 scale-95 animate-in fade-in-0 zoom-in-95 slide-in-from-top-10">
-            <div className="bg-white dark:bg-gray-900 border-0 rounded-2xl shadow-2xl overflow-hidden 
-                           flex flex-col max-h-[70vh]">
+            <div 
+              className="bg-white dark:bg-gray-900 border-0 rounded-2xl shadow-2xl overflow-hidden 
+                         flex flex-col max-h-[70vh] search-modal-content"
+              style={{
+                backgroundColor: 'rgb(255 255 255)',
+              }}
+            >
               {/* Search Input - macOS Spotlight Style */}
               <div className="p-6">
                 <div className="flex items-center space-x-3">

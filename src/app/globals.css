@@ -333,20 +333,19 @@ header button {
   -webkit-backdrop-filter: none !important;
 }
 
+/* Ensure no blur effects on search modal */
+.search-modal-container * {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
 /* Force search modal to be solid */
-.fixed.inset-0.z-\\[9999\\] .bg-white,
-.fixed.inset-0.z-\\[9999\\] .dark\\:bg-gray-900 {
+.search-modal-container .search-modal-content {
   background: rgb(255 255 255) !important;
 }
 
-.dark .fixed.inset-0.z-\\[9999\\] .dark\\:bg-gray-900 {
+.dark .search-modal-container .search-modal-content {
   background: rgb(17 24 39) !important;
-}
-
-/* Ensure no blur effects on search modal */
-.fixed.inset-0.z-\\[9999\\] * {
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
 }
 
 /* Mobile-specific button styling with higher specificity */
