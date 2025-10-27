@@ -31,12 +31,12 @@ export default function ModeToggle() {
   };
 
   const getIcon = () => {
-    if (!mounted) return <Monitor className="w-6 h-6" />;
+    if (!mounted) return <Monitor className="w-5 h-5" />;
     switch (theme) {
-      case 'light': return <Sun className="w-6 h-6" />;
-      case 'dark': return <Moon className="w-6 h-6" />;
-      case 'system': return <Monitor className="w-6 h-6" />;
-      default: return <Monitor className="w-6 h-6" />;
+      case 'light': return <Sun className="w-5 h-5" />;
+      case 'dark': return <Moon className="w-5 h-5" />;
+      case 'system': return <Monitor className="w-5 h-5" />;
+      default: return <Monitor className="w-5 h-5" />;
     }
   };
 
@@ -47,11 +47,11 @@ export default function ModeToggle() {
       <Button
         variant="outline"
         size="sm"
-        className="h-12 w-12 flex items-center justify-center p-0 glass border-white/20"
+        className="h-10 w-10 flex items-center justify-center p-0 glass border-white/20"
         aria-label="Loading theme"
         suppressHydrationWarning
       >
-        <Monitor className="w-6 h-6" />
+        <Monitor className="w-5 h-5" />
       </Button>
     );
   }
@@ -61,7 +61,7 @@ export default function ModeToggle() {
       variant="outline"
       size="sm"
       onClick={cycleTheme}
-      className="h-12 w-12 flex items-center justify-center p-0 glass border-white/20"
+      className="h-10 w-10 flex items-center justify-center p-0 glass border-white/20"
       aria-label={getTooltip()}
       title={getTooltip()}
       suppressHydrationWarning

@@ -16,11 +16,11 @@ export default function Search() {
           variant="ghost"
           size="sm"
           onClick={() => setIsOpen(true)}
-          className="h-12 w-12 flex items-center justify-center p-0"
+          className="h-10 w-10 flex items-center justify-center p-0"
           aria-label="Search"
           suppressHydrationWarning
         >
-          <SearchIcon className="w-6 h-6" />
+          <SearchIcon className="w-5 h-5" />
         </Button>
       </div>
 
