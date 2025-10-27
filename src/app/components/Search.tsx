@@ -28,6 +28,8 @@ export default function Search() {
 
   // Close search when clicking outside or pressing Escape
   useEffect(() => {
+    if (!isMounted) return;
+    
     function handleClickOutside(event: MouseEvent) {
       if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
         setIsOpen(false);
@@ -46,17 +48,19 @@ export default function Search() {
       document.removeEventListener('mousedown', handleClickOutside);
       document.removeEventListener('keydown', handleEscape);
     };
-  }, []);
+  }, [isMounted]);
 
   // Focus input when search opens
   useEffect(() => {
-    if (isOpen && inputRef.current) {
+    if (isOpen && inputRef.current && isMounted) {
       setTimeout(() => inputRef.current?.focus(), 100);
     }
-  }, [isOpen]);
+  }, [isOpen, isMounted]);
 
   // Perform search
   useEffect(() => {
+    if (!isMounted) return;
+    
     if (!query.trim()) {
       setResults([]);
       return;
@@ -78,7 +82,7 @@ export default function Search() {
 
     const timeoutId = setTimeout(searchAll, 300);
     return () => clearTimeout(timeoutId);
-  }, [query]);
+  }, [query, isMounted]);
 
   const handleResultClick = (href: string) => {
     setIsOpen(false);

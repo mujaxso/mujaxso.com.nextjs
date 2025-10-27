@@ -39,14 +39,14 @@ export default function Header() {
       <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-2xl bg-background/70 border-b border-white/10 shadow-[0_0_20px_rgba(0,0,0,0.1)]">
         <div className="w-full px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-3 md:py-4">
-            <Link href="/" className="flex items-center gap-3">
+            <Link href="/" className="flex items-center gap-3 group">
               <div className="w-10 h-10 md:w-12 md:h-12 rounded-full overflow-hidden border-2 border-primary/30 shadow-md">
                 <Image 
                   src="/img/profile.png" 
                   alt="Mujahid Siyam" 
                   width={48}
                   height={48}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                   priority
                 />
               </div>
@@ -56,15 +56,15 @@ export default function Header() {
             </Link>
             
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center gap-4">
-              <ul className="flex gap-1">
+            <nav className="hidden md:flex items-center gap-6">
+              <ul className="flex gap-2">
                 {navigationItems.map((item) => (
                   <li key={item.href}>
                     <Button 
                       variant="ghost" 
                       size="md" 
                       asChild 
-                      className="text-foreground/90 font-medium text-base rounded-xl px-4 py-2"
+                      className="text-foreground/90 font-medium text-base rounded-2xl focus-visible:ring-2 focus-visible:ring-primary/50 px-4 py-2"
                     >
                       <Link href={item.href}>
                         {item.label}
@@ -73,8 +73,8 @@ export default function Header() {
                   </li>
                 ))}
               </ul>
-              <div className="flex items-center gap-2">
-                <div className="[&_button]:bg-transparent [&_button]:border-0 [&_button]:shadow-none [&_button]:rounded-xl">
+              <div className="flex items-center gap-4">
+                <div className="relative">
                   <Search />
                 </div>
                 <div className="[&_button]:bg-transparent [&_button]:border-0 [&_button]:shadow-none [&_button]:rounded-xl">
