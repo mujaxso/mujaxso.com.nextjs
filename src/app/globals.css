@@ -212,18 +212,6 @@
     background: rgba(255, 255, 255, 0.1) !important;
   }
 
-  /* Specific targeting for mobile header buttons */
-  .flex.md\\:hidden button {
-    border-radius: 12px !important;
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-    overflow: hidden !important;
-  }
-
-  .flex.md\\:hidden button:hover {
-    background: rgba(255, 255, 255, 0.1) !important;
-  }
 
   /* Ensure search component is transparent */
   header [data-radix-popper-content-wrapper] {
@@ -277,9 +265,26 @@ header button:not([type]):hover {
   background: rgba(255, 255, 255, 0.1) !important;
 }
 
+/* Mobile header button styling */
+.mobile-header-buttons .mobile-header-button,
+.mobile-header-buttons button {
+  border-radius: 12px !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  overflow: hidden !important;
+  transition: all 0.3s ease !important;
+}
+
+.mobile-header-buttons .mobile-header-button:hover,
+.mobile-header-buttons button:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
 /* Mobile-specific button styling */
 @media (max-width: 767px) {
-  header .flex.items-center.gap-2 button {
+  .mobile-header-buttons .mobile-header-button,
+  .mobile-header-buttons button {
     border-radius: 12px !important;
     background: transparent !important;
     border: none !important;
@@ -287,7 +292,8 @@ header button:not([type]):hover {
     overflow: hidden !important;
   }
   
-  header .flex.items-center.gap-2 button:hover {
+  .mobile-header-buttons .mobile-header-button:hover,
+  .mobile-header-buttons button:hover {
     background: rgba(255, 255, 255, 0.1) !important;
   }
 }

@@ -70,18 +70,18 @@ export default function Header() {
             </nav>
 
             {/* Mobile Menu Button */}
-            <div className="flex md:hidden items-center gap-2">
-              <div className="[&_button]:!bg-transparent [&_button]:hover:!bg-white/10 [&_button]:!border-0 [&_button]:!shadow-none [&_button]:!rounded-xl [&_button]:overflow-hidden">
+            <div className="flex md:hidden items-center gap-2 mobile-header-buttons">
+              <div className="mobile-header-button">
                 <Search />
               </div>
-              <div className="[&_button]:!bg-transparent [&_button]:hover:!bg-white/10 [&_button]:!border-0 [&_button]:!shadow-none [&_button]:!rounded-xl [&_button]:overflow-hidden">
+              <div className="mobile-header-button">
                 <ModeToggle />
               </div>
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => setIsMobileMenuOpen(true)}
-                className="p-2 !rounded-xl !bg-transparent hover:!bg-white/10 !border-0 !shadow-none overflow-hidden"
+                className="p-2 mobile-header-button"
                 aria-label="Open menu"
               >
                 <Menu className="w-5 h-5" />
