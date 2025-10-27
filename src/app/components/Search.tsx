@@ -16,9 +16,15 @@ export default function Search() {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<SearchResult[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
+
+  // Track when component is mounted to avoid hydration mismatch
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   // Close search when clicking outside or pressing Escape
   useEffect(() => {
@@ -80,9 +86,12 @@ export default function Search() {
     router.push(href);
   };
 
+  // Only render the modal on the client after mounting to avoid hydration mismatch
+  const shouldShowModal = isOpen && isMounted;
+
   return (
     <div className="relative" ref={searchRef}>
-      {/* Search Button */}
+      {/* Search Button - Always render this on both server and client */}
       <button
         onClick={() => setIsOpen(true)}
         className="flex items-center gap-2 px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 
@@ -94,8 +103,8 @@ export default function Search() {
         <span className="hidden md:inline">Search</span>
       </button>
 
-      {/* Search Modal */}
-      {isOpen && (
+      {/* Search Modal - Only render on client after mounting */}
+      {shouldShowModal && (
         <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 md:pt-40 px-4">
           {/* Backdrop */}
           <div 

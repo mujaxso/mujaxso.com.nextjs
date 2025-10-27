@@ -75,15 +75,7 @@ export default function Header() {
               </ul>
               <div className="flex items-center gap-2">
                 <div className="[&_button]:bg-transparent [&_button]:border-0 [&_button]:shadow-none [&_button]:rounded-xl">
-                  <ClientOnly 
-                    fallback={
-                      <div className="relative">
-                        {/* This matches the structure that the Search component renders on the client */}
-                      </div>
-                    }
-                  >
-                    <Search />
-                  </ClientOnly>
+                  <Search />
                 </div>
                 <div className="[&_button]:bg-transparent [&_button]:border-0 [&_button]:shadow-none [&_button]:rounded-xl">
                   <ClientOnly>
@@ -96,15 +88,7 @@ export default function Header() {
             {/* Mobile Menu Button */}
             <div className="flex md:hidden items-center gap-2 mobile-header-buttons">
               <div className="mobile-header-button-wrapper">
-                <ClientOnly 
-                  fallback={
-                    <div className="relative">
-                      {/* This matches the structure that the Search component renders on the client */}
-                    </div>
-                  }
-                >
-                  <Search />
-                </ClientOnly>
+                <Search />
               </div>
               <div className="mobile-header-button-wrapper">
                 <ClientOnly>
