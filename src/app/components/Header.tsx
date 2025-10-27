@@ -51,9 +51,9 @@ export default function Header() {
                   <li key={item.href}>
                     <Button 
                       variant="ghost" 
-                      size="md" 
+                      size="sm" 
                       asChild 
-                      className="text-foreground font-medium text-base"
+                      className="text-foreground font-medium text-sm"
                       suppressHydrationWarning
                     >
                       <Link href={item.href}>
