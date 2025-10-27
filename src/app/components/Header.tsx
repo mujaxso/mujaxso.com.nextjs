@@ -86,7 +86,7 @@ export default function Header() {
             </nav>
 
             {/* Mobile Menu Button */}
-            <div className="flex md:hidden items-center gap-2">
+            <div className="flex md:hidden items-center gap-3">
               <div>
                 <Search />
               </div>
@@ -99,7 +99,7 @@ export default function Header() {
                 variant="ghost"
                 size="sm"
                 onClick={() => setIsMobileMenuOpen(true)}
-                className="p-2"
+                className="w-10 h-10 p-2 rounded-2xl border border-transparent hover:border-white/20 flex items-center justify-center"
                 aria-label="Open menu"
               >
                 <Menu className="w-5 h-5" />

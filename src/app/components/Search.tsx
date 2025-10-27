@@ -98,12 +98,20 @@ export default function Search() {
       <div className="relative" ref={searchRef} suppressHydrationWarning={true}>
         <button
           onClick={() => setIsOpen(true)}
-          className="flex items-center gap-2 px-4 py-2 text-foreground/90 hover:text-primary transition-all duration-300 
-                     font-medium hover:scale-105 rounded-xl"
+          className="flex items-center justify-center w-10 h-10 text-foreground/90 transition-all duration-300 
+                     font-medium hover:scale-110 rounded-2xl glass border border-white/20 
+                     bg-gradient-to-r from-white/10 to-white/5 backdrop-blur-sm 
+                     hover:from-white/15 hover:to-white/10 hover:border-white/30
+                     shadow-lg hover:shadow-xl md:w-auto md:px-4 md:py-2.5 md:gap-2"
           aria-label="Search"
         >
-          <SearchIcon className="w-4 h-4" />
-          <span className="hidden md:inline">Search</span>
+          <div className="relative">
+            <SearchIcon className="w-4 h-4" />
+            <div className="absolute inset-0 bg-gradient-to-r from-primary to-accent rounded-full opacity-0 hover:opacity-20 blur transition-opacity duration-300"></div>
+          </div>
+          <span className="hidden md:inline bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent font-semibold">
+            Search
+          </span>
         </button>
       </div>
 
