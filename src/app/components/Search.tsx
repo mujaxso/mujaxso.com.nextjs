@@ -86,11 +86,10 @@ export default function Search() {
     router.push(href);
   };
 
-  // Only render the modal on the client after mounting to avoid hydration mismatch
-  const shouldShowModal = isOpen && isMounted;
-
+  // Always render the same structure on server and client
+  // The modal will be empty on the server and populated on the client
   return (
-    <div className="relative" ref={searchRef}>
+    <div className="relative" ref={searchRef} suppressHydrationWarning={true}>
       {/* Search Button - Always render this on both server and client */}
       <button
         onClick={() => setIsOpen(true)}
@@ -103,8 +102,9 @@ export default function Search() {
         <span className="hidden md:inline">Search</span>
       </button>
 
-      {/* Search Modal - Only render on client after mounting */}
-      {shouldShowModal && (
+      {/* Always render the modal container, but conditionally show content */}
+      <div style={{ display: isMounted && isOpen ? 'block' : 'none' }}>
+        {isMounted && isOpen && (
         <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 md:pt-40 px-4">
           {/* Backdrop */}
           <div 
