@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Search as SearchIcon } from 'lucide-react';
 import SearchModal from './SearchModal';
+import { Button } from './ui/Button';
 
 export default function Search() {
   const [isOpen, setIsOpen] = useState(false);
