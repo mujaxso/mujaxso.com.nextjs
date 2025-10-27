@@ -5,16 +5,10 @@ export function proxy(request: NextRequest) {
   const url = request.nextUrl.clone()
   const host = request.headers.get('host') || ''
   
-  console.log('\n=== PROXY DEBUG ===')
-  console.log('Host:', host)
-  console.log('Pathname:', url.pathname)
-  
-  // Redirect www.subdomain to subdomain (e.g., www.blog.mujaxso.com -> blog.mujaxso.com)
-  if (host.startsWith('www.')) {
-    const newHost = host.replace('www.', '')
+  // Only handle www redirects for the main domain, not subdomains
+  if (host === 'www.mujaxso.com') {
     const redirectUrl = new URL(request.url)
-    redirectUrl.host = newHost
-    console.log('Redirecting www to non-www:', newHost)
+    redirectUrl.host = 'mujaxso.com'
     return NextResponse.redirect(redirectUrl, 301)
   }
   

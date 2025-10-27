@@ -14,9 +14,6 @@ export const metadata: Metadata = {
   keywords: ["software engineer", "AI/ML", "data science", "DevSecOps", "full-stack developer"],
   authors: [{ name: "Mujahid Siyam" }],
   metadataBase: new URL('https://mujaxso.com'),
-  alternates: {
-    canonical: '/',
-  },
   openGraph: {
     title: "Mujahid Siyam | Portfolio",
     description: "Software Engineer | AI/ML Engineer | Data Scientist | DevSecOps",

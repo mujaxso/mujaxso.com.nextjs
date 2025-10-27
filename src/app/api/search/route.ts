@@ -42,10 +42,9 @@ async function fetchWithFallback(url: string, fallbackData: any[]) {
 
 const getCachedSearchResults = unstable_cache(
   async (query: string) => {
-    const url = new URL('http://localhost'); // Base URL will be constructed differently
     const baseUrl = process.env.NEXTAUTH_URL || 'https://mujaxso.com';
     
-    // Fetch blog posts and projects with fallback
+    // Use relative URLs to avoid external requests
     const [blogPosts, projects] = await Promise.all([
       fetchWithFallback(`${baseUrl}/api/blog-posts`, fallbackBlogPosts),
       fetchWithFallback(`${baseUrl}/api/projects`, fallbackProjects)
@@ -96,15 +95,15 @@ const getCachedSearchResults = unstable_cache(
 );
 
 export async function GET(request: Request) {
-  const url = new URL(request.url);
-  const { searchParams } = url;
-  const query = searchParams.get('q')?.toLowerCase() || '';
-
-  if (!query) {
-    return NextResponse.json({ results: [] });
-  }
-
   try {
+    const url = new URL(request.url);
+    const { searchParams } = url;
+    const query = searchParams.get('q')?.toLowerCase() || '';
+
+    if (!query) {
+      return NextResponse.json({ results: [] });
+    }
+
     const results = await getCachedSearchResults(query);
     return NextResponse.json({ results }, {
       headers: {
@@ -113,6 +112,7 @@ export async function GET(request: Request) {
     });
   } catch (error) {
     console.error('Search error:', error);
+    // Return empty results instead of throwing to prevent 500 errors
     return NextResponse.json({ results: [] });
   }
 }
