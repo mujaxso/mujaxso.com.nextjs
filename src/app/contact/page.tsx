@@ -56,10 +56,17 @@ export default function ContactPage() {
       return;
     }
     
-    // In development mode, simulate success without making actual API call
-    const isDevelopment = process.env.NODE_ENV === 'development' || window.location.hostname === 'localhost';
+    // Check if we're in development mode (localhost or preview deployment)
+    // In Vercel production, the hostname will be your domain (mujaxso.com)
+    const isLocalhost = window.location.hostname === 'localhost' || 
+                        window.location.hostname === '127.0.0.1' ||
+                        window.location.hostname.includes('.local');
     
-    if (isDevelopment) {
+    // For preview deployments (like Vercel preview), you might want to test the real API
+    // You can enable real submissions in preview by setting a query parameter or environment variable
+    const forceProduction = new URLSearchParams(window.location.search).has('force-production');
+    
+    if (isLocalhost && !forceProduction) {
       console.log('Development mode: Simulating form submission');
       // Simulate network delay
       await new Promise(resolve => setTimeout(resolve, 800));
