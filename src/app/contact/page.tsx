@@ -4,8 +4,14 @@ import { useState, FormEvent } from 'react';
 import { Mail, Send, Code2, ExternalLink, Camera, LinkIcon } from 'lucide-react';
 
 // Web3Forms configuration
-const WEB3FORMS_ACCESS_KEY = 'c5ce3857-f4f2-47f4-a977-126b08374ab1';
+// Use environment variable with fallback for development
+const WEB3FORMS_ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY || 'c5ce3857-f4f2-47f4-a977-126b08374ab1';
 const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit';
+
+// Log in development to help debugging
+if (typeof window !== 'undefined' && window.location.hostname === 'localhost') {
+  console.log('Web3Forms Access Key:', WEB3FORMS_ACCESS_KEY ? 'Set' : 'Not set');
+}
 
 export default function ContactPage() {
   const [pending, setPending] = useState(false);
