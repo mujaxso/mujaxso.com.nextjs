@@ -8,9 +8,11 @@ import { Mail, Send, Code2, ExternalLink, Camera, LinkIcon } from 'lucide-react'
 const WEB3FORMS_ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY || 'c5ce3857-f4f2-47f4-a977-126b08374ab1';
 const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit';
 
-// Log in development to help debugging
-if (typeof window !== 'undefined' && window.location.hostname === 'localhost') {
-  console.log('Web3Forms Access Key:', WEB3FORMS_ACCESS_KEY ? 'Set' : 'Not set');
+// Log in development and production to help debugging
+if (typeof window !== 'undefined') {
+  console.log('Web3Forms Access Key configured:', WEB3FORMS_ACCESS_KEY ? 'Yes' : 'No');
+  console.log('Current hostname:', window.location.hostname);
+  console.log('NODE_ENV:', process.env.NODE_ENV);
 }
 
 export default function ContactPage() {
@@ -114,6 +116,9 @@ export default function ContactPage() {
     console.log('Sending to Web3Forms:', payload);
     
     try {
+      console.log('Attempting to fetch from:', WEB3FORMS_ENDPOINT);
+      console.log('Payload:', payload);
+      
       const response = await fetch(WEB3FORMS_ENDPOINT, {
         method: 'POST',
         mode: 'cors',
@@ -124,11 +129,18 @@ export default function ContactPage() {
         signal: controller.signal,
       });
       
+      console.log('Response received:', {
+        ok: response.ok,
+        status: response.status,
+        statusText: response.statusText,
+        headers: Object.fromEntries(response.headers.entries()),
+      });
+      
       if (!response.ok) {
         console.error('Web3Forms HTTP error:', response.status, response.statusText);
         const errorText = await response.text();
-        console.error('Error response:', errorText);
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        console.error('Error response text:', errorText);
+        throw new Error(`HTTP ${response.status}: ${response.statusText} - ${errorText}`);
       }
       
       const result = await response.json();
@@ -153,6 +165,7 @@ export default function ContactPage() {
         name: error.name,
         message: error.message,
         stack: error.stack,
+        cause: error.cause,
       });
       
       // Check for specific error types
@@ -162,10 +175,18 @@ export default function ContactPage() {
           text: 'Request timed out. Please check your internet connection and try again.' 
         });
       } else if (error.name === 'TypeError' && error.message.includes('fetch')) {
-        setMsg({ 
-          ok: false, 
-          text: 'Network error: Unable to connect to the server. Please check your internet connection and try again. If the problem persists, the service may be temporarily unavailable.' 
-        });
+        // More specific error messages
+        if (error.message.includes('Failed to fetch')) {
+          setMsg({ 
+            ok: false, 
+            text: 'Cannot connect to Web3Forms API. This could be due to network issues, browser extensions blocking the request, or the service being unavailable. Please try again later or contact me directly at contact@mujaxso.com.' 
+          });
+        } else {
+          setMsg({ 
+            ok: false, 
+            text: 'Network error: Unable to connect to the server. Please check your internet connection and try again. If the problem persists, the service may be temporarily unavailable.' 
+          });
+        }
       } else if (error.message?.includes('HTTP')) {
         setMsg({ 
           ok: false, 
