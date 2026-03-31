@@ -36,9 +36,9 @@ export async function submitContactForm(formData: FormData) {
 
     // Get environment variables
     const resendApiKey = process.env.RESEND_API_KEY;
-    // For Resend free tier, we need to send to a verified email address
-    // Use mujaxso@gmail.com (your verified email) or the CONTACT_EMAIL if it's verified
-    const contactEmail = process.env.CONTACT_EMAIL || 'mujaxso@gmail.com';
+    // Use contact@mujaxso.com as the recipient
+    // Make sure this email is verified in Resend and not on the suppression list
+    const contactEmail = process.env.CONTACT_EMAIL || 'contact@mujaxso.com';
     
     // Log environment status for debugging (only in development)
     if (process.env.NODE_ENV === 'development') {
@@ -137,6 +137,13 @@ export async function submitContactForm(formData: FormData) {
         return {
           success: false,
           message: `Failed to send email: ${error.message}. This may be because the domain mujaxso.com needs to be verified in Resend. Please contact me directly at contact@mujaxso.com for now.`
+        };
+      }
+      // Check if the error is related to suppression list
+      if (error.message?.includes('suppression') || error.message?.includes('suppressed')) {
+        return {
+          success: false,
+          message: `Failed to send email: The recipient email is on the suppression list. Please remove ${contactEmail} from Resend's suppression list or use a different email address.`
         };
       }
       return {
