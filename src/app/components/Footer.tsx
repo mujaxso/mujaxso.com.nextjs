@@ -145,8 +145,6 @@ export default function Footer() {
                 className="hidden"
                 aria-hidden="true"
               />
-              {/* Hidden subject field */}
-              <input type="hidden" name="subject_line" value="Quick message from website footer" />
               
               <div>
                 <input 
@@ -162,6 +160,15 @@ export default function Footer() {
                   type="email" 
                   name="email"
                   placeholder="Your Email"
+                  required
+                  className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary/50 transition-all duration-300 backdrop-blur-sm text-center placeholder:text-center"
+                />
+              </div>
+              <div>
+                <input 
+                  type="text" 
+                  name="subject_line"
+                  placeholder="Subject"
                   required
                   className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary/50 transition-all duration-300 backdrop-blur-sm text-center placeholder:text-center"
                 />

@@ -9,15 +9,29 @@ export async function submitContactForm(formData: FormData) {
       return { success: true, message: 'Thank you for your message! I will get back to you soon.' };
     }
 
+    // Get form data
+    const name = formData.get('name') as string;
+    const email = formData.get('email') as string;
+    const subject = formData.get('subject_line') as string;
+    const message = formData.get('message') as string;
+
+    // Validate required fields
+    if (!name?.trim() || !email?.trim() || !message?.trim()) {
+      return { 
+        success: false, 
+        message: 'Please fill in all required fields: name, email, and message.' 
+      };
+    }
+
     // Prepare the data for Web3Forms
     const payload = {
       access_key: 'c5ce3857-f4f2-47f4-a977-126b08374ab1',
-      name: formData.get('name'),
-      email: formData.get('email'),
-      subject: formData.get('subject_line'),
-      message: formData.get('message'),
+      name: name.trim(),
+      email: email.trim(),
+      subject: subject?.trim() || 'Quick message from website footer',
+      message: message.trim(),
       from_name: 'My Website Contact Form',
-      botcheck: botcheck
+      botcheck: botcheck || ''
     };
 
     console.log('Sending to Web3Forms:', JSON.stringify(payload, null, 2));
@@ -49,15 +63,34 @@ export async function submitContactForm(formData: FormData) {
     console.log('Web3Forms result:', result);
     
     if (result.success) {
-      return { success: true, message: 'Thank you for your message! I have received it and will get back to you within 24 hours.' };
+      return { 
+        success: true, 
+        message: 'Thank you for your message! I have received it and will get back to you within 24 hours.' 
+      };
     } else {
-      return { success: false, message: result.message || 'I apologize, but there was an issue sending your message. Please try again or reach out through one of my other contact methods.' };
+      return { 
+        success: false, 
+        message: result.message || 'I apologize, but there was an issue sending your message. Please try again or reach out through one of my other contact methods.' 
+      };
     }
   } catch (error: any) {
     console.error('Contact form submission error:', error);
     if (error.name === 'AbortError') {
-      return { success: false, message: 'The request timed out. Please check your internet connection and try again.' };
+      return { 
+        success: false, 
+        message: 'The request timed out. Please check your internet connection and try again.' 
+      };
     }
-    return { success: false, message: 'I apologize for the inconvenience, but there seems to be a network issue. Please try again in a moment or use one of my other contact methods.' };
+    // Check for network errors
+    if (error.message?.includes('fetch') || error.message?.includes('network')) {
+      return { 
+        success: false, 
+        message: 'Network error. Please check your internet connection and try again.' 
+      };
+    }
+    return { 
+      success: false, 
+      message: 'I apologize for the inconvenience, but there was an issue sending your message. Please try again or use one of my other contact methods.' 
+    };
   }
 }
