@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Mail, Send, Github, ExternalLink, Camera, LinkIcon } from 'lucide-react';
+import { Mail, Send, Code2, ExternalLink, Camera, LinkIcon } from 'lucide-react';
 import { submitContactForm } from '../actions/contact';
 
 export default function ContactPage() {
@@ -70,7 +70,7 @@ export default function ContactPage() {
               
               <div className="flex items-center backdrop-blur-sm bg-glass border border-glass-border rounded-2xl p-4 hover:scale-105 transition-all duration-300">
                 <div className="p-3 bg-[var(--color-secondary)]/20 rounded-lg mr-4">
-                  <Github className="w-6 h-6 text-[var(--color-secondary)]" />
+                  <Code2 className="w-6 h-6 text-[var(--color-secondary)]" />
                 </div>
                 <div>
                   <h3 className="font-semibold text-[var(--color-foreground)]">GitHub</h3>

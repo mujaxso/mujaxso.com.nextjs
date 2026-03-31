@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ExternalLink, Github, Star, GitFork, Eye, Calendar, ArrowRight } from "lucide-react";
+import { ExternalLink, Code2, Star, GitFork, Eye, Calendar, ArrowRight } from "lucide-react";
 import { join } from "path";
 import { promises as fs } from "fs";
 import { Hero } from "../components/Hero";
@@ -199,7 +199,7 @@ export default async function ProjectsPage() {
                       rel="noopener noreferrer"
                       className="p-2 bg-[var(--color-card)]/90 backdrop-blur-sm text-[var(--color-foreground)] hover:text-[var(--color-primary)] rounded-2xl border border-[var(--color-border)] hover:border-[var(--color-primary)]/50 transition-all duration-300"
                     >
-                      <Github className="w-4 h-4" />
+                      <Code2 className="w-4 h-4" />
                     </a>
                   )}
                 </div>
