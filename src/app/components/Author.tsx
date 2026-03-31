@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { GitHub, Twitter, LinkedIn, Globe } from "lucide-react";
+import { GitHub, MessageCircle, LinkedIn, Globe } from "lucide-react";
 
 interface AuthorProps {
   name: string;
@@ -53,7 +53,7 @@ export default function Author({ name, image, bio, socialLinks }: AuthorProps) {
                 rel="noopener noreferrer"
                 className="p-2 text-muted-foreground hover:text-card-foreground transition-colors backdrop-blur-sm bg-muted border border-border rounded-lg hover:scale-110"
               >
-                <Twitter className="w-4 h-4" />
+                <MessageCircle className="w-4 h-4" />
               </a>
             )}
             {socialLinks.linkedin && (
