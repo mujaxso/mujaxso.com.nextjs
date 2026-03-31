@@ -65,7 +65,7 @@ export function GitHubProjectCard({
                 className="p-1 hover:bg-[var(--color-muted)] rounded transition-colors"
                 aria-label="GitHub Repository"
               >
-                <Github className="w-4 h-4" />
+                <Code2 className="w-4 h-4" />
               </a>
             )}
           </div>
