@@ -82,6 +82,18 @@ export default function ContactPage() {
     }
     
     // Production: Actual Web3Forms submission
+    // Check if API key is available
+    if (!WEB3FORMS_ACCESS_KEY) {
+      console.error('Web3Forms API key is not configured');
+      setMsg({ 
+        ok: false, 
+        text: 'Contact form is not properly configured. Please try again later or contact me directly.' 
+      });
+      setPending(false);
+      clearTimeout(timeoutId);
+      return;
+    }
+    
     // Prepare payload for Web3Forms
     const payload = {
       access_key: WEB3FORMS_ACCESS_KEY,
