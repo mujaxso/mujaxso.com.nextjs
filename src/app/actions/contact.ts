@@ -1,5 +1,7 @@
 'use server';
 
+import { Resend } from 'resend';
+
 export async function submitContactForm(formData: FormData) {
   try {
     // Honeypot check
@@ -23,124 +25,141 @@ export async function submitContactForm(formData: FormData) {
       };
     }
 
-    // Prepare the data for Web3Forms
-    const payload: any = {
-      access_key: 'c5ce3857-f4f2-47f4-a977-126b08374ab1',
-      name: name.trim(),
-      email: email.trim(),
-      subject: subject?.trim() || 'Quick message from website footer',
-      message: message.trim(),
-      from_name: 'My Website Contact Form',
-    };
-    
-    // Only add botcheck if it has a value
-    if (botcheck && botcheck.trim()) {
-      payload.botcheck = botcheck.trim();
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email.trim())) {
+      return {
+        success: false,
+        message: 'Please provide a valid email address.'
+      };
     }
 
-    console.log('Sending to Web3Forms:', JSON.stringify(payload, null, 2));
+    // Get environment variables
+    const resendApiKey = process.env.RESEND_API_KEY;
+    const contactEmail = process.env.CONTACT_EMAIL || 'contact@mujaxso.com';
+
+    if (!resendApiKey) {
+      console.error('RESEND_API_KEY is not configured');
+      return {
+        success: false,
+        message: 'Email service is not properly configured. Please try again later.'
+      };
+    }
+
+    const resend = new Resend(resendApiKey);
+
+    console.log('Sending email via Resend:', { name, email, subject, message });
 
     // Add timeout to the fetch
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 15000);
 
     try {
-      const response = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'User-Agent': 'Mozilla/5.0 (compatible; NextJS-Server-Action)',
-        },
-        body: JSON.stringify(payload),
-        signal: controller.signal,
-        redirect: 'follow'
+      const { data, error } = await resend.emails.send({
+        from: 'Contact Form <onboarding@resend.dev>',
+        to: [contactEmail],
+        replyTo: email,
+        subject: subject?.trim() || `New message from ${name} via website contact form`,
+        html: `
+          <!DOCTYPE html>
+          <html>
+            <head>
+              <style>
+                body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+                .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+                .header { background-color: #f4f4f4; padding: 20px; border-radius: 5px; }
+                .content { padding: 20px; }
+                .field { margin-bottom: 15px; }
+                .label { font-weight: bold; color: #555; }
+                .value { padding: 8px; background-color: #f9f9f9; border-radius: 4px; }
+              </style>
+            </head>
+            <body>
+              <div class="container">
+                <div class="header">
+                  <h2>New Contact Form Submission</h2>
+                </div>
+                <div class="content">
+                  <div class="field">
+                    <div class="label">Name:</div>
+                    <div class="value">${name.trim()}</div>
+                  </div>
+                  <div class="field">
+                    <div class="label">Email:</div>
+                    <div class="value">${email.trim()}</div>
+                  </div>
+                  <div class="field">
+                    <div class="label">Subject:</div>
+                    <div class="value">${subject?.trim() || 'Not specified'}</div>
+                  </div>
+                  <div class="field">
+                    <div class="label">Message:</div>
+                    <div class="value" style="white-space: pre-wrap;">${message.trim()}</div>
+                  </div>
+                </div>
+              </div>
+            </body>
+          </html>
+        `,
+        text: `
+          New Contact Form Submission
+          ----------------------------
+          Name: ${name.trim()}
+          Email: ${email.trim()}
+          Subject: ${subject?.trim() || 'Not specified'}
+          Message:
+          ${message.trim()}
+        `,
       });
 
       clearTimeout(timeoutId);
 
-      console.log('Response status:', response.status);
-      console.log('Response headers:', Object.fromEntries(response.headers.entries()));
-      
-      // Check if the response is OK before processing
-      if (!response.ok) {
-        console.error('Response not OK:', response.status, response.statusText);
-        const errorText = await response.text();
-        console.error('Error response text:', errorText);
-        // Don't throw here, try to parse as JSON first
-        try {
-          const errorResult = JSON.parse(errorText);
-          console.error('Web3Forms error result:', errorResult);
-          return { 
-            success: false, 
-            message: errorResult.message || `Server returned ${response.status}: ${response.statusText}` 
-          };
-        } catch (parseError) {
-          // If not JSON, return the text
-          return { 
-            success: false, 
-            message: `Server error: ${response.status} ${response.statusText}` 
-          };
-        }
-      }
-      
-      const responseText = await response.text();
-      console.log('Response text:', responseText);
-      
-      let result;
-      try {
-        result = JSON.parse(responseText);
-      } catch (e) {
-        console.error('Failed to parse response as JSON:', e);
-        return { 
-          success: false, 
-          message: 'Received an invalid response from the server. Please try again.' 
+      if (error) {
+        console.error('Resend error:', error);
+        return {
+          success: false,
+          message: `Failed to send email: ${error.message}. Please try again later.`
         };
       }
-      
-      console.log('Web3Forms result:', result);
-      
-      if (result.success) {
-        return { 
-          success: true, 
-          message: 'Thank you for your message! I have received it and will get back to you within 24 hours.' 
-        };
-      } else {
-        console.error('Web3Forms returned error:', result);
-        return { 
-          success: false, 
-          message: result.message || 'I apologize, but there was an issue sending your message. Please try again or reach out through one of my other contact methods.' 
-        };
-      }
+
+      console.log('Resend success:', data);
+      return {
+        success: true,
+        message: 'Thank you for your message! I have received it and will get back to you within 24 hours.'
+      };
+
     } catch (fetchError: any) {
       clearTimeout(timeoutId);
-      console.error('Fetch error details:', {
+      console.error('Email sending error:', {
         name: fetchError.name,
         message: fetchError.message,
         stack: fetchError.stack,
         cause: fetchError.cause
       });
-      // Re-throw to be caught by the outer catch block
+      
+      if (fetchError.name === 'AbortError') {
+        return {
+          success: false,
+          message: 'The request timed out. Please check your internet connection and try again.'
+        };
+      }
+      
       throw fetchError;
     }
   } catch (error: any) {
     console.error('Contact form submission error:', error);
-    if (error.name === 'AbortError') {
-      return { 
-        success: false, 
-        message: 'The request timed out. Please check your internet connection and try again.' 
-      };
-    }
+    
     // Check for network errors
-    if (error.message?.includes('fetch') || error.message?.includes('network')) {
-      return { 
-        success: false, 
-        message: 'Network error. Please check your internet connection and try again.' 
+    if (error.message?.includes('fetch') || error.message?.includes('network') || error.message?.includes('connection')) {
+      return {
+        success: false,
+        message: 'Network error. Please check your internet connection and try again.'
       };
     }
-    return { 
-      success: false, 
-      message: 'I apologize for the inconvenience, but there was an issue sending your message. Please try again or use one of my other contact methods.' 
+    
+    return {
+      success: false,
+      message: 'I apologize for the inconvenience, but there was an issue sending your message. Please try again or use one of my other contact methods.'
     };
   }
 }
