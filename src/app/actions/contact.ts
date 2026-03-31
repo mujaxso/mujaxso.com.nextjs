@@ -71,10 +71,10 @@ export async function submitContactForm(formData: FormData) {
 
     console.log('Sending email via Resend:', { name, email, subject, message });
 
-    // For Resend free tier, use onboarding@resend.dev as from address
-    // and send to your verified email address
+    // Use contact@mujaxso.com as the sender (requires domain verification in Resend)
+    // If domain is not verified, this will fail
     const { data, error } = await resend.emails.send({
-      from: 'Contact Form <onboarding@resend.dev>',
+      from: 'Contact Form <contact@mujaxso.com>',
       to: [contactEmail],
       replyTo: email,
       subject: subject?.trim() || `New message from ${name} via website contact form`,
@@ -132,6 +132,13 @@ export async function submitContactForm(formData: FormData) {
 
     if (error) {
       console.error('Resend error:', error);
+      // Check if the error is related to domain verification
+      if (error.message?.includes('domain') || error.message?.includes('verify') || error.message?.includes('sender')) {
+        return {
+          success: false,
+          message: `Failed to send email: ${error.message}. This may be because the domain mujaxso.com needs to be verified in Resend. Please contact me directly at contact@mujaxso.com for now.`
+        };
+      }
       return {
         success: false,
         message: `Failed to send email: ${error.message}. Please try again later.`
