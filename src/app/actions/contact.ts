@@ -67,7 +67,21 @@ export async function submitContactForm(formData: FormData) {
         console.error('Response not OK:', response.status, response.statusText);
         const errorText = await response.text();
         console.error('Error response text:', errorText);
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        // Don't throw here, try to parse as JSON first
+        try {
+          const errorResult = JSON.parse(errorText);
+          console.error('Web3Forms error result:', errorResult);
+          return { 
+            success: false, 
+            message: errorResult.message || `Server returned ${response.status}: ${response.statusText}` 
+          };
+        } catch (parseError) {
+          // If not JSON, return the text
+          return { 
+            success: false, 
+            message: `Server error: ${response.status} ${response.statusText}` 
+          };
+        }
       }
       
       const responseText = await response.text();
@@ -78,7 +92,10 @@ export async function submitContactForm(formData: FormData) {
         result = JSON.parse(responseText);
       } catch (e) {
         console.error('Failed to parse response as JSON:', e);
-        throw new Error(`Invalid JSON response: ${responseText}`);
+        return { 
+          success: false, 
+          message: 'Received an invalid response from the server. Please try again.' 
+        };
       }
       
       console.log('Web3Forms result:', result);
@@ -97,7 +114,13 @@ export async function submitContactForm(formData: FormData) {
       }
     } catch (fetchError: any) {
       clearTimeout(timeoutId);
-      console.error('Fetch error:', fetchError);
+      console.error('Fetch error details:', {
+        name: fetchError.name,
+        message: fetchError.message,
+        stack: fetchError.stack,
+        cause: fetchError.cause
+      });
+      // Re-throw to be caught by the outer catch block
       throw fetchError;
     }
   } catch (error: any) {
