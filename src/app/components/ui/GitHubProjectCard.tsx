@@ -2,7 +2,7 @@
 
 import { Card, CardContent, CardFooter, CardHeader } from "./Card"
 import { cn } from "../../lib/utils"
-import { Star, GitFork, Eye, Calendar, ExternalLink, Github } from "lucide-react"
+import { Star, GitFork, Eye, Calendar, ExternalLink, Code2 } from "lucide-react"
 
 interface GitHubProjectCardProps {
   title: string
