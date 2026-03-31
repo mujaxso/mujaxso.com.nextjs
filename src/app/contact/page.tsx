@@ -19,6 +19,10 @@ export default function ContactPage() {
     const form = event.currentTarget;
     const formData = new FormData(form);
     
+    // Create an AbortController for timeout
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+    
     // Honeypot check
     const botcheck = formData.get('botcheck') as string;
     if (botcheck?.trim()) {
@@ -66,15 +70,25 @@ export default function ContactPage() {
     try {
       const response = await fetch(WEB3FORMS_ENDPOINT, {
         method: 'POST',
+        mode: 'cors',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(payload),
+        signal: controller.signal,
       });
+      
+      if (!response.ok) {
+        console.error('Web3Forms HTTP error:', response.status, response.statusText);
+        const errorText = await response.text();
+        console.error('Error response:', errorText);
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
       
       const result = await response.json();
       console.log('Web3Forms response:', result);
       
+      clearTimeout(timeoutId);
       if (result.success) {
         setMsg({ 
           ok: true, 
@@ -87,13 +101,38 @@ export default function ContactPage() {
           text: result.message || 'I apologize, but there was an issue sending your message. Please try again or reach out through one of my other contact methods.' 
         });
       }
-    } catch (error) {
-      console.error('Submission error:', error);
-      setMsg({ 
-        ok: false, 
-        text: 'I apologize for the inconvenience, but there seems to be a network issue. Please try again in a moment or use one of my other contact methods.' 
+    } catch (error: any) {
+      clearTimeout(timeoutId);
+      console.error('Submission error details:', {
+        name: error.name,
+        message: error.message,
+        stack: error.stack,
       });
+      
+      // Check for specific error types
+      if (error.name === 'AbortError') {
+        setMsg({ 
+          ok: false, 
+          text: 'Request timed out. Please check your internet connection and try again.' 
+        });
+      } else if (error.name === 'TypeError' && error.message.includes('fetch')) {
+        setMsg({ 
+          ok: false, 
+          text: 'Network error: Unable to connect to the server. Please check your internet connection and try again. If the problem persists, the service may be temporarily unavailable.' 
+        });
+      } else if (error.message?.includes('HTTP')) {
+        setMsg({ 
+          ok: false, 
+          text: `Server error: ${error.message}. Please try again later.` 
+        });
+      } else {
+        setMsg({ 
+          ok: false, 
+          text: 'I apologize for the inconvenience, but there seems to be a network issue. Please try again in a moment or use one of my other contact methods.' 
+        });
+      }
     } finally {
+      clearTimeout(timeoutId);
       setPending(false);
     }
   }
