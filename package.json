@@ -25,6 +25,7 @@
     "@svgr/webpack": "^8.1.0",
     "beasties": "^0.4.1",
     "clsx": "^2.1.1",
+    "critters": "npm:beasties@^0.4.1",
     "framer-motion": "^12.38.0",
     "gray-matter": "^4.0.3",
     "highlight.js": "^11.11.1",
@@ -49,11 +50,11 @@
     "@types/node": "^25.5.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "@vitest/ui": "^3.0.4",
+    "@vitest/ui": "^4.1.2",
     "babel-plugin-react-compiler": "1.0.0",
     "tailwindcss": "^4.2.2",
     "typescript": "^6.0.2",
-    "vite": "^5.4.21",
-    "vitest": "^3.0.4"
+    "vite": "^8.0.3",
+    "vitest": "^4.1.2"
   }
 }
