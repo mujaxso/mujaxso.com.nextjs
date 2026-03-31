@@ -36,7 +36,9 @@ export async function submitContactForm(formData: FormData) {
 
     // Get environment variables
     const resendApiKey = process.env.RESEND_API_KEY;
-    const contactEmail = process.env.CONTACT_EMAIL || 'contact@mujaxso.com';
+    // For Resend free tier, we need to send to a verified email address
+    // Use mujaxso@gmail.com (your verified email) or the CONTACT_EMAIL if it's verified
+    const contactEmail = process.env.CONTACT_EMAIL || 'mujaxso@gmail.com';
     
     // Log environment status for debugging (only in development)
     if (process.env.NODE_ENV === 'development') {
@@ -69,6 +71,8 @@ export async function submitContactForm(formData: FormData) {
 
     console.log('Sending email via Resend:', { name, email, subject, message });
 
+    // For Resend free tier, use onboarding@resend.dev as from address
+    // and send to your verified email address
     const { data, error } = await resend.emails.send({
       from: 'Contact Form <onboarding@resend.dev>',
       to: [contactEmail],
