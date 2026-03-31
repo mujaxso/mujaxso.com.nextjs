@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Github, LinkIcon, Mail, ExternalLink, Code2, Heart, Sparkles, Send } from "lucide-react";
+import { GitHub, LinkIcon, Mail, ExternalLink, Code2, Heart, Sparkles, Send } from "lucide-react";
 import { Button } from "./ui/Button";
 import ModeToggle from "./ModeToggle";
 import { useState } from "react";
@@ -92,7 +92,7 @@ export default function Footer() {
                 {[
                   { 
                     name: 'GitHub', 
-                    icon: Github, 
+                    icon: GitHub, 
                     url: 'https://github.com/mujaxso',
                   },
                   { 
