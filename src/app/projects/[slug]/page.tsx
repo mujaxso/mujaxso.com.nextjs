@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { promises as fs } from 'fs';
 import { join } from 'path';
 import matter from 'gray-matter';
-import { Github, ExternalLink } from 'lucide-react';
+import { GitHub, ExternalLink } from 'lucide-react';
 import ClientMDXRenderer from '../../components/ClientMDXRenderer';
 import type { Metadata } from "next";
 
@@ -121,7 +121,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-3 px-6 py-3 bg-primary text-white rounded-xl hover:bg-primary-dark transition-all duration-300 text-sm font-medium shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
                 >
-                  <Github className="w-5 h-5" />
+                  <GitHub className="w-5 h-5" />
                   View on GitHub
                 </a>
               )}

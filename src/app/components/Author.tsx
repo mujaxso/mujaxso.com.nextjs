@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Github, Twitter, Linkedin, Globe } from "lucide-react";
+import { GitHub, Twitter, LinkedIn, Globe } from "lucide-react";
 
 interface AuthorProps {
   name: string;
@@ -43,7 +43,7 @@ export default function Author({ name, image, bio, socialLinks }: AuthorProps) {
                 rel="noopener noreferrer"
                 className="p-2 text-muted-foreground hover:text-card-foreground transition-colors backdrop-blur-sm bg-muted border border-border rounded-lg hover:scale-110"
               >
-                <Github className="w-4 h-4" />
+                <GitHub className="w-4 h-4" />
               </a>
             )}
             {socialLinks.twitter && (
@@ -63,7 +63,7 @@ export default function Author({ name, image, bio, socialLinks }: AuthorProps) {
                 rel="noopener noreferrer"
                 className="p-2 text-muted-foreground hover:text-card-foreground transition-colors backdrop-blur-sm bg-muted border border-border rounded-lg hover:scale-110"
               >
-                <Linkedin className="w-4 h-4" />
+                <LinkedIn className="w-4 h-4" />
               </a>
             )}
             {socialLinks.website && (
