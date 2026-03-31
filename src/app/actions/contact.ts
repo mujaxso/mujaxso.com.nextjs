@@ -61,7 +61,7 @@ export async function submitContactForm(formData: FormData) {
       // In production, provide a more specific error message
       return {
         success: false,
-        message: 'Email service is not properly configured. Please contact me directly at contact@mujaxso.com or try again later.'
+        message: 'The contact form is temporarily unavailable due to a configuration issue. Please email me directly at contact@mujaxso.com or try again later. (Error: RESEND_API_KEY not configured in production environment)'
       };
     }
 
