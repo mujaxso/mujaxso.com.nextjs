@@ -1,31 +1,98 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, FormEvent } from 'react';
 import { Mail, Send, Code2, ExternalLink, Camera, LinkIcon } from 'lucide-react';
-import { submitContactForm } from '../actions/contact';
+
+// Web3Forms configuration
+const WEB3FORMS_ACCESS_KEY = 'c5ce3857-f4f2-47f4-a977-126b08374ab1';
+const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit';
 
 export default function ContactPage() {
   const [pending, setPending] = useState(false);
   const [msg, setMsg] = useState<{ ok: boolean; text: string } | null>(null);
 
-  async function handleSubmit(formData: FormData) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
     setMsg(null);
     setPending(true);
     
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    
+    // Honeypot check
+    const botcheck = formData.get('botcheck') as string;
+    if (botcheck?.trim()) {
+      console.log('Honeypot triggered');
+      setMsg({ ok: true, text: 'Thank you for your message! I will get back to you soon.' });
+      setPending(false);
+      form.reset();
+      return;
+    }
+    
+    // Get form data
+    const name = formData.get('name') as string;
+    const email = formData.get('email') as string;
+    const subject = formData.get('subject_line') as string;
+    const message = formData.get('message') as string;
+    
+    // Validate required fields
+    if (!name?.trim() || !email?.trim() || !message?.trim()) {
+      setMsg({ ok: false, text: 'Please fill in all required fields: name, email, and message.' });
+      setPending(false);
+      return;
+    }
+    
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email.trim())) {
+      setMsg({ ok: false, text: 'Please provide a valid email address.' });
+      setPending(false);
+      return;
+    }
+    
+    // Prepare payload for Web3Forms
+    const payload = {
+      access_key: WEB3FORMS_ACCESS_KEY,
+      name: name.trim(),
+      email: email.trim(),
+      subject: subject?.trim() || 'Quick message from website footer',
+      message: message.trim(),
+      from_name: 'My Website Contact Form',
+      botcheck: botcheck || ''
+    };
+    
+    console.log('Sending to Web3Forms:', payload);
+    
     try {
-      const result = await submitContactForm(formData);
+      const response = await fetch(WEB3FORMS_ENDPOINT, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+      
+      const result = await response.json();
+      console.log('Web3Forms response:', result);
       
       if (result.success) {
-        setMsg({ ok: true, text: result.message });
-        // Reset the form
-        const form = document.querySelector('form') as HTMLFormElement;
-        if (form) form.reset();
+        setMsg({ 
+          ok: true, 
+          text: 'Thank you for your message! I have received it and will get back to you within 24 hours.' 
+        });
+        form.reset();
       } else {
-        setMsg({ ok: false, text: result.message });
+        setMsg({ 
+          ok: false, 
+          text: result.message || 'I apologize, but there was an issue sending your message. Please try again or reach out through one of my other contact methods.' 
+        });
       }
-    } catch (err) {
-      console.error('Submission error:', err);
-      setMsg({ ok: false, text: 'I apologize for the inconvenience, but there seems to be a network issue. Please try again in a moment or use one of my other contact methods.' });
+    } catch (error) {
+      console.error('Submission error:', error);
+      setMsg({ 
+        ok: false, 
+        text: 'I apologize for the inconvenience, but there seems to be a network issue. Please try again in a moment or use one of my other contact methods.' 
+      });
     } finally {
       setPending(false);
     }
@@ -75,7 +142,7 @@ export default function ContactPage() {
                 <div>
                   <h3 className="font-semibold text-[var(--color-foreground)]">GitHub</h3>
                   <p className="text-[var(--color-foreground)]/60">Explore my latest projects and contributions</p>
-                  <a href="https://github.com/mujaxso" className="text-sm text-[var(--color-primary)] font-medium hover:text-[var(--color-primary)] transition-colors">
+                  <a href="https://github.com/mujaxso" target="_blank" rel="noopener noreferrer" className="text-sm text-[var(--color-primary)] font-medium hover:text-[var(--color-primary)] transition-colors">
                     github.com/mujaxso
                   </a>
                 </div>
@@ -88,7 +155,7 @@ export default function ContactPage() {
                 <div>
                   <h3 className="font-semibold text-[var(--color-foreground)]">LinkedIn</h3>
                   <p className="text-[var(--color-foreground)]/60">Connect with me professionally</p>
-                  <a href="https://linkedin.com/in/mujaxso" className="text-sm text-[var(--color-primary)] font-medium hover:text-[var(--color-primary)] transition-colors">
+                  <a href="https://linkedin.com/in/mujaxso" target="_blank" rel="noopener noreferrer" className="text-sm text-[var(--color-primary)] font-medium hover:text-[var(--color-primary)] transition-colors">
                     @mujaxso
                   </a>
                 </div>
@@ -101,7 +168,7 @@ export default function ContactPage() {
                 <div>
                   <h3 className="font-semibold text-[var(--color-foreground)]">Instagram</h3>
                   <p className="text-[var(--color-foreground)]/60">Follow for creative insights and updates</p>
-                  <a href="https://instagram.com/mujaxso" className="text-sm text-[var(--color-primary)] font-medium hover:text-[var(--color-primary)] transition-colors">
+                  <a href="https://instagram.com/mujaxso" target="_blank" rel="noopener noreferrer" className="text-sm text-[var(--color-primary)] font-medium hover:text-[var(--color-primary)] transition-colors">
                     @mujaxso
                   </a>
                 </div>
@@ -114,7 +181,7 @@ export default function ContactPage() {
                 <div>
                   <h3 className="font-semibold text-[var(--color-foreground)]">TikTok</h3>
                   <p className="text-[var(--color-foreground)]/60">Creative content and tech insights</p>
-                  <a href="https://tiktok.com/@mujaxso" className="text-sm text-[var(--color-primary)] font-medium hover:text-[var(--color-primary)] transition-colors">
+                  <a href="https://tiktok.com/@mujaxso" target="_blank" rel="noopener noreferrer" className="text-sm text-[var(--color-primary)] font-medium hover:text-[var(--color-primary)] transition-colors">
                     @mujaxso
                   </a>
                 </div>
@@ -127,7 +194,7 @@ export default function ContactPage() {
                 <div>
                   <h3 className="font-semibold text-[var(--color-foreground)]">Website</h3>
                   <p className="text-[var(--color-foreground)]/60">Explore my portfolio and blog</p>
-                  <a href="https://mujaxso.com" className="text-sm text-[var(--color-primary)] font-medium hover:text-[var(--color-primary)] transition-colors">
+                  <a href="https://mujaxso.com" target="_blank" rel="noopener noreferrer" className="text-sm text-[var(--color-primary)] font-medium hover:text-[var(--color-primary)] transition-colors">
                     mujaxso.com
                   </a>
                 </div>
@@ -146,7 +213,7 @@ export default function ContactPage() {
                 {msg.text}
               </div>
             )}
-            <form action={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6">
               {/* Hidden fields */}
               <input
                 type="text"
