@@ -24,15 +24,19 @@ export async function submitContactForm(formData: FormData) {
     }
 
     // Prepare the data for Web3Forms
-    const payload = {
+    const payload: any = {
       access_key: 'c5ce3857-f4f2-47f4-a977-126b08374ab1',
       name: name.trim(),
       email: email.trim(),
       subject: subject?.trim() || 'Quick message from website footer',
       message: message.trim(),
       from_name: 'My Website Contact Form',
-      botcheck: botcheck || ''
     };
+    
+    // Only add botcheck if it has a value
+    if (botcheck && botcheck.trim()) {
+      payload.botcheck = botcheck.trim();
+    }
 
     console.log('Sending to Web3Forms:', JSON.stringify(payload, null, 2));
 
@@ -46,15 +50,25 @@ export async function submitContactForm(formData: FormData) {
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
+          'User-Agent': 'Mozilla/5.0 (compatible; NextJS-Server-Action)',
         },
         body: JSON.stringify(payload),
-        signal: controller.signal
+        signal: controller.signal,
+        redirect: 'follow'
       });
 
       clearTimeout(timeoutId);
 
       console.log('Response status:', response.status);
       console.log('Response headers:', Object.fromEntries(response.headers.entries()));
+      
+      // Check if the response is OK before processing
+      if (!response.ok) {
+        console.error('Response not OK:', response.status, response.statusText);
+        const errorText = await response.text();
+        console.error('Error response text:', errorText);
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
       
       const responseText = await response.text();
       console.log('Response text:', responseText);
