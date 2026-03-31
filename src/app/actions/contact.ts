@@ -40,38 +40,51 @@ export async function submitContactForm(formData: FormData) {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 15000);
 
-    const response = await fetch('https://api.web3forms.com/submit', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),
-      signal: controller.signal
-    });
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify(payload),
+        signal: controller.signal
+      });
 
-    clearTimeout(timeoutId);
+      clearTimeout(timeoutId);
 
-    console.log('Response status:', response.status);
-    
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error('Response error text:', errorText);
-      throw new Error(`HTTP error! status: ${response.status}, body: ${errorText}`);
-    }
-
-    const result = await response.json();
-    console.log('Web3Forms result:', result);
-    
-    if (result.success) {
-      return { 
-        success: true, 
-        message: 'Thank you for your message! I have received it and will get back to you within 24 hours.' 
-      };
-    } else {
-      return { 
-        success: false, 
-        message: result.message || 'I apologize, but there was an issue sending your message. Please try again or reach out through one of my other contact methods.' 
-      };
+      console.log('Response status:', response.status);
+      console.log('Response headers:', Object.fromEntries(response.headers.entries()));
+      
+      const responseText = await response.text();
+      console.log('Response text:', responseText);
+      
+      let result;
+      try {
+        result = JSON.parse(responseText);
+      } catch (e) {
+        console.error('Failed to parse response as JSON:', e);
+        throw new Error(`Invalid JSON response: ${responseText}`);
+      }
+      
+      console.log('Web3Forms result:', result);
+      
+      if (result.success) {
+        return { 
+          success: true, 
+          message: 'Thank you for your message! I have received it and will get back to you within 24 hours.' 
+        };
+      } else {
+        console.error('Web3Forms returned error:', result);
+        return { 
+          success: false, 
+          message: result.message || 'I apologize, but there was an issue sending your message. Please try again or reach out through one of my other contact methods.' 
+        };
+      }
+    } catch (fetchError: any) {
+      clearTimeout(timeoutId);
+      console.error('Fetch error:', fetchError);
+      throw fetchError;
     }
   } catch (error: any) {
     console.error('Contact form submission error:', error);
