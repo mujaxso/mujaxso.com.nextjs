@@ -19,7 +19,7 @@ export default function ContactPage() {
     const form = event.currentTarget;
     const formData = new FormData(form);
     
-    // Create an AbortController for timeout
+    // Create an AbortController for timeout (only used in production)
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
     
@@ -43,6 +43,7 @@ export default function ContactPage() {
     if (!name?.trim() || !email?.trim() || !message?.trim()) {
       setMsg({ ok: false, text: 'Please fill in all required fields: name, email, and message.' });
       setPending(false);
+      clearTimeout(timeoutId);
       return;
     }
     
@@ -51,9 +52,29 @@ export default function ContactPage() {
     if (!emailRegex.test(email.trim())) {
       setMsg({ ok: false, text: 'Please provide a valid email address.' });
       setPending(false);
+      clearTimeout(timeoutId);
       return;
     }
     
+    // In development mode, simulate success without making actual API call
+    const isDevelopment = process.env.NODE_ENV === 'development' || window.location.hostname === 'localhost';
+    
+    if (isDevelopment) {
+      console.log('Development mode: Simulating form submission');
+      // Simulate network delay
+      await new Promise(resolve => setTimeout(resolve, 800));
+      
+      clearTimeout(timeoutId);
+      setMsg({ 
+        ok: true, 
+        text: 'Thank you for your message! (Development mode: Form validated successfully. In production, this would send an email.)' 
+      });
+      form.reset();
+      setPending(false);
+      return;
+    }
+    
+    // Production: Actual Web3Forms submission
     // Prepare payload for Web3Forms
     const payload = {
       access_key: WEB3FORMS_ACCESS_KEY,
