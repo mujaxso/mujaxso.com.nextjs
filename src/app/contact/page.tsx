@@ -1,205 +1,35 @@
 'use client';
 
-import { useState, FormEvent } from 'react';
+import { useState } from 'react';
 import { Mail, Send, Code2, ExternalLink, Camera, LinkIcon } from 'lucide-react';
-
-// Web3Forms configuration
-// Use environment variable with fallback for development
-const WEB3FORMS_ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY || 'c5ce3857-f4f2-47f4-a977-126b08374ab1';
-const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit';
-
-// Log in development and production to help debugging
-if (typeof window !== 'undefined') {
-  console.log('Web3Forms Access Key configured:', WEB3FORMS_ACCESS_KEY ? 'Yes' : 'No');
-  console.log('Current hostname:', window.location.hostname);
-  console.log('NODE_ENV:', process.env.NODE_ENV);
-}
+import { submitContactForm } from '../actions/contact';
 
 export default function ContactPage() {
   const [pending, setPending] = useState(false);
   const [msg, setMsg] = useState<{ ok: boolean; text: string } | null>(null);
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  async function handleSubmit(formData: FormData) {
     setMsg(null);
     setPending(true);
     
-    const form = event.currentTarget;
-    const formData = new FormData(form);
-    
-    // Create an AbortController for timeout (only used in production)
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
-    
-    // Honeypot check
-    const botcheck = formData.get('botcheck') as string;
-    if (botcheck?.trim()) {
-      console.log('Honeypot triggered');
-      setMsg({ ok: true, text: 'Thank you for your message! I will get back to you soon.' });
-      setPending(false);
-      form.reset();
-      return;
-    }
-    
-    // Get form data
-    const name = formData.get('name') as string;
-    const email = formData.get('email') as string;
-    const subject = formData.get('subject_line') as string;
-    const message = formData.get('message') as string;
-    
-    // Validate required fields
-    if (!name?.trim() || !email?.trim() || !message?.trim()) {
-      setMsg({ ok: false, text: 'Please fill in all required fields: name, email, and message.' });
-      setPending(false);
-      clearTimeout(timeoutId);
-      return;
-    }
-    
-    // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email.trim())) {
-      setMsg({ ok: false, text: 'Please provide a valid email address.' });
-      setPending(false);
-      clearTimeout(timeoutId);
-      return;
-    }
-    
-    // Check if we're in development mode (localhost or preview deployment)
-    // In Vercel production, the hostname will be your domain (mujaxso.com)
-    const isLocalhost = window.location.hostname === 'localhost' || 
-                        window.location.hostname === '127.0.0.1' ||
-                        window.location.hostname.includes('.local');
-    
-    // For preview deployments (like Vercel preview), you might want to test the real API
-    // You can enable real submissions in preview by setting a query parameter or environment variable
-    const forceProduction = new URLSearchParams(window.location.search).has('force-production');
-    
-    if (isLocalhost && !forceProduction) {
-      console.log('Development mode: Simulating form submission');
-      // Simulate network delay
-      await new Promise(resolve => setTimeout(resolve, 800));
+    try {
+      const result = await submitContactForm(formData);
       
-      clearTimeout(timeoutId);
-      setMsg({ 
-        ok: true, 
-        text: 'Thank you for your message! (Development mode: Form validated successfully. In production, this would send an email.)' 
-      });
-      form.reset();
-      setPending(false);
-      return;
-    }
-    
-    // Production: Actual Web3Forms submission
-    // Check if API key is available
-    if (!WEB3FORMS_ACCESS_KEY) {
-      console.error('Web3Forms API key is not configured');
+      if (result.success) {
+        setMsg({ ok: true, text: result.message });
+        // Reset the form
+        const form = document.querySelector('form') as HTMLFormElement;
+        if (form) form.reset();
+      } else {
+        setMsg({ ok: false, text: result.message });
+      }
+    } catch (err) {
+      console.error('Submission error:', err);
       setMsg({ 
         ok: false, 
-        text: 'Contact form is not properly configured. Please try again later or contact me directly.' 
+        text: 'I apologize for the inconvenience, but there seems to be a network issue. Please try again in a moment or use one of my other contact methods.' 
       });
-      setPending(false);
-      clearTimeout(timeoutId);
-      return;
-    }
-    
-    // Prepare payload for Web3Forms
-    const payload = {
-      access_key: WEB3FORMS_ACCESS_KEY,
-      name: name.trim(),
-      email: email.trim(),
-      subject: subject?.trim() || 'Quick message from website footer',
-      message: message.trim(),
-      from_name: 'My Website Contact Form',
-      botcheck: botcheck || ''
-    };
-    
-    console.log('Sending to Web3Forms:', payload);
-    
-    try {
-      console.log('Attempting to fetch from:', WEB3FORMS_ENDPOINT);
-      console.log('Payload:', payload);
-      
-      const response = await fetch(WEB3FORMS_ENDPOINT, {
-        method: 'POST',
-        mode: 'cors',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
-        signal: controller.signal,
-      });
-      
-      console.log('Response received:', {
-        ok: response.ok,
-        status: response.status,
-        statusText: response.statusText,
-        headers: Object.fromEntries(response.headers.entries()),
-      });
-      
-      if (!response.ok) {
-        console.error('Web3Forms HTTP error:', response.status, response.statusText);
-        const errorText = await response.text();
-        console.error('Error response text:', errorText);
-        throw new Error(`HTTP ${response.status}: ${response.statusText} - ${errorText}`);
-      }
-      
-      const result = await response.json();
-      console.log('Web3Forms response:', result);
-      
-      clearTimeout(timeoutId);
-      if (result.success) {
-        setMsg({ 
-          ok: true, 
-          text: 'Thank you for your message! I have received it and will get back to you within 24 hours.' 
-        });
-        form.reset();
-      } else {
-        setMsg({ 
-          ok: false, 
-          text: result.message || 'I apologize, but there was an issue sending your message. Please try again or reach out through one of my other contact methods.' 
-        });
-      }
-    } catch (error: any) {
-      clearTimeout(timeoutId);
-      console.error('Submission error details:', {
-        name: error.name,
-        message: error.message,
-        stack: error.stack,
-        cause: error.cause,
-      });
-      
-      // Check for specific error types
-      if (error.name === 'AbortError') {
-        setMsg({ 
-          ok: false, 
-          text: 'Request timed out. Please check your internet connection and try again.' 
-        });
-      } else if (error.name === 'TypeError' && error.message.includes('fetch')) {
-        // More specific error messages
-        if (error.message.includes('Failed to fetch')) {
-          setMsg({ 
-            ok: false, 
-            text: 'Cannot connect to Web3Forms API. This could be due to network issues, browser extensions blocking the request, or the service being unavailable. Please try again later or contact me directly at contact@mujaxso.com.' 
-          });
-        } else {
-          setMsg({ 
-            ok: false, 
-            text: 'Network error: Unable to connect to the server. Please check your internet connection and try again. If the problem persists, the service may be temporarily unavailable.' 
-          });
-        }
-      } else if (error.message?.includes('HTTP')) {
-        setMsg({ 
-          ok: false, 
-          text: `Server error: ${error.message}. Please try again later.` 
-        });
-      } else {
-        setMsg({ 
-          ok: false, 
-          text: 'I apologize for the inconvenience, but there seems to be a network issue. Please try again in a moment or use one of my other contact methods.' 
-        });
-      }
     } finally {
-      clearTimeout(timeoutId);
       setPending(false);
     }
   }
@@ -319,7 +149,7 @@ export default function ContactPage() {
                 {msg.text}
               </div>
             )}
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form action={handleSubmit} className="space-y-6">
               {/* Hidden fields */}
               <input
                 type="text"
