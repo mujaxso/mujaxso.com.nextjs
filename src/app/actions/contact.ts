@@ -37,6 +37,15 @@ export async function submitContactForm(formData: FormData) {
     // Get environment variables
     const resendApiKey = process.env.RESEND_API_KEY;
     const contactEmail = process.env.CONTACT_EMAIL || 'contact@mujaxso.com';
+    
+    // Log environment status for debugging (only in development)
+    if (process.env.NODE_ENV === 'development') {
+      console.log('Environment check:', {
+        hasResendApiKey: !!resendApiKey,
+        hasContactEmail: !!contactEmail,
+        contactEmail
+      });
+    }
 
     if (!resendApiKey) {
       console.error('RESEND_API_KEY is not configured');
@@ -49,9 +58,10 @@ export async function submitContactForm(formData: FormData) {
           message: 'Thank you for your message! (Development mode: Email not actually sent)'
         };
       }
+      // In production, provide a more specific error message
       return {
         success: false,
-        message: 'Email service is not properly configured. Please try again later.'
+        message: 'Email service is not properly configured. Please contact me directly at contact@mujaxso.com or try again later.'
       };
     }
 
