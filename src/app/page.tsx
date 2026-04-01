@@ -131,7 +131,7 @@ export default function Home() {
             </p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-6 max-w-5xl mx-auto">
-            {['Zig', 'C/C++', 'React', 'TypeScript', 'Python', 'TensorFlow', 'AWS', 'Docker', 'Kubernetes', 'PostgreSQL', 'GraphQL', 'Next.js', 'FastAPI', 'Redis'].map((skill) => (
+            {['Rust', 'C/C++', 'React', 'TypeScript', 'Python', 'TensorFlow', 'AWS', 'Docker', 'Kubernetes', 'PostgreSQL', 'GraphQL', 'Next.js', 'FastAPI', 'Redis'].map((skill) => (
               <div 
                 key={skill} 
                 className="p-6 backdrop-blur-xl bg-glass border border-glass-border rounded-2xl text-center hover:scale-105 hover:bg-primary/20 transition-all duration-300"

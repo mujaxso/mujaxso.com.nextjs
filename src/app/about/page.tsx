@@ -73,7 +73,7 @@ export default function AboutPage() {
                   "Machine Learning & AI",
                   "Open Source Advocacy",
                   "Nix/NixOS Ecosystem",
-                  "Zig Systems Programming",
+                  "Rust Systems Programming",
                   "Linux System Administration",
                   "Cloud Infrastructure (AWS)",
                   "DevSecOps & CI/CD",
@@ -125,7 +125,7 @@ export default function AboutPage() {
                   passionate about the <strong>Nix/NixOS ecosystem</strong>, where I explore reproducible builds and declarative system configurations.
                 </p>
                 <p>
-                  I'm currently diving deep into <strong>Zig programming language</strong> for systems programming, appreciating its 
+                  I'm currently diving deep into <strong>Rust programming language</strong> for systems programming, appreciating its 
                   simplicity and performance. My daily driver is <strong>Linux</strong>, where I enjoy customizing my workflow and 
                   exploring the depths of system administration.
                 </p>
