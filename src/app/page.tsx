@@ -93,9 +93,9 @@ export default function Home() {
               <p className="text-xl leading-relaxed mb-6">
                 I'm a passionate Software Engineer, AI/ML Engineer, Data Scientist, and DevSecOps professional 
                 with expertise spanning from systems programming to modern web development and artificial intelligence. 
-                My technical journey encompasses everything from low-level systems programming with Zig and C/C++ 
-                to building scalable web applications with React and TypeScript, and developing intelligent solutions 
-                using Python and machine learning frameworks.
+                My technical journey encompasses everything from low-level systems programming with Rust (appreciating its 
+                memory safety and performance guarantees) and C/C++ to building scalable web applications with React 
+                and TypeScript, and developing intelligent solutions using Python and machine learning frameworks.
               </p>
               <p className="text-xl leading-relaxed mb-6">
                 With deep experience in Linux environments and a strong commitment to open-source development, 
