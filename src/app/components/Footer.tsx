@@ -223,7 +223,7 @@ export default function Footer() {
 
             {/* Tech stack */}
             <div className="flex gap-2 order-3">
-              {['Linux', 'Zig', 'AI/ML', 'DevSecOps'].map((tech) => (
+              {['Linux', 'Rust', 'AI/ML', 'DevSecOps'].map((tech) => (
                 <span 
                   key={tech}
                   className="px-3 py-2 bg-white/5 text-muted-foreground text-sm rounded-xl border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all duration-300"
