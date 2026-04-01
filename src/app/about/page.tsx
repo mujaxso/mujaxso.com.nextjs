@@ -216,7 +216,7 @@ export default function AboutPage() {
               <h3 className="text-2xl font-bold text-[var(--color-foreground)] mb-6">Technologies & Tools</h3>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                 {[
-                  "React/Next.js", "TypeScript", "Python", "C Programming", "Zig", 
+                  "React/Next.js", "TypeScript", "Python", "C Programming", "Rust", 
                   "Nix/NixOS", "TensorFlow", "PyTorch", "Linux", "AWS", 
                   "Docker", "Kubernetes", "Git", "Infrastructure as Code", 
                   "Terraform", "Ansible", "Nagios", "PostgreSQL", "MongoDB", 
